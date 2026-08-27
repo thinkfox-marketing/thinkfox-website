@@ -1,0 +1,10 @@
+{
+  "name": "kling-klz",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Statische Website, aus Figma via MCP nach HTML/CSS/JS umgesetzt",
+  "scripts": {
+    "serve": "python3 -m http.server 8000 --directory src",
+    "assets": "node scripts/fetch-figma-assets.mjs"
+  }
+}
