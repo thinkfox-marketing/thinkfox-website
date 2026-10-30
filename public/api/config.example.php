@@ -12,6 +12,12 @@ return [
         'from_name' => 'thinkfox.de',
     ],
 
+    // GitHub-OAuth-App für den Login im CMS (/admin/), Callback: https://thinkfox.de/api/cms-auth.php
+    'github' => [
+        'client_id' => '',
+        'client_secret' => '',
+    ],
+
     // Leer lassen, um PHP mail() des Hosters zu verwenden
     'smtp' => [
         'host' => '',                          // z. B. smtp.example.de

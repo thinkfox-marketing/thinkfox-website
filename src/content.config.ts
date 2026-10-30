@@ -16,6 +16,8 @@ const common = {
   modified: z.coerce.date().optional(),
   kategorien: z.array(z.string()).default([]),
   schlagworte: z.array(z.string()).default([]),
+  // Projekt-Slider, in denen der Beitrag erscheint
+  platzierung: z.array(z.enum(['startseite', 'website', 'content-produktion'])).default([]),
   bild: z.string().optional(),
   bildAlt: z.string().default(''),
   auszug: z.string().default(''),

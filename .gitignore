@@ -9,3 +9,4 @@ dist/
 /public/api/config.php
 /public/api/data/
 .astro/
+/public/admin/decap/

@@ -1,0 +1,66 @@
+# Baut die Website und überträgt sie per rsync/SSH auf den Webspace.
+# Auslöser: jeder Push auf main (auch Veröffentlichungen aus dem CMS), täglich (Instagram-Feed) und manuell.
+#
+# Benötigte Repository-Secrets (Settings → Secrets and variables → Actions):
+#   DEPLOY_HOST      z. B. ssh.example.de
+#   DEPLOY_USER      SSH-Benutzer
+#   DEPLOY_PATH      Zielverzeichnis (Document Root), z. B. /www/htdocs/thinkfox.de/
+#   DEPLOY_SSH_KEY   privater SSH-Schlüssel (der öffentliche liegt in ~/.ssh/authorized_keys auf dem Server)
+#   INSTAGRAM_TOKEN  optional, für die Aktualisierung des Instagram-Feeds
+# Ohne DEPLOY_HOST wird nur gebaut (Ergebnis als Artefakt herunterladbar).
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 4 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Instagram-Feed aktualisieren
+        env:
+          INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
+        run: npm run instagram
+
+      - run: npm run build
+
+      - name: Artefakt speichern
+        uses: actions/upload-artifact@v4
+        with:
+          name: website
+          path: dist
+          retention-days: 7
+
+      - name: Auf den Webspace übertragen
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        if: env.DEPLOY_HOST != ''
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy && chmod 600 ~/.ssh/deploy
+          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+          # api/config.php und api/data/ (Anfragen) existieren nur auf dem Server und bleiben unangetastet
+          rsync -az --delete \
+            --exclude 'api/config.php' --exclude 'api/data/' \
+            -e "ssh -i ~/.ssh/deploy" \
+            dist/ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH"

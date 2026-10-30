@@ -29,6 +29,7 @@ OUT_CONTENT = os.path.join(ROOT, "src", "content")
 OUT_PUBLIC = os.path.join(ROOT, "public")
 
 BLOG_CATEGORY = 24
+PLATZIERUNGEN = ("startseite", "website", "content-produktion")
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--cache", default=os.path.join(ROOT, ".wp-cache"))
@@ -434,6 +435,8 @@ for p in posts:
         "modified": p["modified"],
         "kategorien": [cat_slug[c] for c in p["categories"]],
         "schlagworte": [tag_slug[t] for t in p["tags"]],
+        # steuert die Projekt-Slider (im Original über diese Schlagworte abgefragt)
+        "platzierung": [tag_slug[t] for t in p["tags"] if tag_slug[t] in PLATZIERUNGEN],
         "bild": img,
         "bildAlt": alt,
         "auszug": re.sub(r"\s*\[…\]\s*$", "", html.unescape(text(p["excerpt"]["rendered"])).replace("\xa0", " ")),

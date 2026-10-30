@@ -1,0 +1,230 @@
+# Decap CMS – Pflege von Projekten/Referenzen, Blogbeiträgen und Kundenlogos.
+# Doku: https://decapcms.org/docs/configuration-options/
+#
+# Anmeldung: GitHub-Konto mit Schreibrechten auf das Repository.
+# Der OAuth-Austausch läuft über /api/cms-auth.php (Zugangsdaten in api/config.php).
+# Lokal ohne Login: `npm run cms` starten, dann http://localhost:4321/admin/ öffnen.
+
+backend:
+  name: github
+  repo: thinkfoxmarketing-rgb/kling-klz
+  branch: main
+  base_url: https://thinkfox.de
+  auth_endpoint: /api/cms-auth.php
+  commit_messages:
+    create: "Inhalt: {{collection}} „{{slug}}“ angelegt"
+    update: "Inhalt: {{collection}} „{{slug}}“ aktualisiert"
+    delete: "Inhalt: {{collection}} „{{slug}}“ gelöscht"
+    uploadMedia: "Medien: „{{path}}“ hochgeladen"
+    deleteMedia: "Medien: „{{path}}“ gelöscht"
+
+local_backend: true
+editor:
+  preview: false
+locale: de
+publish_mode: editorial_workflow
+site_url: https://thinkfox.de
+logo_url: /wp-content/uploads/2026/01/cropped-Logo-Finale_V2-192x192.png
+
+media_folder: public/uploads
+public_folder: /uploads
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - name: projekte
+    label: Projekte & Referenzen
+    label_singular: Projekt
+    description: >
+      Kundenprojekte. Sie erscheinen unter thinkfox.de/<url>/, in den Kategorie-Archiven und – je nach
+      „Platzierung“ – in den Projekt-Slidern der Startseite, der Websites- und der Content-Produktion-Seite.
+    folder: src/content/projekte
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} ({{date | date('DD.MM.YYYY')}})"
+    sortable_fields: [date, title]
+    view_filters:
+      - { label: Startseite, field: platzierung, pattern: startseite }
+      - { label: Entwürfe, field: entwurf, pattern: true }
+    fields:
+      - { label: Titel, name: title, widget: string }
+      - { label: Veröffentlicht am, name: date, widget: datetime, format: "YYYY-MM-DDTHH:mm:ss", date_format: "DD.MM.YYYY", time_format: "HH:mm" }
+      - label: Platzierung
+        name: platzierung
+        widget: select
+        multiple: true
+        required: false
+        hint: In welchen Projekt-Slidern soll das Projekt erscheinen? (Startseite zeigt die 20 neuesten.)
+        options:
+          - { label: Startseite, value: startseite }
+          - { label: Seite „Websites für den Mittelstand“, value: website }
+          - { label: Seite „Content Produktion“, value: content-produktion }
+      - label: Kategorien
+        name: kategorien
+        widget: select
+        multiple: true
+        options:
+          - { label: "Corporate Design", value: "corporate-design" }
+          - { label: "Digitale Broschüre", value: "digitale-broschuere" }
+          - { label: "Fotoproduktion", value: "fotoproduktion" }
+          - { label: "Kampagnen", value: "kampagnen" }
+          - { label: "Online-Shop", value: "online-shop" }
+          - { label: "Printproduktion", value: "printproduktion" }
+          - { label: "projekte", value: "projekte" }
+          - { label: "Referenz", value: "referenz" }
+          - { label: "SEA", value: "sea" }
+          - { label: "SEO", value: "seo" }
+          - { label: "SocialMedia Betreuung", value: "socialmedia-betreuung" }
+          - { label: "Video-/Filmproduktion", value: "video-filmproduktion" }
+          - { label: "Video-/Podcast", value: "video-podcast" }
+          - { label: "Website", value: "website" }
+      - { label: Beitragsbild, name: bild, widget: image, hint: "Wird im Slider, in Archiven und als Vorschaubild (Social Media) verwendet." }
+      - { label: Alternativtext Beitragsbild, name: bildAlt, widget: string, required: false, hint: "Kurz beschreiben, was zu sehen ist (Barrierefreiheit, SEO)." }
+      - { label: Kunde, name: kunde, widget: string, required: false }
+      - { label: Veröffentlichung, name: veroeffentlichung, widget: string, required: false, hint: "z. B. 2026" }
+      - { label: Leistungen, name: leistungen, widget: list, required: false, field: { label: Leistung, name: leistung, widget: string } }
+      - { label: Projektbeschreibung, name: body, widget: markdown, required: false, buttons: [bold, italic, link, heading-three, bulleted-list, numbered-list], editor_components: [] }
+      - label: Link zum Projekt
+        name: projektLink
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { label: Linktext, name: text, widget: string, required: false, hint: "z. B. waldeck.jobonline24.com" }
+          - { label: URL, name: url, widget: string, required: false }
+      - label: Bilder & Videos
+        name: medien
+        widget: list
+        required: false
+        hint: Werden unter der Beschreibung in dieser Reihenfolge angezeigt.
+        types:
+          - label: Bild
+            name: bild
+            widget: object
+            fields:
+              - { label: Bild, name: bild, widget: image }
+              - { label: Alternativtext, name: alt, widget: string, required: false }
+          - label: YouTube-Video
+            name: video
+            widget: object
+            fields:
+              - { label: YouTube-Link, name: youtube, widget: string, hint: "z. B. https://youtu.be/…" }
+          - label: Bildergalerie
+            name: galerie
+            widget: object
+            fields:
+              - label: Bilder
+                name: bilder
+                widget: list
+                fields:
+                  - { label: Bild, name: bild, widget: image }
+                  - { label: Alternativtext, name: alt, widget: string, required: false }
+        typeKey: typ
+      - { label: Kurzbeschreibung (Auszug), name: auszug, widget: text, required: false, hint: "Für Archivseiten. Leer lassen = wird aus der Beschreibung erzeugt." }
+      - label: SEO
+        name: seo
+        widget: object
+        collapsed: true
+        required: false
+        fields:
+          - { label: SEO-Titel, name: titel, widget: string, required: false, hint: "Leer = „<Titel> - thinkfox marketing“" }
+          - { label: Meta-Beschreibung, name: beschreibung, widget: text, required: false }
+          - { label: Fokus-Keyword, name: fokusKeyword, widget: string, required: false }
+          - { label: Lesedauer, name: lesedauer, widget: string, required: false }
+      - { label: Schlagworte, name: schlagworte, widget: list, required: false, hint: "Interne Schlagworte (wie in WordPress)." }
+      - { label: Entwurf (nicht veröffentlichen), name: entwurf, widget: boolean, default: false, required: false }
+      - label: Original-Layout aus WordPress verwenden
+        name: legacy
+        widget: boolean
+        default: false
+        required: false
+        hint: >
+          Nur bei übernommenen Projekten: Der Inhalt wird 1:1 wie auf der alten Seite angezeigt.
+          Zum Bearbeiten des Inhalts ausschalten und Kunde, Leistungen, Beschreibung und Medien oben ausfüllen.
+      - { name: wpId, widget: hidden, required: false }
+      - { name: template, widget: hidden, required: false }
+      - { name: modified, widget: hidden, required: false }
+
+  - name: blog
+    label: Blog
+    label_singular: Blogbeitrag
+    description: Beiträge erscheinen unter thinkfox.de/<url>/, auf /blog/ und (die neuesten 6) auf der Startseite.
+    folder: src/content/blog
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} ({{date | date('DD.MM.YYYY')}})"
+    sortable_fields: [date, title]
+    fields:
+      - { label: Titel, name: title, widget: string }
+      - { label: Veröffentlicht am, name: date, widget: datetime, format: "YYYY-MM-DDTHH:mm:ss", date_format: "DD.MM.YYYY", time_format: "HH:mm" }
+      - { label: Kategorien, name: kategorien, widget: hidden, default: [blog] }
+      - { label: Beitragsbild, name: bild, widget: image }
+      - { label: Alternativtext Beitragsbild, name: bildAlt, widget: string, required: false }
+      - { label: Anrisstext (Auszug), name: auszug, widget: text, hint: "Erscheint in der Blog-Übersicht und auf der Startseite (wird automatisch gekürzt)." }
+      - { label: Text, name: body, widget: markdown, required: false, hint: "Bei übernommenen Beiträgen leer, solange „Original-Layout“ aktiv ist." }
+      - label: FAQ
+        name: faq
+        widget: object
+        collapsed: true
+        required: false
+        fields:
+          - { label: Überschrift, name: titel, widget: string, required: false, hint: "z. B. FAQ: Die externe Marketingabteilung im Mittelstand" }
+          - label: Fragen
+            name: fragen
+            widget: list
+            required: false
+            fields:
+              - { label: Frage, name: frage, widget: string }
+              - { label: Antwort, name: antwort, widget: markdown, buttons: [bold, italic, link, bulleted-list] }
+      - label: Abschluss / Call-to-Action
+        name: cta
+        widget: object
+        collapsed: true
+        required: false
+        hint: Leer lassen für den Standard-Abschluss mit Button „Jetzt Unterstützung anfragen“.
+        fields:
+          - { label: Text, name: text, widget: markdown, required: false }
+          - { label: Button-Text, name: button, widget: string, required: false }
+          - { label: Button-Link, name: link, widget: string, required: false, default: /thinkfox-marketing-projekt-anfragen/ }
+      - label: SEO
+        name: seo
+        widget: object
+        collapsed: true
+        required: false
+        fields:
+          - { label: SEO-Titel, name: titel, widget: string, required: false }
+          - { label: Meta-Beschreibung, name: beschreibung, widget: text, required: false }
+          - { label: Fokus-Keyword, name: fokusKeyword, widget: string, required: false }
+          - { label: Lesedauer, name: lesedauer, widget: string, required: false, hint: "z. B. 3 Minuten" }
+      - { label: Schlagworte, name: schlagworte, widget: list, required: false }
+      - { label: Entwurf (nicht veröffentlichen), name: entwurf, widget: boolean, default: false, required: false }
+      - label: Original-Layout aus WordPress verwenden
+        name: legacy
+        widget: boolean
+        default: false
+        required: false
+        hint: Nur bei übernommenen Beiträgen. Zum Bearbeiten des Textes ausschalten und Text/FAQ oben ausfüllen.
+      - { name: wpId, widget: hidden, required: false }
+      - { name: template, widget: hidden, required: false }
+      - { name: modified, widget: hidden, required: false }
+
+  - name: referenzen
+    label: Kundenlogos
+    label_singular: Kundenlogo
+    description: Logo-Laufband im Kopfbereich der Startseite und der Seite „Werbeagentur Bad Wildungen“.
+    folder: src/content/referenzen
+    create: true
+    slug: "{{slug}}"
+    identifier_field: name
+    summary: "{{reihenfolge}} – {{name}}"
+    sortable_fields: [reihenfolge, name]
+    fields:
+      - { label: Name, name: name, widget: string, hint: "Wird als Alternativtext verwendet." }
+      - { label: Logo, name: logo, widget: image, hint: "Weißes Logo auf transparentem Hintergrund (PNG/SVG)." }
+      - { label: Link, name: link, widget: string, required: false }
+      - { label: Reihenfolge, name: reihenfolge, widget: number, value_type: int, default: 100 }

@@ -81,17 +81,17 @@ export async function allPosts(): Promise<Post[]> {
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 }
 
-interface LoopQuery { collection: 'projekte' | 'blog'; tag?: string; limit?: number; exclude?: string[] }
+interface LoopQuery { collection: 'projekte' | 'blog'; platzierung?: string; limit?: number; exclude?: string[] }
 
 /** Abfragen der dynamischen Listen – entsprechen den Elementor-Query-Einstellungen im Original. */
 const LOOP_QUERIES: Record<string, LoopQuery> = {
-  'index-0': { collection: 'projekte', tag: 'startseite', limit: 20 },
+  'index-0': { collection: 'projekte', platzierung: 'startseite', limit: 20 },
   'index-1': { collection: 'blog', limit: 6 },
   'blog-0': { collection: 'blog' },
-  'professionelle-websites-fuer-den-mittelstand-0': { collection: 'projekte', tag: 'website', limit: 12 },
-  'professionelle-content-produktion-video-foto-social-media-aus-nordhessen-0': { collection: 'projekte', tag: 'content-produktion' },
+  'professionelle-websites-fuer-den-mittelstand-0': { collection: 'projekte', platzierung: 'website', limit: 12 },
+  'professionelle-content-produktion-video-foto-social-media-aus-nordhessen-0': { collection: 'projekte', platzierung: 'content-produktion' },
   'werbeagentur-bad-wildungen-thinkfox-marketing-fuer-den-mittelstand-0': {
-    collection: 'projekte', tag: 'startseite', limit: 20,
+    collection: 'projekte', platzierung: 'startseite', limit: 20,
     exclude: ['website-relaunch-fuer-kkd-gmbh-essen', 'markus-krebs-video-podcast-comedykation'],
   },
 };
@@ -99,7 +99,7 @@ const LOOP_QUERIES: Record<string, LoopQuery> = {
 async function runQuery(q: LoopQuery): Promise<Post[]> {
   const posts = (await allPosts()).filter((p) => p.collection === q.collection);
   return posts
-    .filter((p) => !q.tag || p.data.schlagworte.includes(q.tag))
+    .filter((p) => !q.platzierung || (p.data.platzierung as string[]).includes(q.platzierung))
     .filter((p) => !q.exclude?.includes(p.id))
     .slice(0, q.limit ?? Infinity);
 }
@@ -200,7 +200,8 @@ export function renderInstagram(main: string): string {
   main = main.slice(0, ib) + items + main.slice(ie);
   // Zuordnung Beitrag → lokale Bilddateien, die das Feed-Skript zum Laden nutzt
   const resized = Object.fromEntries(instagram.beitraege.map((b) => [b.id, {
-    id: b.basis, ratio: b.seitenverhaeltnis, sizes: { full: 640, low: 320, thumb: 150 }, extension: '.webp',
+    id: b.basis, ratio: b.seitenverhaeltnis, sizes: { full: 640, low: 320, thumb: 150 },
+    extension: (b as { endung?: string }).endung ?? '.webp',
   }]));
   return main
     .replace(/data-resized="[^"]*"/g, `data-resized="${attr(JSON.stringify(resized))}"`)

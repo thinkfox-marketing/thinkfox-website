@@ -37,7 +37,7 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <Tracking />
   <Fragment set:html={seo} />
-  <link rel="alternate" type="application/rss+xml" title="thinkfox marketing &raquo; Feed" href="/feed.xml" />
+  <link rel="alternate" type="application/rss+xml" title="thinkfox marketing &raquo; Feed" href="/feed/" />
   {styles.map((s) => s.type === 'link'
     ? <link rel="stylesheet" id={s.id ?? undefined} href={s.href} media="all" />
     : <Fragment set:html={s.css} />)}

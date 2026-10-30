@@ -4,6 +4,7 @@ date: "2024-07-22T16:06:33"
 modified: "2026-01-23T08:28:33"
 kategorien: ["digitale-broschuere"]
 schlagworte: ["digitale-broschuere", "goebels-aquavita", "quellentherme", "startseite"]
+platzierung: ["startseite"]
 bild: "/wp-content/uploads/2024/07/goebels_digitale_brochure-1.jpg"
 bildAlt: "Göbels Aquavita & QuellenTherme digitale Broschüre"
 auszug: "KUNDE Göbels Hotel Aquavita & QuellenTherme Veröffentlichung: 2024 LEISTUNGEN Erstellung einer digitalen Broschüre als PDF-Präsentation, die die Leistungen in den Bereichen Gesundheit und Wellness der beiden Unternehmen in Kombination darstellen. Struktur, Textaufbereitung und visuelle Hierarchie wurden so entwickelt, dass Angebote schnell erfassbar sind und sich optimal für Website-Download, E-Mail-Versand und digitale Kundenkommunikation eignen. Designvorgaben Broschüre"

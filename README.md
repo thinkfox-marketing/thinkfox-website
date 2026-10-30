@@ -1,78 +1,109 @@
-# kling-klz
+# thinkfox.de
 
-Statische Website. Designs werden über den **Figma MCP Server** direkt in
-HTML/CSS/JavaScript umgesetzt.
+Website der thinkfox marketing GmbH – aus WordPress/Elementor in ein eigenes, statisches System
+überführt. Optik und Verhalten entsprechen 1:1 der bisherigen Seite; Projekte, Referenzen (Kundenlogos)
+und Blogbeiträge werden über ein Backend gepflegt.
 
-## Setup
+| Baustein | Technik |
+|---|---|
+| Seitengenerator | [Astro](https://astro.build) 5 – erzeugt reines HTML/CSS/JS, keine Datenbank |
+| Backend/CMS | [Decap CMS](https://decapcms.org) unter `/admin/` – speichert Inhalte als Dateien im Git-Repository |
+| Formulare | PHP-Endpunkt `public/api/ajax.php` (Mail per SMTP oder `mail()`) |
+| Hosting | beliebiger Webspace mit PHP ≥ 8.1 und Apache (`.htaccess`) |
+| Deployment | GitHub Actions: Build bei jedem Push auf `main`, Übertragung per rsync/SSH |
 
-Der Figma MCP Server ist in `.mcp.json` hinterlegt (`https://mcp.figma.com/mcp`).
+## Inhalte pflegen (Redaktion)
 
-- **Claude Code (lokal):** Beim ersten Start des Projekts bestätigen, dass der
-  MCP-Server aus `.mcp.json` genutzt werden darf. Danach `/mcp` → `figma` → *Authenticate*
-  und im Browser mit dem Figma-Account anmelden.
-- **Claude Code im Web / Cowork:** Figma ist als Connector am Account verbunden,
-  `.mcp.json` wird dort nicht gebraucht — die Tools stehen direkt zur Verfügung.
-- **Prüfen:** Tool `whoami` aufrufen. Es gibt Handle, E-Mail und Plan zurück.
+1. `https://thinkfox.de/admin/` öffnen und mit GitHub anmelden (Konto braucht Schreibrechte auf das Repository).
+2. **Projekte & Referenzen**, **Blog** oder **Kundenlogos** wählen → „Neu“ bzw. Eintrag öffnen.
+3. Speichern legt einen Entwurf an; über **Status → Bereit → Veröffentlichen** geht der Inhalt live.
+   Der Build dauert ca. 1–2 Minuten.
 
-Der Figma-Account braucht mindestens einen **Full Seat** (Dev- oder Design-Seat) —
-mit View-only-Zugang liefert der Server keinen Design-Kontext.
+Wichtige Felder:
 
-## Ein Design umsetzen
+- **Platzierung** (Projekte): in welchen Projekt-Slidern das Projekt erscheint – Startseite (20 neueste),
+  „Websites für den Mittelstand“ (12 neueste), „Content Produktion“.
+- **Kategorien**: steuern die Archive `/category/<kategorie>/`.
+- **Bilder & Videos** (Projekte): beliebig viele Bilder, YouTube-Videos und Galerien in Reihenfolge.
+- **FAQ** und **Call-to-Action** (Blog): optionaler FAQ-Block und Abschluss mit Button.
+- **Original-Layout aus WordPress verwenden**: bei allen übernommenen Beiträgen aktiv – der Inhalt wird
+  exakt wie auf der alten Seite dargestellt (`src/legacy/posts/<slug>.html`). Zum inhaltlichen Bearbeiten
+  ausschalten und die Felder (Kunde, Leistungen, Beschreibung, Medien bzw. Text) ausfüllen.
+  Titel, Bild, Datum, Kategorien, Platzierung und SEO sind auch mit aktivem Original-Layout bearbeitbar.
 
-In Figma den Frame/die Komponente auswählen → Rechtsklick → *Copy link to selection*.
-Die URL enthält `fileKey` und `node-id`:
+Neue Beiträge erhalten automatisch die Gestaltung der bisherigen Projekt- bzw. Blogseiten
+(Vorlagen in `src/legacy/vorlagen/`).
 
+## Entwicklung
+
+```bash
+npm install
+npm run dev          # http://localhost:4321
+npm run cms          # zusätzlich: CMS lokal ohne Login → http://localhost:4321/admin/
+npm run build        # Ausgabe in dist/
 ```
-https://www.figma.com/design/<fileKey>/<name>?node-id=1-2
-```
 
-Dann in Claude Code z. B.:
+Formulare lokal testen: `npm run build`, dann `php -S 127.0.0.1:8080 -t dist` und eine
+`dist/api/config.php` nach Vorlage `public/api/config.example.php` anlegen.
 
-> Setz diesen Screen um: https://www.figma.com/design/abc123/Website?node-id=42-118
-
-Der Ablauf (Skill `figma-design-to-code` → `get_design_context` → `get_variable_defs`
-→ Assets herunterladen → semantisches HTML/CSS) ist in `CLAUDE.md` beschrieben und
-wird automatisch befolgt.
-
-## Struktur
+### Aufbau
 
 ```
 src/
-  index.html
-  css/
-    tokens.css        Design-Tokens (Figma-Variablen)
-    base.css          Reset + Basis-Typografie
-    components.css    Komponenten
-  js/
-    main.js           Entry (ES-Modul)
-    modules/          Feature-Module
-  assets/
-    images/  icons/   Exportierte Figma-Assets
+  pages/[...slug].astro          Alle Seiten und Beiträge unter ihrer bisherigen URL
+  pages/category/[slug]/…        Kategorie-Archive (10 pro Seite, wie WordPress)
+  pages/*.xml.ts, robots.txt.ts  Sitemaps, RSS-Feed (/feed/), robots.txt
+  layouts/Legacy.astro           Seitenrahmen (Head, Header, Footer, Skripte)
+  lib/wp.ts                      Rendert Templates + Inhalte (Slider-Abfragen, Beiträge, Logos, Instagram)
+  lib/media.ts                   Bildgrößen/srcset wie WordPress
+  lib/seo.ts                     Meta-Tags + JSON-LD im Rank-Math-Format
+  content/{projekte,blog,referenzen}/   Inhalte (Markdown, gepflegt über das CMS)
+  data/instagram.json            Instagram-Feed
+  legacy/                        Aus WordPress übernommenes Markup (Seiten, Header/Footer, Templates)
+  scripts/                       Eigene Browser-Skripte (Instagram „Mehr laden“, Marketing-Check-Ergebnis)
+public/
+  wp-content/, wp-includes/      Übernommene Bilder, Fonts, CSS und die Elementor-Frontend-Laufzeit
+  uploads/                       Neue Uploads aus dem CMS
+  admin/                         CMS (config.yml)
+  api/                           ajax.php (Formulare), cms-auth.php (CMS-Login), config.example.php
 scripts/
-  fetch-figma-assets.mjs   Lädt Figma-Asset-URLs herunter (laufen nach ~7 Tagen ab)
+  wp-import/import.py            Import aus WordPress (wiederholbar)
+  instagram-sync.mjs             Aktualisiert den Instagram-Feed über die Instagram-API
 ```
 
-## Lokal starten
+### Warum noch `wp-content` im Projekt?
+
+Für eine pixelgenaue Übernahme wird das von Elementor erzeugte Markup samt Original-CSS und
+Frontend-JavaScript (jQuery, Elementor, Swiper, Forminator) unverändert ausgeliefert. Damit verhalten
+sich Sticky-Header, Scroll-Effekte, Slider, Akkordeons, Popups und Formulare exakt wie bisher.
+Die Pfade bleiben erhalten, damit alle Bild-URLs (Google-Bildersuche, Social-Media-Vorschauen) gültig
+bleiben. WordPress selbst (PHP, Datenbank, Plugins) wird nicht mehr benötigt.
+
+Die statischen Seiten (Startseite, Leistungsseiten, Kontakt, Impressum …) liegen als Markup in
+`src/legacy/pages/*.json`. Textänderungen dort sind möglich, aber Entwicklerarbeit.
+
+## Einrichtung auf dem Server (einmalig)
+
+1. **Webspace**: neues Verzeichnis als Document Root für thinkfox.de anlegen (nicht in die bestehende
+   WordPress-Installation deployen – rsync `--delete` würde sie entfernen).
+2. **`api/config.php`** auf dem Server anlegen (Vorlage `public/api/config.example.php`):
+   SMTP-Zugang, Empfänger je Formular, zufälliges `secret`, GitHub-OAuth-Daten.
+3. **GitHub-OAuth-App** (für den CMS-Login): GitHub → Settings → Developer settings → OAuth Apps →
+   Homepage `https://thinkfox.de`, Callback `https://thinkfox.de/api/cms-auth.php`.
+   Client-ID und -Secret in `api/config.php` eintragen.
+4. **GitHub-Secrets** für den Workflow (`.github/workflows/deploy.yml`): `DEPLOY_HOST`, `DEPLOY_USER`,
+   `DEPLOY_PATH`, `DEPLOY_SSH_KEY`, optional `INSTAGRAM_TOKEN`.
+5. **Branch `main`** als Produktionszweig verwenden (das CMS schreibt dorthin, siehe `public/admin/config.yml`).
+6. Domain auf das neue Verzeichnis umstellen.
+
+## Erneut aus WordPress importieren
+
+Solange die alte Seite online ist:
 
 ```bash
-npm run serve      # oder: python3 -m http.server 8000 --directory src
+python3 scripts/wp-import/import.py           # Seiten, Beiträge, Assets
+python3 scripts/wp-import/import.py --skip-assets
 ```
 
-→ http://localhost:8000
-
-## Assets nachladen
-
-```bash
-node scripts/fetch-figma-assets.mjs "<figma-asset-url>" images/hero.png
-node scripts/fetch-figma-assets.mjs --manifest assets.json
-```
-
-Assets werden nach `src/assets/` geschrieben und mit committed. Remote-URLs von
-Figma gehören **nie** ins HTML — sie sind nach etwa einer Woche tot.
-
-### Hinweis: Assets in der Web-Session
-
-In Claude Code im Web ist der ausgehende HTTP-Zugriff auf einen Allowlist-Proxy
-beschränkt — `scripts/fetch-figma-assets.mjs` kann dort an einem `403` scheitern.
-Dann stattdessen das MCP-Tool `download_assets` nutzen bzw. die Assets lokal
-herunterladen. Auf dem eigenen Rechner greift die Einschränkung nicht.
+Achtung: Der Import überschreibt `src/content/**` mit dem Stand aus WordPress – im CMS gemachte
+Änderungen an übernommenen Beiträgen gehen dabei verloren.
