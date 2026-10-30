@@ -1,0 +1,421 @@
+{
+ "kategorien": [
+  {
+   "slug": "blog",
+   "name": "Blog",
+   "id": 24
+  },
+  {
+   "slug": "corporate-design",
+   "name": "Corporate Design",
+   "id": 41
+  },
+  {
+   "slug": "digitale-broschuere",
+   "name": "Digitale Broschüre",
+   "id": 45
+  },
+  {
+   "slug": "fotoproduktion",
+   "name": "Fotoproduktion",
+   "id": 98
+  },
+  {
+   "slug": "kampagnen",
+   "name": "Kampagnen",
+   "id": 97
+  },
+  {
+   "slug": "online-shop",
+   "name": "Online-Shop",
+   "id": 99
+  },
+  {
+   "slug": "printproduktion",
+   "name": "Printproduktion",
+   "id": 38
+  },
+  {
+   "slug": "projekte",
+   "name": "projekte",
+   "id": 4
+  },
+  {
+   "slug": "referenz",
+   "name": "Referenz",
+   "id": 75
+  },
+  {
+   "slug": "sea",
+   "name": "SEA",
+   "id": 96
+  },
+  {
+   "slug": "seo",
+   "name": "SEO",
+   "id": 95
+  },
+  {
+   "slug": "socialmedia-betreuung",
+   "name": "SocialMedia Betreuung",
+   "id": 40
+  },
+  {
+   "slug": "uncategorized",
+   "name": "Uncategorized",
+   "id": 1
+  },
+  {
+   "slug": "video-filmproduktion",
+   "name": "Video-/Filmproduktion",
+   "id": 37
+  },
+  {
+   "slug": "video-podcast",
+   "name": "Video-/Podcast",
+   "id": 39
+  },
+  {
+   "slug": "website",
+   "name": "Website",
+   "id": 36
+  }
+ ],
+ "schlagworte": [
+  {
+   "slug": "3-saeulen",
+   "name": "3 Säulen",
+   "id": 78
+  },
+  {
+   "slug": "360-grad-fotografie",
+   "name": "360 Grad Fotografie",
+   "id": 34
+  },
+  {
+   "slug": "branding",
+   "name": "Branding",
+   "id": 11
+  },
+  {
+   "slug": "broschuere",
+   "name": "Broschüre",
+   "id": 46
+  },
+  {
+   "slug": "cocktailchef",
+   "name": "Cocktailchef",
+   "id": 73
+  },
+  {
+   "slug": "content-produktion",
+   "name": "Content-Produktion",
+   "id": 88
+  },
+  {
+   "slug": "continental",
+   "name": "Continental",
+   "id": 107
+  },
+  {
+   "slug": "corporate-design",
+   "name": "Corporate Design",
+   "id": 10
+  },
+  {
+   "slug": "digital",
+   "name": "Digital",
+   "id": 47
+  },
+  {
+   "slug": "digitale-broschuere",
+   "name": "Digitale Broschüre",
+   "id": 51
+  },
+  {
+   "slug": "dwaz",
+   "name": "DWAZ",
+   "id": 101
+  },
+  {
+   "slug": "edertal",
+   "name": "Edertal",
+   "id": 31
+  },
+  {
+   "slug": "edlake",
+   "name": "edlake",
+   "id": 14
+  },
+  {
+   "slug": "employer-branding",
+   "name": "employer branding",
+   "id": 25
+  },
+  {
+   "slug": "ewf",
+   "name": "EWF",
+   "id": 104
+  },
+  {
+   "slug": "externe-marketingabteilung",
+   "name": "Externe Marketingabteilung",
+   "id": 112
+  },
+  {
+   "slug": "fotoproduktion",
+   "name": "Fotoproduktion",
+   "id": 109
+  },
+  {
+   "slug": "fotoshooting",
+   "name": "Fotoshooting",
+   "id": 44
+  },
+  {
+   "slug": "fotostudio",
+   "name": "Fotostudio",
+   "id": 56
+  },
+  {
+   "slug": "goebels-aquavita",
+   "name": "Göbels Aquavita",
+   "id": 48
+  },
+  {
+   "slug": "grafikdesign",
+   "name": "Grafikdesign",
+   "id": 20
+  },
+  {
+   "slug": "investition",
+   "name": "Investition",
+   "id": 72
+  },
+  {
+   "slug": "jowa",
+   "name": "JOWA",
+   "id": 42
+  },
+  {
+   "slug": "karriereseite",
+   "name": "Karriereseite",
+   "id": 105
+  },
+  {
+   "slug": "ki-prompts-richtig-erstellen",
+   "name": "KI-Prompts richtig erstellen",
+   "id": 100
+  },
+  {
+   "slug": "ki-suchmaschinen-optimierung",
+   "name": "KI-Suchmaschinen-Optimierung",
+   "id": 110
+  },
+  {
+   "slug": "kkd-gmbh-in-essen",
+   "name": "KKD GmbH in Essen",
+   "id": 94
+  },
+  {
+   "slug": "kling",
+   "name": "kling",
+   "id": 102
+  },
+  {
+   "slug": "korbach",
+   "name": "Korbach",
+   "id": 108
+  },
+  {
+   "slug": "kosten",
+   "name": "Kosten",
+   "id": 71
+  },
+  {
+   "slug": "layout",
+   "name": "Layout",
+   "id": 18
+  },
+  {
+   "slug": "lichtsetzen",
+   "name": "Lichtsetzen",
+   "id": 32
+  },
+  {
+   "slug": "magazin",
+   "name": "Magazin",
+   "id": 15
+  },
+  {
+   "slug": "marketing",
+   "name": "Marketing",
+   "id": 70
+  },
+  {
+   "slug": "marketingmassnahmen",
+   "name": "Marketingmaßnahmen",
+   "id": 80
+  },
+  {
+   "slug": "mietstudio",
+   "name": "Mietstudio",
+   "id": 57
+  },
+  {
+   "slug": "netzwerk-fuer-toleranz",
+   "name": "Netzwerk für Toleranz",
+   "id": 103
+  },
+  {
+   "slug": "nordhessen",
+   "name": "Nordhessen",
+   "id": 84
+  },
+  {
+   "slug": "onepager",
+   "name": "Onepager",
+   "id": 9
+  },
+  {
+   "slug": "online-marketing",
+   "name": "Online Marketing",
+   "id": 77
+  },
+  {
+   "slug": "online-shop",
+   "name": "Online-Shop",
+   "id": 13
+  },
+  {
+   "slug": "personal-branding",
+   "name": "Personal Branding",
+   "id": 28
+  },
+  {
+   "slug": "print-werbung",
+   "name": "Print Werbung",
+   "id": 26
+  },
+  {
+   "slug": "quellentherme",
+   "name": "QuellenTherme",
+   "id": 49
+  },
+  {
+   "slug": "raum-der-achtsamkeit",
+   "name": "Raum der Achtsamkeit",
+   "id": 7
+  },
+  {
+   "slug": "redaktion",
+   "name": "Redaktion",
+   "id": 16
+  },
+  {
+   "slug": "reinhardshausen",
+   "name": "Reinhardshausen",
+   "id": 50
+  },
+  {
+   "slug": "responsive-website",
+   "name": "Responsive Website",
+   "id": 8
+  },
+  {
+   "slug": "satz",
+   "name": "Satz",
+   "id": 19
+  },
+  {
+   "slug": "seo",
+   "name": "SEO",
+   "id": 85
+  },
+  {
+   "slug": "seo-optimierung",
+   "name": "SEO Optimierung",
+   "id": 86
+  },
+  {
+   "slug": "social-media",
+   "name": "Social Media",
+   "id": 81
+  },
+  {
+   "slug": "social-media-produktion",
+   "name": "Social Media Produktion",
+   "id": 23
+  },
+  {
+   "slug": "start-up",
+   "name": "Start-Up",
+   "id": 79
+  },
+  {
+   "slug": "startseite",
+   "name": "Startseite",
+   "id": 89
+  },
+  {
+   "slug": "unternehmenskommunikation",
+   "name": "Unternehmenskommunikation",
+   "id": 29
+  },
+  {
+   "slug": "video",
+   "name": "Video",
+   "id": 22
+  },
+  {
+   "slug": "video-produktion",
+   "name": "Video-Produktion",
+   "id": 12
+  },
+  {
+   "slug": "videoproduktion",
+   "name": "Videoproduktion",
+   "id": 83
+  },
+  {
+   "slug": "vierbeiner-reha-zentrum",
+   "name": "Vierbeiner Reha-Zentrum",
+   "id": 76
+  },
+  {
+   "slug": "virtuelle-rundgaenge",
+   "name": "Virtuelle Rundgänge",
+   "id": 35
+  },
+  {
+   "slug": "wachenfeld-bau",
+   "name": "Wachenfeld Bau",
+   "id": 87
+  },
+  {
+   "slug": "waldeck",
+   "name": "Waldeck",
+   "id": 106
+  },
+  {
+   "slug": "website",
+   "name": "Website",
+   "id": 43
+  },
+  {
+   "slug": "wirtschaftsfoerderung-waldeck-frankenberg",
+   "name": "Wirtschaftsförderung Waldeck-Frankenberg",
+   "id": 93
+  },
+  {
+   "slug": "wissen",
+   "name": "Wissen",
+   "id": 27
+  },
+  {
+   "slug": "workshop",
+   "name": "Workshop",
+   "id": 30
+  }
+ ]
+}

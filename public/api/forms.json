@@ -1,0 +1,86 @@
+{
+ "7075": {
+  "seite": "360-grad-rundgaenge",
+  "felder": {
+   "name-1": "Dein Name",
+   "email-1": "E-Mail-Adresse",
+   "select-1": "Pakete",
+   "textarea-2": "Wieviel Quadratmeter hat dein Objekt ungefähr?",
+   "textarea-1": "Noch Fragen?",
+   "phone-1": "Telefon für Rückfragen",
+   "consent-1": "Datenschutz"
+  }
+ },
+ "12432": {
+  "seite": "thinkfox-marketing-check",
+  "felder": {
+   "html-1": "html-1",
+   "name-2": "Name des Unternehmens",
+   "select-1": "Wähle deine Branche",
+   "text-2": "Mitarbeiterzahl",
+   "text-3": "Ort/Region",
+   "select-2": "Deine Rolle im Unternehmen",
+   "html-2": "html-2",
+   "checkbox-1": "Hand aufs Herz: Wie gut funktioniert eure Website aktuell für neue Anfragen?",
+   "checkbox-2": "Wenn jemand nach euren Leistungen + eurem Ort googelt – wie sichtbar seid ihr?",
+   "checkbox-3": "Wie aktuell sind Inhalte, Bilder und Referenzen auf eurer Website?",
+   "calculation-1": "score_website_seo",
+   "html-3": "html-3",
+   "checkbox-4": "Wie regelmäßig veröffentlicht ihr Inhalte (News, Social Media, Newsletter, Blog)?",
+   "checkbox-5": "Habt ihr intern genug Zeit und Ressourcen, um Inhalte zu erstellen?",
+   "checkbox-6": "Unsere Inhalte zeigen wirklich, was wir können.",
+   "calculation-2": "score_content_social",
+   "html-4": "html-4",
+   "checkbox-7": "Wie klar ist für euch definiert, wer eure Wunschkunden sind?",
+   "checkbox-8": "Wie geplant sind eure Marketing-Aktivitäten?",
+   "calculation-3": "score_strategie",
+   "html-5": "html-5",
+   "checkbox-9": "Bekommst du aktuell genug passende Bewerbungen?",
+   "checkbox-10": "Wie gut wird euer Unternehmen als Arbeitgeber von außen wahrgenommen?",
+   "calculation-4": "score_recruiting",
+   "html-6": "html-6",
+   "checkbox-11": "Wie gut hast du den Überblick über eure Marketing-Aktivitäten?",
+   "checkbox-12": "Wie werdet ihr bei der Erfolgsmessung konkret?",
+   "checkbox-13": "Wie klar ist euer Marketing-Budget definiert?",
+   "calculation-5": "core_ganzheit",
+   "html-7": "html-7",
+   "checkbox-14": "Ok, wo drückt der Schuh deiner Meinung nach am meisten?",
+   "textarea-1": "textarea-1",
+   "textarea-2": "textarea-2",
+   "html-8": "html-8",
+   "name-1": "Wie können wir Dich erreichen?",
+   "email-1": "Deine E-Mail Adresse",
+   "phone-1": "Deine Telefonnummer",
+   "text-4": "Deine Website",
+   "checkbox-17": "Ja, ich möchte, dass sich ein Experte von thinkfox wegen meiner Auswertung meldet",
+   "consent-1": "consent-1"
+  }
+ },
+ "11213": {
+  "seite": "thinkfox-marketing-projekt-anfragen",
+  "felder": {
+   "checkbox-1": "Bei welchem Thema dürfen wir Dich unterstützen?",
+   "checkbox-2": "Was benötigst du deiner Meinung nach am dringendsten?",
+   "radio-2": "Wer kümmert sich aktuell um Dein Marketing?",
+   "name-1": "Wie können wir Dich erreichen?",
+   "text-1": "Name des Unternehmens",
+   "email-1": "Deine geschäftliche E-Mail Adresse",
+   "url-1": "Geschäftliche Webseite",
+   "phone-1": "Deine Telefonnummer",
+   "consent-1": "consent-1"
+  }
+ },
+ "13090": {
+  "seite": "thinkfox-mietstudio-dein-fotostudio-videostudio-nordhessen",
+  "felder": {
+   "date-1": "Datum Beginn",
+   "date-2": "Datum Ende",
+   "textarea-3": "Uhrzeit von - bis",
+   "textarea-2": "Schreib uns einfach kurz, zu welchem Zweck du das Studio mieten möchtest",
+   "name-1": "Dein Name",
+   "email-1": "E-Mail Adresse",
+   "phone-1": "Telefonnummer",
+   "consent-1": "Datenschutz"
+  }
+ }
+}

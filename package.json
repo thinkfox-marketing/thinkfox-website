@@ -1,10 +1,22 @@
 {
-  "name": "kling-klz",
-  "version": "0.1.0",
+  "name": "thinkfox-website",
+  "version": "1.0.0",
   "private": true,
-  "description": "Statische Website, aus Figma via MCP nach HTML/CSS/JS umgesetzt",
+  "type": "module",
+  "description": "thinkfox.de – statische Website (Astro) mit Git-basiertem CMS (Decap)",
   "scripts": {
-    "serve": "python3 -m http.server 8000 --directory src",
-    "assets": "node scripts/fetch-figma-assets.mjs"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "cms": "decap-server",
+    "import:wp": "python3 scripts/wp-import/import.py"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "6.3.11",
+    "astro": "5.18.2",
+    "swiper": "8.4.7"
+  },
+  "devDependencies": {
+    "decap-server": "3.5.0"
   }
 }

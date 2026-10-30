@@ -1,0 +1,39 @@
+---
+// Alle Seiten (übernommenes Elementor-Markup) und Beiträge (Projekte + Blog) unter ihrer
+// bisherigen URL: /<slug>/ bzw. /360-grad-rundgaenge/<slug>/
+import Legacy from '../layouts/Legacy.astro';
+import {
+  allPosts, pageFiles, postStyles, renderInstagram, renderLoops, renderReferenzen, renderSingle, type LegacyPage, type Post,
+} from '../lib/wp';
+import { seoHead } from '../lib/seo';
+
+export async function getStaticPaths() {
+  const pages = Object.values(pageFiles).map((m) => m.default as LegacyPage);
+  const posts = await allPosts();
+  return [
+    ...pages.map((page) => ({
+      params: { slug: page.path === '/' ? undefined : page.path.replace(/^\/|\/$/g, '') },
+      props: { page },
+    })),
+    ...posts.map((post) => ({ params: { slug: post.id }, props: { post } })),
+  ];
+}
+
+const { page, post } = Astro.props as { page?: LegacyPage; post?: Post };
+
+let seo: string, styles, scripts, bodyClass: string, main: string, canvas = false;
+if (page) {
+  seo = page.seo;
+  styles = page.styles;
+  scripts = page.scripts;
+  bodyClass = page.bodyClass;
+  canvas = page.canvas;
+  main = renderInstagram(await renderReferenzen(await renderLoops(page.main)));
+} else {
+  const p = post!;
+  ({ styles, scripts, bodyClass } = postStyles(p));
+  seo = seoHead(p);
+  main = await renderSingle(p);
+}
+---
+<Legacy seo={seo} styles={styles} scripts={scripts} bodyClass={bodyClass} main={main} canvas={canvas} />

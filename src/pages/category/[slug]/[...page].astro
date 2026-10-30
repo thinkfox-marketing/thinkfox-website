@@ -1,0 +1,55 @@
+---
+// Kategorie-Archive im Standard-Layout des Hello-Themes, 10 Beiträge pro Seite wie in WordPress:
+// /category/<slug>/ und /category/<slug>/page/<n>/
+import Legacy from '../../../layouts/Legacy.astro';
+import archive from '../../../legacy/templates/archive.json';
+import taxonomies from '../../../legacy/taxonomies.json';
+import { allPosts, excerpt, postClasses, postId, urlOf, wpTitle, type ScriptRef } from '../../../lib/wp';
+import { wpImg } from '../../../lib/media';
+
+
+export async function getStaticPaths() {
+  const PER_PAGE = 10; // wie „Blogseiten zeigen maximal“ in WordPress
+  const posts = await allPosts();
+  return taxonomies.kategorien.flatMap((k) => {
+    const all = posts.filter((p) => p.data.kategorien.includes(k.slug));
+    const pages = Math.ceil(all.length / PER_PAGE);
+    return Array.from({ length: pages }, (_, i) => ({
+      params: { slug: k.slug, page: i === 0 ? undefined : `page/${i + 1}` },
+      props: { name: k.name, posts: all.slice(i * PER_PAGE, (i + 1) * PER_PAGE), current: i + 1, pages },
+    }));
+  });
+}
+
+const { name, posts, current, pages } = Astro.props;
+const base = `/category/${Astro.params.slug}/`;
+const pageUrl = (n: number) => (n === 1 ? base : `${base}page/${n}/`);
+const words = +(archive.item.match(/<!--excerptWords:(\d+)-->/)?.[1] ?? 55);
+const items = posts.map((p) => archive.item
+  .replace(/<!--excerptWords:\d+-->/, '')
+  .replaceAll('{{URL}}', urlOf(p))
+  .replaceAll('{{TITLE}}', wpTitle(p.data.title))
+  .replaceAll('{{ID}}', String(postId(p)))
+  .replaceAll('{{POST_CLASSES}}', postClasses(p))
+  .replace('{{IMG}}', wpImg(p.data.bild, { size: 'large', alt: p.data.bildAlt, cls: 'attachment-large size-large wp-post-image' }))
+  .replace('{{EXCERPT}}', `${excerpt(p, words)} [&hellip;]`)).join('\n\t\t\t\t\t');
+const prev = current > 1 ? `<a href="${pageUrl(current - 1)}" ><span class="meta-nav">&larr;</span> Zurück</a>` : '';
+const next = current < pages ? `<a href="${pageUrl(current + 1)}" >Weiter <span class="meta-nav">&rarr;</span></a>` : '';
+const pagination = pages > 1 ? `
+
+			<nav class="pagination">
+			<div class="nav-previous">${prev}</div>
+			<div class="nav-next">${next}</div>
+		</nav>` : '';
+const main = archive.template
+  .replace('{{CATEGORY}}', name)
+  .replace('{{ITEMS}}', items)
+  .replace('{{PAGINATION}}', pagination);
+const seo = `<title>${name} Archive${current > 1 ? ` - Seite ${current} von ${pages}` : ''} - thinkfox marketing</title>
+<meta name="robots" content="index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+<link rel="canonical" href="https://thinkfox.de${pageUrl(current)}" />`;
+const bodyClass = archive.bodyClass
+  .replace(/category-[a-z0-9-]+(?= )/g, `category-${Astro.params.slug}`)
+  + (current > 1 ? ` paged paged-${current} category-paged-${current}` : '');
+---
+<Legacy seo={seo} styles={archive.styles} scripts={archive.scripts as ScriptRef[]} bodyClass={bodyClass} main={main} />
