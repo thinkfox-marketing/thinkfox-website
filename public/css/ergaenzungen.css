@@ -101,3 +101,33 @@ body .elementor-posts .elementor-post__excerpt p { color: #717171; }
 .tf-404__knopf { display: inline-block; padding: 12px 22px; border-radius: 6px; background: var(--e-global-color-4e42812, #5b4ec8); color: #fff; font-weight: 700; text-decoration: none; }
 .tf-404__knopf:hover, .tf-404__knopf:focus { background: #483db0; color: #fff; }
 .tf-404 a:focus-visible { outline: 3px solid #1f1f1f; outline-offset: 3px; }
+
+/* Hintergrundvideos: Größe ab dem ersten Bild (vorher setzte erst das Skript sie → Layout-Verschiebung).
+   Das Video hat bis dahin keine Quelle und ist unsichtbar.
+   Ohne JavaScript zeigt der Browser das Video mit Bedienleiste – dort bleibt es wie im Original. */
+@media (scripting: enabled) {
+  .elementor-background-video-container > video.elementor-background-video-hosted { width: 100%; height: 100%; }
+}
+
+/* Logo-Laufband: Folienbreite schon vor dem Slider-Start wie danach (sonst steht kurz ein
+   einzelnes, seitenbreites Logo da und der Inhalt springt → Layout-Verschiebung). Werte wie in
+   EAEL (Folien/Abstand je Elementor-Breakpoint). Nur mit JavaScript – ohne bleibt es wie im Original. */
+@media (scripting: enabled) {
+  .eael-logo-carousel[data-items="9"][data-items-mobile="4"]:not(.swiper-initialized) > .swiper-wrapper > .swiper-slide {
+    --n: 4; --abstand: 10px;
+    width: calc((100% - (var(--n) - 1) * var(--abstand)) / var(--n));
+    margin-right: var(--abstand);
+  }
+}
+@media (scripting: enabled) and (min-width: 767px) {
+  .eael-logo-carousel[data-items="9"][data-items-mobile="4"]:not(.swiper-initialized) > .swiper-wrapper > .swiper-slide { --n: 7; }
+}
+@media (scripting: enabled) and (min-width: 1024px) {
+  .eael-logo-carousel[data-items="9"][data-items-mobile="4"]:not(.swiper-initialized) > .swiper-wrapper > .swiper-slide { --n: 8; }
+}
+@media (scripting: enabled) and (min-width: 1366px) {
+  .eael-logo-carousel[data-items="9"][data-items-mobile="4"]:not(.swiper-initialized) > .swiper-wrapper > .swiper-slide { --n: 9; --abstand: 20px; }
+}
+@media (scripting: enabled) and (min-width: 2399px) {
+  .eael-logo-carousel[data-items="9"][data-items-mobile="4"]:not(.swiper-initialized) > .swiper-wrapper > .swiper-slide { --n: 10; --abstand: 10px; }
+}

@@ -35,7 +35,10 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 - **Datenschutz:** YouTube, Kuula und Google Maps per 2-Klick-Lösung (Iframe mit `srcdoc`-Hinweis),
   Bilder/Schriften des Bewertungs-Widgets und YouTube-Vorschaubilder lokal (`scripts/astro-extern-lokal.mjs`),
   kein WordPress-Emoji-Skript, Termin-Iframe lädt erst beim Öffnen.
-- **Ladezeit:** Stylesheets als wenige Bündel (`src/lib/css-bundle.ts`, nur im Build), Hero-Standbild per Preload.
+- **Ladezeit:** Stylesheets als wenige Bündel (`src/lib/css-bundle.ts`, nur im Build), Hero-Standbild und
+  Hausschriften per Preload, verdecktes Hero-Hintergrundbild entfernt. Gegen Layout-Verschiebungen (CLS):
+  Logo-Laufband und Hintergrundvideos haben schon vor dem Skriptstart ihre Endgröße
+  (`ergaenzungen.css`, nur `@media (scripting: enabled)` – ohne JavaScript unverändert).
 - **SEO/GEO:** echte 404-Seite statt Weiterleitung auf die Startseite, Kategorie-Archive `noindex`,
   Unternehmensprofil/Service/FAQ als JSON-LD (`src/lib/geo.ts`), `/llms.txt`.
 
