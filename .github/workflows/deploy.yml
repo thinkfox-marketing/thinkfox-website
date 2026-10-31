@@ -1,29 +1,37 @@
-# Baut die Website und überträgt sie per rsync/SSH auf den Webspace.
-# Auslöser: jeder Push auf main (auch Veröffentlichungen aus dem CMS), täglich (Instagram-Feed) und manuell.
+# Baut die Website und überträgt sie per rsync/SSH auf den Webspace (All-Inkl).
 #
-# Benötigte Repository-Secrets (Settings → Secrets and variables → Actions):
-#   DEPLOY_HOST      z. B. ssh.example.de
-#   DEPLOY_USER      SSH-Benutzer
-#   DEPLOY_PATH      Zielverzeichnis (Document Root), z. B. /www/htdocs/thinkfox.de/
-#   DEPLOY_SSH_KEY   privater SSH-Schlüssel (der öffentliche liegt in ~/.ssh/authorized_keys auf dem Server)
+#   Push auf main                          → Produktion  (Secret DEPLOY_PATH)
+#   Push auf claude/ecstatic-feynman-godndt → Staging     (Secret STAGING_PATH, für Suchmaschinen gesperrt)
+#   täglich 4:17 Uhr (Instagram-Feed) und manuell über „Run workflow“
+#
+# Repository-Secrets (GitHub → Settings → Secrets and variables → Actions):
+#   DEPLOY_HOST      SSH-Server, bei All-Inkl z. B. w0123456.kasserver.com
+#   DEPLOY_USER      SSH-Benutzer, bei All-Inkl z. B. ssh-w0123456
+#   DEPLOY_PASSWORD  Passwort des SSH-Zugangs  – oder stattdessen –
+#   DEPLOY_SSH_KEY   privater SSH-Schlüssel
+#   STAGING_PATH     Verzeichnis der Staging-Subdomain, z. B. /www/htdocs/w0123456/neu.thinkfox.de/
+#   DEPLOY_PATH      Verzeichnis der Live-Domain (erst beim Umzug setzen)
 #   INSTAGRAM_TOKEN  optional, für die Aktualisierung des Instagram-Feeds
-# Ohne DEPLOY_HOST wird nur gebaut (Ergebnis als Artefakt herunterladbar).
+# Ohne passendes Zielverzeichnis wird nur gebaut (Ergebnis als Artefakt herunterladbar).
 name: Build & Deploy
 
 on:
   push:
-    branches: [main]
+    branches: [main, claude/ecstatic-feynman-godndt]
   schedule:
     - cron: '17 4 * * *'
   workflow_dispatch:
 
 concurrency:
-  group: deploy
+  group: deploy-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      STAGING: ${{ github.ref != 'refs/heads/main' }}
+      TARGET_PATH: ${{ github.ref == 'refs/heads/main' && secrets.DEPLOY_PATH || secrets.STAGING_PATH }}
     steps:
       - uses: actions/checkout@v4
 
@@ -41,6 +49,14 @@ jobs:
 
       - run: npm run build
 
+      - name: Staging für Suchmaschinen sperren
+        if: env.STAGING == 'true'
+        run: |
+          printf 'User-Agent: *\nDisallow: /\n' > dist/robots.txt
+          printf '\n<IfModule mod_headers.c>\n  Header always set X-Robots-Tag "noindex, nofollow"\n</IfModule>\n' >> dist/.htaccess
+          # Unbekannte Adressen nicht auf die Live-Domain umleiten
+          sed -i 's#https://thinkfox.de%{REQUEST_URI}#https://%{HTTP_HOST}%{REQUEST_URI}#' dist/.htaccess
+
       - name: Artefakt speichern
         uses: actions/upload-artifact@v4
         with:
@@ -49,18 +65,37 @@ jobs:
           retention-days: 7
 
       - name: Auf den Webspace übertragen
+        if: env.TARGET_PATH != ''
         env:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          DEPLOY_PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
           DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
-        if: env.DEPLOY_HOST != ''
         run: |
           install -m 700 -d ~/.ssh
-          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy && chmod 600 ~/.ssh/deploy
           ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
-          # api/config.php und api/data/ (Anfragen) existieren nur auf dem Server und bleiben unangetastet
+          if [ -n "$DEPLOY_SSH_KEY" ]; then
+            printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy && chmod 600 ~/.ssh/deploy
+            SSH="ssh -i $HOME/.ssh/deploy"
+          else
+            sudo apt-get install -y -qq sshpass > /dev/null
+            export SSHPASS="$DEPLOY_PASSWORD"
+            SSH="sshpass -e ssh"
+          fi
+          REMOTE="$DEPLOY_USER@$DEPLOY_HOST"
+          TARGET="${TARGET_PATH%/}/"
+
+          # Erstinstallation: Formular-Konfiguration anlegen, falls noch keine existiert
+          # (danach nur noch auf dem Server pflegen – wird bei Deploys nie überschrieben)
+          if ! $SSH "$REMOTE" "test -f '${TARGET}api/config.php'"; then
+            SECRET=$(openssl rand -hex 32)
+            sed "s/'BITTE-AENDERN-' . 'mindestens-32-zeichen-zufall'/'$SECRET'/" public/api/config.example.php > /tmp/config.php
+            $SSH "$REMOTE" "mkdir -p '${TARGET}api'"
+            rsync -a -e "$SSH" /tmp/config.php "$REMOTE:${TARGET}api/config.php"
+          fi
+
+          # api/config.php und api/data/ (Anfragen) bleiben auf dem Server unangetastet
           rsync -az --delete \
             --exclude 'api/config.php' --exclude 'api/data/' \
-            -e "ssh -i ~/.ssh/deploy" \
-            dist/ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH"
+            -e "$SSH" \
+            dist/ "$REMOTE:$TARGET"

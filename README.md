@@ -82,6 +82,21 @@ bleiben. WordPress selbst (PHP, Datenbank, Plugins) wird nicht mehr benötigt.
 Die statischen Seiten (Startseite, Leistungsseiten, Kontakt, Impressum …) liegen als Markup in
 `src/legacy/pages/*.json`. Textänderungen dort sind möglich, aber Entwicklerarbeit.
 
+## Staging bei All-Inkl (Vorschau vor dem Umzug)
+
+1. KAS → **Domain → Subdomain anlegen**: `neu.thinkfox.de`, eigenes Verzeichnis (z. B. `/neu.thinkfox.de/`),
+   SSL (Let's Encrypt) aktivieren.
+2. KAS → **Tools → SSH-Zugang** aktivieren und Server, Benutzer und Passwort notieren.
+3. GitHub → Repository → **Settings → Secrets and variables → Actions** → „New repository secret“:
+   `DEPLOY_HOST` (z. B. `w0123456.kasserver.com`), `DEPLOY_USER` (z. B. `ssh-w0123456`),
+   `DEPLOY_PASSWORD`, `STAGING_PATH` (z. B. `/www/htdocs/w0123456/neu.thinkfox.de/`).
+4. GitHub → **Actions → Build & Deploy → Run workflow** (Branch `claude/ecstatic-feynman-godndt`)
+   oder einfach den nächsten Push abwarten.
+
+Die Staging-Seite ist für Suchmaschinen gesperrt (robots.txt + `X-Robots-Tag`). Beim ersten Deploy wird
+`api/config.php` mit Standardwerten angelegt (Versand per `mail()` an hallo@thinkfox.de) – danach
+im KAS-Dateimanager anpassen; Deploys überschreiben sie nicht.
+
 ## Einrichtung auf dem Server (einmalig)
 
 1. **Webspace**: neues Verzeichnis als Document Root für thinkfox.de anlegen (nicht in die bestehende
