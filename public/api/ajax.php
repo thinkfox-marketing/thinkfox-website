@@ -8,7 +8,11 @@
  * Alle anderen Aktionen (Elementor, Essential Addons, Instagram) antworten mit success:false.
  *
  * Konfiguration: api/config.php (Vorlage: config.example.php) – nicht im Git.
- * Anfragen werden zusätzlich als JSON-Zeilen in api/data/ abgelegt (per .htaccess gesperrt).
+ * Anfragen werden zusätzlich als JSON-Zeilen in api/data/ abgelegt (per .htaccess gesperrt)
+ * und nach 'aufbewahrung_tage' (Standard 90) automatisch gelöscht.
+ *
+ * Spam-Schutz (für Besucher unsichtbar): Honeypot-Feld, signierter Zeitstempel als Token
+ * (Absenden frühestens 3 Sekunden nach dem Laden), höchstens 5 Anfragen pro Stunde je IP-Adresse.
  */
 
 declare(strict_types=1);
@@ -39,15 +43,21 @@ if (!$form || !isset($forms[$formId])) {
     respond(false, ['message' => 'Unbekanntes Formular.']);
 }
 
-// Spam-Schutz: Token prüfen, Honeypot-Feld (input_N) muss leer sein
-if (!hash_equals(nonce($formId, $config), (string) ($_POST['forminator_nonce'] ?? ''))
-    && !hash_equals(nonce($formId, $config, -1), (string) ($_POST['forminator_nonce'] ?? ''))) {
+// Spam-Schutz – Bots erhalten jeweils eine normale Erfolgsantwort, damit sie nichts lernen
+$alter = nonce_age($formId, (string) ($_POST['forminator_nonce'] ?? ''), $config);
+if ($alter === null || $alter > 2 * 86400) {
     respond(false, ['message' => 'Die Sitzung ist abgelaufen. Bitte lade die Seite neu und sende das Formular erneut.']);
+}
+if ($alter < 3) {
+    respond(true, behaviour($form, []));
 }
 foreach ($_POST as $key => $value) {
     if (preg_match('/^input_\d+$/', (string) $key) && trim((string) $value) !== '') {
-        respond(true, behaviour($form, [])); // Bots erhalten eine normale Erfolgsantwort
+        respond(true, behaviour($form, []));
     }
+}
+if (!rate_limit_ok($config)) {
+    respond(false, ['message' => 'Es wurden gerade sehr viele Anfragen gesendet. Bitte versuche es in einer Stunde erneut oder schreib uns an hallo@thinkfox.de.']);
 }
 
 // Pflichtfelder
@@ -100,7 +110,7 @@ if (!empty($form['scores'])) {
     $extra['firma'] = clean((string) ($_POST[$form['company_field'] ?? 'name-2'] ?? ''));
 }
 
-store($formId, $values);
+store($formId, $values, (int) ($config['aufbewahrung_tage'] ?? 90));
 $sent = send_mail($config, $form, $values, $email);
 if (!$sent) {
     respond(false, ['message' => 'Bei der Bearbeitung des Formulars ist ein Fehler aufgetreten. Bitte versuche es erneut']);
@@ -115,10 +125,64 @@ function respond(bool $success, mixed $data): never
     exit;
 }
 
-function nonce(string $formId, array $config, int $dayOffset = 0): string
+/** Token = Zeitstempel beim Laden des Formulars + Signatur. */
+function nonce(string $formId, array $config): string
 {
-    $day = (int) floor(time() / 86400) + $dayOffset;
-    return substr(hash_hmac('sha256', $formId . '|' . $day, (string) $config['secret']), 0, 10);
+    $zeit = (string) time();
+    return $zeit . '.' . substr(hash_hmac('sha256', $formId . '|' . $zeit, (string) $config['secret']), 0, 16);
+}
+
+/** Alter des Tokens in Sekunden, null bei ungültiger Signatur. */
+function nonce_age(string $formId, string $token, array $config): ?int
+{
+    if (!preg_match('/^(\d{10})\.([0-9a-f]{16})$/', $token, $m)) {
+        return null;
+    }
+    $soll = substr(hash_hmac('sha256', $formId . '|' . $m[1], (string) $config['secret']), 0, 16);
+    return hash_equals($soll, $m[2]) ? time() - (int) $m[1] : null;
+}
+
+function data_dir(): string
+{
+    $dir = __DIR__ . '/data';
+    if (!is_dir($dir)) {
+        @mkdir($dir, 0750, true);
+    }
+    if (!is_file($dir . '/.htaccess')) {
+        // zusätzlich zur Sperre in api/.htaccess
+        @file_put_contents($dir . '/.htaccess', "Require all denied\n");
+    }
+    return $dir;
+}
+
+/** Höchstens 5 Anfragen pro Stunde je (gehashter) IP-Adresse. */
+function rate_limit_ok(array $config): bool
+{
+    $file = data_dir() . '/limits.json';
+    $fp = @fopen($file, 'c+');
+    if (!$fp) {
+        return true;
+    }
+    flock($fp, LOCK_EX);
+    $limits = json_decode((string) stream_get_contents($fp), true) ?: [];
+    $jetzt = time();
+    $ip = hash_hmac('sha256', (string) ($_SERVER['REMOTE_ADDR'] ?? ''), (string) $config['secret']);
+    foreach ($limits as $key => $zeiten) {
+        $limits[$key] = array_values(array_filter($zeiten, fn ($t) => $t > $jetzt - 3600));
+        if (!$limits[$key]) {
+            unset($limits[$key]);
+        }
+    }
+    $ok = count($limits[$ip] ?? []) < 5;
+    if ($ok) {
+        $limits[$ip][] = $jetzt;
+    }
+    ftruncate($fp, 0);
+    rewind($fp);
+    fwrite($fp, json_encode($limits));
+    flock($fp, LOCK_UN);
+    fclose($fp);
+    return $ok;
 }
 
 function clean(string $value): string
@@ -140,14 +204,24 @@ function behaviour(array $form, array $extra): array
     return ['success' => true, 'message' => $form['message'] ?? '<p>Vielen Dank! Wir melden uns in Kürze.</p>', 'behav' => 'behaviour-thankyou'];
 }
 
-function store(string $formId, array $values): void
+function store(string $formId, array $values, int $aufbewahrungTage): void
 {
-    $dir = __DIR__ . '/data';
-    if (!is_dir($dir)) {
-        @mkdir($dir, 0750, true);
-    }
+    $dir = data_dir();
     $line = json_encode(['zeit' => date('c'), 'formular' => $formId, 'werte' => $values], JSON_UNESCAPED_UNICODE) . "\n";
     @file_put_contents($dir . '/anfragen-' . $formId . '.jsonl', $line, FILE_APPEND | LOCK_EX);
+
+    // DSGVO: ältere Anfragen löschen
+    $grenze = time() - $aufbewahrungTage * 86400;
+    foreach (glob($dir . '/anfragen-*.jsonl') ?: [] as $file) {
+        $zeilen = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
+        $behalten = array_filter($zeilen, function ($z) use ($grenze) {
+            $zeit = json_decode($z, true)['zeit'] ?? null;
+            return $zeit === null || strtotime($zeit) >= $grenze;
+        });
+        if (count($behalten) !== count($zeilen)) {
+            @file_put_contents($file, $behalten ? implode("\n", $behalten) . "\n" : '', LOCK_EX);
+        }
+    }
 }
 
 function send_mail(array $config, array $form, array $values, string $replyTo): bool

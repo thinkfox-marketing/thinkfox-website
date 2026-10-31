@@ -1,0 +1,13 @@
+# Wöchentliche Hinweise auf Updates (als Pull Request) – Build-Werkzeuge und GitHub-Actions.
+# Die eingefrorene Elementor-Laufzeit unter public/wp-content ist davon nicht betroffen.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

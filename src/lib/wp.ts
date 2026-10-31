@@ -3,6 +3,7 @@
 // Platzhalter wie {{TITLE}}, {{IMG}}, {{LOOP:name}}.
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { dimensions, wpImg } from './media';
+import { asset } from './asset';
 import { markdown } from './markdown';
 import loops from '../legacy/loops.json';
 import taxonomies from '../legacy/taxonomies.json';
@@ -339,7 +340,7 @@ export function postStyles(p: Post): { styles: StyleRef[]; scripts: ScriptRef[];
   const ex = t.wpId;
   const styles = t.styles
     .filter((s) => !(s.type === 'link' && s.href?.endsWith(`/post-${ex}.css`)))
-    .concat([{ type: 'link', href: `/css/vorlage-${p.collection === 'blog' ? 'blog' : 'projekt'}.css`, id: 'vorlage-css' }]);
+    .concat([{ type: 'link', href: asset(`/css/vorlage-${p.collection === 'blog' ? 'blog' : 'projekt'}.css`), id: 'vorlage-css' }]);
   const bodyClass = t.bodyClass
     .replace(new RegExp(`postid-${ex}\\b`), `postid-${postId(p)}`)
     .replace(new RegExp(`elementor-page-${ex}\\b`), `elementor-page-${postId(p)}`);

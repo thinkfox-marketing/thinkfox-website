@@ -5,6 +5,7 @@ import header from '../legacy/chrome/header.html?raw';
 import footer from '../legacy/chrome/footer.html?raw';
 import popup from '../legacy/chrome/popup.html?raw';
 import type { ScriptRef, StyleRef } from '../lib/wp';
+import { asset } from '../lib/asset';
 
 interface Props {
   seo: string;          // <title>, Meta-Tags, JSON-LD
@@ -18,6 +19,8 @@ const { seo, styles, scripts, bodyClass, canvas = false } = Astro.props;
 // WordPress-AJAX-Endpunkt → eigener Endpunkt (public/api/ajax.php)
 const ajax = (s: string) => s.replaceAll('/wp-admin/admin-ajax.php', '/api/ajax.php').replaceAll('\\/wp-admin\\/admin-ajax.php', '\\/api\\/ajax.php');
 // Formulare immer per AJAX absenden (statt Seiten-POST an WordPress)
+// Termin-Iframe im (geschlossenen) Popup erst laden, wenn das Popup geöffnet wird
+const popupLazy = popup.replace('<iframe ', '<iframe loading="lazy" title="Termin vereinbaren" ');
 const main = ajax(Astro.props.main).replace(
   /(class="forminator-ui forminator-custom-form forminator-custom-form-\d+ [^"]*?)(\s*")/g,
   (m, cls, end) => (cls.includes('forminator_ajax') ? m : `${cls} forminator_ajax${end}`),
@@ -25,8 +28,11 @@ const main = ajax(Astro.props.main).replace(
 const tag = (s: ScriptRef) => s.src
   ? `<script${s.id ? ` id="${s.id}"` : ''}${s.type ? ` type="${s.type}"` : ''} src="${s.src}"${s.async ? ' async' : ''}${s.defer ? ' defer' : ''}></script>`
   : `<script${s.id ? ` id="${s.id}"` : ''}${s.type ? ` type="${s.type}"` : ''}>${ajax(s.inline ?? '')}</script>`;
-const headScripts = scripts.filter((s) => s.where === 'head').map(tag).join('\n');
-const bodyScripts = scripts.filter((s) => s.where === 'body').map(tag).join('\n');
+// WordPress-Emoji-Ersatz entfällt: aktuelle Geräte zeigen Emojis selbst an, ältere hätten
+// die Grafiken von s.w.org (WordPress.org) geladen – ohne Einwilligung
+const ohneEmoji = scripts.filter((s) => !/wp-emoji/.test(`${s.id ?? ''} ${s.src ?? ''} ${(s.inline ?? '').slice(0, 300)}`));
+const headScripts = ohneEmoji.filter((s) => s.where === 'head').map(tag).join('\n');
+const bodyScripts = ohneEmoji.filter((s) => s.where === 'body').map(tag).join('\n');
 
 const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><span class='eael-ext-scroll-to-top-button'><svg class="e-font-icon-svg e-fas-chevron-up" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"></path></svg></span></div>`;
 ---
@@ -41,7 +47,7 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
   {styles.map((s) => s.type === 'link'
     ? <link rel="stylesheet" id={s.id ?? undefined} href={s.href} media="all" />
     : <Fragment set:html={s.css} />)}
-  <link rel="stylesheet" id="tf-ergaenzungen-css" href="/css/ergaenzungen.css" media="all" />
+  <link rel="stylesheet" id="tf-ergaenzungen-css" href={asset('/css/ergaenzungen.css')} media="all" />
   <Fragment set:html={headScripts} />
   <link rel="icon" href="/wp-content/uploads/2026/01/cropped-Logo-Finale_V2-32x32.png" sizes="32x32" />
   <link rel="icon" href="/wp-content/uploads/2026/01/cropped-Logo-Finale_V2-192x192.png" sizes="192x192" />
@@ -53,7 +59,7 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
   <Fragment set:html={main} />
   {!canvas && <Fragment set:html={footer} />}
   {!canvas && <Fragment set:html={scrollTop} />}
-  {!canvas && <div class="tf-popup-store" hidden><Fragment set:html={popup} /></div>}
+  {!canvas && <div class="tf-popup-store" hidden><Fragment set:html={popupLazy} /></div>}
   <script src="../scripts/main.js"></script>
   <Fragment set:html={bodyScripts} />
 </body>

@@ -7,6 +7,9 @@ return [
     // Zufälliger, langer Wert – signiert die Formular-Tokens
     'secret' => 'BITTE-AENDERN-' . 'mindestens-32-zeichen-zufall',
 
+    // Gespeicherte Anfragen (api/data/) werden nach dieser Zeit automatisch gelöscht
+    'aufbewahrung_tage' => 90,
+
     'mail' => [
         'from' => 'website@thinkfox.de',      // Absender (muss zur Domain/zum SMTP-Konto passen)
         'from_name' => 'thinkfox.de',

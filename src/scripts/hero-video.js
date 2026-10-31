@@ -2,9 +2,8 @@
 // 5 MB Querformat), bei „Bewegung reduzieren“ nur das Standbild.
 // Läuft vor der Elementor-Initialisierung (Modul-Skript, Elementor startet erst bei DOMContentLoaded)
 // und kann deshalb die Einstellungen anpassen.
+// Adressen samt Versionskennung setzt src/lib/hero-video.ts als data-Attribute
 const QUERFORMAT = '/media/showreel.mp4';
-const HOCHKANT = '/media/showreel-mobil.mp4';
-const STANDBILD_HOCHKANT = '/media/showreel-standbild-mobil.webp';
 const bewegungReduziert = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const handy = matchMedia('(max-width: 767px)').matches;
 
@@ -25,10 +24,10 @@ for (const el of document.querySelectorAll('[data-settings*="background_video_li
     continue;
   }
 
-  if (handy && settings.background_video_link === QUERFORMAT) {
-    settings.background_video_link = HOCHKANT;
+  if (handy && settings.background_video_link.startsWith(QUERFORMAT)) {
+    settings.background_video_link = el.dataset.tfHochkant;
     el.dataset.settings = JSON.stringify(settings);
-    video.parentElement.style.backgroundImage = `url(${STANDBILD_HOCHKANT})`;
+    video.parentElement.style.backgroundImage = `url(${el.dataset.tfStandbildHochkant})`;
   }
 
   if (!toggle) continue;

@@ -193,7 +193,7 @@ def styles_in_order(doc):
 # oder die ein WordPress-Backend voraussetzen.
 SCRIPT_BLACKLIST = re.compile(
     r"googletagmanager|google_gtagjs|usercentrics|fbq\(|burst|wp-consent-api|consent_api|googlesitekit"
-    r"|speculationrules|application/ld\+json|sbiajaxurl"
+    r"|wp-emoji|speculationrules|application/ld\+json|sbiajaxurl"
 )
 
 

@@ -4,13 +4,15 @@
 //   („Bewegung reduzieren“ u. a., siehe src/scripts/hero-video.js)
 // - Pause-Knopf (WCAG 2.2.2 „Pausieren, Beenden, Ausblenden“)
 
+import { asset } from './asset';
+
 const SHOWREEL_ORIGINAL = '/wp-content/uploads/2025/10/SHOWREEL-1-KUNDEN-2023-thinkfox1080.mp4';
-const SHOWREEL = '/media/showreel.mp4';
+const SHOWREEL = asset('/media/showreel.mp4');
 // Hochkant-Fassung der Handy-Heroes: MP4 statt WebM (läuft auch auf iPhones), 2,8 MB statt 12 MB
 const SHOWREEL_MOBIL_ORIGINAL = '/wp-content/uploads/2026/02/showreel-thinkfox-marketing.webm';
-const SHOWREEL_MOBIL = '/media/showreel-mobil.mp4';
-const STANDBILD = '/media/showreel-standbild.webp';
-const STANDBILD_MOBIL = '/media/showreel-standbild-mobil.webp';
+const SHOWREEL_MOBIL = asset('/media/showreel-mobil.mp4');
+const STANDBILD = asset('/media/showreel-standbild.webp');
+const STANDBILD_MOBIL = asset('/media/showreel-standbild-mobil.webp');
 
 const PAUSE = '<svg class="tf-video-toggle__pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12"/><rect x="9.5" y="2" width="3.5" height="12"/></svg>';
 const PLAY = '<svg class="tf-video-toggle__play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z"/></svg>';
@@ -31,6 +33,7 @@ export function renderHeroVideos(main: string): string {
     const containerEnd = main.indexOf('</div>', container) + '</div>'.length;
     const poster = mobil ? STANDBILD_MOBIL : STANDBILD;
     out += main.slice(last, m.index)
+      + `data-tf-hochkant="${SHOWREEL_MOBIL}" data-tf-standbild-hochkant="${STANDBILD_MOBIL}" `
       + `data-settings="${settings}"`
       + main.slice(m.index + m[0].length, container)
       + `<div style="background:url(${poster}) center/cover no-repeat"`
