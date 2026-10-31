@@ -1,7 +1,10 @@
-// Hintergrundvideos mit Pause-Knopf. Standbild statt Video bei „Bewegung reduzieren“ und auf dem
-// Handy überall dort, wo es keine eigene Handy-Fassung gibt (das Querformat-Video wäre dort zu groß).
+// Hintergrundvideos mit Pause-Knopf. Auf dem Handy läuft immer die Hochkant-Fassung (2,8 MB statt
+// 5 MB Querformat), bei „Bewegung reduzieren“ nur das Standbild.
 // Läuft vor der Elementor-Initialisierung (Modul-Skript, Elementor startet erst bei DOMContentLoaded)
 // und kann deshalb die Einstellungen anpassen.
+const QUERFORMAT = '/media/showreel.mp4';
+const HOCHKANT = '/media/showreel-mobil.mp4';
+const STANDBILD_HOCHKANT = '/media/showreel-standbild-mobil.webp';
 const bewegungReduziert = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const handy = matchMedia('(max-width: 767px)').matches;
 
@@ -12,15 +15,20 @@ for (const el of document.querySelectorAll('[data-settings*="background_video_li
 
   // Auf diesem Gerät ausgeblendete Bereiche (z. B. der Handy-Hero am Desktop) laden kein Video
   const versteckt = el.getClientRects().length === 0;
-  const handyFassung = el.dataset.settings.includes('showreel-mobil');
-  if (bewegungReduziert || versteckt || (handy && !handyFassung)) {
-    const settings = JSON.parse(el.dataset.settings);
+  const settings = JSON.parse(el.dataset.settings);
+  if (bewegungReduziert || versteckt) {
     delete settings.background_video_link;
     settings.background_background = 'classic';
     el.dataset.settings = JSON.stringify(settings);
     video.remove();
     toggle?.remove();
     continue;
+  }
+
+  if (handy && settings.background_video_link === QUERFORMAT) {
+    settings.background_video_link = HOCHKANT;
+    el.dataset.settings = JSON.stringify(settings);
+    video.parentElement.style.backgroundImage = `url(${STANDBILD_HOCHKANT})`;
   }
 
   if (!toggle) continue;
