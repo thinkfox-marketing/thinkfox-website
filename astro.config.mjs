@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { defineConfig } from 'astro/config';
 import externLokal from './scripts/astro-extern-lokal.mjs';
+import osmKarte from './scripts/astro-osm-karte.mjs';
 
 /** Kopiert Decap CMS aus node_modules nach public/admin/decap (selbst gehostet, kein CDN). */
 const decapCms = {
@@ -41,5 +42,5 @@ export default defineConfig({
   build: { format: 'directory', inlineStylesheets: 'never' },
   compressHTML: false,
   vite: { build: { assetsInlineLimit: 0 } },
-  integrations: [decapCms, cssBundles, externLokal()],
+  integrations: [decapCms, cssBundles, osmKarte(), externLokal()],
 });

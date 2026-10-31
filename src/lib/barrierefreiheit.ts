@@ -1,6 +1,9 @@
 // Korrekturen am übernommenen Elementor-Markup für Barrierefreiheit und Datenschutz.
 // Alles hier ändert die Optik nicht, nur Semantik bzw. das Nachladen fremder Inhalte.
 
+import { KOORDINATEN, UNTERNEHMEN } from './geo';
+import { kartenDokument } from './osm-karte.mjs';
+
 const attr = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
 /** ARIA-/Beschriftungs-Korrekturen (Befunde aus axe-core, WCAG 2.2 AA). */
@@ -24,12 +27,12 @@ export function zugaenglich(html: string): string {
     .replace(/(class="sbi_header_link"[^>]*?) aria-label="[^"]*"/g, '$1');
 }
 
-// --- 2-Klick-Lösung für YouTube, Kuula und Google Maps -------------------------------------------
+// --- 2-Klick-Lösung für YouTube und Kuula, Karte mit OpenStreetMap -------------------------------------------
 
 const FONT = '/wp-content/uploads/elementor/google-fonts/fonts/outfit-97312486.woff2';
 
 /** Platzhalter-Dokument (srcdoc): Hinweis + Link, der den Rahmen erst auf Klick zum Anbieter navigiert. */
-function platzhalter(o: { anbieter: string; firma: string; was: string; ziel: string; bild?: string; extern?: string }): string {
+function platzhalter(o: { anbieter: string; firma: string; was: string; ziel: string; bild?: string }): string {
   const hintergrund = o.bild ? `url(${o.bild}) center/cover no-repeat, #3b3192` : '#3b3192';
   const doc = `<!doctype html><html lang="de"><head><meta charset="utf-8"><style>
 @font-face{font-family:Outfit;src:url(${FONT}) format("woff2");font-weight:100 900}
@@ -43,7 +46,7 @@ a{color:#fff}
 a:focus-visible{outline:3px solid #fff;outline-offset:2px}
 </style></head><body><div class="box">
 <p>Hier ist ${o.was} von <strong>${o.anbieter}</strong> eingebunden. Beim Laden werden Daten wie deine IP-Adresse an ${o.firma} übertragen. <a href="/datenschutz/" target="_top">Datenschutz</a></p>
-<a class="laden" href="${attr(o.ziel)}">${o.was.replace(/^(ein|eine|einen) /, '').replace(/^./, (c) => c.toUpperCase())} laden</a>${o.extern ? `<a class="laden" href="${attr(o.extern)}" target="_blank" rel="noopener">In ${o.anbieter} öffnen</a>` : ''}
+<a class="laden" href="${attr(o.ziel)}">${o.was.replace(/^(ein|eine|einen) /, '').replace(/^./, (c) => c.toUpperCase())} laden</a>
 </div></body></html>`;
   return attr(doc);
 }
@@ -72,17 +75,21 @@ export function einbettungen(html: string): string {
     },
   );
 
-  // Kuula (360°-Rundgänge) und Google Maps: Iframe behält Größe und Stil, zeigt aber zuerst den Hinweis
-  return html.replace(/<iframe\b([^>]*?)\ssrc="(https:\/\/(kuula\.co|maps\.google\.com)\/[^"]+)"([^>]*)>/g,
-    (m, vor: string, src: string, host: string, nach: string) => {
+  // Google Maps → OpenStreetMap (statische Karte aus lokalen Kacheln, siehe src/lib/osm-karte.mjs;
+  // die Kacheln lädt scripts/astro-osm-karte.mjs beim Build)
+  html = html.replace(/<iframe\b([^>]*?)\ssrc="https:\/\/maps\.google\.com\/[^"]+"([^>]*)>/g, (m, vor: string, nach: string) => {
+    const a = UNTERNEHMEN.address;
+    const daten = { name: UNTERNEHMEN.name, strasse: a.streetAddress, plz: a.postalCode, ort: a.addressLocality };
+    const rest = `${vor}${nach}`.replace(/\s(title|aria-label)="[^"]*"/g, '');
+    return `<iframe${rest} title="Karte: ${attr(UNTERNEHMEN.name)} (OpenStreetMap)" data-tf-karte="${attr(JSON.stringify({ ...daten, ...(KOORDINATEN ?? {}) }))}" srcdoc="${kartenDokument(daten)}">`;
+  });
+
+  // Kuula (360°-Rundgänge): Iframe behält Größe und Stil, zeigt aber zuerst den Hinweis
+  return html.replace(/<iframe\b([^>]*?)\ssrc="(https:\/\/kuula\.co\/[^"]+)"([^>]*)>/g,
+    (m, vor: string, src: string, nach: string) => {
       const ziel = src.replace(/&#0?38;|&amp;/g, '&');
-      const kuula = host === 'kuula.co';
-      const q = kuula ? '' : new URL(ziel).searchParams.get('q') ?? '';
-      const doc = platzhalter(kuula
-        ? { anbieter: 'Kuula', firma: 'Kuula', was: 'ein 360°-Rundgang', ziel }
-        : { anbieter: 'Google Maps', firma: 'Google', was: 'eine Karte', ziel,
-          extern: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}` });
+      const doc = platzhalter({ anbieter: 'Kuula', firma: 'Kuula', was: 'ein 360°-Rundgang', ziel });
       const rest = `${vor}${nach}`.replace(/\s(title|aria-label)="[^"]*"/g, '');
-      return `<iframe${rest} title="${kuula ? '360°-Rundgang (Kuula)' : 'Karte (Google Maps)'}" srcdoc="${doc}">`;
+      return `<iframe${rest} title="360°-Rundgang (Kuula)" srcdoc="${doc}">`;
     });
 }

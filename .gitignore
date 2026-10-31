@@ -10,3 +10,4 @@ node_modules/
 /public/api/data/
 .astro/
 /public/admin/decap/
+/.osm-cache/

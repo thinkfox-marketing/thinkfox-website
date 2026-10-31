@@ -7,6 +7,9 @@
 
 export const SITE = 'https://thinkfox.de';
 
+/** Standort für Karte und JSON-LD. null → wird beim Build über OpenStreetMap (Nominatim) ermittelt. */
+export const KOORDINATEN: { lat: number; lon: number } | null = null;
+
 export const UNTERNEHMEN = {
   '@type': ['Organization', 'ProfessionalService'],
   '@id': `${SITE}/#organization`,
@@ -30,6 +33,10 @@ export const UNTERNEHMEN = {
     addressRegion: 'Hessen',
     addressCountry: 'DE',
   },
+  ...(KOORDINATEN ? {
+    geo: { '@type': 'GeoCoordinates', latitude: KOORDINATEN.lat, longitude: KOORDINATEN.lon },
+    hasMap: `https://www.openstreetmap.org/?mlat=${KOORDINATEN.lat}&mlon=${KOORDINATEN.lon}#map=17/${KOORDINATEN.lat}/${KOORDINATEN.lon}`,
+  } : {}),
   areaServed: [
     'Edertal', 'Bad Wildungen', 'Korbach', 'Frankenberg (Eder)', 'Fritzlar', 'Kassel',
     'Landkreis Waldeck-Frankenberg', 'Nordhessen', 'Deutschland',

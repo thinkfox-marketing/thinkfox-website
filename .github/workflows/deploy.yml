@@ -50,6 +50,12 @@ jobs:
           INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
         run: npm run instagram
 
+      # OpenStreetMap-Kacheln der Kontakt-Karte nicht bei jedem Build neu laden (OSM-Nutzungsregeln)
+      - uses: actions/cache@v4
+        with:
+          path: .osm-cache
+          key: osm-karte-v1
+
       - run: npm run build
 
       - name: Vorschau-Version erzeugen (für Suchmaschinen gesperrt)
