@@ -13,6 +13,11 @@ export function zugaenglich(html: string): string {
     .replace(/(<div class="swiper elementor-loop-container[^"]*") role="list"/g, '$1')
     // Beitragsraster (Blog): Listeneinträge auszeichnen
     .replace(/<div data-elementor-type="loop-item"(?![^>]*swiper-slide)([^>]*class="elementor elementor-\d+ e-loop-item)/g, '<div role="listitem" data-elementor-type="loop-item"$1')
+    // Beitrags-Widget: <article> darf nicht role="listitem" tragen – Artikel ohne Listen-Rollen
+    .replace(/(<div class="elementor-posts-container[^"]*") role="list"/g, '$1')
+    .replace(/(<article class="elementor-post [^"]*") role="listitem"/g, '$1')
+    // Hintergrundvideos: role="presentation" ist an <video> nicht erlaubt → aus dem Baum nehmen
+    .replace(/(<video class="elementor-background-video-hosted") role="presentation"/g, '$1 aria-hidden="true"')
     // „Weiterlesen »“: zugänglicher Name muss den sichtbaren Text enthalten
     .replace(/aria-label="Mehr über ([^"]*)"/g, 'aria-label="Weiterlesen » $1"')
     // Instagram-Kopfzeile: englisches aria-label weicht vom sichtbaren Text ab – sichtbarer Text genügt
