@@ -1,0 +1,43 @@
+/* Ergänzungen außerhalb des übernommenen Elementor-Designs (Barrierefreiheit). */
+
+/* Pause-Knopf für Hintergrundvideos (src/lib/hero-video.ts).
+   „button.“ erhöht die Spezifität gegenüber den Button-Stilen des Hello-Themes. */
+button.tf-video-toggle {
+  position: absolute;
+  z-index: 5;
+  right: 60px;
+  bottom: 90px;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 0.7);
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.45);
+  color: #fff;
+  font-size: 0;
+  line-height: 0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+button.tf-video-toggle[hidden] { display: none; }
+button.tf-video-toggle:hover,
+button.tf-video-toggle:focus { background: rgb(0 0 0 / 0.7); color: #fff; border-color: #fff; }
+button.tf-video-toggle:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+button.tf-video-toggle svg { width: 16px; height: 16px; fill: currentColor; }
+button.tf-video-toggle .tf-video-toggle__play,
+button.tf-video-toggle[aria-pressed="true"] .tf-video-toggle__pause { display: none; }
+button.tf-video-toggle[aria-pressed="true"] .tf-video-toggle__play { display: block; margin-left: 2px; }
+@media (max-width: 1024px) {
+  button.tf-video-toggle { right: 24px; bottom: 140px; }
+}
+
+/* „Bewegung reduzieren“: Einblend-Animationen abschalten, Inhalte sofort zeigen */
+@media (prefers-reduced-motion: reduce) {
+  .elementor-element.animated { animation: none !important; }
+  .elementor-invisible { visibility: visible !important; opacity: 1 !important; }
+}

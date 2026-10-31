@@ -18,7 +18,15 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
    - `public/wp-content/**`, `public/wp-includes/**`: Original-Assets und Laufzeit (jQuery, Elementor,
      Swiper, Forminator). Nicht ersetzen/aktualisieren – sonst ist die 1:1-Optik nicht mehr garantiert.
    - Platzhalter in Templates: `{{LOOP:name}}`, `{{TITLE}}`, `{{IMG}}`, `{{CONTENT}}` … → `src/lib/wp.ts`.
-2. **Eigene Ebene:** `src/lib/*.ts`, `src/pages/*`, `src/scripts/*`, `public/api/*`, `public/admin/*`.
+2. **Eigene Ebene:** `src/lib/*.ts`, `src/pages/*`, `src/scripts/*`, `public/api/*`, `public/admin/*`,
+   `public/media/*`, `public/css/ergaenzungen.css`.
+
+## Bewusste Abweichungen vom Original
+
+- **Hintergrundvideos** (`src/lib/hero-video.ts`, `src/scripts/hero-video.js`): komprimiertes Showreel
+  (`public/media/showreel.mp4`), Standbild statt Video auf dem Handy (≤ 767 px) und bei
+  „Bewegung reduzieren“, Pause-Knopf (WCAG 2.2.2). In ausgeblendeten Bereichen wird kein Video geladen.
+- **„Bewegung reduzieren“:** Slider/Logo-Laufband stoppen, Einblend-Animationen aus.
 
 ## Regeln
 

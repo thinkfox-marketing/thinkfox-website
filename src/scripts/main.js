@@ -2,3 +2,4 @@
 // alles, was in WordPress serverseitig lief, wird hier im Browser bzw. über /api erledigt.
 import './instagram.js';
 import './marketing-check.js';
+import './hero-video.js';

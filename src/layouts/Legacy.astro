@@ -41,6 +41,7 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
   {styles.map((s) => s.type === 'link'
     ? <link rel="stylesheet" id={s.id ?? undefined} href={s.href} media="all" />
     : <Fragment set:html={s.css} />)}
+  <link rel="stylesheet" id="tf-ergaenzungen-css" href="/css/ergaenzungen.css" media="all" />
   <Fragment set:html={headScripts} />
   <link rel="icon" href="/wp-content/uploads/2026/01/cropped-Logo-Finale_V2-32x32.png" sizes="32x32" />
   <link rel="icon" href="/wp-content/uploads/2026/01/cropped-Logo-Finale_V2-192x192.png" sizes="192x192" />
