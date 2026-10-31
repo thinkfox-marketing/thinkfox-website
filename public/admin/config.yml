@@ -7,7 +7,7 @@
 
 backend:
   name: github
-  repo: thinkfoxmarketing-rgb/kling-klz
+  repo: thinkfoxmarketing-rgb/thinkfox-website
   branch: main
   base_url: https://thinkfox.de
   auth_endpoint: /api/cms-auth.php
