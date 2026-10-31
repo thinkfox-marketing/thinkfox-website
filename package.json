@@ -17,7 +17,7 @@
     "astro": "5.18.2"
   },
   "devDependencies": {
-    "decap-cms": "3.16.3",
+    "decap-cms": "3.17.3",
     "decap-server": "3.5.0"
   }
 }
