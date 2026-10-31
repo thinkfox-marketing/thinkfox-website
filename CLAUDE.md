@@ -27,13 +27,24 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   (`public/media/showreel.mp4` Querformat 5 MB, `showreel-mobil.mp4` Hochkant 2,8 MB statt WebM),
   auf dem Handy immer die Hochkant-Fassung, Standbild bei „Bewegung reduzieren“,
   Pause-Knopf (WCAG 2.2.2). In ausgeblendeten Bereichen wird kein Video geladen.
+  Videos werden erst nach dem Seitenaufbau und nur im sichtbaren Bereich geladen.
 - **„Bewegung reduzieren“:** Slider/Logo-Laufband stoppen, Einblend-Animationen aus.
+- **Barrierefreiheit (WCAG 2.2 AA, axe-core ohne Befund):** Kontraste minimal angehoben (Grün `#267f32`
+  statt `#61ce70`, Lila, Grautöne – `public/css/ergaenzungen.css`), Links im Fließtext unterstrichen,
+  ARIA-Korrekturen im Markup (`src/lib/barrierefreiheit.ts`, `src/scripts/barrierefreiheit.js`).
+- **Datenschutz:** YouTube, Kuula und Google Maps per 2-Klick-Lösung (Iframe mit `srcdoc`-Hinweis),
+  Bilder/Schriften des Bewertungs-Widgets und YouTube-Vorschaubilder lokal (`scripts/astro-extern-lokal.mjs`),
+  kein WordPress-Emoji-Skript, Termin-Iframe lädt erst beim Öffnen.
+- **Ladezeit:** Stylesheets als wenige Bündel (`src/lib/css-bundle.ts`, nur im Build), Hero-Standbild per Preload.
+- **SEO/GEO:** echte 404-Seite statt Weiterleitung auf die Startseite, Kategorie-Archive `noindex`,
+  Unternehmensprofil/Service/FAQ als JSON-LD (`src/lib/geo.ts`), `/llms.txt`.
 
 ## Regeln
 
 - **Optik:** Jede Änderung mit Screenshot-Vergleich prüfen (Playwright, 1440 px und 390 px).
-  Ohne JavaScript muss das Ergebnis pixelgleich zur Vorlage sein; mit JavaScript sind nur
-  Video-/Slider-Timing-Unterschiede zulässig.
+  Ohne JavaScript muss das Ergebnis pixelgleich zur Vorlage sein – abgesehen von den oben
+  genannten bewussten Abweichungen; mit JavaScript sind zusätzlich Video-/Slider-Timing-Unterschiede zulässig.
+- **Barrierefreiheit prüfen:** axe-core (WCAG 2.2 AA) muss ohne Befund bleiben.
 - **Neue Beiträge** nutzen die Vorlagen in `src/legacy/vorlagen/` + `public/css/vorlage-*.css`
   (abgeleitet aus den Beiträgen „Karriereseite Stadt Waldeck“ und „Die externe Marketingabteilung …“).
 - **Slider-Abfragen** stehen in `LOOP_QUERIES` (`src/lib/wp.ts`) und entsprechen den Elementor-Queries.

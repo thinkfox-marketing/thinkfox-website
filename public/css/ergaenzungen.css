@@ -45,3 +45,59 @@ button.tf-video-toggle[aria-pressed="true"] .tf-video-toggle__play { display: bl
   .elementor-element.animated { animation: none !important; }
   .elementor-invisible { visibility: visible !important; opacity: 1 !important; }
 }
+
+/* ---------------------------------------------------------------------------------------------
+   Kontraste nach WCAG 2.2 AA (4,5:1 für Text, 3:1 für große Schrift) – jeweils die geringste
+   Abdunklung, die die Anforderung erfüllt. Originalwerte in Klammern.
+   --------------------------------------------------------------------------------------------- */
+body.elementor-kit-52 {
+  --e-global-color-accent: #267f32;   /* Grün (#61ce70): weiße Schrift auf Grün, grüne Schrift auf Hell-/Blaugrün */
+  --e-global-color-8ce9af0: #7e5fe1;  /* Lila (#8a6ee4): weiße Schrift auf Lila */
+  --e-global-color-343617a: #2baa3d;  /* Dunkelgrün (#2cac3e): große weiße Schrift */
+}
+/* FAQ-Fläche „Klartext“ (Startseite, Leistungsseiten) – Farbe dort fest hinterlegt statt als Variable */
+.elementor .elementor-element.elementor-element-a0516f5:not(.elementor-motion-effects-element-type-background) {
+  background-color: #267f32;
+}
+/* Info-Box „Websites“-Seite, Farbe dort fest hinterlegt (#8a6ee4) */
+.elementor-13322 .elementor-element.elementor-element-289f5e2 .eael-infobox { background-color: #7e5fe1; }
+/* Blog-Teaser (#777) */
+body .elementor-posts .elementor-post__excerpt p { color: #717171; }
+/* Formular-Beschriftungen im Standard-Formulardesign (#777771) */
+.forminator-ui.forminator-custom-form[data-design="default"] .forminator-label,
+.forminator-ui.forminator-custom-form[data-design="default"] .forminator-description,
+.forminator-ui.forminator-custom-form[data-design="default"] .forminator-checkbox-label,
+.forminator-ui.forminator-custom-form[data-design="default"] .forminator-checkbox__label,
+.forminator-ui.forminator-custom-form[data-design="default"] .forminator-checkbox span,
+.forminator-ui.forminator-custom-form[data-design="default"] .forminator-option { color: #656560 !important; }
+/* „Weiter“/„Senden“ im Marketing-Check (#7d73d4) */
+.forminator-ui.forminator-custom-form-12432 .forminator-button { background-color: #6f63cc !important; }
+.forminator-ui.forminator-custom-form-12432 .forminator-button:hover,
+.forminator-ui.forminator-custom-form-12432 .forminator-button:focus { background-color: #5b4ec8 !important; }
+/* Instagram „Auf Instagram folgen“ (#408bd1) */
+#sb_instagram .sbi_follow_btn a { background: #2e79bf !important; }
+
+/* Links im Fließtext zusätzlich zur Farbe unterstreichen (WCAG 1.4.1) */
+.elementor-widget-text-editor p a:not(.elementor-button),
+.erecht24-legal-texts a,
+:where(main, .elementor-location-single) .elementor-widget-text-editor li a:not(.elementor-button),
+.elementor-widget-theme-post-content p a:not(.elementor-button),
+.elementor-widget-theme-post-content li a:not(.elementor-button),
+.elementor-location-footer p a {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+/* Datenschutzerklärung: Links in Listen als ausreichend große Klickfläche (WCAG 2.5.8) */
+.elementor-widget-erecht24 li > a { display: inline-block; min-height: 24px; line-height: 24px; }
+
+/* Fehlerseite 404 (src/pages/404.astro) – Farben/Schrift aus dem Elementor-Kit */
+.tf-404 { padding: 180px 20px 120px; background: #eef7ff; }
+.tf-404__inhalt { max-width: 720px; margin: 0 auto; font-family: Outfit, sans-serif; color: #1f1f1f; }
+.tf-404__code { margin: 0; font-size: clamp(4rem, 12vw, 8rem); font-weight: 800; line-height: 1; color: var(--e-global-color-4e42812, #5b4ec8); }
+.tf-404 h1 { margin: 0.5rem 0 1rem; font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.15; color: var(--e-global-color-4e42812, #5b4ec8); }
+.tf-404 p { font-size: 1.1rem; line-height: 1.6; }
+.tf-404__links { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin: 1.5rem 0; padding: 0; list-style: none; font-size: 1.1rem; }
+.tf-404__links a { color: var(--e-global-color-4e42812, #5b4ec8); font-weight: 600; text-decoration: underline; text-underline-offset: 0.15em; }
+.tf-404__knopf { display: inline-block; padding: 12px 22px; border-radius: 6px; background: var(--e-global-color-4e42812, #5b4ec8); color: #fff; font-weight: 700; text-decoration: none; }
+.tf-404__knopf:hover, .tf-404__knopf:focus { background: #483db0; color: #fff; }
+.tf-404 a:focus-visible { outline: 3px solid #1f1f1f; outline-offset: 3px; }

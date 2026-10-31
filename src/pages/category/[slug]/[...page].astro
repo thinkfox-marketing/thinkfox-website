@@ -46,7 +46,7 @@ const main = archive.template
   .replace('{{ITEMS}}', items)
   .replace('{{PAGINATION}}', pagination);
 const seo = `<title>${name} Archive${current > 1 ? ` - Seite ${current} von ${pages}` : ''} - thinkfox marketing</title>
-<meta name="robots" content="index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+<meta name="robots" content="noindex, follow"/>
 <link rel="canonical" href="https://thinkfox.de${pageUrl(current)}" />`;
 const bodyClass = archive.bodyClass
   .replace(/category-[a-z0-9-]+(?= )/g, `category-${Astro.params.slug}`)

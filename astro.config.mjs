@@ -19,6 +19,21 @@ const decapCms = {
   },
 };
 
+/** Schreibt die gebündelten Stylesheets (src/lib/css-bundle.ts) nach dist/_css/. */
+const cssBundles = {
+  name: 'css-bundles',
+  hooks: {
+    'astro:build:done': ({ dir, logger }) => {
+      const bundles = globalThis.__tfCssBundles;
+      if (!bundles?.size) throw new Error('Keine CSS-Bündel erzeugt');
+      const ziel = path.join(dir.pathname, '_css');
+      fs.mkdirSync(ziel, { recursive: true });
+      for (const [hash, css] of bundles) fs.writeFileSync(path.join(ziel, `${hash}.css`), css);
+      logger.info(`${bundles.size} CSS-Bündel geschrieben`);
+    },
+  },
+};
+
 export default defineConfig({
   site: 'https://thinkfox.de',
   // URLs wie bisher in WordPress: /seite/ mit Slash am Ende
@@ -26,5 +41,5 @@ export default defineConfig({
   build: { format: 'directory', inlineStylesheets: 'never' },
   compressHTML: false,
   vite: { build: { assetsInlineLimit: 0 } },
-  integrations: [decapCms, externLokal()],
+  integrations: [decapCms, cssBundles, externLokal()],
 });

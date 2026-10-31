@@ -3,6 +3,8 @@
 Options -Indexes
 DirectoryIndex index.html index.xml index.php
 AddDefaultCharset utf-8
+# Unbekannte Adressen: echte Fehlerseite (früher: 301 auf die Startseite – für Google ein „Soft 404“)
+ErrorDocument 404 /404.html
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
@@ -20,16 +22,13 @@ AddDefaultCharset utf-8
 
   # Alte WordPress-Archive
   RewriteRule ^author/ /blog/ [R=301,L]
+  RewriteRule ^tag/ /blog/ [R=301,L]
   RewriteRule ^[0-9]{4}/([0-9]{2}/)?([0-9]{2}/)?$ /blog/ [R=301,L]
   # /feed/ liefert feed/index.xml (DirectoryIndex); alte Feed-Varianten dorthin umleiten
   RewriteCond %{REQUEST_URI} !^/feed/index\.xml$
   RewriteRule ^(comments/)?feed/.+ /feed/ [R=301,L]
   RewriteRule ^comments/feed/$ /feed/ [R=301,L]
 
-  # Unbekannte Adressen → Startseite (Verhalten der bisherigen Seite, Rank Math „404 → Startseite“)
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^ / [R=301,L]
 </IfModule>
 
 <IfModule mod_headers.c>
@@ -41,14 +40,14 @@ AddDefaultCharset utf-8
 
   # Content-Security-Policy im Beobachtungsmodus: blockiert nichts, meldet Verstöße an
   # /api/csp-report.php (Ablage api/data/csp.jsonl). Erst nach Auswertung scharf schalten.
-  Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.usercentrics.eu https://www.googletagmanager.com https://connect.facebook.net https://cdn.trustindex.io https://www.youtube.com; style-src 'self' 'unsafe-inline' https://cdn.trustindex.io; img-src 'self' data: blob: https:; font-src 'self' data: https://cdn.trustindex.io; media-src 'self' blob:; connect-src 'self' https://*.usercentrics.eu https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.doubleclick.net https://www.google.com https://www.facebook.com https://cdn.trustindex.io https://api.github.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://crm.thinkfox.marketing https://www.google.com https://maps.google.com https://www.facebook.com https://td.doubleclick.net; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; report-uri /api/csp-report.php"
+  Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.usercentrics.eu https://www.googletagmanager.com https://connect.facebook.net https://cdn.trustindex.io https://www.youtube.com; style-src 'self' 'unsafe-inline' https://cdn.trustindex.io; img-src 'self' data: blob: https:; font-src 'self' data: https://cdn.trustindex.io; media-src 'self' blob:; connect-src 'self' https://*.usercentrics.eu https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.doubleclick.net https://www.google.com https://www.facebook.com https://cdn.trustindex.io https://api.github.com; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://kuula.co https://crm.thinkfox.marketing https://www.google.com https://maps.google.com https://www.facebook.com https://td.doubleclick.net; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; report-uri /api/csp-report.php"
 
   # Zwischenspeichern:
   # - Dateien mit Versionskennung (?v=…, siehe src/lib/asset.ts), Build-Dateien mit Hash (/_astro/)
-  #   und die eingefrorenen WordPress-Dateien: 1 Jahr
+  #   bzw. /_css/ und die eingefrorenen WordPress-Dateien: 1 Jahr
   # - übrige Bilder/Medien (z. B. CMS-Uploads, die überschrieben werden können): 1 Stunde
   # - Seiten: jedes Mal beim Server nachfragen
-  <If "%{QUERY_STRING} =~ /(^|&)v=/ || %{REQUEST_URI} =~ m#^/(_astro|wp-content|wp-includes)/#">
+  <If "%{QUERY_STRING} =~ /(^|&)v=/ || %{REQUEST_URI} =~ m#^/(_astro|_css|wp-content|wp-includes)/#">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </If>
   <ElseIf "%{REQUEST_URI} =~ m#\.(css|js|jpe?g|png|webp|avif|gif|svg|ico|woff2?|ttf|mp4|webm)$#">

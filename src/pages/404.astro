@@ -1,0 +1,26 @@
+---
+// Fehlerseite „Seite nicht gefunden“ (Apache: ErrorDocument 404 in public/.htaccess).
+// Rahmen, Stylesheets und Skripte wie die Kontaktseite.
+import Legacy from '../layouts/Legacy.astro';
+import { pageFiles, type LegacyPage } from '../lib/wp';
+
+const kontakt = pageFiles['../legacy/pages/kontakt.json'].default as LegacyPage;
+const seo = `<title>Seite nicht gefunden – thinkfox marketing</title>
+<meta name="robots" content="noindex, follow"/>`;
+const main = `
+<main id="content" class="site-main tf-404">
+  <section class="tf-404__inhalt" aria-labelledby="tf-404-titel">
+    <p class="tf-404__code" aria-hidden="true">404</p>
+    <h1 id="tf-404-titel">Diese Seite gibt es nicht (mehr).</h1>
+    <p>Vielleicht wurde sie verschoben, oder in der Adresse steckt ein Tippfehler. Hier geht es weiter:</p>
+    <ul class="tf-404__links">
+      <li><a href="/">Startseite</a></li>
+      <li><a href="/#projekte">Projekte &amp; Referenzen</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/kontakt/">Kontakt</a></li>
+    </ul>
+    <p><a class="tf-404__knopf" href="/thinkfox-marketing-projekt-anfragen/">Projekt anfragen</a></p>
+  </section>
+</main>`;
+---
+<Legacy seo={seo} styles={kontakt.styles} scripts={kontakt.scripts} bodyClass={kontakt.bodyClass.replace(/page-id-\d+|elementor-page-\d+/g, '') + ' error404'} main={main} />

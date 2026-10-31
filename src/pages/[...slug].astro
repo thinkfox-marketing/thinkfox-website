@@ -7,6 +7,7 @@ import {
 } from '../lib/wp';
 import { seoHead } from '../lib/seo';
 import { renderHeroVideos } from '../lib/hero-video';
+import { BESCHREIBUNGEN } from '../lib/geo';
 
 export async function getStaticPaths() {
   const pages = Object.values(pageFiles).map((m) => m.default as LegacyPage);
@@ -25,6 +26,10 @@ const { page, post } = Astro.props as { page?: LegacyPage; post?: Post };
 let seo: string, styles, scripts, bodyClass: string, main: string, canvas = false;
 if (page) {
   seo = page.seo;
+  const neu = BESCHREIBUNGEN[page.path];
+  if (neu) {
+    seo = seo.replace(/(<meta (?:name|property)="(?:description|og:description|twitter:description)" content=")[^"]*/g, `$1${neu.replace(/"/g, '&quot;')}`);
+  }
   styles = page.styles;
   scripts = page.scripts;
   bodyClass = page.bodyClass;

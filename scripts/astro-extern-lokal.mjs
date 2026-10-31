@@ -1,5 +1,6 @@
 // Astro-Integration: Bilder und Schriften von Drittanbietern, die ohne Einwilligung geladen würden
-// (Bewertungs-Widget: Google-Profilbilder, Trustindex-Icons/-Schriften), beim Build herunterladen
+// (Bewertungs-Widget: Google-Profilbilder, Trustindex-Icons/-Schriften; YouTube-Vorschaubilder der
+// 2-Klick-Platzhalter), beim Build herunterladen
 // und lokal unter /media/extern/ ausliefern. Skripte (z. B. das Trustindex-Ladeskript) bleiben
 // unverändert – die steuert die Einwilligungsverwaltung (Usercentrics).
 //
@@ -9,7 +10,7 @@ import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-const HOSTS = /https:\/\/(?:cdn\.trustindex\.io|lh3\.googleusercontent\.com)\/[^"'()\s<>]+/g;
+const HOSTS = /https:\/\/(?:cdn\.trustindex\.io|lh3\.googleusercontent\.com|i\.ytimg\.com)\/[^"'()\s<>&]+/g;
 
 async function* dateien(dir) {
   for (const e of await fs.readdir(dir, { withFileTypes: true })) {

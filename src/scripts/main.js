@@ -3,3 +3,4 @@
 import './instagram.js';
 import './marketing-check.js';
 import './hero-video.js';
+import './barrierefreiheit.js';
