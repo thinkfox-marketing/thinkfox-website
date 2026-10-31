@@ -36,9 +36,9 @@ jobs:
       STAGING_PATH: ${{ secrets.STAGING_PATH }}
       DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -61,7 +61,7 @@ jobs:
           sed -i 's#https://thinkfox.de%{REQUEST_URI}#https://%{HTTP_HOST}%{REQUEST_URI}#' dist-staging/.htaccess
 
       - name: Artefakt speichern
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: website
           path: dist
