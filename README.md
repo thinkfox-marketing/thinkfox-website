@@ -10,7 +10,7 @@ und Blogbeiträge werden über ein Backend gepflegt.
 | Backend/CMS | [Decap CMS](https://decapcms.org) unter `/admin/` – speichert Inhalte als Dateien im Git-Repository |
 | Formulare | PHP-Endpunkt `public/api/ajax.php` (Mail per SMTP oder `mail()`) |
 | Hosting | beliebiger Webspace mit PHP ≥ 8.1 und Apache (`.htaccess`) |
-| Deployment | GitHub Actions: Build bei jedem Push auf `main`, Übertragung per rsync/SSH |
+| Deployment | GitHub Actions: Build bei jedem Push auf `main`, Übertragung per FTPS |
 
 ## Inhalte pflegen (Redaktion)
 
@@ -84,30 +84,28 @@ Die statischen Seiten (Startseite, Leistungsseiten, Kontakt, Impressum …) lieg
 
 ## Staging bei All-Inkl (Vorschau vor dem Umzug)
 
-1. KAS → **Domain → Subdomain anlegen**: `neu.thinkfox.de`, eigenes Verzeichnis (z. B. `/neu.thinkfox.de/`),
-   SSL (Let's Encrypt) aktivieren.
-2. KAS → **Tools → SSH-Zugang** aktivieren und Server, Benutzer und Passwort notieren.
+1. KAS → **Domain → Subdomain** `neu.thinkfox.de` mit eigenem Verzeichnis anlegen, SSL aktivieren
+   (DNS bei Domain Factory: A-Record `neu` → IP des All-Inkl-Servers).
+2. KAS → **FTP → Neuer FTP-Benutzer**, Verzeichnis = Verzeichnis der Subdomain.
 3. GitHub → Repository → **Settings → Secrets and variables → Actions** → „New repository secret“:
-   `DEPLOY_HOST` (z. B. `w0123456.kasserver.com`), `DEPLOY_USER` (z. B. `ssh-w0123456`),
-   `DEPLOY_PASSWORD`, `STAGING_PATH` (z. B. `/www/htdocs/w0123456/neu.thinkfox.de/`).
-4. GitHub → **Actions → Build & Deploy → Run workflow** (Branch `claude/ecstatic-feynman-godndt`)
-   oder einfach den nächsten Push abwarten.
+   `FTP_HOST` (z. B. `w0123456.kasserver.com`), `FTP_USER`, `FTP_PASSWORD`, `STAGING_PATH` (`/`).
+4. GitHub → **Actions → Build & Deploy → Run workflow** (Branch `claude/ecstatic-feynman-godndt`).
 
-Die Staging-Seite ist für Suchmaschinen gesperrt (robots.txt + `X-Robots-Tag`). Beim ersten Deploy wird
-`api/config.php` mit Standardwerten angelegt (Versand per `mail()` an hallo@thinkfox.de) – danach
-im KAS-Dateimanager anpassen; Deploys überschreiben sie nicht.
+Übertragen wird per FTPS. Die Staging-Seite ist für Suchmaschinen gesperrt (robots.txt + `X-Robots-Tag`).
+Beim ersten Deploy wird `api/config.php` mit Standardwerten angelegt – danach per FTP/KAS-Dateimanager
+anpassen (SMTP-Zugang!); Deploys überschreiben sie nie.
 
 ## Einrichtung auf dem Server (einmalig)
 
 1. **Webspace**: neues Verzeichnis als Document Root für thinkfox.de anlegen (nicht in die bestehende
-   WordPress-Installation deployen – rsync `--delete` würde sie entfernen).
+   WordPress-Installation deployen – der Abgleich löscht alles, was nicht zur neuen Seite gehört).
 2. **`api/config.php`** auf dem Server anlegen (Vorlage `public/api/config.example.php`):
    SMTP-Zugang, Empfänger je Formular, zufälliges `secret`, GitHub-OAuth-Daten.
 3. **GitHub-OAuth-App** (für den CMS-Login): GitHub → Settings → Developer settings → OAuth Apps →
    Homepage `https://thinkfox.de`, Callback `https://thinkfox.de/api/cms-auth.php`.
    Client-ID und -Secret in `api/config.php` eintragen.
-4. **GitHub-Secrets** für den Workflow (`.github/workflows/deploy.yml`): `DEPLOY_HOST`, `DEPLOY_USER`,
-   `DEPLOY_PATH`, `DEPLOY_SSH_KEY`, optional `INSTAGRAM_TOKEN`.
+4. **GitHub-Secrets** für den Workflow (`.github/workflows/deploy.yml`): `FTP_HOST`, `FTP_USER`,
+   `FTP_PASSWORD`, `DEPLOY_PATH`, optional `INSTAGRAM_TOKEN`.
 5. **Branch `main`** als Produktionszweig verwenden (das CMS schreibt dorthin, siehe `public/admin/config.yml`).
 6. Domain auf das neue Verzeichnis umstellen.
 

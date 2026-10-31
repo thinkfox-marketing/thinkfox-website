@@ -1,16 +1,15 @@
-# Baut die Website und überträgt sie per rsync/SSH auf den Webspace (All-Inkl).
+# Baut die Website und überträgt sie per FTPS (FTP mit TLS) auf den Webspace (All-Inkl).
 #
 #   Push auf main                          → Produktion  (Secret DEPLOY_PATH)
 #   Push auf claude/ecstatic-feynman-godndt → Staging     (Secret STAGING_PATH, für Suchmaschinen gesperrt)
 #   täglich 4:17 Uhr (Instagram-Feed) und manuell über „Run workflow“
 #
 # Repository-Secrets (GitHub → Settings → Secrets and variables → Actions):
-#   DEPLOY_HOST      SSH-Server, bei All-Inkl z. B. w0123456.kasserver.com
-#   DEPLOY_USER      SSH-Benutzer, bei All-Inkl z. B. ssh-w0123456
-#   DEPLOY_PASSWORD  Passwort des SSH-Zugangs  – oder stattdessen –
-#   DEPLOY_SSH_KEY   privater SSH-Schlüssel
-#   STAGING_PATH     Verzeichnis der Staging-Subdomain, z. B. /www/htdocs/w0123456/neu.thinkfox.de/
-#   DEPLOY_PATH      Verzeichnis der Live-Domain (erst beim Umzug setzen)
+#   FTP_HOST         FTP-Server, bei All-Inkl z. B. w0123456.kasserver.com
+#   FTP_USER         FTP-Benutzer (empfohlen: eigener Benutzer nur für das Zielverzeichnis)
+#   FTP_PASSWORD     Passwort des FTP-Benutzers
+#   STAGING_PATH     Zielverzeichnis aus Sicht des FTP-Benutzers, bei eigenem Benutzer meist /
+#   DEPLOY_PATH      Zielverzeichnis der Live-Domain (erst beim Umzug setzen)
 #   INSTAGRAM_TOKEN  optional, für die Aktualisierung des Instagram-Feeds
 # Ohne passendes Zielverzeichnis wird nur gebaut (Ergebnis als Artefakt herunterladbar).
 name: Build & Deploy
@@ -67,35 +66,29 @@ jobs:
       - name: Auf den Webspace übertragen
         if: env.TARGET_PATH != ''
         env:
-          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-          DEPLOY_PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
-          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
-          install -m 700 -d ~/.ssh
-          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
-          if [ -n "$DEPLOY_SSH_KEY" ]; then
-            printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy && chmod 600 ~/.ssh/deploy
-            SSH="ssh -i $HOME/.ssh/deploy"
-          else
-            sudo apt-get install -y -qq sshpass > /dev/null
-            export SSHPASS="$DEPLOY_PASSWORD"
-            SSH="sshpass -e ssh"
-          fi
-          REMOTE="$DEPLOY_USER@$DEPLOY_HOST"
+          sudo apt-get install -y -qq lftp > /dev/null
           TARGET="${TARGET_PATH%/}/"
+          ftp() {
+            lftp -u "$FTP_USER,$FTP_PASSWORD" "$FTP_HOST" -e "
+              set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate yes;
+              set net:max-retries 3; set net:timeout 30; $1; bye"
+          }
 
           # Erstinstallation: Formular-Konfiguration anlegen, falls noch keine existiert
           # (danach nur noch auf dem Server pflegen – wird bei Deploys nie überschrieben)
-          if ! $SSH "$REMOTE" "test -f '${TARGET}api/config.php'"; then
+          if ! ftp "cls -1 ${TARGET}api/config.php" > /dev/null 2>&1; then
             SECRET=$(openssl rand -hex 32)
             sed "s/'BITTE-AENDERN-' . 'mindestens-32-zeichen-zufall'/'$SECRET'/" public/api/config.example.php > /tmp/config.php
-            $SSH "$REMOTE" "mkdir -p '${TARGET}api'"
-            rsync -a -e "$SSH" /tmp/config.php "$REMOTE:${TARGET}api/config.php"
+            ftp "mkdir -p -f ${TARGET}api; put /tmp/config.php -o ${TARGET}api/config.php"
           fi
 
-          # api/config.php und api/data/ (Anfragen) bleiben auf dem Server unangetastet
-          rsync -az --delete \
-            --exclude 'api/config.php' --exclude 'api/data/' \
-            -e "$SSH" \
-            dist/ "$REMOTE:$TARGET"
+          # 1. Alle Dateien abgleichen (neu/geändert nach Größe, gelöschte entfernen).
+          #    api/config.php und api/data/ (Anfragen) bleiben auf dem Server unangetastet.
+          # 2. Seiten und Konfigurationsdateien immer übertragen (können bei gleicher Größe geändert sein).
+          EXCL="-x ^api/config\\.php$ -x ^api/data/"
+          ftp "mirror -R --delete --ignore-time --parallel=8 $EXCL dist/ ${TARGET}"
+          ftp "mirror -R --parallel=8 $EXCL -I *.html -I *.xml -I *.txt -I *.json -I *.yml -I *.php -I .htaccess dist/ ${TARGET}"
