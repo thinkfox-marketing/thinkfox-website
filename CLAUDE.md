@@ -36,7 +36,8 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   Kacheln (`src/lib/osm-karte.mjs`, `scripts/astro-osm-karte.mjs`, Cache `.osm-cache/`), interaktiv erst auf Klick.
 - **Datenschutz:** YouTube und Kuula per 2-Klick-Lösung (Iframe mit `srcdoc`-Hinweis),
   Bilder/Schriften des Bewertungs-Widgets und YouTube-Vorschaubilder lokal (`scripts/astro-extern-lokal.mjs`),
-  kein WordPress-Emoji-Skript, Termin-Iframe lädt erst beim Öffnen.
+  kein WordPress-Emoji-Skript, Termin-Iframe lädt erst beim Öffnen. Google-Tag und Meta-Pixel laden erst nach
+  Zustimmung zum jeweiligen Usercentrics-Dienst (`src/components/Tracking.astro`, Erkennung über den Dienstnamen).
 - **Ladezeit:** Stylesheets als wenige Bündel (`src/lib/css-bundle.ts`, nur im Build), Hero-Standbild und
   Hausschriften per Preload, verdecktes Hero-Hintergrundbild entfernt. Gegen Layout-Verschiebungen (CLS):
   Logo-Laufband und Hintergrundvideos haben schon vor dem Skriptstart ihre Endgröße

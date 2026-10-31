@@ -1,6 +1,10 @@
 ---
-// Consent-Management (Usercentrics), Google Tag (Analytics + Ads, Consent Mode v2) und Meta Pixel –
-// unverändert aus der bisherigen Seite übernommen.
+// Consent-Management (Usercentrics) mit fest gekoppeltem Tracking:
+// Google-Tag (Analytics + Ads) und Meta-Pixel werden erst geladen, wenn der Besucher dem jeweiligen
+// Dienst in Usercentrics zugestimmt hat – vorher geht keine Anfrage an Google oder Meta.
+// Die Dienste werden über ihren Namen in der Usercentrics-Konfiguration erkannt (MUSTER unten);
+// heißen sie dort anders, meldet die Browser-Konsole die vorhandenen Dienstnamen.
+// Consent Mode v2: Standard „abgelehnt“, nach Zustimmung „erteilt“.
 ---
 <script is:inline id="google_gtagjs-js-consent-mode-data-layer">
 window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
@@ -8,26 +12,69 @@ gtag('consent', 'default', {"ad_personalization":"denied","ad_storage":"denied",
 </script>
 <script is:inline id="usercentrics-cmp" async data-eu-mode="true" data-settings-id="M1dnUTtoM9So_8" src="https://app.eu.usercentrics.eu/browser-ui/latest/loader.js"></script>
 <script is:inline type="application/javascript" src="https://sdp.eu.usercentrics.eu/latest/uc-block.bundle.js"></script>
-<script is:inline id="google_gtagjs-js" src="https://www.googletagmanager.com/gtag/js?id=GT-WFFP6CR" async></script>
-<script is:inline id="google_gtagjs-js-after">
-window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
-gtag("set","linker",{"domains":["thinkfox.de"]});
-gtag("js", new Date());
-gtag("config", "GT-WFFP6CR");
-gtag("config", "AW-10968178399");
+<script is:inline id="tf-tracking">
+(function () {
+  var MUSTER = {
+    analytics: /google analytics|google tag|gtag/i,
+    ads: /google ads|adwords|google conversion|google remarketing|doubleclick/i,
+    meta: /facebook|meta pixel/i,
+  };
+  var geladen = {};
+
+  function skript(src) {
+    var s = document.createElement('script');
+    s.async = true; s.src = src;
+    document.head.appendChild(s);
+  }
+
+  function google(analytics, ads) {
+    gtag('consent', 'update', {
+      analytics_storage: analytics ? 'granted' : 'denied',
+      ad_storage: ads ? 'granted' : 'denied',
+      ad_user_data: ads ? 'granted' : 'denied',
+      ad_personalization: ads ? 'granted' : 'denied',
+    });
+    if (!(analytics || ads) || geladen.google) return;
+    geladen.google = true;
+    skript('https://www.googletagmanager.com/gtag/js?id=GT-WFFP6CR');
+    gtag('set', 'linker', { domains: ['thinkfox.de'] });
+    gtag('js', new Date());
+    gtag('config', 'GT-WFFP6CR');
+    gtag('config', 'AW-10968178399');
+  }
+
+  function meta(erlaubt) {
+    if (!erlaubt) { if (window.fbq) fbq('consent', 'revoke'); return; }
+    if (geladen.meta) { fbq('consent', 'grant'); return; }
+    geladen.meta = true;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;
+    n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '732699073218628');
+    fbq('track', 'PageView');
+  }
+
+  var gemeldet = false;
+  function pruefen() {
+    var uc = window.UC_UI;
+    if (!uc || !uc.isInitialized || !uc.isInitialized()) return;
+    var dienste = uc.getServicesBaseInfo() || [];
+    var zustimmung = function (muster) {
+      return dienste.some(function (d) { return muster.test(d.name) && d.consent && d.consent.status; });
+    };
+    var bekannt = dienste.some(function (d) { return MUSTER.analytics.test(d.name) || MUSTER.ads.test(d.name) || MUSTER.meta.test(d.name); });
+    if (!bekannt && !gemeldet) {
+      gemeldet = true;
+      console.warn('Tracking: kein Google-/Meta-Dienst in Usercentrics gefunden. Dienste:', dienste.map(function (d) { return d.name; }));
+    }
+    google(zustimmung(MUSTER.analytics), zustimmung(MUSTER.ads));
+    meta(zustimmung(MUSTER.meta));
+  }
+
+  ['UC_UI_INITIALIZED', 'UC_UI_CMP_EVENT', 'UC_UI_VIEW_CHANGED', 'ucEvent', 'UC_CONSENT'].forEach(function (e) {
+    window.addEventListener(e, function () { setTimeout(pruefen, 0); });
+  });
+  if (document.readyState === 'complete') pruefen(); else window.addEventListener('load', pruefen);
+})();
 </script>
-<script is:inline>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '732699073218628');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none" alt=""
-src="https://www.facebook.com/tr?id=732699073218628&ev=PageView&noscript=1"
-/></noscript>
