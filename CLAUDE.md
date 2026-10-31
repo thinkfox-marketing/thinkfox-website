@@ -23,9 +23,10 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 
 ## Bewusste Abweichungen vom Original
 
-- **Hintergrundvideos** (`src/lib/hero-video.ts`, `src/scripts/hero-video.js`): komprimiertes Showreel
-  (`public/media/showreel.mp4`), Standbild statt Video auf dem Handy (≤ 767 px) und bei
-  „Bewegung reduzieren“, Pause-Knopf (WCAG 2.2.2). In ausgeblendeten Bereichen wird kein Video geladen.
+- **Hintergrundvideos** (`src/lib/hero-video.ts`, `src/scripts/hero-video.js`): komprimierte Showreels
+  (`public/media/showreel.mp4` Querformat 5 MB, `showreel-mobil.mp4` Hochkant 2,8 MB statt WebM),
+  Standbild bei „Bewegung reduzieren“ und auf dem Handy dort, wo es keine Hochkant-Fassung gibt,
+  Pause-Knopf (WCAG 2.2.2). In ausgeblendeten Bereichen wird kein Video geladen.
 - **„Bewegung reduzieren“:** Slider/Logo-Laufband stoppen, Einblend-Animationen aus.
 
 ## Regeln

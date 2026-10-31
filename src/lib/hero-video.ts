@@ -1,11 +1,14 @@
 // Hintergrundvideos (Elementor „background_video_link“) zugänglich und schneller machen:
-// - komprimierte Fassung des Showreels (public/media/showreel.mp4, 5 MB statt 20 MB)
+// - komprimierte Fassungen des Showreels (public/media/showreel*.mp4)
 // - Standbild als Hintergrund, sichtbar bis das Video läuft bzw. statt des Videos
-//   (Handy und „Bewegung reduzieren“, siehe src/scripts/hero-video.js)
+//   („Bewegung reduzieren“ u. a., siehe src/scripts/hero-video.js)
 // - Pause-Knopf (WCAG 2.2.2 „Pausieren, Beenden, Ausblenden“)
 
 const SHOWREEL_ORIGINAL = '/wp-content/uploads/2025/10/SHOWREEL-1-KUNDEN-2023-thinkfox1080.mp4';
 const SHOWREEL = '/media/showreel.mp4';
+// Hochkant-Fassung der Handy-Heroes: MP4 statt WebM (läuft auch auf iPhones), 2,8 MB statt 12 MB
+const SHOWREEL_MOBIL_ORIGINAL = '/wp-content/uploads/2026/02/showreel-thinkfox-marketing.webm';
+const SHOWREEL_MOBIL = '/media/showreel-mobil.mp4';
 const STANDBILD = '/media/showreel-standbild.webp';
 const STANDBILD_MOBIL = '/media/showreel-standbild-mobil.webp';
 
@@ -20,7 +23,10 @@ export function renderHeroVideos(main: string): string {
   for (let m = re.exec(main); m; m = re.exec(main)) {
     const raw = m[1];
     const mobil = raw.includes('.webm');
-    const settings = raw.replace(SHOWREEL_ORIGINAL.replaceAll('/', '\\/'), SHOWREEL.replaceAll('/', '\\/'));
+    const esc = (s: string) => s.replaceAll('/', '\\/');
+    const settings = raw
+      .replace(esc(SHOWREEL_ORIGINAL), esc(SHOWREEL))
+      .replace(esc(SHOWREEL_MOBIL_ORIGINAL), esc(SHOWREEL_MOBIL));
     const container = main.indexOf('<div class="elementor-background-video-container"', m.index);
     const containerEnd = main.indexOf('</div>', container) + '</div>'.length;
     const poster = mobil ? STANDBILD_MOBIL : STANDBILD;

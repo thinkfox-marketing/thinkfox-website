@@ -1,7 +1,9 @@
-// Hintergrundvideos: auf dem Handy und bei „Bewegung reduzieren“ nur das Standbild zeigen,
-// sonst Video mit Pause-Knopf. Läuft vor der Elementor-Initialisierung (Modul-Skript,
-// Elementor startet erst bei DOMContentLoaded) und kann deshalb die Einstellungen anpassen.
-const nurStandbild = matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)').matches;
+// Hintergrundvideos mit Pause-Knopf. Standbild statt Video bei „Bewegung reduzieren“ und auf dem
+// Handy überall dort, wo es keine eigene Handy-Fassung gibt (das Querformat-Video wäre dort zu groß).
+// Läuft vor der Elementor-Initialisierung (Modul-Skript, Elementor startet erst bei DOMContentLoaded)
+// und kann deshalb die Einstellungen anpassen.
+const bewegungReduziert = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const handy = matchMedia('(max-width: 767px)').matches;
 
 for (const el of document.querySelectorAll('[data-settings*="background_video_link"]')) {
   const video = el.querySelector('.elementor-background-video-container video');
@@ -10,7 +12,8 @@ for (const el of document.querySelectorAll('[data-settings*="background_video_li
 
   // Auf diesem Gerät ausgeblendete Bereiche (z. B. der Handy-Hero am Desktop) laden kein Video
   const versteckt = el.getClientRects().length === 0;
-  if (nurStandbild || versteckt) {
+  const handyFassung = el.dataset.settings.includes('showreel-mobil');
+  if (bewegungReduziert || versteckt || (handy && !handyFassung)) {
     const settings = JSON.parse(el.dataset.settings);
     delete settings.background_video_link;
     settings.background_background = 'classic';
@@ -32,7 +35,7 @@ for (const el of document.querySelectorAll('[data-settings*="background_video_li
 }
 
 // „Bewegung reduzieren“: automatisch laufende Slider und das Logo-Laufband anhalten
-if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+if (bewegungReduziert) {
   const stoppen = () => {
     for (const el of document.querySelectorAll('.swiper, .swiper-container')) el.swiper?.autoplay?.stop();
   };

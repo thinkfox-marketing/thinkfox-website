@@ -35,6 +35,10 @@ button.tf-video-toggle[aria-pressed="true"] .tf-video-toggle__play { display: bl
 @media (max-width: 1024px) {
   button.tf-video-toggle { right: 24px; bottom: 140px; }
 }
+@media (max-width: 767px) {
+  /* unten liegen Buttons und Logo-Laufband – daher oben rechts unter dem Menübalken */
+  button.tf-video-toggle { top: 128px; right: 16px; bottom: auto; }
+}
 
 /* „Bewegung reduzieren“: Einblend-Animationen abschalten, Inhalte sofort zeigen */
 @media (prefers-reduced-motion: reduce) {
