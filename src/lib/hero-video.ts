@@ -32,7 +32,10 @@ export function renderHeroVideos(main: string): string {
     const container = main.indexOf('<div class="elementor-background-video-container"', m.index);
     const containerEnd = main.indexOf('</div>', container) + '</div>'.length;
     const poster = mobil ? STANDBILD_MOBIL : STANDBILD;
+    // Das Hintergrundbild des Bereichs liegt komplett unter dem Video-Container (Standbild) und
+    // ist nie sichtbar – ohne es lädt der Browser kein zusätzliches Bild als „größtes Element“.
     out += main.slice(last, m.index)
+      + 'style="background-image:none" '
       + `data-tf-hochkant="${SHOWREEL_MOBIL}" data-tf-standbild-hochkant="${STANDBILD_MOBIL}" `
       + `data-settings="${settings}"`
       + main.slice(m.index + m[0].length, container)

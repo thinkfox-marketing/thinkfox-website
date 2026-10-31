@@ -48,6 +48,14 @@ const standbild = (name: string) => main.match(new RegExp(`/media/${name}\\.webp
 const preloadDesktop = heroOben ? standbild('showreel-standbild') : undefined;
 const preloadMobil = heroOben ? standbild('showreel-standbild-mobil') : undefined;
 
+// Hausschriften (lateinischer Zeichensatz) sofort laden: sonst springt der Text, sobald die
+// Schrift nach dem ersten Zeichnen eintrifft (font-display: swap → Layout-Verschiebung)
+const SCHRIFTEN = [
+  '/wp-content/uploads/elementor/google-fonts/fonts/outfit-97312486.woff2',
+  '/wp-content/uploads/elementor/google-fonts/fonts/poppins-d0e6a9ae.woff2',
+  '/wp-content/uploads/elementor/google-fonts/fonts/poppins-e6a077c3.woff2',
+];
+
 // Unternehmensprofil, Leistung, FAQ als JSON-LD (src/lib/geo.ts)
 const beschreibung = seo.match(/<meta name="description" content="([^"]*)"/)?.[1];
 const jsonLd = strukturierteDaten(Astro.url.pathname, main, beschreibung);
@@ -65,6 +73,7 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
   <link rel="alternate" type="application/rss+xml" title="thinkfox marketing &raquo; Feed" href="/feed/" />
   {preloadDesktop && <link rel="preload" as="image" href={preloadDesktop} media="(min-width: 768px)" fetchpriority="high" />}
   {preloadMobil && <link rel="preload" as="image" href={preloadMobil} media="(max-width: 767px)" fetchpriority="high" />}
+  {SCHRIFTEN.map((href) => <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />)}
   {bundle ? (
     <>
       {bundle.ids.map((id) => <style id={id}></style>)}
