@@ -89,7 +89,8 @@ Die statischen Seiten (Startseite, Leistungsseiten, Kontakt, Impressum …) lieg
 2. KAS → **FTP → Neuer FTP-Benutzer**, Verzeichnis = Verzeichnis der Subdomain.
 3. GitHub → Repository → **Settings → Secrets and variables → Actions** → „New repository secret“:
    `FTP_HOST` (z. B. `w0123456.kasserver.com`), `FTP_USER`, `FTP_PASSWORD`, `STAGING_PATH` (`/`).
-4. GitHub → **Actions → Build & Deploy → Run workflow** (Branch `claude/ecstatic-feynman-godndt`).
+4. GitHub → **Actions → Build & Deploy → Run workflow** – oder einfach auf `main` pushen.
+   Jeder Stand auf `main` geht auf die Vorschau; mit gesetztem `DEPLOY_PATH` zusätzlich live.
 
 Übertragen wird per FTPS. Die Staging-Seite ist für Suchmaschinen gesperrt (robots.txt + `X-Robots-Tag`).
 Beim ersten Deploy wird `api/config.php` mit Standardwerten angelegt – danach per FTP/KAS-Dateimanager

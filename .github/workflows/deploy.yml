@@ -1,36 +1,40 @@
-# Baut die Website und überträgt sie per FTPS (FTP mit TLS) auf den Webspace (All-Inkl).
+# Baut die Website und überträgt sie per FTPS auf den Webspace (All-Inkl).
 #
-#   Push auf main                          → Produktion  (Secret DEPLOY_PATH)
-#   Push auf claude/ecstatic-feynman-godndt → Staging     (Secret STAGING_PATH, für Suchmaschinen gesperrt)
-#   täglich 4:17 Uhr (Instagram-Feed) und manuell über „Run workflow“
+#   Push auf main (auch Veröffentlichungen aus dem CMS), täglich 4:17 Uhr (Instagram-Feed),
+#   manuell über „Run workflow“:
+#     → Vorschau  (Secret STAGING_PATH, z. B. neu.thinkfox.de – für Suchmaschinen gesperrt)
+#     → Live      (Secret DEPLOY_PATH – erst beim Umzug der Domain setzen)
 #
-# Repository-Secrets (GitHub → Settings → Secrets and variables → Actions):
+# Secrets (GitHub → Repository oder Organisation → Settings → Secrets and variables → Actions):
 #   FTP_HOST         FTP-Server, bei All-Inkl z. B. w0123456.kasserver.com
 #   FTP_USER         FTP-Benutzer (empfohlen: eigener Benutzer nur für das Zielverzeichnis)
 #   FTP_PASSWORD     Passwort des FTP-Benutzers
-#   STAGING_PATH     Zielverzeichnis aus Sicht des FTP-Benutzers, bei eigenem Benutzer meist /
-#   DEPLOY_PATH      Zielverzeichnis der Live-Domain (erst beim Umzug setzen)
+#   STAGING_PATH     Zielverzeichnis der Vorschau aus Sicht des FTP-Benutzers, bei eigenem Benutzer: /
+#   DEPLOY_PATH      Zielverzeichnis der Live-Seite
 #   INSTAGRAM_TOKEN  optional, für die Aktualisierung des Instagram-Feeds
-# Ohne passendes Zielverzeichnis wird nur gebaut (Ergebnis als Artefakt herunterladbar).
+# Ohne Zielverzeichnis wird nur gebaut (Ergebnis als Artefakt herunterladbar).
 name: Build & Deploy
 
 on:
   push:
-    branches: [main, claude/ecstatic-feynman-godndt]
+    branches: [main]
   schedule:
     - cron: '17 4 * * *'
   workflow_dispatch:
 
 concurrency:
-  group: deploy-${{ github.ref }}
+  group: deploy
   cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      STAGING: ${{ github.ref != 'refs/heads/main' }}
-      TARGET_PATH: ${{ github.ref == 'refs/heads/main' && secrets.DEPLOY_PATH || secrets.STAGING_PATH }}
+      FTP_HOST: ${{ secrets.FTP_HOST }}
+      FTP_USER: ${{ secrets.FTP_USER }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      STAGING_PATH: ${{ secrets.STAGING_PATH }}
+      DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
     steps:
       - uses: actions/checkout@v4
 
@@ -48,13 +52,13 @@ jobs:
 
       - run: npm run build
 
-      - name: Staging für Suchmaschinen sperren
-        if: env.STAGING == 'true'
+      - name: Vorschau-Version erzeugen (für Suchmaschinen gesperrt)
         run: |
-          printf 'User-Agent: *\nDisallow: /\n' > dist/robots.txt
-          printf '\n<IfModule mod_headers.c>\n  Header always set X-Robots-Tag "noindex, nofollow"\n</IfModule>\n' >> dist/.htaccess
-          # Unbekannte Adressen nicht auf die Live-Domain umleiten
-          sed -i 's#https://thinkfox.de%{REQUEST_URI}#https://%{HTTP_HOST}%{REQUEST_URI}#' dist/.htaccess
+          cp -a dist dist-staging
+          printf 'User-Agent: *\nDisallow: /\n' > dist-staging/robots.txt
+          printf '\n<IfModule mod_headers.c>\n  Header always set X-Robots-Tag "noindex, nofollow"\n</IfModule>\n' >> dist-staging/.htaccess
+          # https-Weiterleitung auf die eigene Adresse statt auf thinkfox.de
+          sed -i 's#https://thinkfox.de%{REQUEST_URI}#https://%{HTTP_HOST}%{REQUEST_URI}#' dist-staging/.htaccess
 
       - name: Artefakt speichern
         uses: actions/upload-artifact@v4
@@ -63,32 +67,14 @@ jobs:
           path: dist
           retention-days: 7
 
-      - name: Auf den Webspace übertragen
-        if: env.TARGET_PATH != ''
-        env:
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_USER: ${{ secrets.FTP_USER }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-        run: |
-          sudo apt-get install -y -qq lftp > /dev/null
-          TARGET="${TARGET_PATH%/}/"
-          ftp() {
-            lftp -u "$FTP_USER,$FTP_PASSWORD" "$FTP_HOST" -e "
-              set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate yes;
-              set net:max-retries 3; set net:timeout 30; $1; bye"
-          }
+      - name: lftp installieren
+        if: env.STAGING_PATH != '' || env.DEPLOY_PATH != ''
+        run: sudo apt-get install -y -qq lftp > /dev/null
 
-          # Erstinstallation: Formular-Konfiguration anlegen, falls noch keine existiert
-          # (danach nur noch auf dem Server pflegen – wird bei Deploys nie überschrieben)
-          if ! ftp "cls -1 ${TARGET}api/config.php" > /dev/null 2>&1; then
-            SECRET=$(openssl rand -hex 32)
-            sed "s/'BITTE-AENDERN-' . 'mindestens-32-zeichen-zufall'/'$SECRET'/" public/api/config.example.php > /tmp/config.php
-            ftp "mkdir -p -f ${TARGET}api; put /tmp/config.php -o ${TARGET}api/config.php"
-          fi
+      - name: Vorschau übertragen
+        if: env.STAGING_PATH != ''
+        run: scripts/deploy-ftp.sh dist-staging "$STAGING_PATH"
 
-          # 1. Alle Dateien abgleichen (neu/geändert nach Größe, gelöschte entfernen).
-          #    api/config.php und api/data/ (Anfragen) bleiben auf dem Server unangetastet.
-          # 2. Seiten und Konfigurationsdateien immer übertragen (können bei gleicher Größe geändert sein).
-          EXCL="-x ^api/config\\.php$ -x ^api/data/"
-          ftp "mirror -R --delete --ignore-time --parallel=8 $EXCL dist/ ${TARGET}"
-          ftp "mirror -R --parallel=8 $EXCL -I *.html -I *.xml -I *.txt -I *.json -I *.yml -I *.php -I .htaccess dist/ ${TARGET}"
+      - name: Live-Seite übertragen
+        if: env.DEPLOY_PATH != ''
+        run: scripts/deploy-ftp.sh dist "$DEPLOY_PATH"
