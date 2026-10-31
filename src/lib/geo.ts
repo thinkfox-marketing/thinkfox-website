@@ -88,6 +88,7 @@ export const BESCHREIBUNGEN: Record<string, string> = {
 };
 
 const text = (html: string) => html
+  .replace(/&shy;|\u00AD|<wbr>/g, '')
   .replace(/<svg[\s\S]*?<\/svg>/g, '')
   .replace(/<[^>]+>/g, ' ')
   .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#8222;|&#8220;/g, '"')

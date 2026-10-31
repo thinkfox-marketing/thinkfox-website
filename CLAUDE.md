@@ -41,6 +41,10 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   Hausschriften per Preload, verdecktes Hero-Hintergrundbild entfernt. Gegen Layout-Verschiebungen (CLS):
   Logo-Laufband und Hintergrundvideos haben schon vor dem Skriptstart ihre Endgröße
   (`ergaenzungen.css`, nur `@media (scripting: enabled)` – ohne JavaScript unverändert).
+- **Handy-Darstellung:** Projekt-Vorlage ohne die −8-px-Verschiebung des Inhalts (randlose Bilder/Videos wieder
+  volle Breite, Texte unverändert), zu lange Wörter in Überschriften mit Trennstellen (`src/lib/umbruch.ts`) bzw.
+  `overflow-wrap`, Überstände am Rand abgeschnitten statt seitlich verschiebbar (iPhone), Menü-Links nicht unterstrichen.
+  Beiträge bekommen ein `<main>` (fehlte im Original).
 - **SEO/GEO:** echte 404-Seite statt Weiterleitung auf die Startseite (alte WordPress-Weiterleitungen einzeln in `public/.htaccess`), Kategorie-Archive `noindex`,
   Unternehmensprofil/Service/FAQ als JSON-LD (`src/lib/geo.ts`), `/llms.txt`.
 

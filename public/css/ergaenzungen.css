@@ -77,8 +77,9 @@ body .elementor-posts .elementor-post__excerpt p { color: #717171; }
 /* Instagram „Auf Instagram folgen“ (#408bd1) */
 #sb_instagram .sbi_follow_btn a { background: #2e79bf !important; }
 
-/* Links im Fließtext zusätzlich zur Farbe unterstreichen (WCAG 1.4.1) */
-.elementor-widget-text-editor p a:not(.elementor-button),
+/* Links im Fließtext zusätzlich zur Farbe unterstreichen (WCAG 1.4.1) – nicht im Menü (Kopfbereich):
+   Navigationslinks stehen für sich und bleiben wie im Original */
+:where(main, .elementor-location-single, .elementor-location-footer, .elementor-location-popup) .elementor-widget-text-editor p a:not(.elementor-button),
 .erecht24-legal-texts a,
 :where(main, .elementor-location-single) .elementor-widget-text-editor li a:not(.elementor-button),
 .elementor-widget-theme-post-content p a:not(.elementor-button),
@@ -130,4 +131,30 @@ body .elementor-posts .elementor-post__excerpt p { color: #717171; }
 }
 @media (scripting: enabled) and (min-width: 2399px) {
   .eael-logo-carousel[data-items="9"][data-items-mobile="4"]:not(.swiper-initialized) > .swiper-wrapper > .swiper-slide { --n: 10; --abstand: 10px; }
+}
+
+/* --- Handy-Darstellung -------------------------------------------------------------------------- */
+
+/* Wörter, die allein breiter sind als die Zeile (lange Überschriften-Wörter, Adressen), umbrechen statt
+   über den Rand zu laufen. Alles, was passt, bleibt unverändert. Trennstellen: src/lib/umbruch.ts */
+h1, h2, h3, h4, h5, h6, p, li { overflow-wrap: break-word; }
+
+/* Was über den Bildschirmrand hinausragt, abschneiden: Safari (iPhone/iPad) beachtet overflow-x am
+   <body> nicht und lässt die Seite sonst seitlich verschieben. Sichtbar ändert sich dadurch nichts. */
+body > :is(header, main, footer, [data-elementor-type]) { overflow-x: clip; }
+
+@media (max-width: 767px) {
+  /* Projekt-Vorlage (Elementor-Template 10946): Der Beitragsinhalt ist mobil um 8 px nach links
+     verschoben (margin-left: -8px am Inhalt). Randlose Bereiche (Bilder, Videos) waren dadurch links
+     angeschnitten, rechts blieb ein Streifen. Ausgleich: Verschiebung aufheben und die Innenabstände
+     so umrechnen, dass Texte exakt an ihrer Stelle bleiben (10 px → 2 px links / 18 px rechts);
+     Bereiche ohne Innenabstand gehen wieder über die volle Breite. */
+  .elementor-10946 .elementor-element.elementor-element-1e804eb { margin-left: 0; }
+  .elementor-10946 .elementor-element-1e804eb > .elementor > .e-con {
+    padding-inline-start: max(0px, var(--padding-left) - 8px);
+    padding-inline-end: min(var(--padding-right) + 8px, var(--padding-right) * 1000);
+  }
+  .elementor-10946 .elementor-element-1e804eb > .elementor > .elementor-section { margin-left: -8px; margin-right: 8px; }
+  /* Überschrift über dem Video (z. B. „Recruitment-Video für …“): auf Höhe des Fließtexts */
+  .elementor-10946 .elementor-element-1e804eb .elementor-element-c1ca932 .elementor-widget-heading { padding-inline: 22px; }
 }

@@ -7,6 +7,7 @@ import popup from '../legacy/chrome/popup.html?raw';
 import type { ScriptRef, StyleRef } from '../lib/wp';
 import { asset } from '../lib/asset';
 import { einbettungen, zugaenglich } from '../lib/barrierefreiheit';
+import { trennstellen } from '../lib/umbruch';
 import { cssBundle } from '../lib/css-bundle';
 import { strukturierteDaten } from '../lib/geo';
 
@@ -24,10 +25,12 @@ const ajax = (s: string) => s.replaceAll('/wp-admin/admin-ajax.php', '/api/ajax.
 // Formulare immer per AJAX absenden (statt Seiten-POST an WordPress)
 // Termin-Iframe im (geschlossenen) Popup erst laden, wenn das Popup geöffnet wird
 const popupLazy = popup.replace('<iframe ', '<iframe loading="lazy" title="Termin vereinbaren" ');
-const main = zugaenglich(einbettungen(ajax(Astro.props.main))).replace(
+const main = trennstellen(zugaenglich(einbettungen(ajax(Astro.props.main)))).replace(
   /(class="forminator-ui forminator-custom-form forminator-custom-form-\d+ [^"]*?)(\s*")/g,
   (m, cls, end) => (cls.includes('forminator_ajax') ? m : `${cls} forminator_ajax${end}`),
 );
+// Beiträge (Elementor-Single-Vorlage) haben im Original kein <main> – Hauptbereich für Screenreader ergänzen
+const mitMain = main.includes('<main');
 const tag = (s: ScriptRef) => s.src
   ? `<script${s.id ? ` id="${s.id}"` : ''}${s.type ? ` type="${s.type}"` : ''} src="${s.src}"${s.async ? ' async' : ''}${s.defer ? ' defer' : ''}></script>`
   : `<script${s.id ? ` id="${s.id}"` : ''}${s.type ? ` type="${s.type}"` : ''}>${ajax(s.inline ?? '')}</script>`;
@@ -95,7 +98,7 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
 </head>
 <body class={bodyClass}>
   {!canvas && <Fragment set:html={zugaenglich(header)} />}
-  <Fragment set:html={main} />
+  {mitMain ? <Fragment set:html={main} /> : <main><Fragment set:html={main} /></main>}
   {!canvas && <Fragment set:html={footer} />}
   {!canvas && <Fragment set:html={scrollTop} />}
   {!canvas && <div class="tf-popup-store" hidden><Fragment set:html={popupLazy} /></div>}
