@@ -7,8 +7,9 @@
 
 export const SITE = 'https://thinkfox.de';
 
-/** Standort für Karte und JSON-LD. null → wird beim Build über OpenStreetMap (Nominatim) ermittelt. */
-export const KOORDINATEN: { lat: number; lon: number } | null = null;
+/** Standort für Karte und JSON-LD (OpenStreetMap/Nominatim für Bahnhofstraße 39a, Edertal-Giflitz).
+ *  null → wird beim Build über Nominatim aus der Adresse ermittelt (z. B. nach einem Umzug). */
+export const KOORDINATEN: { lat: number; lon: number } | null = { lat: 51.1606349, lon: 9.1357474 };
 
 export const UNTERNEHMEN = {
   '@type': ['Organization', 'ProfessionalService'],
