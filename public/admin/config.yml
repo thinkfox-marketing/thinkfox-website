@@ -174,7 +174,6 @@ collections:
       - { label: Alternativtext Beitragsbild, name: bildAlt, widget: string, required: false }
       - { label: Anrisstext (Auszug), name: auszug, widget: text, hint: "Erscheint in der Blog-Übersicht und auf der Startseite (wird automatisch gekürzt)." }
       - { label: Einleitung, name: einleitung, widget: text, required: false, hint: "Ein bis zwei Sätze unter dem Titel. Leer = Meta-Beschreibung aus „SEO“." }
-      - { label: Autor/in, name: autor, widget: string, required: false, hint: "Leer = thinkfox marketing" }
       - { label: Text, name: body, widget: markdown, required: false, hint: "Zwischenüberschriften (H2) ergeben das Inhaltsverzeichnis. Ein YouTube-Link allein in einer Zeile wird als Video (mit Datenschutz-Hinweis) angezeigt, ein interner Link allein in einer Zeile als Button." }
       - label: FAQ
         name: faq

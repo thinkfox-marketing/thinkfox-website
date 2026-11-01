@@ -18,6 +18,8 @@ leistungen: ["Corporate Design", "Fotoproduktion", "Kampagnen", "Printproduktion
 projektLink:
   text: "Zur Website der Kampagne der Stadt Korbach"
   url: "https://korbach-becher-machen.de"
+aufgabe: |
+  Planung einer Kampagne zur Unterstützung der Korbacher Gewerbetreibenden im Bereich Gastro zur Einführung eines Mehrweg-Systems.
 loesung: |
   - Konzeption der Kampagne „Korbach becher machen“
   - Planung und Layout der Gestaltungselemente
@@ -28,5 +30,5 @@ loesung: |
   - Produktion Social-Media Reels mit Aussagen der Gewerbetreibenden zum Thema „Mehrweg in Korbach“
   - Erstellung von Social-Media Vorlagen für die Mitmachenden und auch die Stadt zur allg. Bewerbung der Kampagne
 
-  Planung einer Kampagne zur Unterstützung der Korbacher Gewerbetreibenden im Bereich Gastro zur Einführung eines Mehrweg-Systems
+  Mehr zur Video- und Fotoproduktion der Kampagne: [Video-/Fotoproduktion Recup Stadt Korbach](/video-fotoproduktion-recup-stadt-korbach/)
 ---

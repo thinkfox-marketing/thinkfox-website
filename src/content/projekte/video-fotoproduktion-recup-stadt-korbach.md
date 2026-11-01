@@ -14,17 +14,19 @@ template: "none"
 legacy: false
 kunde: "Stadt Korbach"
 veroeffentlichung: "2022/2023"
-leistungen: ["Corporate Design", "Fotoproduktion", "Kampagnen", "Printproduktion", "SocialMedia Betreuung", "Video-/Filmproduktion", "Website"]
+leistungen: ["Fotoshooting", "Erklärvideo", "Social-Media-Reels"]
 projektLink:
   text: "Hier geht`s zur Kampagne der Stadt Korbach!"
   url: "https://korbach-becher-machen.de/"
+aufgabe: |
+  Planung einer Kampagne zur Unterstützung der Korbacher Gewerbetreibenden im Bereich Gastro zur Einführung eines Mehrweg-Systems. Teil der Kampagne waren eine Video- und eine Fotoproduktion.
 loesung: |
   - Konzeption der Recup-Kampagne „Korbach becher machen“
   - Fotoshooting mit Darstellern der Kampagne
   - Videoproduktionen zur Unterstützung der Kampagne als Erklär-Video
   - Produktion Social-Media Reels mit Aussagen der Gewerbetreibenden zum Thema „Mehrweg in Korbach“
 
-  Planung einer Kampagne zur Unterstützung der Korbacher Gewerbetreibenden im Bereich Gastro zur Einführung eines Mehrweg-Systems. Inhalt der Kampagne waren u.a. Videoproduktion und Fotoproduktion.
+  Zur Gesamtkampagne mit Gestaltung, Website und Druck: [Kampagne „Korbach becher machen!“](/korbach-becher-machen/)
 medien:
   - typ: "video"
     youtube: "https://youtu.be/18KlXSXCp0Y"

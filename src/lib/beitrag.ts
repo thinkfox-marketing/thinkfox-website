@@ -220,7 +220,7 @@ export async function blogSeite(p: Blog): Promise<string> {
   <header class="tf-kopf">
     <div class="tf-huelle tf-huelle--text">
       ${pfad([{ text: 'Start', link: '/' }, { text: 'Blog', link: '/blog/' }, { text: d.title }])}
-      <p class="tf-kopf__marke"><time datetime="${d.date.toISOString().slice(0, 10)}">${datum(d.date)}</time> · ${min} Min. Lesezeit · ${esc(d.autor ?? 'thinkfox marketing')}</p>
+      <p class="tf-kopf__marke"><time datetime="${d.date.toISOString().slice(0, 10)}">${datum(d.date)}</time> · ${min} Min. Lesezeit</p>
       <h1 class="tf-kopf__titel">${esc(d.title)}</h1>
       ${teaserText(d, text) ? `<p class="tf-kopf__teaser">${esc(teaserText(d, text))}</p>` : ''}
     </div>

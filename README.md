@@ -27,7 +27,7 @@ Wichtige Felder:
 - **Projekte**: Einleitung, Steckbrief (Kunde, Branche, Jahr, Leistungen), die drei Abschnitte
   **01 Aufgabe – 02 Lösung – 03 Ergebnis** (leere Abschnitte werden ausgeblendet), Bilder & Videos,
   optional eine Kundenstimme.
-- **Blog**: Einleitung, Autor/in, Text (H2-Zwischenüberschriften ergeben das Inhaltsverzeichnis; ein
+- **Blog**: Einleitung, Text (H2-Zwischenüberschriften ergeben das Inhaltsverzeichnis; ein
   YouTube-Link allein in einer Zeile wird zum Video, ein interner Link allein in einer Zeile zum Button),
   optionaler FAQ-Block und Abschluss-Box mit Button.
 
