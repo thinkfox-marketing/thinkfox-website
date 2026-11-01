@@ -4,13 +4,18 @@
  * Ablauf: /admin öffnet dieses Skript im Popup → Weiterleitung zu GitHub → Rückkehr mit ?code=
  * → Code gegen Token tauschen → Token per postMessage an das CMS-Fenster übergeben.
  * Benötigt in api/config.php: 'github' => ['client_id' => …, 'client_secret' => …]
- * (GitHub → Settings → Developer settings → OAuth Apps, Callback-URL: https://thinkfox.de/api/cms-auth.php)
+ * oder api/config-github.php (beim Deploy aus GitHub-Secrets erzeugt).
+ * (GitHub → Settings → Developer settings → OAuth Apps, Callback-URL: https://<domain>/api/cms-auth.php)
  */
 
 declare(strict_types=1);
 session_start();
 $config = is_file(__DIR__ . '/config.php') ? require __DIR__ . '/config.php' : [];
 $gh = $config['github'] ?? null;
+// alternativ beim Deploy aus den GitHub-Secrets CMS_GITHUB_CLIENT_ID/-SECRET erzeugt (api/config-github.php)
+if ((!$gh || empty($gh['client_id'])) && is_file(__DIR__ . '/config-github.php')) {
+    $gh = require __DIR__ . '/config-github.php';
+}
 if (!$gh || empty($gh['client_id']) || empty($gh['client_secret'])) {
     http_response_code(500);
     exit('GitHub-OAuth ist nicht eingerichtet (api/config.php → github).');
