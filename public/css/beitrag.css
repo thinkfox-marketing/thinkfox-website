@@ -44,6 +44,38 @@
 .tf-kopf__teaser { margin: 0 0 2rem; font-size: clamp(1.125rem, 2.4vw, 1.375rem); line-height: 1.5; color: var(--tf-text); max-width: 46ch; }
 
 .tf-kopf__bild { margin-block: 0 0; }
+.tf-kopf__bild--video iframe { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; border: 0; border-radius: var(--tf-radius); background: var(--tf-lila-dunkel); box-shadow: 0 18px 50px rgb(59 49 146 / 0.18); }
+
+/* Leistungen im Projekt: Wischleiste mit nummerierten Karten – wenige passen nebeneinander, viele lassen sich wischen */
+.tf-leistungen { padding-top: 3rem; }
+.tf-leistungen__kopf { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.tf-beitrag .tf-leistungen__titel { margin: 0; font-size: var(--fs-h4, 1.25rem); font-weight: 700; line-height: 1.3; color: var(--tf-lila); }
+.tf-leistungen__pfeile { display: flex; gap: 0.5rem; }
+.tf-leistungen__pfeile[hidden] { display: none; }
+/* !important: die Kit-Regel für alle <button> (grau, 22/32 px Innenabstand) ist spezifischer */
+.tf-beitrag .tf-leistungen__pfeil {
+  display: grid; place-items: center; width: 44px; height: 44px; padding: 0 !important; border: 1px solid var(--tf-lila) !important; border-radius: 10px !important;
+  background: #fff !important; color: var(--tf-lila) !important; font: 700 1.25rem/1 "Outfit", sans-serif !important; letter-spacing: 0 !important; cursor: pointer;
+}
+.tf-beitrag .tf-leistungen__pfeil:is(:hover, :focus-visible):not(:disabled) { background: var(--tf-lila) !important; color: #fff !important; }
+.tf-beitrag .tf-leistungen__pfeil:focus-visible { outline: 3px solid var(--tf-lila); outline-offset: 2px; }
+.tf-beitrag .tf-leistungen__pfeil:disabled { opacity: 0.35; cursor: default; }
+.tf-leistungen__leiste {
+  overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: 2px;
+  scrollbar-width: thin; scrollbar-color: var(--tf-linie) transparent; padding: 2px 2px 12px; margin: -2px -2px 0;
+}
+.tf-leistungen__leiste:focus-visible { outline: 3px solid var(--tf-lila); outline-offset: 2px; border-radius: 12px; }
+.tf-leistungen--mehr .tf-leistungen__leiste { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent); }
+.tf-leistungen__liste {
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(min(78vw, 240px), 1fr); gap: 0.875rem;
+  margin: 0; padding: 0; list-style: none;
+}
+.tf-leistungen__liste li {
+  display: flex; flex-direction: column; gap: 0.5rem; scroll-snap-align: start; padding: 1.125rem 1.25rem 1.25rem;
+  border-radius: 14px; background: var(--tf-hell); color: var(--tf-text); font-size: 1.0625rem; font-weight: 600; line-height: 1.35;
+  overflow-wrap: break-word; hyphens: auto;
+}
+.tf-leistungen__nr { font-size: 0.9375rem; font-weight: 700; color: var(--tf-lila-dunkel); }
 .tf-kopf__bild img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--tf-radius); box-shadow: 0 18px 50px rgb(59 49 146 / 0.18); }
 
 /* Steckbrief (Projekt) */
@@ -52,12 +84,9 @@
   background: #fff; border-radius: var(--tf-radius); box-shadow: 0 6px 24px rgb(59 49 146 / 0.08);
 }
 .tf-steckbrief div { display: grid; gap: 0.125rem; align-content: start; }
-.tf-steckbrief div:first-child, .tf-steckbrief div:has(.tf-chips), .tf-steckbrief__link { grid-column: 1 / -1; }
+.tf-steckbrief div:first-child, .tf-steckbrief__link { grid-column: 1 / -1; }
 .tf-steckbrief dt { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tf-grau); }
 .tf-steckbrief dd { margin: 0; min-width: 0; font-weight: 600; }
-/* Leistungen als schlichte Liste, ein Eintrag pro Zeile (keine Pillen) */
-.tf-chips { display: grid; gap: 0.3rem; margin: 0.25rem 0 0; padding: 0; list-style: none; }
-.tf-chips li { margin: 0; padding: 0; line-height: 1.4; overflow-wrap: break-word; }
 .tf-steckbrief__link a { color: var(--tf-lila-dunkel); font-weight: 700; overflow-wrap: anywhere; }
 
 /* --- Case Study (Projekt) ----------------------------------------------------------------------- */

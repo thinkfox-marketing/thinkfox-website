@@ -26,4 +26,5 @@ loesung: "Konzeption, Szenerie und Dreh des Filmes am Standort Wachenfeld in Kor
 medien:
   - typ: "video"
     youtube: "https://youtu.be/dXHUnnxxq8Y"
+kopf: "video"
 ---

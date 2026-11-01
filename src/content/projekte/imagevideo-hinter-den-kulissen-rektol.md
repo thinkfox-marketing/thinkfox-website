@@ -23,4 +23,5 @@ loesung: "Ideenfindung & Konzeption für Rektol, Storyentwicklung **zur individu
 medien:
   - typ: "video"
     youtube: "https://youtu.be/VqpvSHrFV4Y"
+kopf: "video"
 ---

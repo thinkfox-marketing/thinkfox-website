@@ -52,6 +52,8 @@ const projekte = defineCollection({
     loesung: z.string().optional(),
     ergebnis: z.string().optional(),
     kundenstimme: z.object({ zitat: z.string(), name: z.string(), funktion: z.string().optional() }).optional(),
+    // Kopfbereich: Beitragsbild oder (reine Videoprojekte) das erste Video aus „Bilder & Videos“
+    kopf: z.enum(['bild', 'video']).default('bild'),
   }),
 });
 

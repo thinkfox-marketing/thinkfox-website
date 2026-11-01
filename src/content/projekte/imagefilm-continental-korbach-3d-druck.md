@@ -31,4 +31,5 @@ ergebnis: "Anschauliche Beispiele machen den Effekt greifbar: Eine neu entwickel
 medien:
   - typ: "video"
     youtube: "https://youtu.be/OLLdnpHxwEs"
+kopf: "video"
 ---

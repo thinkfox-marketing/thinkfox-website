@@ -23,4 +23,5 @@ loesung: "Konzeption, Szenerie und Dreh des Podcast im Besucherzentrum am Ederse
 medien:
   - typ: "video"
     youtube: "https://youtu.be/7N-JNgx50v0"
+kopf: "video"
 ---

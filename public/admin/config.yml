@@ -84,11 +84,19 @@ collections:
           - { label: "Website", value: "website" }
       - { label: Beitragsbild, name: bild, widget: image, hint: "Wird im Slider, in Archiven und als Vorschaubild (Social Media) verwendet." }
       - { label: Alternativtext Beitragsbild, name: bildAlt, widget: string, required: false, hint: "Kurz beschreiben, was zu sehen ist (Barrierefreiheit, SEO)." }
+      - label: Oben auf der Projektseite
+        name: kopf
+        widget: select
+        default: bild
+        options:
+          - { label: "Beitragsbild", value: bild }
+          - { label: "Video (das erste aus „Bilder & Videos“) – für reine Videoprojekte", value: video }
+        hint: "Bei Video erscheint das Beitragsbild nur noch im Slider und als Vorschaubild."
       - { label: Einleitung, name: einleitung, widget: text, required: false, hint: "Ein bis zwei Sätze unter dem Titel. Leer = Meta-Beschreibung aus „SEO“." }
       - { label: Kunde, name: kunde, widget: string, required: false }
       - { label: Branche, name: branche, widget: string, required: false, hint: "z. B. Wirtschaftskanzlei, Bauunternehmen" }
       - { label: Jahr / Zeitraum, name: veroeffentlichung, widget: string, required: false, hint: "z. B. 2026 oder 2023 – heute" }
-      - { label: Leistungen, name: leistungen, widget: list, required: false, field: { label: Leistung, name: leistung, widget: string }, hint: "Erscheinen als Schlagworte im Steckbrief." }
+      - { label: Leistungen, name: leistungen, widget: list, required: false, field: { label: Leistung, name: leistung, widget: string }, hint: "Kurze Schlagworte (2–5 Wörter) lesen sich am besten. Erscheinen als Leiste unter dem Kopfbereich." }
       - { label: "01 Aufgabe", name: aufgabe, widget: markdown, required: false, buttons: [bold, italic, link, heading-three, bulleted-list, numbered-list], editor_components: [], hint: "Ausgangslage und Ziel des Kunden." }
       - { label: "02 Lösung", name: loesung, widget: markdown, required: false, buttons: [bold, italic, link, heading-three, bulleted-list, numbered-list], editor_components: [], hint: "Was wir gemacht haben (Konzept, Umsetzung)." }
       - { label: "03 Ergebnis", name: ergebnis, widget: markdown, required: false, buttons: [bold, italic, link, heading-three, bulleted-list, numbered-list], editor_components: [], hint: "Was dabei herausgekommen ist – am besten mit Zahlen (Bewerbungen, Reichweite, Anfragen). Leere Abschnitte werden nicht angezeigt." }
