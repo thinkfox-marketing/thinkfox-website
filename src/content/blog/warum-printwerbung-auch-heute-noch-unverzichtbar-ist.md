@@ -32,7 +32,7 @@ Gedruckte Anzeigen haben in der Regel eine höhere Glaubwürdigkeit als digitale
 
 ### Printwerbung ist greifbar
 
-Gedruckte Anzeigen haben eine physische Präsenz und können von den Lesern angefasst und durchgeblättert werden. Sie können auch als Erinnerungsstütze dienen, wenn sie an einem Ort aufbewahrt werden, an dem sie regelmäßig gesehen werden. Ein Beispiel hierfür sind [Werbebeilagen oder Flyer](/flyer-anzeigen/), die oft im Briefkasten oder im Geschäft ausgelegt werden und eine hohe Reichweite haben.
+Gedruckte Anzeigen haben eine physische Präsenz und können von den Lesern angefasst und durchgeblättert werden. Sie können auch als Erinnerungsstütze dienen, wenn sie an einem Ort aufbewahrt werden, an dem sie regelmäßig gesehen werden. Ein Beispiel hierfür sind [Werbebeilagen oder Flyer](/netzwerk-fuer-toleranz-flyer/), die oft im Briefkasten oder im Geschäft ausgelegt werden und eine hohe Reichweite haben.
 
 ### Printwerbung ist zielgerichtet
 

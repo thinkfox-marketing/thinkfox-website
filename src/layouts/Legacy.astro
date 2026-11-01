@@ -6,10 +6,10 @@ import footer from '../legacy/chrome/footer.html?raw';
 import popup from '../legacy/chrome/popup.html?raw';
 import type { ScriptRef, StyleRef } from '../lib/wp';
 import { asset } from '../lib/asset';
-import { einbettungen, zugaenglich } from '../lib/barrierefreiheit';
+import { einbettungen, telefon, zugaenglich } from '../lib/barrierefreiheit';
 import { trennstellen } from '../lib/umbruch';
 import { cssBundle } from '../lib/css-bundle';
-import { strukturierteDaten } from '../lib/geo';
+import { strukturierteDaten, organisationAngleichen } from '../lib/geo';
 
 interface Props {
   seo: string;          // <title>, Meta-Tags, JSON-LD
@@ -20,13 +20,15 @@ interface Props {
   canvas?: boolean;     // Elementor-Canvas: ohne Header/Footer
   einheitlich?: boolean; // false: ohne public/css/einheitlich.css (Projekte vorerst 1:1 im Original)
 }
-const { seo, styles, scripts, bodyClass, canvas = false, einheitlich = true } = Astro.props;
+const { styles, scripts, bodyClass, canvas = false, einheitlich = true } = Astro.props;
+// Unternehmensangaben im JSON-LD vereinheitlichen (src/lib/geo.ts)
+const seo = organisationAngleichen(Astro.props.seo);
 // WordPress-AJAX-Endpunkt → eigener Endpunkt (public/api/ajax.php)
 const ajax = (s: string) => s.replaceAll('/wp-admin/admin-ajax.php', '/api/ajax.php').replaceAll('\\/wp-admin\\/admin-ajax.php', '\\/api\\/ajax.php');
 // Formulare immer per AJAX absenden (statt Seiten-POST an WordPress)
 // Termin-Iframe im (geschlossenen) Popup erst laden, wenn das Popup geöffnet wird
 const popupLazy = popup.replace('<iframe ', '<iframe loading="lazy" title="Termin vereinbaren" ');
-const main = trennstellen(zugaenglich(einbettungen(ajax(Astro.props.main)))).replace(
+const main = trennstellen(telefon(zugaenglich(einbettungen(ajax(Astro.props.main))))).replace(
   /(class="forminator-ui forminator-custom-form forminator-custom-form-\d+ [^"]*?)(\s*")/g,
   (m, cls, end) => (cls.includes('forminator_ajax') ? m : `${cls} forminator_ajax${end}`),
 );
@@ -101,7 +103,7 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
 <body class={bodyClass}>
   {!canvas && <Fragment set:html={zugaenglich(header)} />}
   {mitMain ? <Fragment set:html={main} /> : <main><Fragment set:html={main} /></main>}
-  {!canvas && <Fragment set:html={footer} />}
+  {!canvas && <Fragment set:html={telefon(footer)} />}
   {!canvas && <Fragment set:html={scrollTop} />}
   {!canvas && <div class="tf-popup-store" hidden><Fragment set:html={popupLazy} /></div>}
   <script src="../scripts/main.js"></script>

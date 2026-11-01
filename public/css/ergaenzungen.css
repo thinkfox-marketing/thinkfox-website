@@ -164,3 +164,14 @@ body > :is(header, main, footer, [data-elementor-type]) { overflow-x: clip; }
   /* Überschrift über dem Video (z. B. „Recruitment-Video für …“): auf Höhe des Fließtexts */
   .elementor-10946 .elementor-element-1e804eb .elementor-element-c1ca932 .elementor-widget-heading { padding-inline: 22px; }
 }
+
+/* Formulare (Marketing-Ampel, Projektanfrage): Die Forminator-Stile verlangen „Roboto“, das WordPress extern
+   (fonts.bunny.net) nachgeladen hat. Ohne diese Fremdquelle fiel die Schrift auf eine Serifenschrift zurück –
+   daher die Hausschrift. */
+.forminator-ui.forminator-custom-form :is(input, select, textarea, label, span, p, button, li),
+.forminator-select-dropdown-container :is(li, span, input) { font-family: "Outfit", sans-serif !important; }
+/* Mehrstufige Formulare: Forminator blendet im letzten Schritt neben dem echten Absende-Button einen zweiten,
+   dauerhaft deaktivierten ein („Auswertung anzeigen“ doppelt, einer ausgegraut) – den überflüssigen ausblenden. */
+.forminator-ui:has(.forminator-button-submit) .forminator-pagination-submit { display: none !important; }
+/* Auswahlkreise/-kästchen der Formulare: hellgrau auf Weiß war zu kontrastarm (WCAG 1.4.11, mind. 3:1) */
+.forminator-ui :is(.forminator-radio-bullet, .forminator-checkbox-box) { box-shadow: inset 0 0 0 1px #8a8799; }

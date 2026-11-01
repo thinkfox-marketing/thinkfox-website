@@ -33,7 +33,7 @@ seit ${UNTERNEHMEN.foundingDate}. Sitz in ${a.addressLocality} (Landkreis Waldec
 - [Content-Produktion](${SITE}/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/): Imagefilme, Recruitingfilme, Video-Podcasts, Fotoshootings.
 - [Mietstudio](${SITE}/thinkfox-mietstudio-dein-fotostudio-videostudio-nordhessen/): Foto- und Videostudio mit Ausstattung in Edertal.
 - [360-Grad-Rundgänge](${SITE}/360-grad-rundgaenge/): virtuelle Rundgänge für Unternehmen, Tourismus und Recruiting.
-- [Marketing-Check](${SITE}/thinkfox-marketing-check/): kostenlose Selbsteinschätzung des eigenen Marketings.
+- [Marketing-Ampel](${SITE}/marketing-ampel/): kostenloser Selbsttest zur Einschätzung des eigenen Marketings (Ampel je Bereich).
 - [Werbeagentur Bad Wildungen](${SITE}/werbeagentur-bad-wildungen-thinkfox-marketing-fuer-den-mittelstand/)
 
 ## Referenzen und Projekte

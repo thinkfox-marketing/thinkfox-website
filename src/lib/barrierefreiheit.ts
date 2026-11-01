@@ -31,6 +31,19 @@ export function zugaenglich(html: string): string {
     .replace(/(class="sbi_header_link"[^>]*?) aria-label="[^"]*"/g, '$1');
 }
 
+/** Telefonnummer überall anrufbar machen (im Original nur Text bzw. ein defekter tel:-Link ohne Vorwahl). */
+const TEL = 'tel:+4956239737793';
+export function telefon(html: string): string {
+  return html
+    // Fußzeile/Danke-Seiten: Nummer war von einem <span> zerteilt – Link davor, Span bleibt für die Struktur erhalten
+    .replace(/Tel\.: \+49 \((<span data-qa="label_AddetionalPhoneNumber">)0\)5623 9737793/g,
+      `Tel.: <a href="${TEL}" style="color: inherit">+49 (0)5623 9737793</a>$1`)
+    // Kontakt, Impressum, Datenschutz: „Telefon: +49 (0)5623 9737793“
+    .replace(/(Tel(?:efon|\.)?:\s*)\+49 \(0\)5623 9737793(?!<\/a>)/g, `$1<a href="${TEL}" style="color: inherit">+49 (0)5623 9737793</a>`)
+    // 360°-Seite: vorhandener Link ohne Landesvorwahl
+    .replace(/href="tel:5623 9737793"/g, `href="${TEL}"`);
+}
+
 // --- 2-Klick-Lösung für YouTube und Kuula, Karte mit OpenStreetMap -------------------------------------------
 
 const FONT = '/wp-content/uploads/elementor/google-fonts/fonts/outfit-97312486.woff2';

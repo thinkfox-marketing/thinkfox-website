@@ -26,6 +26,11 @@ ErrorDocument 404 /404.html
   # Alte Adressen aus WordPress (Weiterleitungen, auf die noch Links im Inhalt zeigen)
   RewriteRule ^ganzheitliches-marketing-fuer-nachhaltigen-unternehmenserfolg/$ /deine-externe-marketingabteilung-ganzheitliches-marketing-fuer-den-mittelstand/ [R=301,L]
   RewriteRule ^flyer-anzeigen/$ /category/printproduktion/ [R=301,L]
+  RewriteRule ^social-media-mehr-reichweite-sichtbarkeit-fuer-dein-unternehmen/$ /social-media-aus-nordhessen-sichtbarkeit-reichweite/ [R=301,L]
+  # Selbsttest heißt jetzt „Marketing-Ampel“ („Marketing-Check“ ist das Beratungsangebot). Die Ergebnis-Weiterleitung
+  # aus api/config.php (/marketing-check-ergebnis/?ergebnis=…) behält ihren Parameter (Query bleibt bei R=301 erhalten).
+  RewriteRule ^thinkfox-marketing-check/$ /marketing-ampel/ [R=301,L]
+  RewriteRule ^marketing-check-ergebnis/$ /marketing-ampel/ergebnis/ [R=301,L]
   RewriteRule ^category/allgemein/ /blog/ [R=301,L]
   RewriteRule ^[0-9]{4}/([0-9]{2}/)?([0-9]{2}/)?$ /blog/ [R=301,L]
   # /feed/ liefert feed/index.xml (DirectoryIndex); alte Feed-Varianten dorthin umleiten

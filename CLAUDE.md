@@ -57,6 +57,11 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 - **Handy-Darstellung:** zu lange Wörter in Überschriften mit Trennstellen (`src/lib/umbruch.ts`) bzw.
   `overflow-wrap`, Überstände am Rand abgeschnitten statt seitlich verschiebbar (iPhone), Menü-Links nicht unterstrichen.
   Beiträge bekommen ein `<main>` (fehlte im Original).
+- **Selbsttest „Marketing-Ampel“** (`/marketing-ampel/`, Ergebnis `/marketing-ampel/ergebnis/`; alte Adressen per 301):
+  hieß im Original „Marketing-Check“ – der Name gehört dem gleichnamigen Beratungsangebot. Skalenfragen als Einfachauswahl,
+  Ergebnis-URL enthält nur Punktwerte (kein Firmenname), Werte werden auf 0–5 begrenzt (`api/ajax.php`, `src/scripts/marketing-check.js`).
+- **Kontakt & Formulare:** Telefonnummer überall klickbar (`telefon()` in `src/lib/barrierefreiheit.ts`), Forminator-Formulare in der
+  Hausschrift statt des extern geladenen Roboto, Buttons mit „buchen/vereinbaren“ führen zum Terminkalender.
 - **SEO/GEO:** echte 404-Seite statt Weiterleitung auf die Startseite (alte WordPress-Weiterleitungen einzeln in `public/.htaccess`), Kategorie-Archive `noindex`,
   Unternehmensprofil/Service/FAQ als JSON-LD (`src/lib/geo.ts`), `/llms.txt`.
 

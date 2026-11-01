@@ -4,8 +4,9 @@ import { allPosts, pageFiles, type LegacyPage } from './wp';
 export const pages = () =>
   Object.values(pageFiles)
     .map((m) => m.default as LegacyPage)
-    // Danke- und Ergebnisseiten gehören nicht in die Sitemap
-    .filter((p) => !/danke_|ergebnis/.test(p.path));
+    // Danke- und Ergebnisseiten sowie alles mit „noindex“ (Impressum, Datenschutz …) gehören nicht in die Sitemap
+    .filter((p) => !/danke_|ergebnis/.test(p.path))
+    .filter((p) => !/<meta name="robots" content="[^"]*noindex/.test(p.seo));
 
 export const posts = allPosts;
 

@@ -79,8 +79,8 @@ const LEISTUNGEN: Record<string, { name: string; serviceType: string }> = {
 
 /** Bessere Meta-Beschreibungen für übernommene Seiten (Original zu kurz). */
 export const BESCHREIBUNGEN: Record<string, string> = {
-  '/thinkfox-marketing-check/':
-    'Kostenloser Marketing-Check für KMU in Nordhessen: Website, Content, Strategie und Recruiting in wenigen Minuten bewerten – mit Ampel-Auswertung.',
+  '/marketing-ampel/':
+    'Marketing-Ampel: kostenloser Selbsttest für KMU in Nordhessen – Website, Content, Strategie und Recruiting in wenigen Minuten bewerten, mit Ampel-Auswertung je Bereich.',
   '/360-grad-rundgaenge/cine-k-korbach/':
     'Virtueller 360-Grad-Rundgang durch das Kino Cine K in Korbach – erstellt von thinkfox marketing. Säle und Foyer bequem online erkunden.',
   '/360-grad-rundgaenge/altstadtblick-1/':
@@ -134,4 +134,20 @@ export function strukturierteDaten(pfad: string, html: string, beschreibung?: st
     });
   }
   return ld({ '@context': 'https://schema.org', '@graph': graph });
+}
+
+/** Unternehmensangaben im übernommenen Rank-Math-JSON-LD an UNTERNEHMEN angleichen: Beide Graphen beschreiben
+ *  dieselbe @id, widersprachen sich aber (legalName „thinkfox“, nur ein Facebook-Link, andere Telefonschreibweise). */
+export function organisationAngleichen(seo: string): string {
+  return seo.replace(/(<script type="application\/ld\+json"[^>]*>)([\s\S]*?)(<\/script>)/g, (m, auf: string, json: string, zu: string) => {
+    let daten: { '@graph'?: Record<string, unknown>[] };
+    try { daten = JSON.parse(json); } catch { return m; }
+    const knoten = (daten['@graph'] ?? []).find((n) => n['@id'] === UNTERNEHMEN['@id']);
+    if (!knoten) return m;
+    Object.assign(knoten, {
+      name: UNTERNEHMEN.name, legalName: UNTERNEHMEN.name, sameAs: UNTERNEHMEN.sameAs,
+      email: UNTERNEHMEN.email, contactPoint: UNTERNEHMEN.contactPoint,
+    });
+    return auf + JSON.stringify(daten).replace(/</g, '\\u003c') + zu;
+  });
 }

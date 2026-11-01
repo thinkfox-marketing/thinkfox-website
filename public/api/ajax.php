@@ -94,20 +94,22 @@ foreach ($labels as $name => $label) {
     $values[$label] = is_array($raw) ? implode(', ', array_map('clean', $raw)) : clean((string) $raw);
 }
 
-// Marketing-Check: Punktzahlen je Bereich (gleiche Formeln wie im Formular)
+// Marketing-Ampel (Selbsttest, Formular 12432): Punktzahlen je Bereich
 $extra = [];
 if (!empty($form['scores'])) {
     $scores = [];
     foreach ($form['scores'] as $key => $fields) {
         $sum = 0.0;
         foreach ($fields as $field) {
-            $sum += array_sum(array_map('floatval', (array) ($_POST[$field] ?? [])));
+            // Skalenfrage: genau ein Wert zwischen 0 und 5 (Mehrfachauswahl oder manipulierte Werte zählen nicht)
+            $werte = array_map('floatval', (array) ($_POST[$field] ?? []));
+            $sum += count($werte) === 1 ? max(0.0, min(5.0, $werte[0])) : 0.0;
         }
         $scores[$key] = round($sum / max(count($fields), 1), 2);
     }
     $values['Auswertung'] = implode(', ', array_map(fn ($k, $v) => "$k: $v", array_keys($scores), $scores));
+    // Nur die Punktzahlen kommen in die Ergebnis-URL – kein Firmenname (Server-Logs, Verlauf, Analyse-Tools)
     $extra['scores'] = $scores;
-    $extra['firma'] = clean((string) ($_POST[$form['company_field'] ?? 'name-2'] ?? ''));
 }
 
 store($formId, $values, (int) ($config['aufbewahrung_tage'] ?? 90));

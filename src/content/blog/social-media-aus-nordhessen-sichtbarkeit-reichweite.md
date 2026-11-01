@@ -54,7 +54,7 @@ Einmal posten und dann monatelang nichts mehr hören lassen? Damit vergraulst du
 
 ## Erfolgreicher Social Media Content aus Nordhessen
 
-Als Werbeagentur für **ganzheiltiches Marketing** in Nordhessen haben wir uns darauf spezialisiert, passgenaue und professionelle Lösungen für KMUs in ganz Deutschland zu entwickeln. Dabei setzen wir unter anderem auf die Kraft von Social Media. Unser Leistungsspektrum umfasst:
+Als Werbeagentur für **ganzheitliches Marketing** in Nordhessen haben wir uns darauf spezialisiert, passgenaue und professionelle Lösungen für KMUs in ganz Deutschland zu entwickeln. Dabei setzen wir unter anderem auf die Kraft von Social Media. Unser Leistungsspektrum umfasst:
 
 1. **Redaktion**
 

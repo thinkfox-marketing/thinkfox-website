@@ -39,11 +39,11 @@ return [
             'required' => ['checkbox-1', 'checkbox-2', 'radio-2', 'text-1', 'email-1', 'consent-1'],
             'redirect' => '/danke_projektanfrage/',
         ],
-        '12432' => [ // Marketing-Check
+        '12432' => [ // Marketing-Ampel (Selbsttest)
             'to' => ['hallo@thinkfox.de'],
-            'subject' => 'Neuer Marketing-Check über thinkfox.de',
+            'subject' => 'Neue Marketing-Ampel über thinkfox.de',
             'required' => ['name-2', 'select-1', 'select-2', 'name-1', 'email-1', 'consent-1'],
-            'redirect' => '/marketing-check-ergebnis/',
+            'redirect' => '/marketing-ampel/ergebnis/',
             'company_field' => 'name-2',
             // Bereiche und zugehörige Fragen (gleiche Formeln wie die Berechnungsfelder im Formular)
             'scores' => [

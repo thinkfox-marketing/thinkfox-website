@@ -84,11 +84,40 @@ function anfrage(o: { titel: string; text: string; button: string; link: string 
 </aside>`;
 }
 
+/** Themen für „Weitere …“: Alle Blogbeiträge haben dieselbe Kategorie – ohne Themenbezug bekämen sonst immer
+ *  die drei neuesten Beiträge alle internen Links (und rankten statt der Leistungsseiten). */
+const THEMEN: [string, RegExp][] = [
+  ['web', /website|webseite|webdesign|relaunch|seo\b|suchmaschine|\bgeo\b|google/i],
+  ['social', /social media|instagram|reichweite|personal branding|content/i],
+  ['produktion', /video|film|foto|studio|360|podcast|rundg/i],
+  ['recruiting', /employer|arbeitgeber|recruit|mitarbeit|karriere|bewerb|fachkr/i],
+  ['strategie', /strategie|marke\b|marken|branding|marketingabteilung|start-?up|print|kampagne|corporate/i],
+  ['ki', /\bki\b|künstliche intelligenz|prompt/i],
+];
+
+function themen(x: Post): Set<string> {
+  const d = x.data as Record<string, unknown> & { seo?: { beschreibung?: string; fokusKeyword?: string } };
+  const kopf = [d.title, d.seo?.beschreibung, d.seo?.fokusKeyword, d.einleitung, ...((d.leistungen as string[]) ?? [])]
+    .filter(Boolean).join(' ');
+  // Fließtext zählt erst ab mehreren Treffern – sonst passt jeder lange Artikel zu jedem Thema
+  const text = [x.body, d.aufgabe, d.loesung, d.ergebnis].filter(Boolean).join(' ');
+  return new Set(THEMEN.filter(([, re]) => re.test(kopf)
+    || (text.match(new RegExp(re.source, 'gi'))?.length ?? 0) >= 4).map(([t]) => t));
+}
+
 async function weitere(p: Post, titel: string, mehr: string): Promise<string> {
   const alle = (await allPosts()).filter((x) => x.collection === p.collection && x.id !== p.id && x.data.bild);
-  const kat = new Set(p.data.kategorien);
-  const passend = [...alle.filter((x) => x.data.kategorien.some((k) => kat.has(k))), ...alle];
-  const auswahl = [...new Map(passend.map((x) => [x.id, x])).values()].slice(0, 3);
+  // Punkte: gleiche (fachliche) Kategorie + Themenähnlichkeit (Jaccard, damit „passt zu allem“-Beiträge nicht
+  // überall auftauchen); bei Gleichstand die neueren zuerst
+  const kat = new Set(p.data.kategorien.filter((k) => k !== 'blog'));
+  const eigene = themen(p);
+  const punkte = (x: Post) => {
+    const andere = themen(x);
+    const gemeinsam = [...andere].filter((t) => eigene.has(t)).length;
+    const vereinigt = new Set([...andere, ...eigene]).size || 1;
+    return 2 * x.data.kategorien.filter((k) => kat.has(k)).length + gemeinsam / vereinigt;
+  };
+  const auswahl = alle.map((x, i) => ({ x, i, s: punkte(x) })).sort((a, b) => b.s - a.s || a.i - b.i).slice(0, 3).map((o) => o.x);
   if (!auswahl.length) return '';
   return `<section class="tf-weitere" aria-labelledby="tf-weitere-titel">
   <div class="tf-huelle">
