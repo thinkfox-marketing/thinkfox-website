@@ -62,9 +62,9 @@ Ob für Videoproduktionen, Werbefilme, Modeaufnahmen, kreative Projekte oder als
 
 #### **Preise Studio (netto):**
 
-- Pro Stunde: 40,-
-- Halber Tag (4 Std.) : 144,-
-- Ganzer Tag (8 Std.): 272,-
+- Pro Stunde: 45,-
+- Halber Tag (4 Std.) : 160,-
+- Ganzer Tag (8 Std.): 280,-
 
 **Inklusive:**
 
