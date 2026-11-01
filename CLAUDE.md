@@ -15,6 +15,7 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 1. **Legacy-Ebene (eingefroren):** Markup, CSS und Frontend-JS der Elementor-Seite.
    - `src/legacy/pages/*.json`, `src/legacy/chrome/*.html`, `src/legacy/templates/*`, `src/legacy/posts/*`
      werden von `scripts/wp-import/import.py` erzeugt – nicht von Hand umbauen, sondern gezielt editieren.
+     `src/legacy/posts/*` ist nur noch Quelle der Überführung, Beiträge werden daraus nicht mehr ausgegeben.
    - `public/wp-content/**`, `public/wp-includes/**`: Original-Assets und Laufzeit (jQuery, Elementor,
      Swiper, Forminator). Nicht ersetzen/aktualisieren – sonst ist die 1:1-Optik nicht mehr garantiert.
    - Platzhalter in Templates: `{{LOOP:name}}`, `{{TITLE}}`, `{{IMG}}`, `{{CONTENT}}` … → `src/lib/wp.ts`.
@@ -42,8 +43,9 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   Hausschriften per Preload, verdecktes Hero-Hintergrundbild entfernt. Gegen Layout-Verschiebungen (CLS):
   Logo-Laufband und Hintergrundvideos haben schon vor dem Skriptstart ihre Endgröße
   (`ergaenzungen.css`, nur `@media (scripting: enabled)` – ohne JavaScript unverändert).
-- **Handy-Darstellung:** Projekt-Vorlage ohne die −8-px-Verschiebung des Inhalts (randlose Bilder/Videos wieder
-  volle Breite, Texte unverändert), zu lange Wörter in Überschriften mit Trennstellen (`src/lib/umbruch.ts`) bzw.
+- **Beiträge:** Projekte und Blog nicht mehr im Elementor-Layout, sondern einheitlich (siehe Regeln unten);
+  überführt mit `scripts/umstellung/umstellen.py`.
+- **Handy-Darstellung:** zu lange Wörter in Überschriften mit Trennstellen (`src/lib/umbruch.ts`) bzw.
   `overflow-wrap`, Überstände am Rand abgeschnitten statt seitlich verschiebbar (iPhone), Menü-Links nicht unterstrichen.
   Beiträge bekommen ein `<main>` (fehlte im Original).
 - **SEO/GEO:** echte 404-Seite statt Weiterleitung auf die Startseite (alte WordPress-Weiterleitungen einzeln in `public/.htaccess`), Kategorie-Archive `noindex`,
@@ -55,8 +57,9 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   Ohne JavaScript muss das Ergebnis pixelgleich zur Vorlage sein – abgesehen von den oben
   genannten bewussten Abweichungen; mit JavaScript sind zusätzlich Video-/Slider-Timing-Unterschiede zulässig.
 - **Barrierefreiheit prüfen:** axe-core (WCAG 2.2 AA) muss ohne Befund bleiben.
-- **Neue Beiträge** nutzen die Vorlagen in `src/legacy/vorlagen/` + `public/css/vorlage-*.css`
-  (abgeleitet aus den Beiträgen „Karriereseite Stadt Waldeck“ und „Die externe Marketingabteilung …“).
+- **Beiträge (Projekte/Blog)** haben ein einheitliches, eigenes Layout: `src/lib/beitrag.ts` +
+  `public/css/beitrag.css`, Inhalte ausschließlich aus CMS-Feldern (keine Elementor-Markup-Ausgabe).
+  Buttons wie auf der Startseite (Pfeil-Symbol), Farben Lila/Hellblau – kein Orange/Gelb.
 - **Slider-Abfragen** stehen in `LOOP_QUERIES` (`src/lib/wp.ts`) und entsprechen den Elementor-Queries.
 - **Neue Komponenten** (außerhalb der Legacy-Ebene): semantisches HTML, mobile-first,
   vorhandene Elementor-Klassen/Farben (`--e-global-color-*` aus `post-52.css`) wiederverwenden.

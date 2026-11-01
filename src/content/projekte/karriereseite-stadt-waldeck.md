@@ -11,5 +11,20 @@ auszug: "KUNDE Nationalparkstadt Waldeck Veröffentlichung: 2024 LEISTUNGEN Konz
 seo: {"titel": "Karriereseite der Stadt Waldeck - thinkfox marketing", "beschreibung": "thinkfox marketing hat die Karriereseite der Stadt Waldeck neu erstellt. Inkl. Google Jobs, 360 Grad Rundgang und Videoproduktion.", "fokusKeyword": "Waldeck", "lesedauer": "1 Minute"}
 wpId: 13489
 template: "10946"
-legacy: true
+legacy: false
+kunde: "Nationalparkstadt Waldeck"
+veroeffentlichung: "2024"
+leistungen: ["Konzeption & Design der Karriereseite", "technische Umsetzung der Karriereseite für die Nationalparkstadt Waldeck mit WordPress", "Google Jobs Konformität", "Videoproduktion Recruitmentvideo & Social Media", "Fotoproduktion für Karriereseite", "360 Grad Rundgang durch die Jobbereiche und Implmentierung der Reels für die 3 Job-Bereiche", "Features für bessere Nutzerführung und Auffindbarkeit"]
+projektLink:
+  text: "waldeck.jobonline24.com"
+  url: "https://waldeck.jobonline24.com"
+aufgabe: "thinkfox marketing Werbeagentur hat die **Karriereseite der Stadt Waldeck** vollständig neu konzipiert, strukturiert und optisch modernisiert. Ziel war es, die Stadt als attraktive Arbeitgeberin klarer zu positionieren, die Orientierung für Bewerberinnen und Bewerber zu verbessern und offene Stellen deutlich besser auffindbar zu machen."
+loesung: |
+  Im Rahmen des Projekts wurden **Konzeption, Design und Inhalte** grundlegend überarbeitet und anschließend **technisch mit WordPress** umgesetzt. Ein besonderer Fokus lag auf einer **Google-Jobs-konformen Umsetzung**, damit Stellenangebote korrekt ausgelesen, ausgespielt und in der Jobsuche sichtbar werden. Ergänzend entstanden eine **Foto- und Videoproduktion**, die authentische Einblicke in Arbeitsalltag, Team und Aufgabenbereiche ermöglicht. Highlight der Seite ist ein **360-Grad-Rundgang durch verschiedene Jobbereiche**, der Interessierten einen realistischen Eindruck der Arbeitsumgebung vermittelt.
+
+  Für eine bessere Nutzerführung wurden außerdem gezielte Features integriert – darunter klare Einstiege nach Zielgruppen und Berufsfeldern, schnelle Wege zu relevanten Informationen sowie eine strukturierte Darstellung der Stellenangebote, Benefits und Bewerbungswege.
+ergebnis: "Das Ergebnis ist eine moderne, benutzerfreundliche Karriereseite mit klarer Struktur, starken Medieninhalten und deutlich verbesserter Auffindbarkeit – als Grundlage für eine nachhaltige Mitarbeitergewinnung."
+medien:
+  - typ: "video"
+    youtube: "https://youtu.be/j8LV9htwbIg"
 ---

@@ -25,12 +25,13 @@ const PFEIL = '<svg class="tf-knopf__symbol" aria-hidden="true" viewBox="0 0 512
 const knopf = (text: string, link: string, variante = '') =>
   `<a class="tf-knopf${variante ? ` tf-knopf--${variante}` : ''}" href="${esc(link)}">${PFEIL}<span>${esc(text)}</span></a>`;
 
-/** Erster Satz bzw. die ersten ~30 Wörter als Teaser. */
-function teaser(t: string): string {
-  const satz = t.match(/^(.{40,260}?[.!?])(\s|$)/)?.[1];
-  if (satz) return satz;
-  const w = t.split(/\s+/);
-  return w.length > 30 ? `${w.slice(0, 30).join(' ')} …` : t;
+/** Teaser unter dem Titel: eigene Einleitung, sonst SEO-Beschreibung – aber nicht, wenn er nur den
+ *  Textanfang wiederholt (Beschreibung wurde in WordPress oft aus dem ersten Satz kopiert). */
+function teaserText(d: Post['data'], textHtml: string): string {
+  if (d.einleitung) return d.einleitung;
+  const t = d.seo.beschreibung ?? '';
+  const anfang = (x: string) => x.toLowerCase().replace(/[^a-zäöüß0-9]+/g, ' ').trim().slice(0, 45);
+  return t && !anfang(nurText(textHtml)).includes(anfang(t).slice(0, 40)) && !nurText(textHtml).toLowerCase().includes(t.toLowerCase().slice(0, 40)) ? t : '';
 }
 
 function lesezeit(h: string): number {
@@ -41,14 +42,17 @@ function lesezeit(h: string): number {
 function ankerSetzen(h: string): { html: string; toc: { id: string; text: string }[] } {
   const toc: { id: string; text: string }[] = [];
   const vergeben = new Set<string>();
-  const out = h.replace(/<h2>([\s\S]*?)<\/h2>/g, (m, inhalt: string) => {
+  // Gliederungsebene: H2, bei weniger als drei H2 die H3 (manche Beiträge sind nur mit H3 gegliedert)
+  const ebene = (h.match(/<h2[\s>]/g) ?? []).length >= 3 ? 2 : 3;
+  const re = new RegExp(`<h${ebene}(?: id="[^"]*")?>([\\s\\S]*?)<\\/h${ebene}>`, 'g');
+  const out = h.replace(re, (m, inhalt: string) => {
     const t = nurText(inhalt);
     let id = t.toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
       .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60) || 'abschnitt';
     while (vergeben.has(id)) id += '-2';
     vergeben.add(id);
     toc.push({ id, text: t });
-    return `<h2 id="${id}">${inhalt}</h2>`;
+    return `<h${ebene} id="${id}">${inhalt}</h${ebene}>`;
   });
   return { html: out, toc };
 }
@@ -120,7 +124,7 @@ export async function projektSeite(p: Projekt): Promise<string> {
       <h2>${titel}</h2>
       <div class="tf-text">${await markdown(md)}</div>
     </section>`));
-  const einleitung = d.einleitung ?? d.seo.beschreibung ?? teaser(d.auszug);
+  const einleitung = teaserText(d, (await Promise.all([d.aufgabe, d.loesung].map((x) => markdown(x ?? '')))).join(' '));
   const steckbrief = [
     d.kunde && ['Kunde', esc(d.kunde)],
     d.branche && ['Branche', esc(d.branche)],
@@ -128,7 +132,7 @@ export async function projektSeite(p: Projekt): Promise<string> {
     d.leistungen.length && ['Leistungen', `<ul class="tf-chips" role="list">${d.leistungen.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>`],
   ].filter(Boolean) as [string, string][];
   const link = d.projektLink
-    ? `<p class="tf-steckbrief__link"><a href="${esc(d.projektLink.url)}" target="_blank" rel="noopener">${esc(d.projektLink.text)} ↗</a></p>` : '';
+    ? `<div class="tf-steckbrief__link"><dt>Online ansehen</dt><dd><a href="${esc(d.projektLink.url)}" target="_blank" rel="noopener">${esc(d.projektLink.text)}<span class="tf-sr"> (öffnet in neuem Tab)</span> ↗</a></dd></div>` : '';
   const stimme = d.kundenstimme ? `<figure class="tf-stimme tf-huelle tf-huelle--text">
     <blockquote><p>${esc(d.kundenstimme.zitat)}</p></blockquote>
     <figcaption><strong>${esc(d.kundenstimme.name)}</strong>${d.kundenstimme.funktion ? `, ${esc(d.kundenstimme.funktion)}` : ''}</figcaption>
@@ -141,7 +145,7 @@ export async function projektSeite(p: Projekt): Promise<string> {
         ${pfad([{ text: 'Start', link: '/' }, { text: 'Projekte', link: '/#projekte' }, { text: d.kunde ?? d.title }])}
         <p class="tf-kopf__marke">Projekt · ${esc(categoryName(d.kategorien[0] ?? ''))}</p>
         <h1 class="tf-kopf__titel">${esc(d.title)}</h1>
-        <p class="tf-kopf__teaser">${esc(einleitung)}</p>
+        ${einleitung ? `<p class="tf-kopf__teaser">${esc(einleitung)}</p>` : ''}
       </div>
       <dl class="tf-steckbrief">
         ${steckbrief.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('\n        ')}
@@ -166,7 +170,14 @@ export async function projektSeite(p: Projekt): Promise<string> {
 async function blogBausteine(p: Blog): Promise<Baustein[]> {
   const raw = postFiles[`../legacy/posts/${p.id}.html`];
   if (p.data.legacy && raw) return zerlegen(raw);
-  const b: Baustein[] = [{ typ: 'text', html: await markdown(p.body ?? '') }];
+  // YouTube-Link allein in einer Zeile → 2-Klick-Video
+  const text = (await markdown(p.body ?? '')).replace(
+    /<p>(?:<a href="[^"]*">)?(https:\/\/(?:www\.)?(?:youtu\.be|youtube\.com)\/[^<\s]+)(?:<\/a>)?<\/p>/g,
+    (m, url: string) => medium({ typ: 'video', youtube: url }),
+  );
+  // interner Link allein in einer Zeile → Button (wie auf der Startseite)
+  const mitKnoepfen = text.replace(/<p><a href="(\/[^"]*)">([^<]+)<\/a><\/p>/g, (m, link: string, t: string) => `<p>${knopf(t, link)}</p>`);
+  const b: Baustein[] = [{ typ: 'text', html: mitKnoepfen }];
   if (p.data.faq?.fragen.length) {
     b.push({ typ: 'ueberschrift', ebene: 2, text: p.data.faq.titel });
     b.push({ typ: 'faq', fragen: await Promise.all(p.data.faq.fragen.map(async (f) => ({ frage: f.frage, antwort: await markdown(f.antwort) }))) });
@@ -211,7 +222,7 @@ export async function blogSeite(p: Blog): Promise<string> {
       ${pfad([{ text: 'Start', link: '/' }, { text: 'Blog', link: '/blog/' }, { text: d.title }])}
       <p class="tf-kopf__marke"><time datetime="${d.date.toISOString().slice(0, 10)}">${datum(d.date)}</time> · ${min} Min. Lesezeit · ${esc(d.autor ?? 'thinkfox marketing')}</p>
       <h1 class="tf-kopf__titel">${esc(d.title)}</h1>
-      <p class="tf-kopf__teaser">${esc(d.einleitung ?? d.seo.beschreibung ?? teaser(d.auszug))}</p>
+      ${teaserText(d, text) ? `<p class="tf-kopf__teaser">${esc(teaserText(d, text))}</p>` : ''}
     </div>
     ${d.bild ? `<figure class="tf-kopf__bild tf-huelle tf-huelle--breit">${wpImg(d.bild, { size: 'full', alt: d.bildAlt, fetchpriority: 'high', cls: '' })}</figure>` : ''}
   </header>

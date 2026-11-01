@@ -11,5 +11,16 @@ auszug: "KUNDE S2 Management GmbH Veröffentlichung: Seit 2021 LEISTUNGEN Techni
 seo: {"titel": "Markus Krebs – Video-Podcast \"Comedykation\"", "beschreibung": "Für den bekannten Comedian Markus Krebs produzierte thinkfox marketing den Video-Podcast Comedykation.", "fokusKeyword": "Markus Krebs, Comedykation", "lesedauer": "Weniger als eine Minute"}
 wpId: 8565
 template: "10946"
-legacy: true
+legacy: false
+kunde: "S2 Management GmbH"
+veroeffentlichung: "Seit 2021"
+leistungen: ["Videoproduktion (Kamera, Ton, Licht)", "Postproduktion", "Optimierung für YouTube & Social Media"]
+projektLink:
+  text: "Zum YouTube Kanal von Markus Krebs"
+  url: "https://youtube.com/playlist?list=PLVHvHW5mOwvtZliNkQffBuXHb-7EdeTjg&si=ShDMvw5NOyCVVVpy"
+loesung: "Für den bekannten Comedian Markus Krebs produzierte Thinkfox den Video-Podcast Comedykation **inklusive Dreh, Tontechnik und Postproduktion – optimiert für YouTube und Social Media**. Die Drehs fanden an verschiedenen Locations statt – unter anderem im Kult-Lokal „Zum Hocker“ in Duisburg und in der legendären „Ritze“ in Hamburg."
+medien:
+  - typ: "bild"
+    bild: "/wp-content/uploads/2022/08/thumb_podcast_markus_krebs.jpg"
+    alt: "Markus Krebs Comedykation mit Torsten Sträter"
 ---

@@ -11,5 +11,13 @@ auszug: "KUNDE Göbels Hotel Aquavita & QuellenTherme Veröffentlichung: 2024 LE
 seo: {"titel": "Digitale Broschüre Göbel Hotels - thinkfox marketing", "beschreibung": "Erstellung digitale Broschüre Göbels AquaVita und Quellentherme Bad WIldungen-Reinhardshausen. Umsetzung nach CI- und Layoutvorgaben der Göbel Hotels.", "fokusKeyword": "Broschüre", "lesedauer": "Weniger als eine Minute"}
 wpId: 8725
 template: "10946"
-legacy: true
+legacy: false
+kunde: "Göbels Hotel Aquavita & QuellenTherme"
+veroeffentlichung: "2024"
+leistungen: ["Digitale Broschüre"]
+aufgabe: "Erstellung einer digitalen Broschüre als **PDF-Präsentation**, die die Leistungen in den Bereichen Gesundheit und Wellness der beiden Unternehmen in Kombination darstellen. **Struktur, Textaufbereitung und visuelle Hierarchie** wurden so entwickelt, dass Angebote schnell erfassbar sind und sich optimal für Website-Download, E-Mail-Versand und digitale Kundenkommunikation eignen."
+loesung: |
+  ### Designvorgaben Broschüre Göbel Hotels
+
+  Umsetzung nach CI- und Layoutvorgaben der Göbel Hotels, inklusive typografischer Richtlinien, Farbwelt, Bildstil und konsistenter Gestaltung aller Seiten und Elemente.
 ---

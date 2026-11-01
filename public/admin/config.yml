@@ -84,10 +84,24 @@ collections:
           - { label: "Website", value: "website" }
       - { label: Beitragsbild, name: bild, widget: image, hint: "Wird im Slider, in Archiven und als Vorschaubild (Social Media) verwendet." }
       - { label: Alternativtext Beitragsbild, name: bildAlt, widget: string, required: false, hint: "Kurz beschreiben, was zu sehen ist (Barrierefreiheit, SEO)." }
+      - { label: Einleitung, name: einleitung, widget: text, required: false, hint: "Ein bis zwei Sätze unter dem Titel. Leer = Meta-Beschreibung aus „SEO“." }
       - { label: Kunde, name: kunde, widget: string, required: false }
-      - { label: Veröffentlichung, name: veroeffentlichung, widget: string, required: false, hint: "z. B. 2026" }
-      - { label: Leistungen, name: leistungen, widget: list, required: false, field: { label: Leistung, name: leistung, widget: string } }
-      - { label: Projektbeschreibung, name: body, widget: markdown, required: false, buttons: [bold, italic, link, heading-three, bulleted-list, numbered-list], editor_components: [] }
+      - { label: Branche, name: branche, widget: string, required: false, hint: "z. B. Wirtschaftskanzlei, Bauunternehmen" }
+      - { label: Jahr / Zeitraum, name: veroeffentlichung, widget: string, required: false, hint: "z. B. 2026 oder 2023 – heute" }
+      - { label: Leistungen, name: leistungen, widget: list, required: false, field: { label: Leistung, name: leistung, widget: string }, hint: "Erscheinen als Schlagworte im Steckbrief." }
+      - { label: "01 Aufgabe", name: aufgabe, widget: markdown, required: false, buttons: [bold, italic, link, heading-three, bulleted-list, numbered-list], editor_components: [], hint: "Ausgangslage und Ziel des Kunden." }
+      - { label: "02 Lösung", name: loesung, widget: markdown, required: false, buttons: [bold, italic, link, heading-three, bulleted-list, numbered-list], editor_components: [], hint: "Was wir gemacht haben (Konzept, Umsetzung)." }
+      - { label: "03 Ergebnis", name: ergebnis, widget: markdown, required: false, buttons: [bold, italic, link, heading-three, bulleted-list, numbered-list], editor_components: [], hint: "Was dabei herausgekommen ist – am besten mit Zahlen (Bewerbungen, Reichweite, Anfragen). Leere Abschnitte werden nicht angezeigt." }
+      - label: Kundenstimme
+        name: kundenstimme
+        widget: object
+        collapsed: true
+        required: false
+        hint: Optional – erscheint als Zitat unter den Medien.
+        fields:
+          - { label: Zitat, name: zitat, widget: text, required: false }
+          - { label: Name, name: name, widget: string, required: false }
+          - { label: Funktion / Unternehmen, name: funktion, widget: string, required: false }
       - label: Link zum Projekt
         name: projektLink
         widget: object
@@ -100,7 +114,7 @@ collections:
         name: medien
         widget: list
         required: false
-        hint: Werden unter der Beschreibung in dieser Reihenfolge angezeigt.
+        hint: Werden nach Aufgabe/Lösung/Ergebnis in dieser Reihenfolge angezeigt (Videos mit Datenschutz-Hinweis).
         types:
           - label: Bild
             name: bild
@@ -124,7 +138,7 @@ collections:
                   - { label: Bild, name: bild, widget: image }
                   - { label: Alternativtext, name: alt, widget: string, required: false }
         typeKey: typ
-      - { label: Kurzbeschreibung (Auszug), name: auszug, widget: text, required: false, hint: "Für Archivseiten. Leer lassen = wird aus der Beschreibung erzeugt." }
+      - { label: Kurzbeschreibung (Auszug), name: auszug, widget: text, required: false, hint: "Für Projekt-Slider und Archivseiten (wird automatisch gekürzt)." }
       - label: SEO
         name: seo
         widget: object
@@ -137,14 +151,7 @@ collections:
           - { label: Lesedauer, name: lesedauer, widget: string, required: false }
       - { label: Schlagworte, name: schlagworte, widget: list, required: false, hint: "Interne Schlagworte (wie in WordPress)." }
       - { label: Entwurf (nicht veröffentlichen), name: entwurf, widget: boolean, default: false, required: false }
-      - label: Original-Layout aus WordPress verwenden
-        name: legacy
-        widget: boolean
-        default: false
-        required: false
-        hint: >
-          Nur bei übernommenen Projekten: Der Inhalt wird 1:1 wie auf der alten Seite angezeigt.
-          Zum Bearbeiten des Inhalts ausschalten und Kunde, Leistungen, Beschreibung und Medien oben ausfüllen.
+      - { name: legacy, widget: hidden, required: false }
       - { name: wpId, widget: hidden, required: false }
       - { name: template, widget: hidden, required: false }
       - { name: modified, widget: hidden, required: false }
@@ -166,7 +173,9 @@ collections:
       - { label: Beitragsbild, name: bild, widget: image }
       - { label: Alternativtext Beitragsbild, name: bildAlt, widget: string, required: false }
       - { label: Anrisstext (Auszug), name: auszug, widget: text, hint: "Erscheint in der Blog-Übersicht und auf der Startseite (wird automatisch gekürzt)." }
-      - { label: Text, name: body, widget: markdown, required: false, hint: "Bei übernommenen Beiträgen leer, solange „Original-Layout“ aktiv ist." }
+      - { label: Einleitung, name: einleitung, widget: text, required: false, hint: "Ein bis zwei Sätze unter dem Titel. Leer = Meta-Beschreibung aus „SEO“." }
+      - { label: Autor/in, name: autor, widget: string, required: false, hint: "Leer = thinkfox marketing" }
+      - { label: Text, name: body, widget: markdown, required: false, hint: "Zwischenüberschriften (H2) ergeben das Inhaltsverzeichnis. Ein YouTube-Link allein in einer Zeile wird als Video (mit Datenschutz-Hinweis) angezeigt, ein interner Link allein in einer Zeile als Button." }
       - label: FAQ
         name: faq
         widget: object
@@ -203,12 +212,7 @@ collections:
           - { label: Lesedauer, name: lesedauer, widget: string, required: false, hint: "z. B. 3 Minuten" }
       - { label: Schlagworte, name: schlagworte, widget: list, required: false }
       - { label: Entwurf (nicht veröffentlichen), name: entwurf, widget: boolean, default: false, required: false }
-      - label: Original-Layout aus WordPress verwenden
-        name: legacy
-        widget: boolean
-        default: false
-        required: false
-        hint: Nur bei übernommenen Beiträgen. Zum Bearbeiten des Textes ausschalten und Text/FAQ oben ausfüllen.
+      - { name: legacy, widget: hidden, required: false }
       - { name: wpId, widget: hidden, required: false }
       - { name: template, widget: hidden, required: false }
       - { name: modified, widget: hidden, required: false }

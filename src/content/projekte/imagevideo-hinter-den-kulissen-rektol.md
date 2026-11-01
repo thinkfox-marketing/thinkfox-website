@@ -11,5 +11,16 @@ auszug: "KUNDE REKTOL GmbH & Co. KG, Korbach Veröffentlichung: 2023 LEISTUNGEN 
 seo: {"titel": "Imagevideo \"Hinter den Kulissen!\" - Rektol - thinkfox marketing", "beschreibung": "Konzeption & Umsetzung von Imagevideo - Hinter den Kulissen der Schmiermitttelproduktion bei Rektol in Korbach.", "fokusKeyword": "Rektol", "lesedauer": "Weniger als eine Minute"}
 wpId: 14141
 template: "10946"
-legacy: true
+legacy: false
+kunde: "REKTOL GmbH & Co. KG, Korbach"
+veroeffentlichung: "2023"
+leistungen: ["Konzeption", "Umsetzung", "Videoproduktion", "Postproduktion"]
+projektLink:
+  text: "rektol.de"
+  url: "https://rektol.de"
+aufgabe: "Konzeption & Umsetzung von Imagevideo inkl. Erklärung von Abläufen und Produkten – Hinter den Kulissen der Schmiermitttelproduktion bei Rektol in Korbach."
+loesung: "Ideenfindung & Konzeption für Rektol, Storyentwicklung **zur individuellen Produktion von Motorenöl**, Location Scouting im Unternehmen. Regie und Dreh inklusive professioneller Tonaufnahme, Postproduktion & Export für YouTube und Social Media in markenkonformen Videoformaten."
+medien:
+  - typ: "video"
+    youtube: "https://youtu.be/VqpvSHrFV4Y"
 ---

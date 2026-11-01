@@ -11,5 +11,21 @@ auszug: "KUNDE Stadt Korbach Veröffentlichung: 2022/2023 LEISTUNGEN Planung ein
 seo: {"titel": "Video-/Fotoproduktion Recup Stadt Korbach - thinkfox marketing", "beschreibung": "Die Kreis- und Hansestadt Korbach geht das Müll-Problem mit Hilfe von RECUP & REBOWL an. thinkfox produzierte u.a. Video und Fotos.", "fokusKeyword": "Korbach", "lesedauer": "Weniger als eine Minute"}
 wpId: 14160
 template: "none"
-legacy: true
+legacy: false
+kunde: "Stadt Korbach"
+veroeffentlichung: "2022/2023"
+leistungen: ["Corporate Design", "Fotoproduktion", "Kampagnen", "Printproduktion", "SocialMedia Betreuung", "Video-/Filmproduktion", "Website"]
+projektLink:
+  text: "Hier geht`s zur Kampagne der Stadt Korbach!"
+  url: "https://korbach-becher-machen.de/"
+loesung: |
+  - Konzeption der Recup-Kampagne „Korbach becher machen“
+  - Fotoshooting mit Darstellern der Kampagne
+  - Videoproduktionen zur Unterstützung der Kampagne als Erklär-Video
+  - Produktion Social-Media Reels mit Aussagen der Gewerbetreibenden zum Thema „Mehrweg in Korbach“
+
+  Planung einer Kampagne zur Unterstützung der Korbacher Gewerbetreibenden im Bereich Gastro zur Einführung eines Mehrweg-Systems. Inhalt der Kampagne waren u.a. Videoproduktion und Fotoproduktion.
+medien:
+  - typ: "video"
+    youtube: "https://youtu.be/18KlXSXCp0Y"
 ---

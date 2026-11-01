@@ -2,9 +2,7 @@
 // Die Templates (src/legacy/**) stammen aus scripts/wp-import/import.py und enthalten
 // Platzhalter wie {{TITLE}}, {{IMG}}, {{LOOP:name}}.
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { dimensions, wpImg } from './media';
-import { asset } from './asset';
-import { markdown } from './markdown';
+import { wpImg } from './media';
 import loops from '../legacy/loops.json';
 import taxonomies from '../legacy/taxonomies.json';
 import instagram from '../data/instagram.json';
@@ -23,7 +21,6 @@ export const pageFiles = import.meta.glob<{ default: LegacyPage }>('../legacy/pa
 export const postFiles = import.meta.glob<string>('../legacy/posts/*.html', { eager: true, query: '?raw', import: 'default' });
 export const postMeta = import.meta.glob<{ default: { styles: StyleRef[]; scripts: ScriptRef[]; bodyClass: string } }>('../legacy/posts/*.json', { eager: true });
 export const templateFiles = import.meta.glob<{ default: SingleTemplate }>('../legacy/templates/single-*.json', { eager: true });
-export const vorlagen = import.meta.glob<string>('../legacy/vorlagen/*.html', { eager: true, query: '?raw', import: 'default' });
 
 export interface LegacyPage {
   path: string; wpId: number; seo: string; styles: StyleRef[]; scripts: ScriptRef[]; bodyClass: string; canvas: boolean; main: string;
@@ -240,109 +237,3 @@ export function singleTemplate(p: Post): SingleTemplate {
   return t.default;
 }
 
-/** Inhalt eines Beitrags: Original-Markup (Import) oder aus CMS-Feldern erzeugt. */
-export async function postContent(p: Post): Promise<string> {
-  if (p.data.legacy) {
-    const raw = postFiles[`../legacy/posts/${p.id}.html`];
-    if (raw) return raw;
-  }
-  return p.collection === 'projekte' ? projektContent(p as Projekt) : blogContent(p as Blog);
-}
-
-function vorlage(name: string): string {
-  return vorlagen[`../legacy/vorlagen/${name}.html`];
-}
-
-function youtubeSettings(url: string): string {
-  return attr(JSON.stringify({ youtube_url: url, video_type: 'youtube', controls: 'yes' }));
-}
-
-async function projektContent(p: Projekt): Promise<string> {
-  const d = p.data;
-  const info = [
-    '<p><strong>KUNDE</strong></p>',
-    d.kunde ? `<h2 style="font-size: 1em;">${html(d.kunde)}</h2>` : '',
-    d.veroeffentlichung ? `<p>Veröffentlichung: ${html(d.veroeffentlichung)}</p>` : '',
-    d.leistungen.length ? `<p><strong>LEISTUNGEN</strong></p>\n<ul>\n${d.leistungen.map((l) => `<li>${html(l)}</li>`).join('\n')}\n</ul>` : '',
-  ].join('\n');
-  let text = await markdown(p.body ?? '');
-  if (d.projektLink) {
-    text += `<h3 style="font-size: 1em; line-height: 1.3em;"><a href="${attr(d.projektLink.url)}" target="_blank" rel="noopener">${html(d.projektLink.text)}</a></h3>`;
-  }
-  const medien = d.medien.map((m) => {
-    if (m.typ === 'bild') {
-      return vorlage('projekt-bild').replace('{{IMG}}', wpImg(m.bild, { size: 'full', alt: m.alt }));
-    }
-    if (m.typ === 'video') return vorlage('projekt-video').replace('{{SETTINGS}}', youtubeSettings(m.youtube));
-    return vorlage('projekt-galerie').replace('{{ITEMS}}', galerie(m.bilder));
-  }).join('\n');
-  return vorlage('projekt')
-    .replaceAll('{{ID}}', String(postId(p)))
-    .replace('{{INFO}}', info)
-    .replace('{{TEXT}}', text)
-    .replace('{{MEDIEN}}', medien);
-}
-
-function galerie(bilder: { bild: string; alt: string }[]): string {
-  return bilder.map((b) => {
-    const d = dimensions(b.bild);
-    const size = d ? ` data-width="${d.width}" data-height="${d.height}"` : '';
-    return `
-							<div class="e-gallery-item elementor-gallery-item elementor-animated-content">
-					<div class="e-gallery-image elementor-gallery-item__image" data-thumbnail="${attr(b.bild)}"${size} aria-label="${attr(b.alt)}" role="img" ></div>
-											<div class="elementor-gallery-item__overlay"></div>
-														</div>`;
-  }).join('');
-}
-
-async function blogContent(p: Blog): Promise<string> {
-  const d = p.data;
-  let faq = '';
-  if (d.faq?.fragen.length) {
-    const items = await Promise.all(d.faq.fragen.map(async (f, i) => vorlage('blog-faq-item')
-      .replaceAll('{{N}}', String(i + 1))
-      .replaceAll('{{ITEM_ID}}', `${postId(p)}${i}`)
-      .replace('{{TABINDEX}}', i === 0 ? '0' : '-1')
-      .replace('{{FRAGE}}', html(f.frage))
-      .replace('{{ANTWORT}}', await markdown(f.antwort))));
-    faq = vorlage('blog-faq').replace('{{FAQ_TITEL}}', html(d.faq.titel)).replace('{{FRAGEN}}', items.join('\n'));
-  }
-  const cta = d.cta ?? {
-    text: '### Du hast Fragen oder benötigst Unterstützung bei deinen Marketingmaßnahmen?\n\nKontaktiere uns gerne für ein unverbindliches Erstgespräch.',
-    button: 'Jetzt Unterstützung anfragen',
-    link: '/thinkfox-marketing-projekt-anfragen/',
-  };
-  return vorlage('blog')
-    .replaceAll('{{ID}}', String(postId(p)))
-    .replace('{{TEXT}}', await markdown(p.body ?? ''))
-    .replace('{{FAQ}}', faq)
-    .replace('{{CTA_TEXT}}', await markdown(cta.text))
-    .replace('{{CTA_BUTTON}}', html(cta.button))
-    .replace('{{CTA_LINK}}', attr(cta.link));
-}
-
-export async function renderSingle(p: Post): Promise<string> {
-  const t = singleTemplate(p);
-  const isBlog = p.collection === 'blog';
-  return t.template
-    .replace('{{CONTENT}}', await postContent(p))
-    .replaceAll('{{ID}}', String(postId(p)))
-    .replaceAll('{{POST_CLASSES}}', postClasses(p))
-    .replace('{{TITLE}}', wpTitle(p.data.title))
-    .replace('{{IMG}}', wpImg(p.data.bild, { size: 'full', alt: p.data.bildAlt, fetchpriority: isBlog ? 'high' : undefined }));
-}
-
-/** Stylesheets für einen Beitrag: die des Originals (Import) bzw. die des Templates + Vorlage. */
-export function postStyles(p: Post): { styles: StyleRef[]; scripts: ScriptRef[]; bodyClass: string } {
-  const own = postMeta[`../legacy/posts/${p.id}.json`];
-  if (p.data.legacy && own) return own.default;
-  const t = singleTemplate(p);
-  const ex = t.wpId;
-  const styles = t.styles
-    .filter((s) => !(s.type === 'link' && s.href?.endsWith(`/post-${ex}.css`)))
-    .concat([{ type: 'link', href: asset(`/css/vorlage-${p.collection === 'blog' ? 'blog' : 'projekt'}.css`), id: 'vorlage-css' }]);
-  const bodyClass = t.bodyClass
-    .replace(new RegExp(`postid-${ex}\\b`), `postid-${postId(p)}`)
-    .replace(new RegExp(`elementor-page-${ex}\\b`), `elementor-page-${postId(p)}`);
-  return { styles, scripts: t.scripts, bodyClass };
-}

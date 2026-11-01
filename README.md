@@ -24,15 +24,17 @@ Wichtige Felder:
 - **Platzierung** (Projekte): in welchen Projekt-Slidern das Projekt erscheint – Startseite (20 neueste),
   „Websites für den Mittelstand“ (12 neueste), „Content Produktion“.
 - **Kategorien**: steuern die Archive `/category/<kategorie>/`.
-- **Bilder & Videos** (Projekte): beliebig viele Bilder, YouTube-Videos und Galerien in Reihenfolge.
-- **FAQ** und **Call-to-Action** (Blog): optionaler FAQ-Block und Abschluss mit Button.
-- **Original-Layout aus WordPress verwenden**: bei allen übernommenen Beiträgen aktiv – der Inhalt wird
-  exakt wie auf der alten Seite dargestellt (`src/legacy/posts/<slug>.html`). Zum inhaltlichen Bearbeiten
-  ausschalten und die Felder (Kunde, Leistungen, Beschreibung, Medien bzw. Text) ausfüllen.
-  Titel, Bild, Datum, Kategorien, Platzierung und SEO sind auch mit aktivem Original-Layout bearbeitbar.
+- **Projekte**: Einleitung, Steckbrief (Kunde, Branche, Jahr, Leistungen), die drei Abschnitte
+  **01 Aufgabe – 02 Lösung – 03 Ergebnis** (leere Abschnitte werden ausgeblendet), Bilder & Videos,
+  optional eine Kundenstimme.
+- **Blog**: Einleitung, Autor/in, Text (H2-Zwischenüberschriften ergeben das Inhaltsverzeichnis; ein
+  YouTube-Link allein in einer Zeile wird zum Video, ein interner Link allein in einer Zeile zum Button),
+  optionaler FAQ-Block und Abschluss-Box mit Button.
 
-Neue Beiträge erhalten automatisch die Gestaltung der bisherigen Projekt- bzw. Blogseiten
-(Vorlagen in `src/legacy/vorlagen/`).
+Alle Projekte und Blogbeiträge nutzen ein einheitliches Layout (`src/lib/beitrag.ts`,
+`public/css/beitrag.css`). Die übernommenen WordPress-Beiträge wurden mit
+`scripts/umstellung/umstellen.py` in diese Felder überführt; das Original-Markup liegt weiter unter
+`src/legacy/posts/` (nur noch als Quelle, nicht mehr ausgegeben).
 
 ## Entwicklung
 

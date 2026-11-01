@@ -11,5 +11,15 @@ auszug: "KUNDE Eigenproduktion thinkfox marketing GmbH Veröffentlichung: 2025 L
 seo: {"titel": "edlake - das Erlebnismagazin - thinkfox marketing", "beschreibung": "edlake – das Erlebnismagazin für Sauerland und Nordhessen: Konzeption, Redaktion, Layout, Fotografie und Druck aus einer Hand von thinkfox marketing.", "fokusKeyword": "edlake", "lesedauer": "Weniger als eine Minute"}
 wpId: 210
 template: "10946"
-legacy: true
+legacy: false
+kunde: "Eigenproduktion thinkfox marketing GmbH"
+veroeffentlichung: "2025"
+leistungen: ["Konzeption", "Redaktion", "Layout", "Fotografie", "Druck-& Versandabwicklung"]
+projektLink:
+  text: "Zur Website des edlake Magazin"
+  url: "https://edlake.de"
+loesung: |
+  **edlake – das Erlebnismagazin für die Region im Herzen Deutschlands**
+
+  Ansprechend und emotional – so wie unsere Region. edlake liefert mit Reportagen, Ausflugstipps, Interviews und spannenden Themen rund um die Ferienregion Nordhessen und Sauerland die ideale Plattform, um sich über unsere Region zu informieren – ob als „Einheimischer“ oder als Tourist. 4 x im Jahr präsentieren wir Highlights der Umgebung, Veranstaltungen, interessante Menschen und vieles mehr. edlake verbindet die touristischen Regionen Nordhessens und des Sauerlandes und ist der richtige Partner, um Ihr Unternehmen einem breiten Publikum zu präsentieren.
 ---

@@ -3,11 +3,12 @@
 // bisherigen URL: /<slug>/ bzw. /360-grad-rundgaenge/<slug>/
 import Legacy from '../layouts/Legacy.astro';
 import {
-  allPosts, pageFiles, postStyles, renderInstagram, renderLoops, renderReferenzen, renderSingle, type LegacyPage, type Post,
+  allPosts, pageFiles, renderInstagram, renderLoops, renderReferenzen, type LegacyPage, type Post,
 } from '../lib/wp';
 import { seoHead } from '../lib/seo';
 import { renderHeroVideos } from '../lib/hero-video';
 import { BESCHREIBUNGEN } from '../lib/geo';
+import { beitragSeite, beitragStyles } from '../lib/beitrag';
 
 export async function getStaticPaths() {
   const pages = Object.values(pageFiles).map((m) => m.default as LegacyPage);
@@ -37,9 +38,10 @@ if (page) {
   main = renderHeroVideos(renderInstagram(await renderReferenzen(await renderLoops(page.main))));
 } else {
   const p = post!;
-  ({ styles, scripts, bodyClass } = postStyles(p));
+  // Projekte und Blog im einheitlichen Layout (src/lib/beitrag.ts)
+  ({ styles, scripts, bodyClass } = beitragStyles(p));
   seo = seoHead(p);
-  main = await renderSingle(p);
+  main = await beitragSeite(p);
 }
 ---
 <Legacy seo={seo} styles={styles} scripts={scripts} bodyClass={bodyClass} main={main} canvas={canvas} />

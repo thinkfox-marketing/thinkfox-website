@@ -11,5 +11,13 @@ auszug: "KUNDE Netzwerk für Toleranz Waldeck-Frankenberg Veröffentlichung: 202
 seo: {"titel": "Netzwerk für Toleranz Flyer - thinkfox marketing", "beschreibung": "thinkfox marketing konzipierte und gestaltete neue Flyer im DIN-lang-Format (2-seitig) für das Netzwerk für Toleranz.", "fokusKeyword": "Netzwerk für Toleranz Flyer", "lesedauer": "Weniger als eine Minute"}
 wpId: 8372
 template: "10946"
-legacy: true
+legacy: false
+kunde: "Netzwerk für Toleranz Waldeck-Frankenberg"
+veroeffentlichung: "2024"
+leistungen: ["Corporate Design", "Printproduktion"]
+loesung: "Thinkfox konzipierte und gestaltete neue Flyer im DIN-lang-Format (2-seitig). Die Gestaltung wurde an das aktuelle Webdesign angepasst und konsequent im Corporate Design umgesetzt. Inhaltliche Struktur, Typografie und Bildsprache wurden so entwickelt, dass Botschaften schnell erfassbar sind und die Wiedererkennbarkeit der Marke stärken – ideal für Auslage, Events und direkte Kundenansprache."
+ergebnis: |
+  Ein modernes, einheitliches Erscheinungsbild, auch im Printbereich **– mit klarer Informationsführung und hoher Lesbarkeit.**
+
+  [Schau dir hier das Website Projekt des Netzwerk für Toleranz an.](/netzwerk-fuer-toleranz-website-relaunch/)
 ---

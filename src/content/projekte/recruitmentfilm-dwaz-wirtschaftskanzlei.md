@@ -11,7 +11,7 @@ auszug: "KUNDE DWAZ Wirtschaftskanzlei PartmbB Veröffentlichung: 2025 LEISTUNGE
 seo: {"titel": "Recruitmentfilm – DWAZ Wirtschaftskanzlei - thinkfox marketing", "beschreibung": "Konzeption und Umsetzung des Recruitmentfilm. Casting, Locationscouting, Erstellung Storyboard.", "fokusKeyword": "DWAZ", "lesedauer": "1 Minute"}
 wpId: 10863
 template: "10946"
-legacy: true
+legacy: false
 einleitung: "Ein Recruitmentfilm, der zeigt, wie sich Arbeiten bei DWAZ wirklich anfühlt: menschlich, verlässlich und alltagstauglich."
 kunde: "DWAZ Wirtschaftskanzlei PartmbB"
 veroeffentlichung: "2025"

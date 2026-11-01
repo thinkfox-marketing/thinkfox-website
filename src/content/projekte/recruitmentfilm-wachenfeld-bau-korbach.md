@@ -11,5 +11,19 @@ auszug: "KUNDE Wachenfeld Bau GmbH Veröffentlichung: 2024 LEISTUNGEN Videoprodu
 seo: {"titel": "Recruitmentfilm – Wachenfeld Bau Korbach - thinkfox marketing", "beschreibung": "Konzeption/Umsetzung Recruitmentfilm. Casting, Locationscouting, Erstellung Storyboard. Aussage: Warum ist dein Job bei Wachenfeld so wichtig?", "fokusKeyword": "Recruitment, Wachenfeld", "lesedauer": "Weniger als eine Minute"}
 wpId: 14124
 template: "10946"
-legacy: true
+legacy: false
+kunde: "Wachenfeld Bau GmbH"
+veroeffentlichung: "2024"
+leistungen: ["Videoproduktion Recruitment", "Konzeption", "Umsetzung"]
+projektLink:
+  text: "Hier geht`s zur Website von Wachenfeld Bau"
+  url: "https://wachenfeld-bau.de"
+aufgabe: |
+  Konzeption des Image- und Recruitmentfilm. Casting, Locationscouting, Erstellung Storyboard.
+
+  **Aussage:** Warum ist dein Job bei Wachenfeld so wichtig? Wir zeigen die Helden des Tiefbaus!
+loesung: "Konzeption, Szenerie und Dreh des Filmes am Standort Wachenfeld in Korbach sowie einer nahegelegen Baustelle. Postproduktion & Export für Website, Youtube und alle gängigen Plattformen. Export von einzelnen Social Media Parts."
+medien:
+  - typ: "video"
+    youtube: "https://youtu.be/dXHUnnxxq8Y"
 ---
