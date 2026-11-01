@@ -3,7 +3,7 @@
 // bisherigen URL: /<slug>/ bzw. /360-grad-rundgaenge/<slug>/
 import Legacy from '../layouts/Legacy.astro';
 import {
-  allPosts, pageFiles, renderInstagram, renderLoops, renderReferenzen, type LegacyPage, type Post,
+  allPosts, imOriginal, originalSeite, originalStyles, pageFiles, renderInstagram, renderLoops, renderReferenzen, type LegacyPage, type Post,
 } from '../lib/wp';
 import { seoHead } from '../lib/seo';
 import { renderHeroVideos } from '../lib/hero-video';
@@ -24,7 +24,7 @@ export async function getStaticPaths() {
 
 const { page, post } = Astro.props as { page?: LegacyPage; post?: Post };
 
-let seo: string, styles, scripts, bodyClass: string, main: string, canvas = false;
+let seo: string, styles, scripts, bodyClass: string, main: string, canvas = false, einheitlich = true;
 if (page) {
   seo = page.seo;
   const neu = BESCHREIBUNGEN[page.path];
@@ -38,10 +38,17 @@ if (page) {
   main = renderHeroVideos(renderInstagram(await renderReferenzen(await renderLoops(page.main))));
 } else {
   const p = post!;
-  // Projekte und Blog im einheitlichen Layout (src/lib/beitrag.ts)
-  ({ styles, scripts, bodyClass } = beitragStyles(p));
   seo = seoHead(p);
-  main = await beitragSeite(p);
+  if (imOriginal(p)) {
+    // Projekte vorerst 1:1 wie im Original (src/lib/wp.ts, PROJEKTE_IM_ORIGINAL)
+    ({ styles, scripts, bodyClass } = originalStyles(p));
+    main = originalSeite(p);
+    einheitlich = false;
+  } else {
+    // Blog (und neue Projekte) im einheitlichen Layout (src/lib/beitrag.ts)
+    ({ styles, scripts, bodyClass } = beitragStyles(p));
+    main = await beitragSeite(p);
+  }
 }
 ---
-<Legacy seo={seo} styles={styles} scripts={scripts} bodyClass={bodyClass} main={main} canvas={canvas} />
+<Legacy seo={seo} styles={styles} scripts={scripts} bodyClass={bodyClass} main={main} canvas={canvas} einheitlich={einheitlich} />

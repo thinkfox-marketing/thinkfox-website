@@ -237,3 +237,28 @@ export function singleTemplate(p: Post): SingleTemplate {
   return t.default;
 }
 
+
+// --- Projekte vorerst 1:1 im Original-Layout (Elementor-Markup aus dem Import) -----------------------
+// Gilt für alle Projekte, zu denen es Original-Markup gibt (src/legacy/posts/<slug>.html); neue Projekte
+// aus dem CMS erscheinen im einheitlichen Layout (src/lib/beitrag.ts). Achtung: Änderungen an den CMS-Feldern
+// bestehender Projekte wirken erst, wenn PROJEKTE_IM_ORIGINAL wieder auf false steht.
+export const PROJEKTE_IM_ORIGINAL = true;
+
+export function imOriginal(p: Post): boolean {
+  return PROJEKTE_IM_ORIGINAL && p.collection === 'projekte'
+    && !!postFiles[`../legacy/posts/${p.id}.html`] && !!postMeta[`../legacy/posts/${p.id}.json`];
+}
+
+export function originalSeite(p: Post): string {
+  const t = singleTemplate(p);
+  return t.template
+    .replace('{{CONTENT}}', postFiles[`../legacy/posts/${p.id}.html`])
+    .replaceAll('{{ID}}', String(postId(p)))
+    .replaceAll('{{POST_CLASSES}}', postClasses(p))
+    .replace('{{TITLE}}', wpTitle(p.data.title))
+    .replace('{{IMG}}', wpImg(p.data.bild, { size: 'full', alt: p.data.bildAlt }));
+}
+
+export function originalStyles(p: Post): { styles: StyleRef[]; scripts: ScriptRef[]; bodyClass: string } {
+  return postMeta[`../legacy/posts/${p.id}.json`].default;
+}

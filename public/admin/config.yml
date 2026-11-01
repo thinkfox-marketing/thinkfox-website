@@ -41,6 +41,9 @@ collections:
     description: >
       Kundenprojekte. Sie erscheinen unter thinkfox.de/<url>/, in den Kategorie-Archiven und – je nach
       „Platzierung“ – in den Projekt-Slidern der Startseite, der Websites- und der Content-Produktion-Seite.
+      HINWEIS: Die bisherigen Projekte werden vorerst 1:1 im Original-Layout angezeigt. Textänderungen an ihnen
+      erscheinen erst nach der Umstellung auf das neue Layout; Titel, Beitragsbild und Platzierung (Slider) wirken sofort.
+      Neu angelegte Projekte erscheinen direkt im neuen Layout.
     folder: src/content/projekte
     create: true
     slug: "{{slug}}"

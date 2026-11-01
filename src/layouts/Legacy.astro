@@ -18,8 +18,9 @@ interface Props {
   bodyClass: string;
   main: string;
   canvas?: boolean;     // Elementor-Canvas: ohne Header/Footer
+  einheitlich?: boolean; // false: ohne public/css/einheitlich.css (Projekte vorerst 1:1 im Original)
 }
-const { seo, styles, scripts, bodyClass, canvas = false } = Astro.props;
+const { seo, styles, scripts, bodyClass, canvas = false, einheitlich = true } = Astro.props;
 // WordPress-AJAX-Endpunkt → eigener Endpunkt (public/api/ajax.php)
 const ajax = (s: string) => s.replaceAll('/wp-admin/admin-ajax.php', '/api/ajax.php').replaceAll('\\/wp-admin\\/admin-ajax.php', '\\/api\\/ajax.php');
 // Formulare immer per AJAX absenden (statt Seiten-POST an WordPress)
@@ -42,7 +43,7 @@ const bodyScripts = ohneEmoji.filter((s) => s.where === 'body').map(tag).join('\
 
 // Im Build: alle Stylesheets als eine Datei (src/lib/css-bundle.ts). Leere Platzhalter mit den
 // Original-IDs bleiben stehen, weil Elementor nachgeladene Stile davor einfügt („before: #…-css“).
-const bundle = import.meta.env.PROD ? cssBundle(styles, ['/css/ergaenzungen.css', '/css/einheitlich.css']) : null;
+const bundle = import.meta.env.PROD ? cssBundle(styles, ['/css/ergaenzungen.css', ...(einheitlich ? ['/css/einheitlich.css'] : [])]) : null;
 
 // Hero mit Hintergrundvideo ganz oben: Standbild sofort laden (größtes sichtbares Element)
 const ersterHero = main.indexOf('elementor-background-video-container');
@@ -88,7 +89,7 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
         ? <link rel="stylesheet" id={s.id ?? undefined} href={s.href} media="all" />
         : <Fragment set:html={s.css} />)}
       <link rel="stylesheet" id="tf-ergaenzungen-css" href={asset('/css/ergaenzungen.css')} media="all" />
-      <link rel="stylesheet" id="tf-einheitlich-css" href={asset('/css/einheitlich.css')} media="all" />
+      {einheitlich && <link rel="stylesheet" id="tf-einheitlich-css" href={asset('/css/einheitlich.css')} media="all" />}
     </>
   )}
   <Fragment set:html={headScripts} />
