@@ -32,7 +32,7 @@ In der heutigen digitalen Welt sind Videoproduktionen für Unternehmen zu einem 
 
 ## Showreel thinkfox marketing Videoproduktion
 
-### Das leistet thinkfox marketing für Dich und dein Unternehmen
+### Das leistet thinkfox marketing für dich und dein Unternehmen
 
 thinkfox marketing bietet mit**Videoproduktion aus Nordhessen** ein breites Spektrum an Leistungen rund um Unternehmensvideos und Filme:
 

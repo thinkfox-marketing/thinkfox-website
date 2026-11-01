@@ -1,0 +1,19 @@
+---
+// Vorschau „Blog klassisch“ (Aufbau wie im Original) zur Freigabe – für Suchmaschinen gesperrt,
+// nicht in den Sitemaps. Nach der Freigabe entfernen und die Variante für alle Blogbeiträge setzen.
+import Legacy from '../../layouts/Legacy.astro';
+import { allPosts, type Post } from '../../lib/wp';
+import { beitragSeite, beitragStyles } from '../../lib/beitrag';
+import { seoHead } from '../../lib/seo';
+
+export async function getStaticPaths() {
+  const auswahl = ['die-externe-marketingabteilung-warum-kmu-ihr-marketing-neu-denken-sollten', 'ki-prompts-richtig-erstellen-praxisguide-fuer-wirksame-ki-texte-im-marketing-fuer-kmu-in-nordhessen'];
+  return (await allPosts()).filter((p) => auswahl.includes(p.id)).map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: Post };
+const { styles, scripts, bodyClass } = beitragStyles(post);
+const seo = seoHead(post).replace(/<meta name="robots" content="[^"]*"\s*\/?>/, '<meta name="robots" content="noindex, nofollow" />');
+const main = await beitragSeite(post, 'klassisch');
+---
+<Legacy seo={seo} styles={styles} scripts={scripts} bodyClass={bodyClass} main={main} />

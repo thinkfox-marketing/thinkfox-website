@@ -42,7 +42,7 @@ const bodyScripts = ohneEmoji.filter((s) => s.where === 'body').map(tag).join('\
 
 // Im Build: alle Stylesheets als eine Datei (src/lib/css-bundle.ts). Leere Platzhalter mit den
 // Original-IDs bleiben stehen, weil Elementor nachgeladene Stile davor einfügt („before: #…-css“).
-const bundle = import.meta.env.PROD ? cssBundle(styles, ['/css/ergaenzungen.css']) : null;
+const bundle = import.meta.env.PROD ? cssBundle(styles, ['/css/ergaenzungen.css', '/css/einheitlich.css']) : null;
 
 // Hero mit Hintergrundvideo ganz oben: Standbild sofort laden (größtes sichtbares Element)
 const ersterHero = main.indexOf('elementor-background-video-container');
@@ -88,6 +88,7 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
         ? <link rel="stylesheet" id={s.id ?? undefined} href={s.href} media="all" />
         : <Fragment set:html={s.css} />)}
       <link rel="stylesheet" id="tf-ergaenzungen-css" href={asset('/css/ergaenzungen.css')} media="all" />
+      <link rel="stylesheet" id="tf-einheitlich-css" href={asset('/css/einheitlich.css')} media="all" />
     </>
   )}
   <Fragment set:html={headScripts} />

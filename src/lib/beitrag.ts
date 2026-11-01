@@ -185,7 +185,7 @@ async function blogBausteine(p: Blog): Promise<Baustein[]> {
   return b;
 }
 
-export async function blogSeite(p: Blog): Promise<string> {
+export async function blogSeite(p: Blog, variante: 'neu' | 'klassisch' = 'neu'): Promise<string> {
   const d = p.data;
   const bausteine = await blogBausteine(p);
   // FAQ-Titel = Überschrift direkt vor dem FAQ; Abschluss-Text + Button am Ende = Anfrage-Box
@@ -216,6 +216,24 @@ export async function blogSeite(p: Blog): Promise<string> {
     </nav>` : '';
   cta ??= { titel: 'Du hast Fragen oder brauchst Unterstützung?', text: 'Kontaktiere uns gerne für ein unverbindliches Erstgespräch.', button: 'Jetzt Unterstützung anfragen', link: ANFRAGE };
 
+  if (variante === 'klassisch') {
+    // Aufbau wie im Original: Bild oben, leicht über dem hellblauen Hintergrund, Überschrift darunter,
+    // breitere Textspalte; Abschluss und weitere Beiträge wie im neuen Layout
+    return `<article class="tf-beitrag tf-beitrag--blog tf-beitrag--klassisch">
+  <div class="tf-klassisch">
+    ${d.bild ? `<figure class="tf-klassisch__bild">${wpImg(d.bild, { size: 'full', alt: d.bildAlt, fetchpriority: 'high', cls: '' })}</figure>` : ''}
+    <div class="tf-klassisch__inhalt">
+      <h1 class="tf-klassisch__titel">${esc(d.title)}</h1>
+      <p class="tf-klassisch__meta"><time datetime="${d.date.toISOString().slice(0, 10)}">${datum(d.date)}</time> · ${min} Min. Lesezeit</p>
+      <div class="tf-text">${text}</div>
+      ${faq}
+    </div>
+  </div>
+  ${anfrage(cta)}
+  ${await weitere(p, 'Weitere Beiträge', 'Weiterlesen')}
+</article>`;
+  }
+
   return `<article class="tf-beitrag tf-beitrag--blog">
   <header class="tf-kopf">
     <div class="tf-huelle tf-huelle--text">
@@ -236,8 +254,8 @@ export async function blogSeite(p: Blog): Promise<string> {
 </article>`;
 }
 
-export async function beitragSeite(p: Post): Promise<string> {
-  return p.collection === 'projekte' ? projektSeite(p as Projekt) : blogSeite(p as Blog);
+export async function beitragSeite(p: Post, variante: 'neu' | 'klassisch' = 'neu'): Promise<string> {
+  return p.collection === 'projekte' ? projektSeite(p as Projekt) : blogSeite(p as Blog, variante);
 }
 
 /** Stylesheets/Body-Klassen: Kopf- und Fußbereich wie bisher (Single-Vorlage), dazu beitrag.css. */

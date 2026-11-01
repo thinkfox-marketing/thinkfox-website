@@ -21,6 +21,8 @@ export function zugaenglich(html: string): string {
     .replace(/(<article class="elementor-post [^"]*") role="listitem"/g, '$1')
     // Hintergrundvideos: role="presentation" ist an <video> nicht erlaubt → aus dem Baum nehmen
     .replace(/(<video class="elementor-background-video-hosted") role="presentation"/g, '$1 aria-hidden="true"')
+    // Etiketten über Überschriften sind als Button ohne Funktion ausgezeichnet → einfache Beschriftung
+    .replace(/<a class="elementor-button elementor-size-sm" role="button">/g, '<a class="elementor-button elementor-size-sm">')
     // Pfeil-Symbol, das zum nächsten Abschnitt springt (ohne Text)
     .replace(/<a class="elementor-icon" href="#([\w-]+)">/g, '<a class="elementor-icon" href="#$1" aria-label="Weiter zum nächsten Abschnitt">')
     // „Weiterlesen »“: zugänglicher Name muss den sichtbaren Text enthalten

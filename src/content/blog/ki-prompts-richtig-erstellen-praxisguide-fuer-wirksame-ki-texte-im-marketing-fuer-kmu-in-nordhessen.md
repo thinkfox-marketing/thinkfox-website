@@ -149,7 +149,7 @@ gib der KI gezielt Rückmeldung. Bitte zum Beispiel um eine kürzere Version, me
 
 „Agiere als erfahrener Werbetexter für KMU in Nordhessen. Erstelle einen SEO-optimierten Einleitungstext mit etwa 180 Wörtern für die Startseite einer Autowerkstatt im Landkreis Waldeck-Frankenberg. Zielgruppe sind Autofahrer aus Korbach, Frankenberg, Bad Wildungen und Umgebung, die eine zuverlässige Werkstatt für Inspektion, Reparatur und Unfallinstandsetzung suchen.
 
-Der Text soll in der Du-Form geschrieben sein, kompetent und bodenständig klingen und die regionale Verbundenheit betonen. Integriere sinnvoll Begriffe wie ‚Autowerkstatt Waldeck-Frankenberg‘, ‚Inspektion‘, ‚Reparatur‘, ‚Reifenservice‘ und ‚Korbach und Umgebung‘.
+Der Text soll in der du-Form geschrieben sein, kompetent und bodenständig klingen und die regionale Verbundenheit betonen. Integriere sinnvoll Begriffe wie ‚Autowerkstatt Waldeck-Frankenberg‘, ‚Inspektion‘, ‚Reparatur‘, ‚Reifenservice‘ und ‚Korbach und Umgebung‘.
 
 Am Ende soll eine dezente Handlungsaufforderung stehen, die zu einer Terminvereinbarung einlädt.“
 

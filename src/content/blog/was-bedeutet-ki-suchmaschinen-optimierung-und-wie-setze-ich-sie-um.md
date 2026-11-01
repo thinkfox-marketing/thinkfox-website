@@ -7,7 +7,7 @@ schlagworte: ["ki-suchmaschinen-optimierung", "marketing", "marketingmassnahmen"
 platzierung: []
 bild: "/wp-content/uploads/2026/02/ki-suchmaschine-optimieren-geo-thinkfox-marketing.jpg"
 bildAlt: "Was bedeutet KI-Suchmaschinen-Optimierung und wie setze ich sie um?"
-auszug: "KI ist nicht einfach „eine neue Suchmaschine“. KI ist inzwischen überall im Suchprozess: in Google (z. B. bei KI-Übersichten/AI Overviews), in Bing, in Chatbots, in Browsern – und vor allem in der Art, wie Inhalte bewertet, zusammengefasst und ausgespielt werden.  KI-Suchmaschinen-Optimierung (oft auch GEO – Generative Engine Optimization) bedeutet: Du optimierst Inhalte so, dass sie von klassischen"
+auszug: "KI ist nicht einfach „eine neue Suchmaschine“. KI ist inzwischen überall im Suchprozess: in Google (z. B. bei KI-Übersichten/AI Overviews), in Bing, in Chatbots, in Browsern – und vor allem in der Art, wie Inhalte bewertet, zusammengefasst und ausgespielt werden.  KI-Suchmaschinen-Optimierung (oft auch GEO – Generative Engine Optimization) bedeutet: du optimierst Inhalte so, dass sie von klassischen"
 seo: {"titel": "KI-Suchmaschinen-Optimierung und wie setze ich sie um?", "beschreibung": "KI-Suchmaschinen-Optimierung heißt: bei Google ranken und von KI-Systemen korrekt verstanden, zitiert und sinnvoll zusammengefasst werden.", "fokusKeyword": "KI-Suchmaschinen-Optimierung", "lesedauer": "4 Minuten"}
 wpId: 15588
 template: "11303"
@@ -25,7 +25,7 @@ cta:
 ---
 KI ist nicht einfach „eine neue Suchmaschine“. KI ist inzwischen überall im Suchprozess: in Google (z. B. bei KI-Übersichten/AI Overviews), in Bing, in Chatbots, in Browsern – und vor allem in der Art, wie Inhalte bewertet, zusammengefasst und ausgespielt werden.
 
-**KI-Suchmaschinen-Optimierung** (oft auch GEO – *Generative Engine Optimization*) bedeutet: Du optimierst Inhalte so, dass sie von klassischen Suchsystemen gut gerankt werden *und* von KI-Systemen korrekt verstanden, zitiert und zusammengefasst werden können.
+**KI-Suchmaschinen-Optimierung** (oft auch GEO – *Generative Engine Optimization*) bedeutet: du optimierst Inhalte so, dass sie von klassischen Suchsystemen gut gerankt werden *und* von KI-Systemen korrekt verstanden, zitiert und zusammengefasst werden können.
 
 Das Ziel bleibt dabei herrlich unromantisch: mehr qualifizierte Anfragen. Nicht „mehr Sichtbarkeit bei ChatGPT“. Sichtbarkeit ist nur dann schön, wenn sie auf deine Unternehmensziele einzahlt.
 

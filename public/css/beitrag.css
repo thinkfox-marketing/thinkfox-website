@@ -6,7 +6,7 @@
   --tf-lila-dunkel: #3b3192;
   --tf-lila-hell: #eceafb;
   --tf-hell: #eef7ff;
-  --tf-text: #1f1d2e;
+  --tf-text: #313131;
   --tf-grau: #55536a;
   --tf-linie: #dcdbe8;
   --tf-radius: 18px;
@@ -19,7 +19,7 @@
 .tf-beitrag *, .tf-beitrag *::before, .tf-beitrag *::after { box-sizing: border-box; }
 .tf-beitrag img { display: block; max-width: 100%; height: auto; }
 
-.tf-huelle { width: 100%; max-width: 1180px; margin-inline: auto; padding-inline: 20px; }
+.tf-huelle { width: 100%; max-width: 1140px; margin-inline: auto; padding-inline: 20px; }
 .tf-huelle--text { max-width: 760px; }
 .tf-huelle--breit { max-width: 1280px; }
 
@@ -128,14 +128,14 @@
 /* Buttons wie auf der Startseite: gefüllt Lila (helle Flächen) bzw. weißer Rahmen (lila Flächen),
    jeweils mit Pfeil-Symbol */
 .tf-knopf {
-  display: inline-flex; align-items: center; gap: 0.5rem; padding: 16px 15px 14px;
-  border: 1px solid var(--tf-lila); border-radius: 3px; background: var(--tf-lila);
-  color: #fff !important; font-size: 1rem; font-weight: 800; line-height: 1; text-decoration: none !important;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 48px; padding: 14px 22px;
+  border: 1px solid var(--tf-lila); border-radius: 10px; background: var(--tf-lila);
+  color: #fff !important; font-size: 1.0625rem; font-weight: 700; line-height: 1.2; text-decoration: none !important;
   transition: background-color 0.2s, color 0.2s;
 }
 .tf-knopf__symbol { width: 1em; height: 1em; flex: none; fill: currentColor; }
 .tf-knopf:hover { background: var(--tf-lila-dunkel); border-color: var(--tf-lila-dunkel); }
-.tf-knopf--rahmen { justify-self: start; padding: 15px 20px; border-color: #fff; border-radius: 10px; background: transparent; font-size: 1.2rem; font-weight: 700; }
+.tf-knopf--rahmen { justify-self: start; border-color: #fff; background: transparent; }
 .tf-knopf--rahmen:hover { background: #fff; border-color: #fff; color: var(--tf-lila) !important; }
 .tf-beitrag a:focus-visible, .tf-faq__frage:focus-visible { outline: 3px solid var(--tf-lila-dunkel); outline-offset: 3px; border-radius: 4px; }
 .tf-anfrage .tf-knopf:focus-visible { outline-color: #fff; }
@@ -176,4 +176,19 @@
 
 @media (prefers-reduced-motion: reduce) {
   .tf-galerie img, .tf-karte__link, .tf-knopf { transition: none; }
+}
+
+/* --- Blog „klassisch“: Aufbau wie im Original ---------------------------------------------------- */
+.tf-klassisch { padding: 110px 20px 3rem; background: linear-gradient(180deg, #fff 0, #fff 130px, var(--tf-hell) 130px); }
+.tf-klassisch__bild, .tf-klassisch__inhalt { max-width: 940px; margin-inline: auto; }
+.tf-klassisch__bild { margin-top: 0; margin-bottom: 2rem; }
+.tf-klassisch__bild img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.tf-beitrag .tf-klassisch__titel { margin: 0 0 0.5rem; font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.25rem); font-weight: 700; line-height: 1.2; color: var(--tf-lila); overflow-wrap: break-word; }
+.tf-klassisch__meta { margin: 0 0 1.75rem; font-size: 0.9375rem; color: var(--tf-grau); }
+.tf-beitrag--klassisch .tf-text h2 { margin: 1.8em 0 0.5em; font-size: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem); color: var(--tf-lila); }
+.tf-beitrag--klassisch .tf-text h3 { margin: 1.4em 0 0.4em; font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem); color: var(--tf-lila); }
+.tf-beitrag--klassisch .tf-faq { margin-bottom: 0; }
+@media (min-width: 768px) {
+  .tf-klassisch { padding-top: 140px; background: linear-gradient(180deg, #fff 0, #fff 175px, var(--tf-hell) 175px); }
+  .tf-klassisch__bild { margin-bottom: 2.75rem; }
 }

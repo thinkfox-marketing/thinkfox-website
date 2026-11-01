@@ -1,0 +1,202 @@
+/* Einheitliches Erscheinungsbild (Design-Review November 2026) – wird nach ergaenzungen.css geladen.
+   Gilt für die übernommenen Elementor-Seiten und gibt die Werte vor, die auch das Beitrags-Layout
+   (beitrag.css) nutzt. !important ist hier nötig, weil Elementor jede Größe/Farbe je Element mit hoher
+   Spezifität festschreibt. Element-IDs stammen aus der Bestandsaufnahme (Seiten-ID davor = eindeutig).
+
+   1 Typografie   2 Buttons/Etiketten   3 Farben   4 Handy   5 Prozess-Schritte   6 360°-Seite   7 Mietstudio */
+
+:root {
+  --tf-lila: #5b4ec8;
+  --tf-lila-dunkel: #3b3192;
+  --tf-lila-hell: #eceafb;
+  --tf-hell: #eef7ff;
+  --tf-text: #313131;
+  /* Typo-Skala: Handy → Desktop */
+  --fs-h1: clamp(2.375rem, 1.55rem + 3.3vw, 3.75rem); /* 38 → 60 */
+  --fs-h2: clamp(1.875rem, 1.35rem + 2.2vw, 2.875rem); /* 30 → 46 */
+  --fs-h3: clamp(1.3125rem, 1.15rem + 0.65vw, 1.625rem); /* 21 → 26 */
+  --fs-h4: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem); /* 18 → 20 */
+  --fs-lead: clamp(1.1875rem, 1.05rem + 0.55vw, 1.3125rem); /* 19 → 21 */
+  --fs-text: clamp(1.0625rem, 1rem + 0.15vw, 1.125rem); /* 17 → 18 */
+  --fs-klein: 0.9375rem;                              /* 15 */
+}
+
+/* ---------------------------------------------------------------- 1 Typografie */
+/* Hausschrift überall (vorher Poppins in Buttons/Etiketten, „Fira“ ohne Schriftdatei im Marketing-Check) */
+main .elementor-heading-title, main .elementor-button, main .forminator-button, main .elementor-widget-text-editor {
+  font-family: "Outfit", system-ui, sans-serif !important;
+}
+
+main .elementor-widget-heading h1.elementor-heading-title { font-size: var(--fs-h1) !important; line-height: 1.1 !important; letter-spacing: -0.01em; }
+main .elementor-widget-heading h2.elementor-heading-title { font-size: var(--fs-h2) !important; line-height: 1.15 !important; }
+main .elementor-widget-heading h3.elementor-heading-title { font-size: var(--fs-h3) !important; line-height: 1.25 !important; }
+main .elementor-widget-heading :is(h4, h5, h6).elementor-heading-title { font-size: var(--fs-h4) !important; line-height: 1.3 !important; }
+main .elementor-heading-title :is(span, b, strong) { font-size: inherit !important; }
+
+/* Rolle statt Tag: Überschriften, die optisch Abschnittstitel sind (z. B. H6 „thinkfox auf Instagram“) */
+main .elementor-element-7fa180e .elementor-heading-title,
+.elementor-7047 .elementor-element-4c24dc9 .elementor-heading-title,
+.elementor-7047 .elementor-element-251f955 .elementor-heading-title,
+.elementor-13039 .elementor-element-4b36635 .elementor-heading-title,
+.elementor-13039 .elementor-element-efe888f .elementor-heading-title { font-size: var(--fs-h2) !important; line-height: 1.15 !important; }
+/* … und H2, die optisch Karten-/Zwischentitel sind */
+.elementor-13917 :is(.elementor-element-a1ac92a, .elementor-element-bda84af, .elementor-element-1748985, .elementor-element-cd8ff25, .elementor-element-5333562, .elementor-element-56b4609) .elementor-heading-title,
+.elementor-13322 .elementor-element-9c69bfa .elementor-heading-title { font-size: var(--fs-h3) !important; line-height: 1.25 !important; }
+.elementor-11253 .elementor-element-9285bc6 .elementor-heading-title,
+.elementor-13039 .elementor-element-3720537 .elementor-heading-title { font-size: var(--fs-h4) !important; }
+/* Unterzeile direkt unter dem Seitentitel: technisch H2, optisch Einleitung */
+main .elementor-widget-heading:has(h1) + .elementor-widget-heading .elementor-heading-title { font-size: var(--fs-lead) !important; line-height: 1.45 !important; }
+/* Unterzeilen im Kopfbereich mit Video sind technisch H2, optisch Einleitung */
+main [data-tf-hochkant] h2.elementor-heading-title { font-size: var(--fs-lead) !important; line-height: 1.45 !important; }
+/* Untertitel direkt unter dem H1 der Websites-Seite */
+.elementor-13322 .elementor-element-500ce61 .elementor-heading-title { font-size: var(--fs-lead) !important; line-height: 1.4 !important; }
+/* Dekorativer Schriftzug „SHOWREEL“ bleibt groß */
+main .elementor-element-d82bba4 .elementor-heading-title { font-size: clamp(4rem, 13vw, 12.5rem) !important; line-height: 1 !important; }
+
+/* Fließtext 17/18 px, Einleitung direkt unter dem Seitentitel 18/20 px */
+main .elementor-widget-text-editor,
+main .elementor-widget-text-editor :is(p, li, span),
+main .elementor-icon-list-text,
+main .elementor-icon-box-description,
+main .elementor-widget-erecht24 :is(p, li) { font-size: var(--fs-text) !important; line-height: 1.6 !important; }
+main .elementor-widget-heading:has(h1) + .elementor-widget-text-editor,
+main .elementor-widget-heading:has(h1) + .elementor-widget-text-editor :is(p, span) { font-size: var(--fs-lead) !important; line-height: 1.5 !important; }
+main .elementor-widget-text-editor :is(h2, h3, h4) { font-size: var(--fs-h4) !important; line-height: 1.3 !important; }
+
+/* Grauer Fließtext (#54595f) und graue Seitentitel → Textfarbe bzw. Lila wie überall */
+.elementor-12253 :is(.elementor-element-440abd2, .elementor-element-3bcc20b, .elementor-element-2abe723, .elementor-element-6a191cd),
+.elementor-15220 :is(.elementor-element-440abd2, .elementor-element-3bcc20b, .elementor-element-2abe723),
+.elementor-11253 :is(.elementor-element-5c239f8, .elementor-element-b6c9f5b) { color: var(--tf-text) !important; }
+.elementor-12253 :is(.elementor-element-440abd2, .elementor-element-3bcc20b, .elementor-element-2abe723, .elementor-element-6a191cd) *,
+.elementor-15220 :is(.elementor-element-440abd2, .elementor-element-3bcc20b, .elementor-element-2abe723) *,
+.elementor-11253 :is(.elementor-element-5c239f8, .elementor-element-b6c9f5b) * { color: inherit !important; }
+.elementor-7395 .elementor-element-5de6bc3 .elementor-heading-title { color: var(--tf-lila) !important; }
+
+/* ---------------------------------------------------------------- 2 Buttons und Etiketten */
+/* Standard: gefüllt Lila, 10 px Ecken, Pfeil-Symbol – wie im Beitrags-Layout */
+main a.elementor-button[href], main .forminator-button {
+  display: inline-flex !important; align-items: center; justify-content: center; gap: 0.5rem;
+  min-height: 48px; padding: 14px 22px !important; border: 1px solid var(--tf-lila) !important; border-radius: 10px !important;
+  background: var(--tf-lila) !important; color: #fff !important; fill: #fff !important;
+  font-size: 1.0625rem !important; font-weight: 700 !important; line-height: 1.2 !important;
+  letter-spacing: 0 !important; text-transform: none !important; box-shadow: none !important;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+main a.elementor-button[href] :is(.elementor-button-text, .elementor-button-content-wrapper) { color: inherit !important; font: inherit !important; }
+main a.elementor-button[href]:hover, main a.elementor-button[href]:focus-visible,
+main .forminator-button:hover, main .forminator-button:focus-visible { background: var(--tf-lila-dunkel) !important; border-color: var(--tf-lila-dunkel) !important; color: #fff !important; }
+main a.elementor-button[href] .elementor-button-icon { order: -1; margin: 0 !important; }
+main a.elementor-button[href] .elementor-button-icon svg { width: 1em !important; height: 1em !important; fill: currentColor !important; }
+/* Einheitlich der Pfeil im Kreis (statt Doppelpfeil o. ä.); fehlt das Symbol, wird es ergänzt */
+main a.elementor-button[href] .elementor-button-icon svg { display: none !important; }
+main a.elementor-button[href] .elementor-button-icon::before,
+main a.elementor-button[href]:not(:has(.elementor-button-icon)) .elementor-button-content-wrapper::before {
+  content: ""; display: inline-block; width: 1em; height: 1em; flex: none; background: currentColor;
+  -webkit-mask: var(--tf-pfeil) center / contain no-repeat; mask: var(--tf-pfeil) center / contain no-repeat;
+}
+main a.elementor-button[href]:not(:has(.elementor-button-icon)) .elementor-button-content-wrapper { display: inline-flex; align-items: center; gap: 0.5rem; }
+:root { --tf-pfeil: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zM140 300h116v70.9c0 10.7 13 16.1 20.5 8.5l114.3-114.9c4.7-4.7 4.7-12.2 0-16.9l-114.3-115c-7.6-7.6-20.5-2.2-20.5 8.5V212H140c-6.6 0-12 5.4-12 12v64c0 6.6 5.4 12 12 12z'/%3E%3C/svg%3E"); }
+
+/* Auf dunklen Flächen, Bildern und Videos: weißer Rahmen */
+.elementor-12253 :is(.elementor-element-fcd04d6, .elementor-element-cbfcaf3, .elementor-element-2a6162a) a.elementor-button,
+.elementor-15220 :is(.elementor-element-d19fac6, .elementor-element-2a6162a) a.elementor-button,
+.elementor-13039 .elementor-element-73cd18f a.elementor-button,
+main .elementor-element-60a1eda a.elementor-button {
+  background: transparent !important; border-color: #fff !important; color: #fff !important;
+}
+.elementor-12253 :is(.elementor-element-fcd04d6, .elementor-element-cbfcaf3, .elementor-element-2a6162a) a.elementor-button:is(:hover, :focus-visible),
+.elementor-15220 :is(.elementor-element-d19fac6, .elementor-element-2a6162a) a.elementor-button:is(:hover, :focus-visible),
+.elementor-13039 .elementor-element-73cd18f a.elementor-button:is(:hover, :focus-visible),
+main .elementor-element-60a1eda a.elementor-button:is(:hover, :focus-visible) { background: #fff !important; color: var(--tf-lila) !important; border-color: #fff !important; }
+main .elementor-element-60a1eda a.elementor-button:focus-visible,
+.elementor-12253 :is(.elementor-element-fcd04d6, .elementor-element-cbfcaf3) a.elementor-button:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+/* Etiketten über Überschriften (bisher graue „Buttons“ ohne Funktion, 11–12 px Poppins) */
+main a.elementor-button:not([href]) {
+  display: inline-flex !important; width: auto !important; padding: 6px 14px !important; border: 0 !important; border-radius: 999px !important;
+  background: var(--tf-lila-hell) !important; color: var(--tf-lila-dunkel) !important;
+  font-size: 0.8125rem !important; font-weight: 700 !important; line-height: 1.3 !important; letter-spacing: 0.06em !important; text-transform: uppercase !important;
+  cursor: default; pointer-events: none;
+}
+main a.elementor-button:not([href]) .elementor-button-text { color: inherit !important; font: inherit !important; }
+main .elementor-widget-button:has(a.elementor-button:not([href])) .elementor-button-wrapper { text-align: inherit; }
+main .elementor-align-justify:has(a.elementor-button:not([href])) a.elementor-button { width: auto !important; }
+
+/* ---------------------------------------------------------------- 3 Farben: Grün nur noch als Akzent */
+/* FAQ-Bänder (dieselbe Vorlage auf mehreren Seiten) */
+main .elementor-element.elementor-element-a0516f5:not(.elementor-motion-effects-element-type-background),
+main .elementor-element-a0516f5 .e-n-accordion-item-title,
+main .elementor-element-5dfd399 .e-n-accordion-item-title { background-color: var(--tf-lila-dunkel) !important; }
+/* Websites-Seite: Prozess-Kreise, Texte, Überschrift, Buttons */
+.elementor-13322 :is(.elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27):not(.elementor-motion-effects-element-type-background) { background-color: var(--tf-lila) !important; }
+.elementor-13322 :is(.elementor-element-f2361cc, .elementor-element-8629023, .elementor-element-5da47f6, .elementor-element-b27f4ed) .elementor-icon-box-description,
+.elementor-13322 .elementor-element-e49db79,
+.elementor-13322 .elementor-element-e49db79 * { color: var(--tf-text) !important; }
+.elementor-13322 .elementor-element-bf0a233 .elementor-heading-title { color: var(--tf-lila) !important; }
+.elementor-13322 :is(.elementor-element-f2361cc, .elementor-element-8629023, .elementor-element-5da47f6, .elementor-element-b27f4ed) :is(.elementor-icon, svg) { color: var(--tf-lila) !important; fill: var(--tf-lila) !important; }
+/* Hellgrüne Flächen → Hellblau */
+.elementor-13322 .elementor-element:not(.elementor-motion-effects-element-type-background)[data-id]:has(> .e-con-inner > .elementor-element-bf0a233),
+.elementor-14093 .elementor-element.elementor-element-37b1574:not(.elementor-motion-effects-element-type-background),
+.elementor-14093 .elementor-element-37b1574 > .elementor-motion-effects-container > .elementor-motion-effects-layer { background-color: var(--tf-hell) !important; }
+
+/* ---------------------------------------------------------------- 4 Handy */
+@media (max-width: 767px) {
+  /* Fließtext und Überschriften linksbündig (zentrierte lange Absätze lesen sich schlecht) –
+     ausgenommen der Kopfbereich mit Video und Texte in Kreisen/Buttons */
+  main .elementor-widget-text-editor, main .elementor-widget-text-editor :is(p, li, h2, h3, h4),
+  main .elementor-widget-heading .elementor-heading-title,
+  main .elementor-icon-box-content, main .elementor-icon-box-description, main .elementor-icon-box-title { text-align: left !important; }
+  main .elementor-widget-text-editor :is(ul, ol) { padding-left: 1.2em; text-align: left !important; }
+  main [data-tf-hochkant] :is(.elementor-heading-title, .elementor-widget-text-editor, .elementor-widget-text-editor p) { text-align: center !important; }
+  main .elementor-icon-box-wrapper { text-align: left !important; }
+  main .elementor-widget-button:not(:has(a:not([href]))) .elementor-button-wrapper { text-align: left; }
+  main [data-tf-hochkant] .elementor-button-wrapper { text-align: center !important; }
+  /* Buttons über die volle Breite sind auf dem Handy leichter zu treffen */
+  main a.elementor-button[href] { width: 100% !important; }
+  main .elementor-widget-button:has(a.elementor-button[href]) { width: auto !important; max-width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; align-self: stretch !important; --container-widget-width: 100% !important; }
+  /* Seitenrand mindestens 20 px */
+  main .elementor > .e-con.e-parent { padding-left: max(20px, var(--padding-left)) !important; padding-right: max(20px, var(--padding-right)) !important; }
+  main .elementor > .elementor-section > .elementor-container { padding-inline: 10px; }
+  main .elementor-widget-erecht24 { padding-inline: 11px; }
+  /* Kontakt-Karte nicht bildschirmhoch */
+  .elementor-11253 .elementor-element-ed9e5f8 iframe { height: 60vh !important; min-height: 380px; }
+}
+
+/* ---------------------------------------------------------------- 5 Prozess-Schritte (Kreise) */
+/* Handy: statt vier großer Kreise mit Pfeilen kompakte, nummerierte Kopfzeilen */
+@media (max-width: 767px) {
+  main :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944,
+    .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27) {
+    --width: 100% !important; --min-height: 0px !important; --height: auto !important;
+    width: 100% !important; height: auto !important; min-height: 0 !important; aspect-ratio: auto !important;
+    padding: 14px 18px !important; border-radius: 14px !important; justify-content: flex-start !important; margin-bottom: 0 !important;
+  }
+  main :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944,
+    .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27) .elementor-heading-title { text-align: left !important; font-size: var(--fs-h3) !important; }
+  main .e-con:has(> :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944,
+    .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27)) .elementor-icon-box-icon { display: none !important; }
+  main .e-con:has(> :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944,
+    .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27)) { gap: 10px !important; }
+}
+
+/* ---------------------------------------------------------------- 6 360°-Seite an den Hauptlook angleichen */
+.elementor-7047 .elementor-element.elementor-element-81f4a80:not(.elementor-motion-effects-element-type-background) { background-color: var(--tf-lila-dunkel) !important; }
+.elementor-7047 .elementor-element.elementor-element-03806f3:not(.elementor-motion-effects-element-type-background) { background-color: var(--tf-hell) !important; }
+.elementor-7047 .elementor-price-table__header { background-color: var(--tf-lila) !important; }
+
+/* ---------------------------------------------------------------- 7 Mietstudio an den Hauptlook angleichen */
+/* (Vorschlag – Pastell-Collage aus Creme/Grün/Rosa/Mint → Weiß, Hellblau, Lila) */
+.elementor-13039 .elementor-element.elementor-element-d862d89:not(.elementor-motion-effects-element-type-background) { background-color: #fff !important; }
+.elementor-13039 :is(.elementor-element-8d4d37b, .elementor-element-998a67b).elementor-element:not(.elementor-motion-effects-element-type-background) { background-color: var(--tf-hell) !important; }
+.elementor-13039 .elementor-element.elementor-element-e70e2c8:not(.elementor-motion-effects-element-type-background) { background-color: var(--tf-lila-dunkel) !important; }
+.elementor-13039 .elementor-element-e70e2c8 > .elementor-shape .elementor-shape-fill,
+.elementor-13039 .elementor-element-e70e2c8 > .e-con-inner > .elementor-shape .elementor-shape-fill { fill: var(--tf-hell) !important; }
+.elementor-13039 :is(.elementor-element-998a67b, .elementor-element-d862d89, .elementor-element-8d4d37b) .elementor-shape-fill { fill: currentColor; }
+/* Info-Kästen abwechselnd Lila (weiße Schrift) und Hellblau (lila Überschrift, dunkle Schrift) */
+.elementor-13039 :is(.elementor-element-fea8158, .elementor-element-5147ec1).elementor-element:not(.elementor-motion-effects-element-type-background) { background-color: var(--tf-lila) !important; }
+.elementor-13039 :is(.elementor-element-69a206f, .elementor-element-b8a829d).elementor-element:not(.elementor-motion-effects-element-type-background) { background-color: var(--tf-hell) !important; }
+.elementor-13039 :is(.elementor-element-5147ec1, .elementor-element-fea8158) :is(.elementor-heading-title, p, span, strong, h2, h3, h4, .elementor-widget-text-editor) { color: #fff !important; }
+.elementor-13039 :is(.elementor-element-69a206f, .elementor-element-b8a829d) :is(.elementor-heading-title, h2, h3, h4, h3 strong) { color: var(--tf-lila) !important; }
+.elementor-13039 :is(.elementor-element-69a206f, .elementor-element-b8a829d) :is(p, span, .elementor-widget-text-editor) { color: var(--tf-text) !important; }
+.elementor-13039 #forminator-module-13090 :is(.forminator-description, .forminator-description p, .forminator-checkbox__label, .forminator-checkbox__label p) { color: #fff !important; }
+.elementor-13039 #forminator-module-13090 .forminator-description a, .elementor-13039 #forminator-module-13090 .forminator-checkbox__label a { color: #fff !important; text-decoration: underline; }

@@ -20,7 +20,7 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
      Swiper, Forminator). Nicht ersetzen/aktualisieren – sonst ist die 1:1-Optik nicht mehr garantiert.
    - Platzhalter in Templates: `{{LOOP:name}}`, `{{TITLE}}`, `{{IMG}}`, `{{CONTENT}}` … → `src/lib/wp.ts`.
 2. **Eigene Ebene:** `src/lib/*.ts`, `src/pages/*`, `src/scripts/*`, `public/api/*`, `public/admin/*`,
-   `public/media/*`, `public/css/ergaenzungen.css`.
+   `public/media/*`, `public/css/ergaenzungen.css`, `public/css/einheitlich.css`.
 
 ## Bewusste Abweichungen vom Original
 
@@ -45,6 +45,10 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   (`ergaenzungen.css`, nur `@media (scripting: enabled)` – ohne JavaScript unverändert).
 - **Beiträge:** Projekte und Blog nicht mehr im Elementor-Layout, sondern einheitlich (siehe Regeln unten);
   überführt mit `scripts/umstellung/umstellen.py`.
+- **Einheitliches Erscheinungsbild (Design-Review 11/2026):** `public/css/einheitlich.css` – eine Typo-Skala
+  (H1 60/38, H2 46/30, H3 26/21, Einleitung 21/19, Text 18/17 px), Buttons gefüllt Lila bzw. weißer Rahmen auf
+  dunklem Grund (10 px Ecken, Pfeil), Etiketten statt grauer Schein-Buttons, Grün nur als Akzent, nur Hausschrift,
+  mobil linksbündig mit 20 px Rand, Prozess-Kreise mobil als Karten, 360°- und Mietstudio-Seite in den Hausfarben.
 - **Handy-Darstellung:** zu lange Wörter in Überschriften mit Trennstellen (`src/lib/umbruch.ts`) bzw.
   `overflow-wrap`, Überstände am Rand abgeschnitten statt seitlich verschiebbar (iPhone), Menü-Links nicht unterstrichen.
   Beiträge bekommen ein `<main>` (fehlte im Original).
