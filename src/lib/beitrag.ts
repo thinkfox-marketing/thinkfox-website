@@ -289,6 +289,17 @@ export async function beitragSeite(p: Post, variante: 'neu' | 'klassisch' = 'kla
 }
 
 /** Stylesheets/Body-Klassen: Kopf- und Fußbereich wie bisher (Single-Vorlage), dazu beitrag.css. */
+/** „Weitere Projekte“ unter den Original-Projektseiten (PROJEKTE_IM_ORIGINAL, src/lib/wp.ts). */
+export async function weitereProjekte(p: Post): Promise<string> {
+  const html = await weitere(p, 'Weitere Projekte', 'Projekt ansehen');
+  return html ? `<div class="tf-beitrag tf-beitrag--anhang">${html}</div>` : '';
+}
+
+/** Stylesheets der Original-Projektseiten plus beitrag.css für „Weitere Projekte“. */
+export function mitWeiteren(s: { styles: StyleRef[]; scripts: ScriptRef[]; bodyClass: string }) {
+  return { ...s, styles: [...s.styles, { type: 'link' as const, href: asset('/css/beitrag.css'), id: 'beitrag-css' }] };
+}
+
 export function beitragStyles(p: Post): { styles: StyleRef[]; scripts: ScriptRef[]; bodyClass: string } {
   const t = singleTemplate(p);
   const styles = t.styles

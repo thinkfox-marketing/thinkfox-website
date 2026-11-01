@@ -8,7 +8,7 @@ import {
 import { seoHead } from '../lib/seo';
 import { renderHeroVideos } from '../lib/hero-video';
 import { BESCHREIBUNGEN } from '../lib/geo';
-import { beitragSeite, beitragStyles } from '../lib/beitrag';
+import { beitragSeite, beitragStyles, mitWeiteren, weitereProjekte } from '../lib/beitrag';
 
 export async function getStaticPaths() {
   const pages = Object.values(pageFiles).map((m) => m.default as LegacyPage);
@@ -41,8 +41,8 @@ if (page) {
   seo = seoHead(p);
   if (imOriginal(p)) {
     // Projekte vorerst 1:1 wie im Original (src/lib/wp.ts, PROJEKTE_IM_ORIGINAL)
-    ({ styles, scripts, bodyClass } = originalStyles(p));
-    main = originalSeite(p);
+    ({ styles, scripts, bodyClass } = mitWeiteren(originalStyles(p)));
+    main = originalSeite(p) + await weitereProjekte(p);
     einheitlich = false;
   } else {
     // Blog (und neue Projekte) im einheitlichen Layout (src/lib/beitrag.ts)
