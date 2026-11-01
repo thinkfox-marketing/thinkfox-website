@@ -21,5 +21,5 @@ projektLink:
 loesung: |
   **edlake – das Erlebnismagazin für die Region im Herzen Deutschlands**
 
-  Ansprechend und emotional – so wie unsere Region. edlake liefert mit Reportagen, Ausflugstipps, Interviews und spannenden Themen rund um die Ferienregion Nordhessen und Sauerland die ideale Plattform, um sich über unsere Region zu informieren – ob als „Einheimischer“ oder als Tourist. 4 x im Jahr präsentieren wir Highlights der Umgebung, Veranstaltungen, interessante Menschen und vieles mehr. edlake verbindet die touristischen Regionen Nordhessens und des Sauerlandes und ist der richtige Partner, um Ihr Unternehmen einem breiten Publikum zu präsentieren.
+  Ansprechend und emotional – so wie unsere Region. edlake liefert mit Reportagen, Ausflugstipps, Interviews und spannenden Themen rund um die Ferienregion Nordhessen und Sauerland die ideale Plattform, um sich über unsere Region zu informieren – ob als „Einheimischer“ oder als Tourist. 4 x im Jahr präsentieren wir Highlights der Umgebung, Veranstaltungen, interessante Menschen und vieles mehr. edlake verbindet die touristischen Regionen Nordhessens und des Sauerlandes und ist der richtige Partner, um dein Unternehmen einem breiten Publikum zu präsentieren.
 ---
