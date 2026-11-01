@@ -44,6 +44,7 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   Logo-Laufband und Hintergrundvideos haben schon vor dem Skriptstart ihre Endgröße
   (`ergaenzungen.css`, nur `@media (scripting: enabled)` – ohne JavaScript unverändert).
 - **Beiträge:** Projekte und Blog nicht mehr im Elementor-Layout, sondern einheitlich (siehe Regeln unten);
+  Blog im Aufbau des Originals (Bild oben über Hellblau, Titel darunter, 940 px Textbreite);
   überführt mit `scripts/umstellung/umstellen.py`.
 - **Einheitliches Erscheinungsbild (Design-Review 11/2026):** `public/css/einheitlich.css` – eine Typo-Skala
   (H1 60/38, H2 46/30, H3 26/21, Einleitung 21/19, Text 18/17 px), Buttons gefüllt Lila bzw. weißer Rahmen auf

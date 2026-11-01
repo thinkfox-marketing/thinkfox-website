@@ -193,3 +193,6 @@
   .tf-klassisch { padding-top: 140px; background: linear-gradient(180deg, #fff 0, #fff 175px, var(--tf-hell) 175px); }
   .tf-klassisch__bild { margin-bottom: 2.75rem; }
 }
+/* kein weißer Streifen zwischen hellblauem Inhalt und Abschluss-Box */
+.tf-beitrag--klassisch .tf-anfrage { margin-top: 0; }
+.tf-beitrag--klassisch .tf-klassisch { padding-bottom: 4rem; }

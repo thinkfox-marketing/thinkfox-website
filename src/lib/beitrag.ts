@@ -185,7 +185,7 @@ async function blogBausteine(p: Blog): Promise<Baustein[]> {
   return b;
 }
 
-export async function blogSeite(p: Blog, variante: 'neu' | 'klassisch' = 'neu'): Promise<string> {
+export async function blogSeite(p: Blog, variante: 'neu' | 'klassisch' = 'klassisch'): Promise<string> {
   const d = p.data;
   const bausteine = await blogBausteine(p);
   // FAQ-Titel = Überschrift direkt vor dem FAQ; Abschluss-Text + Button am Ende = Anfrage-Box
@@ -254,7 +254,7 @@ export async function blogSeite(p: Blog, variante: 'neu' | 'klassisch' = 'neu'):
 </article>`;
 }
 
-export async function beitragSeite(p: Post, variante: 'neu' | 'klassisch' = 'neu'): Promise<string> {
+export async function beitragSeite(p: Post, variante: 'neu' | 'klassisch' = 'klassisch'): Promise<string> {
   return p.collection === 'projekte' ? projektSeite(p as Projekt) : blogSeite(p as Blog, variante);
 }
 
