@@ -1,4 +1,4 @@
-# Sitemap thinkfox.de (Entwurf, nicht freigegeben)
+# Sitemap thinkfox.de (freigegeben 01.11.2026)
 
 Stand: 01.11.2026. Grundlage: `docs/briefing-positionierung.md` (verbindlich). Alles, was nicht wörtlich aus dem
 Briefing kommt, ist als **[Vorschlag]** markiert. Offene Punkte aus Briefing Abschnitt 13 sind als **[offen]** markiert
@@ -136,7 +136,7 @@ die vier Kunden-Rundgänge unter `/360-grad-rundgaenge/…` (Hosting für Kunden
 | Alt | Neu | Grund |
 |---|---|---|
 | `/deine-externe-marketingabteilung-…/` | `/beratung/marketingpartnerschaft/` | externe MA ist keine Positionierung mehr |
-| `/die-externe-marketingabteilung-warum-kmu-…/` (Blog, Pos. 4) | `/beratung/marketingpartnerschaft/` **oder** bleibt als Ratgeber [offen] | rankt als einzige Seite für „externe marketingabteilung“ |
+| `/die-externe-marketingabteilung-warum-kmu-…/` (Blog, Pos. 4) | bleibt als Ratgeber, keine Weiterleitung | rankt als einzige Seite für „externe marketingabteilung“ |
 | `/professionelle-websites-fuer-den-mittelstand/` | `/leistungen/websites/` | neue Struktur |
 | `/seo-agentur-optimierung-nordhessen-…/` (Blog) | `/leistungen/seo/` | Blog als verkappte Leistungsseite |
 | `/mehr-aufmerksamkeit-und-reichweite-mit-social-media/` | `/leistungen/social-media-betreuung/` | neue Struktur |
@@ -155,6 +155,16 @@ die vier Kunden-Rundgänge unter `/360-grad-rundgaenge/…` (Hosting für Kunden
 Vor dem Go-live zusätzlich: Rank-Math-Weiterleitungen aus WordPress übernehmen (Export steht aus).
 
 ## 6. Entscheidungen vom 01.11.2026
+
+Freigabe der Sitemap mit folgenden Punkten (Empfehlungen übernommen):
+- Marketingpartnerschaft als eigene Seite unter „Beratung“, die externe Marketingabteilung ist dort die umfassendste Form.
+- Der Blog heißt „Wissen“: `/blog/` → `/wissen/` per 301, Artikel-URLs bleiben.
+- Studio als Seite unter „Über thinkfox“ (Produktionsstandort), Vermietung verweist auf thinkfox.studio.
+- 360°-Rundgänge ohne eigene Leistungsseite, als Baustein unter Fotografie; Kunden-Rundgänge bleiben erreichbar (noindex).
+- Der Blogartikel „Die externe Marketingabteilung …“ bleibt als Ratgeber (rankt auf Platz 4) und verlinkt prominent auf
+  die Seite Marketingpartnerschaft. Keine Weiterleitung.
+- Kassel-Regionalseite bleibt Vorschlag, bis Kassel-Belege geklärt sind (KSV-Partnerschaft, Kunden außer DWAZ).
+
 
 Frage 1: (a) · Frage 2: beide Seiten · Frage 3: (a). Ursprüngliche Fragen zur Nachvollziehbarkeit:
 
