@@ -103,6 +103,12 @@ export function faqAus(html: string): { frage: string; antwort: string }[] {
     const antwort = text(m[1].split('</summary>')[1] ?? '');
     if (frage.endsWith('?') && antwort) faq.push({ frage, antwort });
   }
+  // einheitliches Beitrags-Layout (src/lib/beitrag.ts)
+  for (const m of html.matchAll(/<details class="tf-faq__eintrag"><summary class="tf-faq__frage">([\s\S]*?)<\/summary>([\s\S]*?)<\/details>/g)) {
+    const frage = text(m[1]);
+    const antwort = text(m[2]);
+    if (frage && antwort) faq.push({ frage, antwort });
+  }
   return faq;
 }
 

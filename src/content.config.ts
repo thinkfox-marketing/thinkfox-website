@@ -21,6 +21,8 @@ const common = {
   bild: z.string().optional(),
   bildAlt: z.string().default(''),
   auszug: z.string().default(''),
+  // Teaser unter dem Titel im einheitlichen Layout (sonst SEO-Beschreibung)
+  einleitung: z.string().optional(),
   seo,
   entwurf: z.boolean().default(false),
   // Nur importierte WordPress-Beiträge: Originalinhalt liegt in src/legacy/posts/<slug>.html
@@ -44,6 +46,12 @@ const projekte = defineCollection({
     leistungen: z.array(z.string()).default([]),
     projektLink: z.object({ text: z.string(), url: z.string() }).optional(),
     medien: z.array(medium).default([]),
+    // Einheitliches Projekt-Layout (src/lib/beitrag.ts): Steckbrief + Case Study (Markdown)
+    branche: z.string().optional(),
+    aufgabe: z.string().optional(),
+    loesung: z.string().optional(),
+    ergebnis: z.string().optional(),
+    kundenstimme: z.object({ zitat: z.string(), name: z.string(), funktion: z.string().optional() }).optional(),
   }),
 });
 
@@ -51,6 +59,7 @@ const blog = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/blog' }),
   schema: z.object({
     ...common,
+    autor: z.string().optional(),
     faq: z
       .object({
         titel: z.string().default(''),

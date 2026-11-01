@@ -93,3 +93,15 @@ export function einbettungen(html: string): string {
       return `<iframe${rest} title="360°-Rundgang (Kuula)" srcdoc="${doc}">`;
     });
 }
+
+/** YouTube-Video als 2-Klick-Platzhalter (für das einheitliche Beitrags-Layout, src/lib/beitrag.ts). */
+export function youtubeEinbettung(url: string, titel = 'Video (YouTube)'): string {
+  const id = youtubeId(url);
+  if (!id) return '';
+  const doc = platzhalter({
+    anbieter: 'YouTube', firma: 'Google', was: 'ein Video',
+    ziel: `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1`,
+    bild: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+  });
+  return `<iframe title="${attr(titel)}" srcdoc="${doc}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>`;
+}
