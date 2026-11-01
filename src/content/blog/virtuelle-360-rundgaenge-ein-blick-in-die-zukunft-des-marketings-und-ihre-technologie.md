@@ -17,7 +17,7 @@ In der heutigen digitalen Ära haben 360° Rundgänge und virtuelle Touren eine 
 
 ## Wie funktioniert diese Technologie?
 
-Im Kern besteht ein 360° Rundgang aus einer Serie von Weitwinkel- oder Fischaugenfotos, die in alle Richtungen aufgenommen werden. Diese Fotos werden dann mithilfe spezieller Software zu einem nahtlosen Panoramabild zusammengefügt, das sich frei in alle Richtungen drehen lässt. Moderne Kameras und spezialisierte Apps erlauben sogar das Erstellen von 360° Videos, bei denen sich der Betrachter während der Wiedergabe umschauen kann. Durch das Hinzufügen von Hotspots oder interaktiven Punkten können Nutzer von einem Bereich zum nächsten navigieren, zusätzliche Informationen abrufen oder sich Videos (klicke unten auf den BUtton und schaue dir das erste Beispiel an) und andere Medieninhalte anzeigen lassen.
+Im Kern besteht ein 360° Rundgang aus einer Serie von Weitwinkel- oder Fischaugenfotos, die in alle Richtungen aufgenommen werden. Diese Fotos werden dann mithilfe spezieller Software zu einem nahtlosen Panoramabild zusammengefügt, das sich frei in alle Richtungen drehen lässt. Moderne Kameras und spezialisierte Apps erlauben sogar das Erstellen von 360° Videos, bei denen sich der Betrachter während der Wiedergabe umschauen kann. Durch das Hinzufügen von Hotspots oder interaktiven Punkten können Nutzer von einem Bereich zum nächsten navigieren, zusätzliche Informationen abrufen oder sich Videos (klicke unten auf den Button und schaue dir das erste Beispiel an) und andere Medieninhalte anzeigen lassen.
 
 ### Kernvorteile der Technologie:
 

@@ -64,16 +64,22 @@ body.elementor-kit-52 {
 /* Blog-Teaser (#777) */
 body .elementor-posts .elementor-post__excerpt p { color: #717171; }
 /* Formular-Beschriftungen im Standard-Formulardesign (#777771) */
-.forminator-ui.forminator-custom-form[data-design="default"] .forminator-label,
-.forminator-ui.forminator-custom-form[data-design="default"] .forminator-description,
-.forminator-ui.forminator-custom-form[data-design="default"] .forminator-checkbox-label,
-.forminator-ui.forminator-custom-form[data-design="default"] .forminator-checkbox__label,
-.forminator-ui.forminator-custom-form[data-design="default"] .forminator-checkbox span,
-.forminator-ui.forminator-custom-form[data-design="default"] .forminator-option { color: #656560 !important; }
-/* „Weiter“/„Senden“ im Marketing-Check (#7d73d4) */
-.forminator-ui.forminator-custom-form-12432 .forminator-button { background-color: #6f63cc !important; }
+.forminator-ui.forminator-custom-form[data-design="default"]:not(#forminator-module-13090) .forminator-label,
+.forminator-ui.forminator-custom-form[data-design="default"]:not(#forminator-module-13090) .forminator-description,
+.forminator-ui.forminator-custom-form[data-design="default"]:not(#forminator-module-13090) .forminator-checkbox-label,
+.forminator-ui.forminator-custom-form[data-design="default"]:not(#forminator-module-13090) .forminator-checkbox__label,
+.forminator-ui.forminator-custom-form[data-design="default"]:not(#forminator-module-13090) .forminator-checkbox span,
+.forminator-ui.forminator-custom-form[data-design="default"]:not(#forminator-module-13090) .forminator-option { color: #656560 !important; }
+/* „Weiter“/„Senden“ im Marketing-Check und in der Projektanfrage (#7d73d4) */
+.forminator-ui.forminator-custom-form-12432 .forminator-button,
+.forminator-ui.forminator-custom-form-11213 .forminator-button { background-color: #6f63cc !important; }
 .forminator-ui.forminator-custom-form-12432 .forminator-button:hover,
-.forminator-ui.forminator-custom-form-12432 .forminator-button:focus { background-color: #5b4ec8 !important; }
+.forminator-ui.forminator-custom-form-12432 .forminator-button:focus,
+.forminator-ui.forminator-custom-form-11213 .forminator-button:hover,
+.forminator-ui.forminator-custom-form-11213 .forminator-button:focus { background-color: #5b4ec8 !important; }
+/* Mietstudio: Formularbereich (#8a6ee4) und grüner Infokasten (#2cac3e) mit ausreichendem Kontrast */
+.elementor-13039 .elementor-element.elementor-element-e70e2c8:not(.elementor-motion-effects-element-type-background) { background-color: #7e5fe1; }
+.elementor-13039 .elementor-element.elementor-element-fea8158:not(.elementor-motion-effects-element-type-background) { background-color: #267f32; }
 /* Instagram „Auf Instagram folgen“ (#408bd1) */
 #sb_instagram .sbi_follow_btn a { background: #2e79bf !important; }
 
