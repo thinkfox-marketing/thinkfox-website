@@ -256,3 +256,16 @@ main .elementor-13322 .elementor-element-2885d14 .eael-infobox .infobox-icon { m
 @media (max-width: 600px) {
   main .elementor-13322 .elementor-element.elementor-element-2885d14 { grid-template-columns: 1fr; }
 }
+
+/* ---------------------------------------------------------------- 10 Überschriften mit weißer Hinterlegung je Zeile */
+/* „Aktuelle Kunden & Projekte.“: im Original eine weiße Hinterlegung pro Zeile mit Abstand dazwischen. Mit der engeren
+   Zeilenhöhe der Typo-Skala liefen die Zeilen zu einem unförmigen Block zusammen. */
+main .elementor-heading-title:has(> span[style*="background-color"]) { line-height: 1.5 !important; }
+main .elementor-heading-title > span[style*="background-color"] {
+  padding: 0.04em 0.12em; -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+
+/* Content-Seite: Der Referenzen-Slider hat mobil im Original einen negativen Abstand (-27 px) und ragte in das Showreel */
+@media (max-width: 767px) {
+  .elementor-14093 .elementor-element.elementor-element-aab9e30 { margin-bottom: 0 !important; }
+}
