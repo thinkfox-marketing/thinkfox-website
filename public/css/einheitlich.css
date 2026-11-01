@@ -170,14 +170,22 @@ main .elementor-element-5dfd399 .e-n-accordion-item-title { background-color: va
 }
 
 /* ---------------------------------------------------------------- 5 Prozess-Schritte (Kreise) */
-/* Handy: statt vier großer Kreise mit Pfeilen kompakte, nummerierte Kopfzeilen */
+/* Handy: statt vier großer Kreise mit Pfeilen schlichte Zwischenüberschriften ohne Kasten */
 @media (max-width: 767px) {
   main :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944,
     .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27) {
     --width: 100% !important; --min-height: 0px !important; --height: auto !important;
     width: 100% !important; height: auto !important; min-height: 0 !important; aspect-ratio: auto !important;
-    padding: 14px 18px !important; border-radius: 14px !important; justify-content: flex-start !important; margin-bottom: 0 !important;
+    padding: 0 !important; border-radius: 0 !important; justify-content: flex-start !important; margin-bottom: 0 !important;
+    /* ohne weißen bzw. lila Kasten: die Karte enthielt nur die Überschrift, der Text steht darunter */
+    background: none !important; box-shadow: none !important; border: 0 !important;
   }
+  main :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944,
+    .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27) > .elementor-motion-effects-container { display: none !important; }
+  /* Websites-Seite: die Kreise sind dort lila gefüllt (Abschnitt 3) – auch das entfällt mobil */
+  main .elementor-13322 :is(.elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27):not(.elementor-motion-effects-element-type-background) { background: none !important; }
+  main :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944,
+    .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27) :is(.elementor-heading-title, .elementor-heading-title *) { color: var(--tf-lila) !important; }
   main :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944,
     .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27) .elementor-heading-title { text-align: left !important; font-size: var(--fs-h3) !important; }
   main .e-con:has(> :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944,
