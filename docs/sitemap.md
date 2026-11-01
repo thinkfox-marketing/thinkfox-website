@@ -17,7 +17,7 @@ Leistungen | Beratung | Projekte | Über thinkfox | Wissen | Kontakt        [But
 
 - **[Vorschlag]** Zwei gleich gewichtete Buttons rechts, weil das Briefing zwei gleichberechtigte Zugänge verlangt.
   Heute steht dort nur „Projekt anfragen“. Mobil: beide Buttons unten im Menü, nebeneinander.
-- **[offen]** Platz der Branchenseiten (Briefing 13). Varianten siehe Abschnitt 6, Frage 1.
+- **Entschieden 01.11.2026:** Branchenseiten stehen als eigene Spalte im Menü „Leistungen“. Die Hauptnavigation bleibt wie im Master Context.
 - Studio, Marketing-Ampel und Regionalseiten stehen **nicht** in der Hauptnavigation.
 
 ## 2. Seitenbaum
@@ -36,13 +36,13 @@ Blog-URLs bleiben (interne und externe Links, Rankings). Alte Leistungsseiten zi
   /leistungen/fotografie/                 Fotografie
   /leistungen/branding-corporate-design/  Branding & Corporate Design
   /leistungen/kampagnen/                  Kampagnen
-  /leistungen/print-corporate-publishing/ [offen] Print & Corporate Publishing
-  /leistungen/recruitingkommunikation/    [offen] Recruitingkommunikation
+  /leistungen/print-corporate-publishing/ Print & Corporate Publishing (entschieden 01.11.2026, Master Context ergänzen)
+  /leistungen/recruitingkommunikation/    Recruitingkommunikation (entschieden 01.11.2026, Master Context ergänzen)
 /beratung/                                Zugang B: „Wenn noch nicht klar ist, was zuerst sinnvoll ist“
   /beratung/marketing-check/              Marketing-Check (1.950 € netto)
   /beratung/marketing-strategie/          Marketing-Strategie (ohne Preis)
   /beratung/marketingpartnerschaft/       [Vorschlag] Marketingpartnerschaft inkl. externe Marketingabteilung
-/branchen/…                               [offen] Platz in der Navigation, siehe Frage 1
+/branchen/…                               im Menü unter „Leistungen“ (eigene Spalte), URL bleibt kurz
   /branchen/technischer-mittelstand/      Technischer und produzierender Mittelstand
   /branchen/gesundheit-soziales/          Gesundheit und Soziales
 /projekte/                                Übersicht mit Filter Branche und Leistung (ersetzt /#projekte)
@@ -56,8 +56,17 @@ Blog-URLs bleiben (interne und externe Links, Rankings). Alte Leistungsseiten zi
 /kontakt/                                 beide Wege nebeneinander, Adresse, Telefon
   /thinkfox-marketing-projekt-anfragen/   Anfrageformular (URL bleibt, viele interne Links)
   /erstgespraech/                         [Vorschlag] Erwartung, Ablauf, Kalender
-Fußzeile: Impressum, Datenschutz, Barrierefreiheit, thinkfox.studio, [offen] Regionalseiten
+/werbeagentur-bad-wildungen-…/           Regionalseite, URL bleibt (Ausnahme, siehe unten)
+  [Vorschlag] weitere Regionalseite Kassel, nur mit echten Kassel-Belegen
+Fußzeile: Impressum, Datenschutz, Barrierefreiheit, thinkfox.studio, Regionalseiten
 ```
+
+### Regionalseiten (entschieden 01.11.2026)
+
+Ausdrückliche Ausnahme von „Nordhessen nie in Überschriften“: Regionalseiten dürfen den Ort in Title und H1 tragen, weil
+regionale SEO im Umkreis von 2 bis 3 Stunden Ziel ist. Regeln: Kategorie bleibt „Marketingpartner für den Mittelstand“,
+nie „Werbeagentur aus Nordhessen“ als Identität, echte lokale Belege statt Ortsnamen-Austausch, keine Serie gleicher
+Seiten. Startseite und alle übrigen Seiten bleiben ohne Ortsbezug in Überschriften.
 
 ## 3. Seiten im Einzelnen
 
@@ -76,8 +85,8 @@ Hauptbotschaften sind inhaltliche Richtungen aus dem Briefing, keine fertige Cop
 | **Fotografie** | Foto verkaufen | Zugang A | Echte Menschen, echte Arbeit | Projekt anfragen | Video, Studio, Projekte | „businessfotos“, „mitarbeiterfotos“ (nicht erhoben) |
 | **Branding & Corporate Design** | Markenarbeit | Zugang A | Auftritt, der zeigt, was im Unternehmen steckt | Projekt anfragen | Kampagnen, Print, Strategie | „corporate design agentur“ (nicht erhoben) |
 | **Kampagnen** | Kampagnen verkaufen | Zugang A | Medienübergreifend von Claim bis Kino | Projekt anfragen | Branding, Video, Print, Projekte (EWF nach Freigabe) | „kampagne agentur“ (nicht erhoben) |
-| **Print & Corporate Publishing** [offen] | Unterscheidungsmerkmal laut Marcus | Zugang A | Magazine und Unternehmensunterlagen, die gelesen werden | Projekt anfragen | Branding, Kampagnen, Gesundheit & Soziales | „printwerbung“ 390 (informativ) |
-| **Recruitingkommunikation** [offen] | Zweiter Teil des gemeinsamen Problems (Bewerbungen) | GF und HR | Gute Arbeitsplätze sichtbar machen | Projekt anfragen | Video, Websites, beide Branchenseiten | „employer branding agentur“ 390, „recruiting video“ 390 (kommerziell) |
+| **Print & Corporate Publishing** | Unterscheidungsmerkmal laut Marcus | Zugang A | Magazine und Unternehmensunterlagen, die gelesen werden | Projekt anfragen | Branding, Kampagnen, Gesundheit & Soziales | „printwerbung“ 390 (informativ) |
+| **Recruitingkommunikation** | Zweiter Teil des gemeinsamen Problems (Bewerbungen) | GF und HR | Gute Arbeitsplätze sichtbar machen | Projekt anfragen | Video, Websites, beide Branchenseiten | „employer branding agentur“ 390, „recruiting video“ 390 (kommerziell) |
 | **Beratung** | Zugang B öffnen | Unklarer Bedarf | Wir sortieren gemeinsam die Aufgabe und setzen Prioritäten. So viel Beratung wie nötig | Erstgespräch | Marketing-Check, Strategie, Partnerschaft | „marketingberatung mittelstand“ (nicht erhoben) |
 | **Marketing-Check** | Festpreisprodukt verkaufen | Zugang B | 4 Std. Workshop, 8 bis 12 Seiten Ergebnis, 90-Tage-Fahrplan, ergebnisoffen, 1.950 € netto. RKW nur „Förderung im Einzelfall prüfen“ | Erstgespräch | Beratung, So arbeiten wir | „marketing check“ 20 (navigational) |
 | **Marketing-Strategie** | Strategieprojekt | Zugang B | Ausrichtung an Unternehmenszielen, individuell kalkuliert | Erstgespräch | Marketing-Check, Partnerschaft | „marketingstrategie entwickeln lassen“ (nicht erhoben) |
@@ -119,7 +128,7 @@ Alle 25 Projektseiten · alle Blogartikel als Ratgeber (außer Zusammenlegungen)
 die vier Kunden-Rundgänge unter `/360-grad-rundgaenge/…` (Hosting für Kunden, noindex [Vorschlag]).
 
 ### Kommt neu
-`/leistungen/` und neun Produktseiten (zwei davon [offen]) · `/beratung/` mit drei Unterseiten · zwei Branchenseiten ·
+`/leistungen/` und elf Produktseiten · `/beratung/` mit drei Unterseiten · zwei Branchenseiten ·
 `/projekte/` · `/ueber-thinkfox/` mit „So arbeiten wir“ und [Vorschlag] Studio · `/wissen/` · [Vorschlag] `/erstgespraech/`.
 
 ### Fällt weg (mit 301)
@@ -138,14 +147,16 @@ die vier Kunden-Rundgänge unter `/360-grad-rundgaenge/…` (Hosting für Kunden
 | `/thinkfox-mietstudio-fuer-foto-…/` (Blog) | wie oben | Dublette |
 | `/360-grad-rundgaenge/` | `/leistungen/fotografie/` [Vorschlag] | kein Produkt laut Briefing, „360°“ auf der Vermeiden-Liste |
 | `/virtuelle-360-rundgaenge-…/` (Blog) | `/leistungen/fotografie/` [Vorschlag] | wie oben |
-| `/werbeagentur-bad-wildungen-…/` | [offen], Frage 3 | widerspricht „nie als Identität“, rankt aber |
+| `/werbeagentur-bad-wildungen-…/` | bleibt (Regionalseite als Ausnahme) | entschieden 01.11.2026, Frage 3 (a) |
 | `/blog/` | `/wissen/` [Vorschlag] | Navigationsbegriff laut Master Context |
 | `/thinkfox-marketing-check/`, `/marketing-check-ergebnis/` | bereits auf `/marketing-ampel/` umgeleitet | – |
 | `/mach-das-licht-an-…/` (Workshop 2023) | noindex oder 301 auf `/wissen/` [Vorschlag] | veraltet |
 
 Vor dem Go-live zusätzlich: Rank-Math-Weiterleitungen aus WordPress übernehmen (Export steht aus).
 
-## 6. Offene Fragen (vor Detailausarbeitung)
+## 6. Entscheidungen vom 01.11.2026
+
+Frage 1: (a) · Frage 2: beide Seiten · Frage 3: (a). Ursprüngliche Fragen zur Nachvollziehbarkeit:
 
 1. **Branchenseiten in der Navigation** (Briefing 13): (a) unter „Leistungen“ als eigene Spalte im Menü, Navigation bleibt
    wie im Master Context **[Empfehlung]**; (b) unter „Projekte“ als Filter-Einstieg; (c) eigener Menüpunkt „Branchen“
