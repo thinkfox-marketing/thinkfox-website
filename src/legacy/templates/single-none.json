@@ -1,5 +1,5 @@
 {
- "template": "\n\t\t\n<main id=\"content\" class=\"site-main {{POST_CLASSES}}\">\n\n\t\t\t<div class=\"page-header\">\n\t\t\t<h1 class=\"entry-title\">Video-/Fotoproduktion Recup Stadt Korbach</h1>\t\t</div>\n\t\n\t<div class=\"page-content\">\n\t\t\t\t{{CONTENT}}\n\t\t\n\t\t\n\t\t\t\t<div class=\"post-tags\">\n\t\t\t<span class=\"tag-links\">Verschlagwortet <a href=\"/tag/content-produktion/\" rel=\"tag\">Content-Produktion</a>, <a href=\"/tag/fotoproduktion/\" rel=\"tag\">Fotoproduktion</a>, <a href=\"/tag/social-media-produktion/\" rel=\"tag\">Social Media Produktion</a>, <a href=\"/tag/video/\" rel=\"tag\">Video</a></span>\t\t</div>\n\t\t\t</div>\n\n\t\n</main>\n\n\t\t\t",
+ "template": "\n\t\t\n<main id=\"content\" class=\"site-main {{POST_CLASSES}}\">\n\n\t\t\t<div class=\"page-header\">\n\t\t\t<h1 class=\"entry-title\">Video-/Fotoproduktion Recup Stadt Korbach</h1>\t\t</div>\n\t\n\t<div class=\"page-content\">\n\t\t\t\t{{CONTENT}}\n\t\t\n\t\t\n\t\t\t</div>\n\n\t\n</main>\n\n\t\t\t",
  "example": "video-fotoproduktion-recup-stadt-korbach",
  "styles": [
   {
