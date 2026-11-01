@@ -19,9 +19,10 @@
 .tf-beitrag *, .tf-beitrag *::before, .tf-beitrag *::after { box-sizing: border-box; }
 .tf-beitrag img { display: block; max-width: 100%; height: auto; }
 
-.tf-huelle { width: 100%; max-width: 1140px; margin-inline: auto; padding-inline: 20px; }
-.tf-huelle--text { max-width: 760px; }
-.tf-huelle--breit { max-width: 1280px; }
+.tf-huelle { width: 100%; max-width: 980px; margin-inline: auto; padding-inline: 20px; }
+.tf-huelle--text { max-width: 940px; }
+.tf-huelle--breit { max-width: 980px; }
+.tf-weitere .tf-huelle { max-width: 1180px; } /* Karten-Raster wie mehrspaltige Bereiche: 1140 px */
 
 .tf-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 

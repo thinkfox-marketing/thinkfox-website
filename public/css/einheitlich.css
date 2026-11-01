@@ -185,7 +185,7 @@ main .elementor-element-5dfd399 .e-n-accordion-item-title { background-color: va
 .elementor-7047 .elementor-price-table__header { background-color: var(--tf-lila) !important; }
 
 /* ---------------------------------------------------------------- 7 Mietstudio an den Hauptlook angleichen */
-/* (Vorschlag – Pastell-Collage aus Creme/Grün/Rosa/Mint → Weiß, Hellblau, Lila) */
+/* (freigegeben 11/2026 – Pastell-Collage aus Creme/Grün/Rosa/Mint → Weiß, Hellblau, Lila) */
 .elementor-13039 .elementor-element.elementor-element-d862d89:not(.elementor-motion-effects-element-type-background) { background-color: #fff !important; }
 .elementor-13039 :is(.elementor-element-8d4d37b, .elementor-element-998a67b).elementor-element:not(.elementor-motion-effects-element-type-background) { background-color: var(--tf-hell) !important; }
 .elementor-13039 .elementor-element.elementor-element-e70e2c8:not(.elementor-motion-effects-element-type-background) { background-color: var(--tf-lila-dunkel) !important; }
@@ -200,3 +200,16 @@ main .elementor-element-5dfd399 .e-n-accordion-item-title { background-color: va
 .elementor-13039 :is(.elementor-element-69a206f, .elementor-element-b8a829d) :is(p, span, .elementor-widget-text-editor) { color: var(--tf-text) !important; }
 .elementor-13039 #forminator-module-13090 :is(.forminator-description, .forminator-description p, .forminator-checkbox__label, .forminator-checkbox__label p) { color: #fff !important; }
 .elementor-13039 #forminator-module-13090 .forminator-description a, .elementor-13039 #forminator-module-13090 .forminator-checkbox__label a { color: #fff !important; text-decoration: underline; }
+
+/* ---------------------------------------------------------------- 8 Inhaltsbreite */
+/* Textbereiche höchstens 940 px breit (wie die Beiträge); mehrspaltige Bereiche bleiben 1140 px.
+   Gilt für Container, die nur Text-Bausteine enthalten (Überschrift, Text, Button, Liste). */
+main .e-con-boxed:not(:has(> .e-con-inner > :not(.elementor-widget-heading, .elementor-widget-text-editor, .elementor-widget-button, .elementor-widget-icon-list, .elementor-widget-spacer, .elementor-widget-divider, .elementor-widget-erecht24, .elementor-widget-nested-accordion))) > .e-con-inner,
+main .e-con-full:not(:has(> :not(.elementor-widget-heading, .elementor-widget-text-editor, .elementor-widget-button, .elementor-widget-icon-list, .elementor-widget-spacer, .elementor-widget-divider, .elementor-widget-erecht24, .elementor-widget-nested-accordion))) > :is(.elementor-widget-heading, .elementor-widget-text-editor, .elementor-widget-icon-list, .elementor-widget-erecht24),
+main .elementor-section-boxed:not(:has(.elementor-column + .elementor-column)) > .elementor-container {
+  max-width: 940px !important; margin-inline: auto !important; width: 100%;
+}
+/* Einzelfälle in breiten, gemischten Bereichen: zentrierte Texte mittig auf 940 px, Kopfzeile Mietstudio linksbündig */
+.elementor-12253 .elementor-element-f86502d, .elementor-7047 .elementor-element-251f955,
+.elementor-14093 .elementor-element-62a63cd { max-width: 940px !important; margin-inline: auto !important; }
+.elementor-13039 :is(.elementor-element-09fb592, .elementor-element-35bf086) { max-width: 940px !important; }
