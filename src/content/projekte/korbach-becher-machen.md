@@ -13,7 +13,7 @@ wpId: 6602
 template: "10946"
 legacy: false
 kunde: "Stadt Korbach"
-veroeffentlichung: "2025"
+veroeffentlichung: "2022/2023"
 leistungen: ["Corporate Design", "Fotoproduktion", "Kampagnen", "Printproduktion", "SocialMedia Betreuung", "Video-/Filmproduktion", "Website"]
 projektLink:
   text: "Zur Website der Kampagne der Stadt Korbach"
