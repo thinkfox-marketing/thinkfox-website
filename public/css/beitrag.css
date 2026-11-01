@@ -6,7 +6,6 @@
   --tf-lila-dunkel: #3b3192;
   --tf-lila-hell: #eceafb;
   --tf-hell: #eef7ff;
-  --tf-gelb: #f9b233;
   --tf-text: #1f1d2e;
   --tf-grau: #55536a;
   --tf-linie: #dcdbe8;
@@ -62,7 +61,7 @@
 /* --- Case Study (Projekt) ----------------------------------------------------------------------- */
 .tf-case { display: grid; gap: 2.5rem; padding-block: 3.5rem 1rem; }
 .tf-case__teil { display: grid; gap: 0.25rem; padding-top: 1.5rem; border-top: 2px solid var(--tf-linie); }
-.tf-case__nr { margin: 0; font-size: 0.9375rem; font-weight: 800; color: #8a5a00; letter-spacing: 0.08em; }
+.tf-case__nr { margin: 0; font-size: 0.9375rem; font-weight: 800; color: var(--tf-lila); letter-spacing: 0.08em; }
 .tf-beitrag .tf-case__teil h2 { margin: 0 0 0.5rem; font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 700; line-height: 1.2; color: var(--tf-lila); }
 
 /* --- Fließtext ------------------------------------------------------------------------------------ */
@@ -77,7 +76,7 @@
 .tf-text strong { font-weight: 700; }
 .tf-beitrag .tf-text a, .tf-faq__antwort a { color: var(--tf-lila-dunkel); text-decoration: underline; text-underline-offset: 0.15em; text-decoration-thickness: 1px; }
 .tf-beitrag .tf-text a:hover { text-decoration-thickness: 2px; }
-.tf-text blockquote { padding: 0.25em 0 0.25em 1.1em; border-left: 4px solid var(--tf-gelb); font-size: 1.15em; }
+.tf-text blockquote { padding: 0.25em 0 0.25em 1.1em; border-left: 4px solid var(--tf-lila); font-size: 1.15em; }
 .tf-text img { border-radius: 12px; margin: 1.5em 0; }
 
 /* Inhaltsverzeichnis (Blog) */
@@ -127,15 +126,19 @@
 .tf-beitrag .tf-anfrage__titel { margin: 0 0 0.25rem; font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 700; line-height: 1.2; color: #fff; }
 .tf-anfrage p { margin: 0; max-width: 52ch; }
 
+/* Buttons wie auf der Startseite: gefüllt Lila (helle Flächen) bzw. weißer Rahmen (lila Flächen),
+   jeweils mit Pfeil-Symbol */
 .tf-knopf {
-  display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0.75rem 1.5rem;
-  border-radius: 999px; background: var(--tf-lila); color: #fff !important; font-weight: 700; text-decoration: none !important;
-  transition: background-color 0.2s, transform 0.2s;
+  display: inline-flex; align-items: center; gap: 0.5rem; padding: 16px 15px 14px;
+  border: 1px solid var(--tf-lila); border-radius: 3px; background: var(--tf-lila);
+  color: #fff !important; font-size: 1rem; font-weight: 800; line-height: 1; text-decoration: none !important;
+  transition: background-color 0.2s, color 0.2s;
 }
-.tf-knopf:hover { background: var(--tf-lila-dunkel); }
-.tf-knopf--gelb { background: var(--tf-gelb); color: #1f1d2e !important; justify-self: start; }
-.tf-knopf--gelb:hover { background: #ffc44f; transform: translateY(-1px); }
-.tf-beitrag a:focus-visible, .tf-faq__frage:focus-visible { outline: 3px solid var(--tf-gelb); outline-offset: 3px; border-radius: 4px; }
+.tf-knopf__symbol { width: 1em; height: 1em; flex: none; fill: currentColor; }
+.tf-knopf:hover { background: var(--tf-lila-dunkel); border-color: var(--tf-lila-dunkel); }
+.tf-knopf--rahmen { justify-self: start; padding: 15px 20px; border-color: #fff; border-radius: 10px; background: transparent; font-size: 1.2rem; font-weight: 700; }
+.tf-knopf--rahmen:hover { background: #fff; border-color: #fff; color: var(--tf-lila) !important; }
+.tf-beitrag a:focus-visible, .tf-faq__frage:focus-visible { outline: 3px solid var(--tf-lila-dunkel); outline-offset: 3px; border-radius: 4px; }
 .tf-anfrage .tf-knopf:focus-visible { outline-color: #fff; }
 
 /* --- Weitere Beiträge ---------------------------------------------------------------------------- */
@@ -158,7 +161,7 @@
   .tf-galerie { grid-template-columns: repeat(3, 1fr); }
   .tf-karten { grid-template-columns: repeat(3, 1fr); }
   .tf-anfrage__innen { grid-template-columns: 1fr auto; }
-  .tf-knopf--gelb { justify-self: end; }
+  .tf-knopf--rahmen { justify-self: end; }
   .tf-stimme { padding: 2.5rem 3rem; }
 }
 @media (min-width: 1025px) {

@@ -20,6 +20,11 @@ const datum = (d: Date) => `${d.getDate()}. ${MONATE[d.getMonth()]} ${d.getFullY
 
 const ANFRAGE = '/thinkfox-marketing-projekt-anfragen/';
 
+// Pfeil-Symbol der Buttons auf der Startseite (Font Awesome „arrow-alt-circle-right“)
+const PFEIL = '<svg class="tf-knopf__symbol" aria-hidden="true" viewBox="0 0 512 512"><path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zM140 300h116v70.9c0 10.7 13 16.1 20.5 8.5l114.3-114.9c4.7-4.7 4.7-12.2 0-16.9l-114.3-115c-7.6-7.6-20.5-2.2-20.5 8.5V212H140c-6.6 0-12 5.4-12 12v64c0 6.6 5.4 12 12 12z"/></svg>';
+const knopf = (text: string, link: string, variante = '') =>
+  `<a class="tf-knopf${variante ? ` tf-knopf--${variante}` : ''}" href="${esc(link)}">${PFEIL}<span>${esc(text)}</span></a>`;
+
 /** Erster Satz bzw. die ersten ~30 Wörter als Teaser. */
 function teaser(t: string): string {
   const satz = t.match(/^(.{40,260}?[.!?])(\s|$)/)?.[1];
@@ -70,7 +75,7 @@ function anfrage(o: { titel: string; text: string; button: string; link: string 
   return `<aside class="tf-anfrage" aria-labelledby="tf-anfrage-titel">
   <div class="tf-huelle tf-anfrage__innen">
     <div><h2 id="tf-anfrage-titel" class="tf-anfrage__titel">${esc(o.titel)}</h2><p>${esc(o.text)}</p></div>
-    <a class="tf-knopf tf-knopf--gelb" href="${esc(o.link)}">${esc(o.button)}</a>
+    ${knopf(o.button, o.link, 'rahmen')}
   </div>
 </aside>`;
 }
@@ -189,7 +194,7 @@ export async function blogSeite(p: Blog): Promise<string> {
     }
     if (b.typ === 'text') teile.push(b.html);
     else if (b.typ === 'ueberschrift') teile.push(`<h${b.ebene}>${esc(b.text)}</h${b.ebene}>`);
-    else if (b.typ === 'button') teile.push(`<p><a class="tf-knopf" href="${esc(b.link)}">${esc(b.text)}</a></p>`);
+    else if (b.typ === 'button') teile.push(`<p>${knopf(b.text, b.link)}</p>`);
     else teile.push(medium(b));
   }
   const { html: text, toc } = ankerSetzen(teile.join('\n'));
