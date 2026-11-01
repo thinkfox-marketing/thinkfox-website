@@ -125,11 +125,8 @@ export async function projektSeite(p: Projekt): Promise<string> {
   const teile = [
     ['Aufgabe', d.aufgabe], ['Lösung', d.loesung], ['Ergebnis', d.ergebnis],
   ].filter((t): t is [string, string] => !!t[1]?.trim());
-  const caseHtml = await Promise.all(teile.map(async ([titel, md], i) => `<section class="tf-case__teil">
-      <p class="tf-case__nr" aria-hidden="true">${String(i + 1).padStart(2, '0')}</p>
-      <h2>${titel}</h2>
-      <div class="tf-text">${await markdown(md)}</div>
-    </section>`));
+  // Fließtext wie im Original: Aufgabe/Lösung/Ergebnis am Stück, nur mit schlichten Zwischenüberschriften
+  const caseHtml = await Promise.all(teile.map(async ([titel, md]) => `<h2>${titel}</h2>\n${await markdown(md)}`));
   const einleitung = teaserText(d, (await Promise.all([d.aufgabe, d.loesung].map((x) => markdown(x ?? '')))).join(' '));
   const steckbrief = [
     d.kunde && ['Kunde', esc(d.kunde)],
@@ -174,16 +171,20 @@ export async function projektSeite(p: Projekt): Promise<string> {
         <h1 class="tf-kopf__titel">${esc(d.title)}</h1>
         ${einleitung ? `<p class="tf-kopf__teaser">${esc(einleitung)}</p>` : ''}
       </div>
-      <dl class="tf-steckbrief">
-        ${steckbrief.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('\n        ')}
-        ${link}
-      </dl>
     </div>
     ${kopfMedium}
   </header>
   ${leistungen}
-  <div class="tf-case tf-huelle">
-    ${caseHtml.join('\n    ')}
+  <div class="tf-case tf-huelle tf-huelle--breit">
+    ${steckbrief.length || link ? `<aside class="tf-case__fakten" aria-label="Projektdaten">
+      <dl class="tf-steckbrief">
+        ${steckbrief.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('\n        ')}
+        ${link}
+      </dl>
+    </aside>` : ''}
+    ${caseHtml.length ? `<div class="tf-case__text tf-text">
+      ${caseHtml.join('\n      ')}
+    </div>` : ''}
   </div>
   ${medien.length ? `<section class="tf-medien tf-huelle" aria-label="Bilder und Videos">${medien.map(medium).join('\n')}</section>` : ''}
   ${stimme}

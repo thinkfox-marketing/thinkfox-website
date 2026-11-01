@@ -46,7 +46,8 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 - **Beiträge:** Projekte und Blog nicht mehr im Elementor-Layout, sondern einheitlich (siehe Regeln unten);
   Blog im Aufbau des Originals (Bild oben über Hellblau, Titel darunter, 940 px Textbreite);
   überführt mit `scripts/umstellung/umstellen.py`.
-  Projekte: Leistungen als Wischleiste unter dem Kopfbereich (nicht im Steckbrief), reine Videoprojekte zeigen
+  Projekte: Textteil wie im Original (Projektdaten links, Aufgabe/Lösung/Ergebnis als ein Fließtext rechts),
+  Leistungen als Wischleiste unter dem Kopfbereich, reine Videoprojekte zeigen
   oben das erste Video statt des Beitragsbilds (CMS-Feld `kopf: video`, wie im Original).
 - **Einheitliches Erscheinungsbild (Design-Review 11/2026):** `public/css/einheitlich.css` – eine Typo-Skala
   (H1 60/38, H2 46/30, H3 26/21, Einleitung 21/19, Text 18/17 px), Buttons gefüllt Lila bzw. weißer Rahmen auf
