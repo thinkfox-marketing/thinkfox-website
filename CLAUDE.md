@@ -48,7 +48,7 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   überführt mit `scripts/umstellung/umstellen.py`.
 - **Einheitliches Erscheinungsbild (Design-Review 11/2026):** `public/css/einheitlich.css` – eine Typo-Skala
   (H1 60/38, H2 46/30, H3 26/21, Einleitung 21/19, Text 18/17 px), Buttons gefüllt Lila bzw. weißer Rahmen auf
-  dunklem Grund (10 px Ecken, Pfeil), Etiketten statt grauer Schein-Buttons, Grün nur als Akzent, nur Hausschrift,
+  dunklem Grund (10 px Ecken, Pfeil), Dachzeilen als reine Textzeile ohne Hintergrund/Pille (Größe im Verhältnis zur Überschrift, mobil bündig) statt grauer Schein-Buttons, Grün nur als Akzent, nur Hausschrift,
   mobil linksbündig mit 20 px Rand, Prozess-Kreise mobil als Karten, 360°- und Mietstudio-Seite in den Hausfarben.
 - **Handy-Darstellung:** zu lange Wörter in Überschriften mit Trennstellen (`src/lib/umbruch.ts`) bzw.
   `overflow-wrap`, Überstände am Rand abgeschnitten statt seitlich verschiebbar (iPhone), Menü-Links nicht unterstrichen.

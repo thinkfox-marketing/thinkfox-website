@@ -18,6 +18,8 @@
   --fs-h4: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem); /* 18 → 20 */
   --fs-lead: clamp(1.1875rem, 1.05rem + 0.55vw, 1.3125rem); /* 19 → 21 */
   --fs-text: clamp(1.0625rem, 1rem + 0.15vw, 1.125rem); /* 17 → 18 */
+  --fs-dach: clamp(1.0625rem, 0.95rem + 0.45vw, 1.25rem); /* Dachzeile über H2: 17 → 20 */
+  --fs-dach-gross: clamp(1.125rem, 0.92rem + 0.85vw, 1.5rem); /* Dachzeile über H1: 18 → 24 */
   --fs-klein: 0.9375rem;                              /* 15 */
 }
 
@@ -43,7 +45,6 @@ main .elementor-element-7fa180e .elementor-heading-title,
 .elementor-13917 :is(.elementor-element-a1ac92a, .elementor-element-bda84af, .elementor-element-1748985, .elementor-element-cd8ff25, .elementor-element-5333562, .elementor-element-56b4609) .elementor-heading-title,
 .elementor-13322 .elementor-element-9c69bfa .elementor-heading-title { font-size: var(--fs-h3) !important; line-height: 1.25 !important; }
 .elementor-11253 .elementor-element-9285bc6 .elementor-heading-title,
-.elementor-13039 .elementor-element-3720537 .elementor-heading-title { font-size: var(--fs-h4) !important; }
 /* Unterzeile direkt unter dem Seitentitel: technisch H2, optisch Einleitung */
 main .elementor-widget-heading:has(h1) + .elementor-widget-heading .elementor-heading-title { font-size: var(--fs-lead) !important; line-height: 1.45 !important; }
 /* Unterzeilen im Kopfbereich mit Video sind technisch H2, optisch Einleitung */
@@ -111,13 +112,16 @@ main .elementor-element-60a1eda a.elementor-button:is(:hover, :focus-visible) { 
 main .elementor-element-60a1eda a.elementor-button:focus-visible,
 .elementor-12253 :is(.elementor-element-fcd04d6, .elementor-element-cbfcaf3) a.elementor-button:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 
-/* Etiketten über Überschriften (bisher graue „Buttons“ ohne Funktion, 11–12 px Poppins) */
-main a.elementor-button:not([href]) {
-  display: inline-flex !important; width: auto !important; padding: 6px 14px !important; border: 0 !important; border-radius: 999px !important;
-  background: var(--tf-lila-hell) !important; color: var(--tf-lila-dunkel) !important;
-  font-size: 0.8125rem !important; font-weight: 700 !important; line-height: 1.3 !important; letter-spacing: 0.06em !important; text-transform: uppercase !important;
-  cursor: default; pointer-events: none;
+/* Dachzeilen über Überschriften (im Original graue „Buttons“ ohne Funktion): reine Textzeile ohne Hintergrund,
+   Größe im Verhältnis zur Überschrift darunter (über H2 17 → 20 px, über H1 18 → 24 px) – wie „Facts & Preise“ im Mietstudio */
+main a.elementor-button:not([href]), .elementor-13039 .elementor-element-3720537 .elementor-heading-title {
+  display: inline-block !important; width: auto !important; padding: 0 !important; border: 0 !important; border-radius: 0 !important;
+  background: none !important; box-shadow: none !important; color: var(--tf-lila-dunkel) !important;
+  font-family: "Outfit", sans-serif !important;
+  font-size: var(--fs-dach) !important; font-weight: 600 !important; line-height: 1.3 !important; letter-spacing: 0 !important; text-transform: none !important;
 }
+main a.elementor-button:not([href]) { cursor: default; pointer-events: none; }
+main .elementor-element-fed0433 a.elementor-button:not([href]) { font-size: var(--fs-dach-gross) !important; }
 main a.elementor-button:not([href]) .elementor-button-text { color: inherit !important; font: inherit !important; }
 main .elementor-widget-button:has(a.elementor-button:not([href])) .elementor-button-wrapper { text-align: inherit; }
 main .elementor-align-justify:has(a.elementor-button:not([href])) a.elementor-button { width: auto !important; }
@@ -151,6 +155,9 @@ main .elementor-element-5dfd399 .e-n-accordion-item-title { background-color: va
   main .elementor-icon-box-wrapper { text-align: left !important; }
   main .elementor-widget-button:not(:has(a:not([href]))) .elementor-button-wrapper { text-align: left; }
   main [data-tf-hochkant] .elementor-button-wrapper { text-align: center !important; }
+  /* Dachzeilen bündig mit der Überschrift darunter */
+  main .elementor-widget-button:has(a.elementor-button:not([href])):not([data-tf-hochkant] *) { align-self: flex-start !important; margin-left: 0 !important; margin-right: 0 !important; text-align: left !important; }
+  main a.elementor-button:not([href]) { text-align: left !important; }
   /* Buttons über die volle Breite sind auf dem Handy leichter zu treffen */
   main a.elementor-button[href] { width: 100% !important; }
   main .elementor-widget-button:has(a.elementor-button[href]) { width: auto !important; max-width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; align-self: stretch !important; --container-widget-width: 100% !important; }
