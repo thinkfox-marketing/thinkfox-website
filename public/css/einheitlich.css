@@ -225,7 +225,7 @@ main .elementor-section-boxed:not(:has(.elementor-column + .elementor-column)) >
   max-width: 940px !important; margin-inline: auto !important; width: 100%;
 }
 /* Einzelfälle in breiten, gemischten Bereichen: zentrierte Texte mittig auf 940 px, Kopfzeile Mietstudio linksbündig */
-.elementor-12253 .elementor-element-f86502d, .elementor-7047 .elementor-element-251f955,
+.elementor-12253 .elementor-element-f86502d,
 .elementor-14093 .elementor-element-62a63cd { max-width: 940px !important; margin-inline: auto !important; }
 .elementor-13039 :is(.elementor-element-09fb592, .elementor-element-35bf086) { max-width: 940px !important; }
 
@@ -269,3 +269,5 @@ main .elementor-heading-title > span[style*="background-color"] {
 @media (max-width: 767px) {
   .elementor-14093 .elementor-element.elementor-element-aab9e30 { margin-bottom: 0 !important; }
 }
+/* 360°-Seite: „Unsere Preise“ steht im selben Raster wie die drei Pakete und muss eine eigene, volle Zeile bilden */
+.elementor-7047 .elementor-element.elementor-element-251f955 { width: 100% !important; max-width: 100% !important; flex: 0 0 100%; }
