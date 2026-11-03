@@ -271,3 +271,17 @@ main .elementor-heading-title > span[style*="background-color"] {
 }
 /* 360°-Seite: „Unsere Preise“ steht im selben Raster wie die drei Pakete und muss eine eigene, volle Zeile bilden */
 .elementor-7047 .elementor-element.elementor-element-251f955 { width: 100% !important; max-width: 100% !important; flex: 0 0 100%; }
+
+/* Projektanfrage: Vorzeile über dem H1 als Dachzeile; im Original zog ein Abstand von -29 px den (damals kleineren)
+   Titel an die Vorzeile – mit der Typo-Skala überlappten die beiden */
+.elementor-11193 .elementor-element.elementor-element-c9653e2 { margin-top: 0 !important; }
+.elementor-11193 .elementor-element-22c18f2 { margin-bottom: 0 !important; }
+.elementor-11193 .elementor-element-22c18f2 .elementor-heading-title {
+  color: var(--tf-lila-dunkel) !important; font-size: var(--fs-dach-gross) !important; font-weight: 600 !important; line-height: 1.3 !important;
+}
+.elementor-11193 .elementor-element.elementor-element-22c18f2 { width: 100% !important; max-width: 100% !important; }
+/* „zurück zu thinkfox marketing“ (Projektanfrage, Marketing-Ampel): Pfeil auch mobil neben dem Text */
+main .elementor-element-c9bd584 .elementor-icon-box-wrapper { display: flex !important; flex-direction: row !important; align-items: center; gap: 0.6rem; text-align: left !important; }
+main .elementor-element-c9bd584 .elementor-icon-box-icon { margin: 0 !important; }
+/* Formularfragen: Zeilenhöhe wie Überschriften (Forminator setzt sehr großzügige Zeilenhöhe) */
+.forminator-ui.forminator-custom-form :is(.forminator-label, .forminator-field-html h3) { line-height: 1.3 !important; }
