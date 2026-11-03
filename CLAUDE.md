@@ -43,6 +43,8 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   Hausschriften per Preload, verdecktes Hero-Hintergrundbild entfernt. Gegen Layout-Verschiebungen (CLS):
   Logo-Laufband und Hintergrundvideos haben schon vor dem Skriptstart ihre Endgröße
   (`ergaenzungen.css`, nur `@media (scripting: enabled)` – ohne JavaScript unverändert).
+  Bilder bekommen beim Build ihre echten Maße (`width`/`height` aus dem Dateikopf, `src/lib/bilder.ts`) und laden ab dem
+  zweiten Abschnitt mit Bild erst beim Scrollen (`loading="lazy"`, Logo-Laufband ausgenommen).
 - **Beiträge:** Projekte und Blog nicht mehr im Elementor-Layout, sondern einheitlich (siehe Regeln unten);
   Blog im Aufbau des Originals (Bild oben über Hellblau, Titel darunter, 940 px Textbreite);
   überführt mit `scripts/umstellung/umstellen.py`.

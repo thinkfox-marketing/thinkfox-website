@@ -12,8 +12,9 @@ ErrorDocument 404 /404.html
   # https und ohne www (wie bisher)
   RewriteCond %{HTTPS} !=on [OR]
   RewriteCond %{HTTP_HOST} ^www\. [NC]
-  # Übergangsdomain von All-Inkl (…kasserver.com, ohne SSL) ausnehmen: Test des Live-Ordners vor der DNS-Umstellung
-  RewriteCond %{HTTP_HOST} !kasserver\.com$ [NC]
+  RewriteRule ^ https://thinkfox.de%{REQUEST_URI} [R=301,L]
+  # Übergangsdomain von All-Inkl (…kasserver.com) auf die echte Adresse
+  RewriteCond %{HTTP_HOST} kasserver\.com$ [NC]
   RewriteRule ^ https://thinkfox.de%{REQUEST_URI} [R=301,L]
 
   # Slash am Ende (WordPress-Permalinks)

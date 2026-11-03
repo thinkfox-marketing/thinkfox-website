@@ -8,6 +8,7 @@ import type { ScriptRef, StyleRef } from '../lib/wp';
 import { asset } from '../lib/asset';
 import { einbettungen, telefon, zugaenglich } from '../lib/barrierefreiheit';
 import { trennstellen } from '../lib/umbruch';
+import { bildMasse, spaetLaden } from '../lib/bilder';
 import { cssBundle } from '../lib/css-bundle';
 import { strukturierteDaten, organisationAngleichen } from '../lib/geo';
 
@@ -34,7 +35,7 @@ const trennerAussen = (s: string) => s.replace(
   /<div class="e-con-inner">(\s*)((?:<div class="elementor-shape elementor-shape-(?:top|bottom)"[^>]*>\s*<svg[\s\S]*?<\/svg>\s*<\/div>\s*)+)/g,
   (_m, ws, shapes) => `${shapes}<div class="e-con-inner">${ws}`,
 );
-const main = trennstellen(telefon(zugaenglich(einbettungen(ajax(trennerAussen(Astro.props.main)))))).replace(
+const main = trennstellen(telefon(zugaenglich(einbettungen(ajax(spaetLaden(bildMasse(trennerAussen(Astro.props.main)))))))).replace(
   /(class="forminator-ui forminator-custom-form forminator-custom-form-\d+ [^"]*?)(\s*")/g,
   (m, cls, end) => (cls.includes('forminator_ajax') ? m : `${cls} forminator_ajax${end}`),
 );
@@ -107,9 +108,9 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
   <meta name="msapplication-TileImage" content="/wp-content/uploads/2026/01/cropped-Logo-Finale_V2-270x270.png" />
 </head>
 <body class={bodyClass}>
-  {!canvas && <Fragment set:html={zugaenglich(header)} />}
+  {!canvas && <Fragment set:html={bildMasse(zugaenglich(header))} />}
   {mitMain ? <Fragment set:html={main} /> : <main><Fragment set:html={main} /></main>}
-  {!canvas && <Fragment set:html={telefon(footer)} />}
+  {!canvas && <Fragment set:html={bildMasse(telefon(footer))} />}
   {!canvas && <Fragment set:html={scrollTop} />}
   {!canvas && <div class="tf-popup-store" hidden><Fragment set:html={popupLazy} /></div>}
   <script src="../scripts/main.js"></script>
