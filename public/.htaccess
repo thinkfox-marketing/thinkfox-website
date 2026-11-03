@@ -27,6 +27,10 @@ ErrorDocument 404 /404.html
   RewriteRule ^ganzheitliches-marketing-fuer-nachhaltigen-unternehmenserfolg/$ /deine-externe-marketingabteilung-ganzheitliches-marketing-fuer-den-mittelstand/ [R=301,L]
   RewriteRule ^flyer-anzeigen/$ /category/printproduktion/ [R=301,L]
   RewriteRule ^social-media-mehr-reichweite-sichtbarkeit-fuer-dein-unternehmen/$ /social-media-aus-nordhessen-sichtbarkeit-reichweite/ [R=301,L]
+  # Weitere Rank-Math-Weiterleitungen (Export 03.11.2026)
+  RewriteRule ^netzwerk-fuer-toleranz/$ /netzwerk-fuer-toleranz-flyer/ [R=301,L]
+  RewriteRule ^anfrageseite/$ /thinkfox-marketing-projekt-anfragen/ [R=301,L]
+  RewriteRule ^entdecke-das-neue-thinkfox-studio-kreativitaet-trifft-auf-technologie/$ /thinkfox-mietstudio-fuer-foto-und-videoproduktionen-in-nordhessen/ [R=301,L]
   # Selbsttest heißt jetzt „Marketing-Ampel“ („Marketing-Check“ ist das Beratungsangebot). Die Ergebnis-Weiterleitung
   # aus api/config.php (/marketing-check-ergebnis/?ergebnis=…) behält ihren Parameter (Query bleibt bei R=301 erhalten).
   RewriteRule ^thinkfox-marketing-check/$ /marketing-ampel/ [R=301,L]
