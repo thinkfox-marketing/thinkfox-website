@@ -86,6 +86,11 @@ Ohne mindestens eine dieser Seiten stützen sich die Branchenseiten auf ältere 
 
 **E3. Weiterleitungen:** Export der Rank-Math-Weiterleitungen aus WordPress (Admin: Rank Math → Weiterleitungen → Exportieren). Wer, bis wann? ____________
 
+**E4. Formular-Mails (blockiert Go-live):** Anfragen von All-Inkl werden von GoDaddy wegen SPF abgewiesen (Test 03.11.2026).
+- [ ] SMTP über eigenes Postfach `website@thinkfox.de` (empfohlen; Daten nur in `api/config.php` auf dem Server)
+- [ ] SPF um `include:spf.kasserver.com` erweitern
+Postfach-Typ bei GoDaddy: [ ] Workspace Email [ ] Microsoft 365
+
 ## F. Inhalte und Pflege
 
 **F1. Tonalität v0.1:** freigeben, damit alle Texte in einer Stimme entstehen?
