@@ -1,5 +1,5 @@
 # Konfiguration, Formulardaten und Formular-Metadaten nicht ausliefern
-<FilesMatch "^(config(\.example|-github)?\.php|forms\.json)$">
+<FilesMatch "^(config(\.example|-github)?\.php|forms\.json|lib\.php)$">
   Require all denied
 </FilesMatch>
 RedirectMatch 403 ^/api/data/

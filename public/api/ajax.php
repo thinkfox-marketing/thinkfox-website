@@ -4,25 +4,33 @@
  *
  * Bedient die Aktionen, die das (unveränderte) Forminator-Frontend aufruft:
  *   - forminator_get_nonce                  → Formular-Token
- *   - forminator_submit_form_custom-forms   → Prüfen, per E-Mail versenden, ablegen, Antwort/Weiterleitung
+ *   - forminator_submit_form_custom-forms   → Prüfen, ablegen, ans CRM übergeben, per E-Mail melden, Antwort/Weiterleitung
  * Alle anderen Aktionen (Elementor, Essential Addons, Instagram) antworten mit success:false.
  *
  * Konfiguration: api/config.php (Vorlage: config.example.php) – nicht im Git.
+ * Formular-Metadaten (Feldnamen, CRM-Zuordnung): forms.json. Gemeinsame Funktionen: lib.php.
  * Anfragen werden zusätzlich als JSON-Zeilen in api/data/ abgelegt (per .htaccess gesperrt)
  * und nach 'aufbewahrung_tage' (Standard 90) automatisch gelöscht.
+ *
+ * Ablauf einer Anfrage: speichern → CRM (ein Versuch, max. 5 s; sonst Warteschlange) → Mail an das Team
+ * (mit Link zum CRM-Eintrag, falls schon übergeben; scheitert die Mail, wird sie wiederholt). Die Besucherin
+ * bekommt Erfolg, sobald die Anfrage gespeichert ist. Wiederholungen: cron.php (KAS-Cronjob) und nach jeder Anfrage.
  *
  * Spam-Schutz (für Besucher unsichtbar): Honeypot-Feld, signierter Zeitstempel als Token
  * (Absenden frühestens 3 Sekunden nach dem Laden), höchstens 5 Anfragen pro Stunde je IP-Adresse.
  */
 
 declare(strict_types=1);
+define('TF_API', true);
 date_default_timezone_set('Europe/Berlin');
 header('Content-Type: application/json; charset=utf-8');
 header('X-Robots-Tag: noindex');
+header('Cache-Control: no-store');
+require __DIR__ . '/lib.php';
 
 $configFile = __DIR__ . '/config.php';
 if (!is_file($configFile)) {
-    respond(false, ['message' => 'Formularversand ist noch nicht eingerichtet (api/config.php fehlt).']);
+    respond(false, ['message' => 'Der Formularversand ist gerade nicht verfügbar. Bitte schreib uns an hallo@thinkfox.de oder ruf an: 05623 9737793.']);
 }
 $config = require $configFile;
 $forms = json_decode((string) file_get_contents(__DIR__ . '/forms.json'), true) ?: [];
@@ -49,15 +57,14 @@ if ($alter === null || $alter > 2 * 86400) {
     respond(false, ['message' => 'Die Sitzung ist abgelaufen. Bitte lade die Seite neu und sende das Formular erneut.']);
 }
 if ($alter < 3) {
+    spam_merken($formId, 'zu schnell');
     respond(true, behaviour($form, []));
 }
 foreach ($_POST as $key => $value) {
-    if (preg_match('/^input_\d+$/', (string) $key) && trim((string) $value) !== '') {
+    if (preg_match('/^input_\d+$/', (string) $key) && trim(is_array($value) ? implode('', $value) : (string) $value) !== '') {
+        spam_merken($formId, 'Honeypot');
         respond(true, behaviour($form, []));
     }
-}
-if (!rate_limit_ok($config)) {
-    respond(false, ['message' => 'Es wurden gerade sehr viele Anfragen gesendet. Bitte versuche es in einer Stunde erneut oder schreib uns an hallo@thinkfox.de.']);
 }
 
 // Pflichtfelder
@@ -68,12 +75,17 @@ foreach ($form['required'] ?? [] as $field) {
         $errors[] = [$field => 'Erforderlich.'];
     }
 }
-$email = trim((string) ($_POST[$form['reply_to'] ?? 'email-1'] ?? ''));
+$replyField = $form['reply_to'] ?? 'email-1';
+$email = is_string($_POST[$replyField] ?? null) ? trim($_POST[$replyField]) : '';
 if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $errors[] = [$form['reply_to'] ?? 'email-1' => 'Keine gültige E-Mail-Adresse.'];
+    $errors[] = [$replyField => 'Keine gültige E-Mail-Adresse.'];
 }
 if ($errors) {
     respond(false, ['message' => 'Bitte korrigiere die Fehler vor der Übermittlung.', 'errors' => $errors]);
+}
+// Rate-Limit erst nach bestandener Prüfung (Tippfehler zählen nicht mit)
+if (!rate_limit_ok($config)) {
+    respond(false, ['message' => 'Es wurden gerade sehr viele Anfragen gesendet. Bitte versuche es in einer Stunde erneut, schreib uns an hallo@thinkfox.de oder ruf an: 05623 9737793.']);
 }
 
 // Werte in Feldreihenfolge des Formulars einsammeln
@@ -83,15 +95,15 @@ foreach ($labels as $name => $label) {
     if (str_starts_with($name, 'html-') || str_starts_with($name, 'calculation-')) {
         continue;
     }
-    $raw = $_POST[$name] ?? ($_POST[$name . '[]'] ?? null);
+    $raw = $_POST[$name] ?? null;
     if ($raw === null || $raw === '' || $raw === []) {
         continue;
     }
     if (str_starts_with($name, 'consent-')) {
-        $label = 'Datenschutz-Einwilligung';
+        $label = $forms[$formId]['einwilligung_bezeichnung'] ?? 'Datenschutz-Einwilligung';
         $raw = 'ja';
     }
-    $values[$label] = is_array($raw) ? implode(', ', array_map('clean', $raw)) : clean((string) $raw);
+    $values[$label] = is_array($raw) ? implode(', ', array_map(fn ($v) => clean((string) $v), $raw)) : clean((string) $raw);
 }
 
 // Marketing-Ampel (Selbsttest, Formular 12432): Punktzahlen je Bereich
@@ -112,18 +124,48 @@ if (!empty($form['scores'])) {
     $extra['scores'] = $scores;
 }
 
-store($formId, $values, (int) ($config['aufbewahrung_tage'] ?? 90));
-$sent = send_mail($config, $form, $values, $email);
-if (!$sent) {
-    respond(false, ['message' => 'Bei der Bearbeitung des Formulars ist ein Fehler aufgetreten. Bitte versuche es erneut']);
+$gespeichert = store($formId, $values);
+aufraeumen($config);
+
+// CRM: Rumpf einmal bilden, sofort ein Versuch; scheitert er, übernimmt die Warteschlange
+$crm = null;
+$vorgang = $formId . '-' . time() . '-' . bin2hex(random_bytes(8));
+if (crm_aktiv($config, $formId, $forms) && !empty($_POST[$forms[$formId]['crm']['einwilligung_feld'] ?? 'consent-1'])) {
+    $crm = crm_uebergeben($config, $vorgang, crm_rumpf($vorgang, $formId, $forms, $_POST, crm_utm($_POST)));
 }
-respond(true, behaviour($form, $extra));
+
+// Mail an das Team
+$lines = [];
+foreach ($values as $label => $value) {
+    $lines[] = $label . ":\n" . $value . "\n";
+}
+if ($crm !== null) {
+    $lines[] = match (true) {
+        $crm['status'] === 'ok' && ($crm['crm_url'] ?? '') !== '' => "Im CRM:\n" . $crm['crm_url'] . "\n",
+        $crm['status'] === 'ok' => "Im CRM angelegt (Lead " . ($crm['lead_id'] ?? '') . ")\n",
+        $crm['status'] === 'wiederholen' => "CRM: noch nicht übernommen, wird automatisch nachgeholt (Vorgang $vorgang)\n",
+        default => "CRM: Übernahme abgelehnt – bitte von Hand anlegen (Vorgang $vorgang, Hinweis-Mail folgt)\n",
+    };
+}
+$body = implode("\n", $lines) . "\n--\nGesendet über https://thinkfox.de/" . trim((string) $forms[$formId]['seite'], '/') . '/';
+$gemeldet = benachrichtigen($config, (array) $form['to'], $form['subject'] ?? 'Neue Anfrage über thinkfox.de', $body, $email);
+
+if (!$gespeichert && !$gemeldet) {
+    respond(false, ['message' => 'Leider konnte deine Anfrage gerade nicht übermittelt werden. Bitte schreib uns an hallo@thinkfox.de oder ruf an: 05623 9737793.']);
+}
+respond(true, behaviour($form, $extra), true);
 
 // ---------------------------------------------------------------------------
 
-function respond(bool $success, mixed $data): never
+/** Antwort senden; danach (falls PHP-FPM) noch fällige Wiederholungen abarbeiten, ohne die Besucherin warten zu lassen. */
+function respond(bool $success, mixed $data, bool $nacharbeiten = false): never
 {
     echo json_encode(['success' => $success, 'data' => $data], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    if ($nacharbeiten && function_exists('fastcgi_finish_request')) {
+        fastcgi_finish_request();
+        global $config;
+        warteschlangen_abarbeiten($config, 20);
+    }
     exit;
 }
 
@@ -144,20 +186,13 @@ function nonce_age(string $formId, string $token, array $config): ?int
     return hash_equals($soll, $m[2]) ? time() - (int) $m[1] : null;
 }
 
-function data_dir(): string
+/** Spam-Treffer kurz vermerken (ohne Inhalte), damit Fehlalarme auffallen. */
+function spam_merken(string $formId, string $grund): void
 {
-    $dir = __DIR__ . '/data';
-    if (!is_dir($dir)) {
-        @mkdir($dir, 0750, true);
-    }
-    if (!is_file($dir . '/.htaccess')) {
-        // zusätzlich zur Sperre in api/.htaccess
-        @file_put_contents($dir . '/.htaccess', "Require all denied\n");
-    }
-    return $dir;
+    @file_put_contents(data_dir() . '/spam.log', date('c') . " $formId $grund\n", FILE_APPEND | LOCK_EX);
 }
 
-/** Höchstens 5 Anfragen pro Stunde je (gehashter) IP-Adresse. */
+/** Höchstens 5 Anfragen pro Stunde je (gehashter) IP-Adresse; IPv6 je /64-Netz. */
 function rate_limit_ok(array $config): bool
 {
     $file = data_dir() . '/limits.json';
@@ -168,9 +203,13 @@ function rate_limit_ok(array $config): bool
     flock($fp, LOCK_EX);
     $limits = json_decode((string) stream_get_contents($fp), true) ?: [];
     $jetzt = time();
-    $ip = hash_hmac('sha256', (string) ($_SERVER['REMOTE_ADDR'] ?? ''), (string) $config['secret']);
+    $adresse = (string) ($_SERVER['REMOTE_ADDR'] ?? '');
+    if (filter_var($adresse, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+        $adresse = implode(':', array_slice(explode(':', (string) inet_ntop((string) inet_pton($adresse))), 0, 4)) . '::/64';
+    }
+    $ip = hash_hmac('sha256', $adresse, (string) $config['secret']);
     foreach ($limits as $key => $zeiten) {
-        $limits[$key] = array_values(array_filter($zeiten, fn ($t) => $t > $jetzt - 3600));
+        $limits[$key] = array_values(array_filter((array) $zeiten, fn ($t) => $t > $jetzt - 3600));
         if (!$limits[$key]) {
             unset($limits[$key]);
         }
@@ -187,11 +226,6 @@ function rate_limit_ok(array $config): bool
     return $ok;
 }
 
-function clean(string $value): string
-{
-    return trim(strip_tags(str_replace(["\r\n", "\r"], "\n", $value)));
-}
-
 /** Antwort im Forminator-Format: Danke-Text oder Weiterleitung. */
 function behaviour(array $form, array $extra): array
 {
@@ -204,112 +238,4 @@ function behaviour(array $form, array $extra): array
         return ['success' => true, 'url' => $url, 'newtab' => 'sametab', 'behav' => 'behaviour-redirect'];
     }
     return ['success' => true, 'message' => $form['message'] ?? '<p>Vielen Dank! Wir melden uns in Kürze.</p>', 'behav' => 'behaviour-thankyou'];
-}
-
-function store(string $formId, array $values, int $aufbewahrungTage): void
-{
-    $dir = data_dir();
-    $line = json_encode(['zeit' => date('c'), 'formular' => $formId, 'werte' => $values], JSON_UNESCAPED_UNICODE) . "\n";
-    @file_put_contents($dir . '/anfragen-' . $formId . '.jsonl', $line, FILE_APPEND | LOCK_EX);
-
-    // DSGVO: ältere Anfragen löschen
-    $grenze = time() - $aufbewahrungTage * 86400;
-    foreach (glob($dir . '/anfragen-*.jsonl') ?: [] as $file) {
-        $zeilen = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
-        $behalten = array_filter($zeilen, function ($z) use ($grenze) {
-            $zeit = json_decode($z, true)['zeit'] ?? null;
-            return $zeit === null || strtotime($zeit) >= $grenze;
-        });
-        if (count($behalten) !== count($zeilen)) {
-            @file_put_contents($file, $behalten ? implode("\n", $behalten) . "\n" : '', LOCK_EX);
-        }
-    }
-}
-
-function send_mail(array $config, array $form, array $values, string $replyTo): bool
-{
-    $subject = $form['subject'] ?? 'Neue Anfrage über thinkfox.de';
-    $lines = [];
-    foreach ($values as $label => $value) {
-        $lines[] = $label . ":\n" . $value . "\n";
-    }
-    $body = implode("\n", $lines) . "\n--\nGesendet über " . ($_POST['current_url'] ?? 'thinkfox.de');
-    $to = (array) $form['to'];
-    $from = $config['mail']['from'];
-    $fromName = $config['mail']['from_name'] ?? 'thinkfox.de';
-
-    $headers = [
-        'From' => mb_encode_mimeheader($fromName) . " <$from>",
-        'Reply-To' => $replyTo !== '' ? $replyTo : $from,
-        'MIME-Version' => '1.0',
-        'Content-Type' => 'text/plain; charset=UTF-8',
-        'Content-Transfer-Encoding' => '8bit',
-        'Date' => date('r'),
-        'Message-ID' => '<' . bin2hex(random_bytes(12)) . '@' . substr(strrchr($from, '@'), 1) . '>',
-    ];
-
-    if (empty($config['smtp']['host'])) {
-        $h = '';
-        foreach ($headers as $k => $v) {
-            $h .= "$k: $v\r\n";
-        }
-        return mail(implode(', ', $to), mb_encode_mimeheader($subject), $body, $h, '-f' . $from);
-    }
-    return smtp_send($config['smtp'], $from, $to, mb_encode_mimeheader($subject), $headers, $body);
-}
-
-/** Minimaler SMTP-Client (SSL auf 465 oder STARTTLS auf 587, AUTH LOGIN). */
-function smtp_send(array $smtp, string $from, array $to, string $subject, array $headers, string $body): bool
-{
-    $secure = $smtp['secure'] ?? 'tls';
-    $host = ($secure === 'ssl' ? 'ssl://' : '') . $smtp['host'];
-    $fp = @stream_socket_client($host . ':' . ($smtp['port'] ?? 587), $errno, $errstr, 15);
-    if (!$fp) {
-        error_log("SMTP: $errstr");
-        return false;
-    }
-    $read = function () use ($fp): string {
-        $data = '';
-        while (($line = fgets($fp, 515)) !== false) {
-            $data .= $line;
-            if (isset($line[3]) && $line[3] === ' ') {
-                break;
-            }
-        }
-        return $data;
-    };
-    $cmd = function (string $c, array $ok) use ($fp, $read): bool {
-        fwrite($fp, $c . "\r\n");
-        $r = $read();
-        if (!in_array((int) substr($r, 0, 3), $ok, true)) {
-            error_log('SMTP: ' . trim($r) . ' auf ' . (str_starts_with($c, 'AUTH') || strlen($c) > 40 ? '[…]' : $c));
-            return false;
-        }
-        return true;
-    };
-    $ehlo = 'EHLO ' . ($_SERVER['SERVER_NAME'] ?? 'localhost');
-    $ok = (int) substr($read(), 0, 3) === 220 && $cmd($ehlo, [250]);
-    if ($ok && $secure === 'tls') {
-        $ok = $cmd('STARTTLS', [220])
-            && stream_socket_enable_crypto($fp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)
-            && $cmd($ehlo, [250]);
-    }
-    $ok = $ok && $cmd('AUTH LOGIN', [334]) && $cmd(base64_encode($smtp['user']), [334]) && $cmd(base64_encode($smtp['pass']), [235]);
-    $ok = $ok && $cmd("MAIL FROM:<$from>", [250]);
-    foreach ($to as $rcpt) {
-        $ok = $ok && $cmd("RCPT TO:<$rcpt>", [250, 251]);
-    }
-    if ($ok && $cmd('DATA', [354])) {
-        $msg = 'To: ' . implode(', ', $to) . "\r\nSubject: $subject\r\n";
-        foreach ($headers as $k => $v) {
-            $msg .= "$k: $v\r\n";
-        }
-        $msg .= "\r\n" . preg_replace('/^\./m', '..', str_replace("\n", "\r\n", $body));
-        $ok = $cmd($msg . "\r\n.", [250]);
-    } else {
-        $ok = false;
-    }
-    $cmd('QUIT', [221]);
-    fclose($fp);
-    return $ok;
 }

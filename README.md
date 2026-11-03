@@ -102,13 +102,17 @@ anpassen (SMTP-Zugang!); Deploys überschreiben sie nie.
 
 1. **Webspace**: neues Verzeichnis als Document Root für thinkfox.de anlegen (nicht in die bestehende
    WordPress-Installation deployen – der Abgleich löscht alles, was nicht zur neuen Seite gehört).
-2. **`api/config.php`** auf dem Server anlegen (Vorlage `public/api/config.example.php`):
-   SMTP-Zugang, Empfänger je Formular, zufälliges `secret`, GitHub-OAuth-Daten.
-3. **GitHub-OAuth-App** (für den CMS-Login): GitHub → Settings → Developer settings → OAuth Apps →
+2. **`api/config.php`** auf dem Server anlegen (Vorlage `public/api/config.example.php`) – der Deploy legt sie
+   **nie** an und überschreibt sie nie: zufälliges `secret`, Empfänger je Formular, ggf. SMTP-Zugang,
+   CRM-Übergabe (`crm`: Adresse + gemeinsames Geheimnis, siehe `docs/crm-schnittstelle.md`), `cron_token`.
+3. **GitHub-OAuth-App** (für den CMS-Login): GitHub → Organisation → Settings → Developer settings → OAuth Apps →
    Homepage `https://thinkfox.de`, Callback `https://thinkfox.de/api/cms-auth.php`.
-   Client-ID und -Secret in `api/config.php` eintragen.
+   Client-ID und -Secret **nur** in `api/config.php` (`'github' => [...]`) eintragen – nicht als GitHub-Secret.
 4. **GitHub-Secrets** für den Workflow (`.github/workflows/deploy.yml`): `FTP_HOST`, `FTP_USER`,
-   `FTP_PASSWORD`, `DEPLOY_PATH`, optional `INSTAGRAM_TOKEN`.
+   `FTP_PASSWORD`, `DEPLOY_PATH` bzw. `LIVE_FTP_USER`/`LIVE_FTP_PASSWORD`, optional `INSTAGRAM_TOKEN`
+   (dann im Workflow den täglichen Lauf wieder einschalten).
+   **KAS-Cronjob** (Tools → Cronjobs, alle 10 Minuten): `https://thinkfox.de/api/cron.php?token=<cron_token>` –
+   holt gescheiterte CRM-Übergaben und Mails nach und löscht abgelaufene Anfragen.
 5. **Branch `main`** als Produktionszweig verwenden (das CMS schreibt dorthin, siehe `public/admin/config.yml`).
 6. Domain auf das neue Verzeichnis umstellen.
 

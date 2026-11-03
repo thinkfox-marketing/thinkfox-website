@@ -1,6 +1,22 @@
-# Schnittstelle Website → CRM (Entwurf zur Abstimmung)
+# Schnittstelle Website → CRM
 
-Stand: 03.11.2026 · Absender: Website thinkfox.de (`public/api/ajax.php`) · Empfänger: CRM `crm.thinkfox.marketing` (Eigenbau, PHP)
+Stand: 03.11.2026 · Absender: Website thinkfox.de (`public/api/ajax.php`, `lib.php`, `cron.php`) · Empfänger: CRM `crm.thinkfox.marketing` (Eigenbau, PHP)
+
+> **Vom CRM angenommen und gebaut (Antwort vom 03.11.2026).** Verbindliche Abweichungen vom ursprünglichen Entwurf:
+> - Adresse: `https://crm.thinkfox.marketing/api_website.php`
+> - Zeit und Signatur werden **bei jedem Versuch neu** gebildet; in der Warteschlange liegt nur der unveränderte Rumpf.
+> - Wiederholte `id` → `200` mit derselben `lead_id` und `"doppelt": true` (kein `409`).
+> - `id` max. 100 Zeichen `[A-Za-z0-9._:-]`; Kontaktfelder gekürzt (Name/Firma/E-Mail/Website 255, Telefon 100, `quelle.formular` 100).
+> - Werte roh senden (kein HTML-Escaping); `felder[].antwort` immer Text, Mehrfachauswahl mit „, “ verbunden.
+> - `einwilligung.text` = Wortlaut neben der Checkbox; ohne Einwilligung wird nichts gesendet (CRM antwortet sonst `422`).
+> - `quelle.utm` optional (`utm_source` … `utm_content`), keine `gclid`.
+> - Antwort enthält `crm_url` → wird als Link in die Mail an hallo@ übernommen. Das CRM verschickt selbst keine Mail.
+> - Kontakte werden im CRM über die E-Mail-Adresse zusammengeführt (neuer Deal in Stufe „Lead“).
+> - Testmodus `X-Thinkfox-Test: 1` → `{"ok": true, "lead_id": "test", "test": true}`, legt nichts an.
+> - Hosting des CRM: All-Inkl, Deutschland (für die Datenschutzerklärung von Marcus bestätigen lassen).
+>
+> Konfiguration auf der Website nur in `api/config.php` (`crm.url`, `crm.secret`, `crm.test`); Feldzuordnung in
+> `public/api/forms.json` (`"crm"`). Abschnitte unten = ursprünglicher Entwurf, durch diese Liste ergänzt.
 
 Ziel: Jede **Projektanfrage** von thinkfox.de landet automatisch als Lead im CRM. Die E-Mail an hallo@thinkfox.de
 bleibt zusätzlich bestehen (Sicherheitsnetz). Dieses Dokument beschreibt, was die Website sendet – das CRM baut

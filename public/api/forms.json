@@ -12,7 +12,7 @@
   }
  },
  "12432": {
-  "seite": "thinkfox-marketing-check",
+  "seite": "marketing-ampel",
   "felder": {
    "html-1": "html-1",
    "name-2": "Name des Unternehmens",
@@ -45,8 +45,8 @@
    "calculation-5": "core_ganzheit",
    "html-7": "html-7",
    "checkbox-14": "Ok, wo drückt der Schuh deiner Meinung nach am meisten?",
-   "textarea-1": "textarea-1",
-   "textarea-2": "textarea-2",
+   "textarea-1": "Wenn du eine Marketing-Baustelle sofort gelöst haben könntest – welche wäre das?",
+   "textarea-2": "Was hat in der Vergangenheit im Marketing schon nicht so funktioniert, wie du es dir erhofft hast?",
    "html-8": "html-8",
    "name-1": "Wie können wir Dich erreichen?",
    "email-1": "Deine E-Mail Adresse",
@@ -68,6 +68,31 @@
    "url-1": "Geschäftliche Webseite",
    "phone-1": "Deine Telefonnummer",
    "consent-1": "consent-1"
+  },
+  "crm": {
+   "formular": "Projektanfrage",
+   "einwilligung_feld": "consent-1",
+   "einwilligung_text": "Hiermit stimme ich der Datenschutzerklärung sowie der Verarbeitung meiner Daten im Sinne der Beratungsanfrage zu.",
+   "kontakt": {
+    "name": "name-1",
+    "firma": "text-1",
+    "email": "email-1",
+    "telefon": "phone-1",
+    "website": "url-1"
+   },
+   "anfrage": {
+    "themen": {
+     "feld": "checkbox-1",
+     "liste": true
+    },
+    "dringend": {
+     "feld": "checkbox-2",
+     "liste": true
+    },
+    "aktuelle_betreuung": {
+     "feld": "radio-2"
+    }
+   }
   }
  },
  "13090": {

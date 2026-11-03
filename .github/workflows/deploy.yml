@@ -20,9 +20,15 @@ name: Build & Deploy
 on:
   push:
     branches: [main]
-  schedule:
-    - cron: '17 4 * * *'
+    # Reine Doku-Änderungen lösen keinen Deploy aus (spart Actions-Minuten)
+    paths-ignore: ['docs/**', '**/*.md']
+  # Täglicher Lauf nur für den Instagram-Feed – erst wieder einschalten, wenn INSTAGRAM_TOKEN gesetzt ist:
+  # schedule:
+  #   - cron: '17 4 * * *'
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 concurrency:
   group: deploy
@@ -48,6 +54,7 @@ jobs:
       - run: npm ci
 
       - name: Instagram-Feed aktualisieren
+        continue-on-error: true   # Störung bei Instagram blockiert keinen Deploy (letzter Stand bleibt)
         env:
           INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
         run: npm run instagram
@@ -59,18 +66,6 @@ jobs:
           key: osm-karte-v1
 
       - run: npm run build
-
-      - name: CMS-Login (GitHub-OAuth) aus Secrets
-        env:
-          CMS_GITHUB_CLIENT_ID: ${{ secrets.CMS_GITHUB_CLIENT_ID }}
-          CMS_GITHUB_CLIENT_SECRET: ${{ secrets.CMS_GITHUB_CLIENT_SECRET }}
-        run: |
-          if [ -n "$CMS_GITHUB_CLIENT_ID" ] && [ -n "$CMS_GITHUB_CLIENT_SECRET" ]; then
-            printf "<?php\nreturn ['client_id' => '%s', 'client_secret' => '%s'];\n" "$CMS_GITHUB_CLIENT_ID" "$CMS_GITHUB_CLIENT_SECRET" > dist/api/config-github.php
-            echo "CMS-Login eingerichtet"
-          else
-            echo "CMS-Login: Secrets CMS_GITHUB_CLIENT_ID/-SECRET fehlen"
-          fi
 
       - name: Vorschau-Version erzeugen (für Suchmaschinen gesperrt)
         run: |
@@ -87,7 +82,7 @@ jobs:
         with:
           name: website
           path: dist
-          retention-days: 7
+          retention-days: 1
 
       - name: lftp installieren
         if: env.STAGING_PATH != '' || env.DEPLOY_PATH != ''

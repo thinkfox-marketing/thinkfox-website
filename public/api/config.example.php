@@ -21,6 +21,20 @@ return [
         'client_secret' => '',
     ],
 
+    // Übergabe von Anfragen ans CRM (Vertrag: docs/crm-schnittstelle.md). Welche Formulare und welche Felder,
+    // steht in forms.json ("crm"). Leer lassen = keine Übergabe. Secret: mind. 32 Zeichen, identisch im CRM
+    // (config.local.php), NICHT der api_lead_key des CRM.
+    'crm' => [
+        'url' => '',                           // https://crm.thinkfox.marketing/api_website.php
+        'secret' => '',
+        'test' => false,                       // true = Testmodus (X-Thinkfox-Test: 1, CRM legt nichts an)
+        'hinweis_an' => ['hallo@thinkfox.de'], // Hinweis-Mail, wenn eine Anfrage nicht ins CRM kommt
+    ],
+
+    // Zugang für den KAS-Cronjob (Wiederholungen, Löschfristen): https://thinkfox.de/api/cron.php?token=…
+    // mind. 32 Zeichen Zufall, eigener Wert (nicht das 'secret' oben)
+    'cron_token' => '',
+
     // Leer lassen, um PHP mail() des Hosters zu verwenden
     'smtp' => [
         'host' => '',                          // z. B. smtp.example.de
@@ -44,7 +58,6 @@ return [
             'subject' => 'Neue Marketing-Ampel über thinkfox.de',
             'required' => ['name-2', 'select-1', 'select-2', 'name-1', 'email-1', 'consent-1'],
             'redirect' => '/marketing-ampel/ergebnis/',
-            'company_field' => 'name-2',
             // Bereiche und zugehörige Fragen (gleiche Formeln wie die Berechnungsfelder im Formular)
             'scores' => [
                 'website_seo' => ['checkbox-1', 'checkbox-2', 'checkbox-3'],
