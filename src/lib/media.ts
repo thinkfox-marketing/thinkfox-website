@@ -100,6 +100,8 @@ const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').repl
  */
 export function wpImg(url: string | undefined, opts: {
   size?: WpSize; alt?: string; cls?: string; loading?: 'lazy' | 'eager'; fetchpriority?: 'high'; title?: string;
+  /** Anzeigebreite für srcset (Kacheln/Raster): sonst wählt der Browser die Originalbreite */
+  sizes?: string;
 } = {}): string {
   if (!url) return '';
   const size = opts.size ?? 'full';
@@ -122,7 +124,7 @@ export function wpImg(url: string | undefined, opts: {
   if (all.length > 1) {
     const set = [chosen, ...all.filter((x) => x.url !== chosen.url && x.width <= Math.max(chosen.width, 2560))];
     attrs.push(`srcset="${set.map((x) => `${esc(x.url)} ${x.width}w`).join(', ')}"`);
-    attrs.push(`sizes="(max-width: ${w}px) 100vw, ${w}px"`);
+    attrs.push(`sizes="${opts.sizes ?? `(max-width: ${w}px) 100vw, ${w}px`}"`);
   }
   return `<img ${attrs.join(' ')} />`;
 }

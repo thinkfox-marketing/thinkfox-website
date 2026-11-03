@@ -3,11 +3,14 @@
 // - geladen wird erst nach dem Seitenaufbau und nur, wenn der Bereich sichtbar ist
 //   (bis dahin zeigt der Bereich das Standbild, siehe src/lib/hero-video.ts)
 // - auf dem Handy immer die Hochkant-Fassung (2,8 MB statt 5 MB Querformat)
-// - „Bewegung reduzieren“ und ausgeblendete Bereiche: nur Standbild, kein Download
+// - „Bewegung reduzieren“, Datensparmodus/langsames Netz und ausgeblendete Bereiche: nur Standbild, kein Download
 // Adressen samt Versionskennung setzt src/lib/hero-video.ts als data-Attribute.
 const QUERFORMAT = '/media/showreel.mp4';
 const bewegungReduziert = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const handy = matchMedia('(max-width: 767px)').matches;
+// Datensparmodus oder langsames Netz: nur Standbild (spart auf dem Handy 2,8 MB)
+const netz = navigator.connection;
+const sparen = Boolean(netz && (netz.saveData || /(^|-)2g$|^3g$/.test(netz.effectiveType || '')));
 const seiteGeladen = new Promise((fertig) => {
   if (document.readyState === 'complete') fertig();
   else window.addEventListener('load', () => fertig(), { once: true });
@@ -29,7 +32,7 @@ for (const el of document.querySelectorAll('[data-settings*="background_video_li
   el.dataset.settings = JSON.stringify(settings);
 
   // Auf diesem Gerät ausgeblendete Bereiche (z. B. der Handy-Hero am Desktop) laden kein Video
-  if (bewegungReduziert || el.getClientRects().length === 0) {
+  if (bewegungReduziert || sparen || el.getClientRects().length === 0) {
     video.remove();
     toggle?.remove();
     continue;

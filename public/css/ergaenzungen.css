@@ -205,3 +205,31 @@ body > :is(header, main, footer, [data-elementor-type]) { overflow-x: clip; }
 .forminator-ui:has(.forminator-button-submit) .forminator-pagination-submit { display: none !important; }
 /* Auswahlkreise/-kästchen der Formulare: hellgrau auf Weiß war zu kontrastarm (WCAG 1.4.11, mind. 3:1) */
 .forminator-ui :is(.forminator-radio-bullet, .forminator-checkbox-box) { box-shadow: inset 0 0 0 1px #8a8799; }
+
+/* Google-Bewertungen statisch (src/lib/bewertungen.ts): wischbare Reihe statt Slider mit externem Ladeskript */
+.ti-widget.ti-goog .ti-reviews-container-wrapper {
+  display: flex !important; overflow-y: hidden !important; gap: 16px; overflow-x: auto !important; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding-inline: 4px; padding: 6px 4px 14px; margin: 0 !important;
+  scrollbar-width: thin; scrollbar-color: #5b4ec8 transparent;
+}
+.ti-widget.ti-goog .ti-reviews-container-wrapper:focus-visible { outline: 3px solid #3b3192; outline-offset: 3px; }
+.ti-widget.ti-goog .ti-review-item {
+  flex: 0 0 min(300px, 85%) !important; max-width: none !important; width: auto !important;
+  scroll-snap-align: start; padding: 0 !important; margin: 0 !important; float: none !important;
+}
+.ti-widget.ti-goog .ti-review-item > .ti-inner { height: 100%; margin: 0 !important; }
+/* ganzer Text statt „Weiterlesen“ (das Aufklappen lief über das Ladeskript) */
+.ti-widget.ti-goog .ti-review-content { -webkit-line-clamp: unset !important; line-clamp: unset !important; height: auto !important; max-height: none !important; display: block !important; overflow: visible !important; }
+.ti-widget.ti-goog .ti-read-more, .ti-widget.ti-goog .ti-controls-line { display: none !important; }
+.ti-widget pre, pre.ti-widget { white-space: normal; font: inherit; margin: 0; }
+
+/* Formulare: Forminator blendet das Formular erst nach Skriptstart und Token-Abruf ein – vorher Platz reservieren,
+   sonst springt der (zentrierte) Bereich (CLS Marketing-Ampel 0,127). Werte = kleinste gemessene Endhöhe je Bereich.
+   Nur mit JavaScript; ohne JavaScript unverändert. */
+@media (scripting: enabled) {
+  .elementor-12397 .elementor-element.elementor-element-278f631 { min-height: 506px; }
+  .elementor-11193 .elementor-element.elementor-element-debdf05 { min-height: 348px; }
+}
+@media (scripting: enabled) and (max-width: 767px) {
+  .elementor-12397 .elementor-element.elementor-element-278f631 { min-height: 680px; }
+}

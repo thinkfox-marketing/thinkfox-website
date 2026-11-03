@@ -122,3 +122,14 @@ export function passendeFassung(url: string, minB = 850, minH = 1000): string {
     .sort((a, b) => a.b * a.h - b.b * b.h);
   return fassungen.length ? `${ordner}/${fassungen[0].f}` : url;
 }
+
+/** Projekt-Kacheln in Slidern: Hintergrundbilder erst, wenn die Kachel sichtbar oder als nächste dran ist
+ *  (src/scripts/kacheln.js setzt .tf-nah). Liefert CSS für den <head>; nur mit JavaScript (ohne JS unverändert). */
+export function kachelnSpaet(html: string): string {
+  const paare = new Set<string>();
+  for (const m of html.matchAll(/\.e-loop-item-(\d+) \.elementor-element\.elementor-element-([0-9a-f]+):not\(\.elementor-motion-effects-element-type-background\)[^{]*\{[^}]*background-image:url/g)) {
+    paare.add(`.swiper-slide.e-loop-item-${m[1]}:not(.tf-nah) .elementor-element-${m[2]}`);
+  }
+  if (!paare.size) return '';
+  return `@media (scripting: enabled){${[...paare].join(',')}{background-image:none!important}}`;
+}

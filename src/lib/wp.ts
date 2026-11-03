@@ -119,6 +119,8 @@ function fillItem(tpl: string, p: Post, imgSize: 'full' | 'large'): string {
     .replaceAll('{{IMG_URL}}', passendeFassung(p.data.bild ?? ''))
     .replaceAll('{{IMG}}', wpImg(p.data.bild, {
       size: imgSize, alt: p.data.bildAlt,
+      // Kacheln in Listen/Slidern sind höchstens ~460 px breit („auto“: Chromium nimmt die echte Breite)
+      sizes: 'auto, (max-width: 767px) 100vw, 480px',
       cls: `attachment-${imgSize} size-${imgSize}${p.data.wpId ? '' : ''}`,
     }))
     .replaceAll('{{EXCERPT}}', excerpt(p, words))

@@ -37,7 +37,8 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   Kacheln (`src/lib/osm-karte.mjs`, `scripts/astro-osm-karte.mjs`, Cache `.osm-cache/`), interaktiv erst auf Klick.
 - **Datenschutz:** YouTube und Kuula per 2-Klick-Lösung (Iframe mit `srcdoc`-Hinweis),
   Bilder/Schriften des Bewertungs-Widgets und YouTube-Vorschaubilder lokal (`scripts/astro-extern-lokal.mjs`),
-  kein WordPress-Emoji-Skript, Termin-Iframe lädt erst beim Öffnen. Google-Tag und Meta-Pixel laden erst nach
+  kein WordPress-Emoji-Skript, Termin-Iframe lädt erst beim Öffnen. Google-Bewertungen statisch ohne Trustindex-Ladeskript
+  (`src/lib/bewertungen.ts`, wischbare Reihe in `ergaenzungen.css`); kein Usercentrics-„Smart Data Protector“ (uc-block). Google-Tag und Meta-Pixel laden erst nach
   Zustimmung zum jeweiligen Usercentrics-Dienst (`src/components/Tracking.astro`, Erkennung über den Dienstnamen).
 - **Ladezeit:** Stylesheets als wenige Bündel (`src/lib/css-bundle.ts`, nur im Build), Hero-Standbild und
   Hausschriften per Preload, verdecktes Hero-Hintergrundbild entfernt. Gegen Layout-Verschiebungen (CLS):
@@ -47,6 +48,12 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   zweiten Abschnitt mit Bild erst beim Scrollen (`loading="lazy"`, Logo-Laufband ausgenommen).
   Projekt-Kacheln (CSS-Hintergrund) nutzen die kleinste passende WordPress-Fassung statt des Originals
   (`passendeFassung()`, ≥ 850 × 1000 px bzw. 85 % des Originals) – Startseite rund 40 % weniger Kachel-Bilddaten.
+  Kachel-Hintergründe in Slidern erst, wenn sichtbar/als Nächste dran bzw. nach Bedienung (`kachelnSpaet()`,
+  `src/scripts/kacheln.js`); Hintergrundbild des ersten Abschnitts per Preload (`src/lib/hero-bild.ts`,
+  berücksichtigt `elementor-hidden-*`); jQuery am Body-Ende statt im `<head>`; nur Outfit vorgeladen;
+  Font Awesome und Smash-Balloon-Editor-CSS nur bei Bedarf; Listen-Bilder mit `sizes="auto, …480px"`;
+  Formular-Höhe vorab reserviert (Marketing-Ampel, Projektanfrage); kein Video bei Datensparmodus/2G/3G;
+  HTML ohne ETag (304 über Last-Modified), Medien 7 Tage, `/media/extern/` 1 Jahr.
 - **Beiträge:** Projekte und Blog nicht mehr im Elementor-Layout, sondern einheitlich (siehe Regeln unten);
   Blog im Aufbau des Originals (Bild oben über Hellblau, Titel darunter, 940 px Textbreite);
   überführt mit `scripts/umstellung/umstellen.py`.

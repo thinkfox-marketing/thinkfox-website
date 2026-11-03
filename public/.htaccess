@@ -63,17 +63,25 @@ ErrorDocument 404 /404.html
   # Zwischenspeichern:
   # - Dateien mit Versionskennung (?v=…, siehe src/lib/asset.ts), Build-Dateien mit Hash (/_astro/)
   #   bzw. /_css/ und die eingefrorenen WordPress-Dateien: 1 Jahr
-  # - übrige Bilder/Medien (z. B. CMS-Uploads, die überschrieben werden können): 1 Stunde
-  # - Seiten: jedes Mal beim Server nachfragen
-  <If "%{QUERY_STRING} =~ /(^|&)v=/ || %{REQUEST_URI} =~ m#^/(_astro|_css|wp-content|wp-includes)/#">
+  #   sowie lokal abgelegte Fremddateien mit Hash im Namen (/media/extern/): 1 Jahr
+  # - übrige Bilder/Medien (z. B. CMS-Uploads, die überschrieben werden können): 7 Tage
+  # - Seiten: jedes Mal beim Server nachfragen (Last-Modified → 304, siehe ETag unten)
+  <If "%{QUERY_STRING} =~ /(^|&)v=/ || %{REQUEST_URI} =~ m#^/(_astro|_css|wp-content|wp-includes|media/extern)/#">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </If>
   <ElseIf "%{REQUEST_URI} =~ m#\.(css|js|jpe?g|png|webp|avif|gif|svg|ico|woff2?|ttf|mp4|webm)$#">
-    Header set Cache-Control "public, max-age=3600"
+    Header set Cache-Control "public, max-age=604800"
   </ElseIf>
   <Else>
     Header set Cache-Control "no-cache"
   </Else>
+</IfModule>
+
+# Kein ETag: Apache hängt bei Kompression „-br“/„-gzip“ an, das passt beim Nachfragen nie → immer volle 200-Antwort.
+# Ohne ETag prüft der Browser über Last-Modified und bekommt 304 (nur Kopfzeilen).
+FileETag None
+<IfModule mod_headers.c>
+  Header unset ETag
 </IfModule>
 
 <IfModule mod_deflate.c>

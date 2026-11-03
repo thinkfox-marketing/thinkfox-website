@@ -8,8 +8,10 @@ import type { ScriptRef, StyleRef } from '../lib/wp';
 import { asset } from '../lib/asset';
 import { einbettungen, telefon, zugaenglich } from '../lib/barrierefreiheit';
 import { trennstellen } from '../lib/umbruch';
-import { bildMasse, spaetLaden } from '../lib/bilder';
+import { bildMasse, spaetLaden, kachelnSpaet } from '../lib/bilder';
 import { cssBundle } from '../lib/css-bundle';
+import { heroBild } from '../lib/hero-bild';
+import { bewertungenStatisch } from '../lib/bewertungen';
 import { strukturierteDaten, organisationAngleichen } from '../lib/geo';
 
 interface Props {
@@ -35,7 +37,7 @@ const trennerAussen = (s: string) => s.replace(
   /<div class="e-con-inner">(\s*)((?:<div class="elementor-shape elementor-shape-(?:top|bottom)"[^>]*>\s*<svg[\s\S]*?<\/svg>\s*<\/div>\s*)+)/g,
   (_m, ws, shapes) => `${shapes}<div class="e-con-inner">${ws}`,
 );
-const main = trennstellen(telefon(zugaenglich(einbettungen(ajax(spaetLaden(bildMasse(trennerAussen(Astro.props.main)))))))).replace(
+const main = trennstellen(telefon(zugaenglich(einbettungen(ajax(bewertungenStatisch(spaetLaden(bildMasse(trennerAussen(Astro.props.main))))))))).replace(
   /(class="forminator-ui forminator-custom-form forminator-custom-form-\d+ [^"]*?)(\s*")/g,
   (m, cls, end) => (cls.includes('forminator_ajax') ? m : `${cls} forminator_ajax${end}`),
 );
@@ -47,26 +49,38 @@ const tag = (s: ScriptRef) => s.src
 // WordPress-Emoji-Ersatz entfällt: aktuelle Geräte zeigen Emojis selbst an, ältere hätten
 // die Grafiken von s.w.org (WordPress.org) geladen – ohne Einwilligung
 const ohneEmoji = scripts.filter((s) => !/wp-emoji/.test(`${s.id ?? ''} ${s.src ?? ''} ${(s.inline ?? '').slice(0, 300)}`));
-const headScripts = ohneEmoji.filter((s) => s.where === 'head').map(tag).join('\n');
-const bodyScripts = ohneEmoji.filter((s) => s.where === 'body').map(tag).join('\n');
+// Font Awesome nur, wenn die Seite fa-Klassen nutzt (alle Symbole sind sonst SVG) – spart 87 KB CSS + Skript im <head>
+const mitFa = /class="[^"]*\bfa[srb]?\b[^"]*\bfa-[a-z]/.test(main + header + footer);
+const ohneFa = (id?: string | null, url?: string | null) => !mitFa && /font-awesome|fontawesome|v4-shims/.test(`${id ?? ''} ${url ?? ''}`);
+// Trustindex-Ladeskript entfällt (Bewertungen statisch, src/lib/bewertungen.ts)
+const skripte = ohneEmoji.filter((s) => !ohneFa(s.id, s.src) && !/trustindex/.test(`${s.id ?? ''} ${s.src ?? ''}`));
+// jQuery blockiert sonst das erste Zeichnen; einziger früher Nutzer war ein toter Schnipsel im Header (entfernt).
+// Am Anfang des Body-Endes bleibt die Ausführungsreihenfolge gleich.
+const JQUERY = /^jquery-(core|migrate)-js$/;
+const headScripts = skripte.filter((s) => s.where === 'head' && !JQUERY.test(s.id ?? '')).map(tag).join('\n');
+const bodyScripts = [...skripte.filter((s) => s.where === 'head' && JQUERY.test(s.id ?? '')), ...skripte.filter((s) => s.where === 'body')].map(tag).join('\n');
+// Editor-CSS von Smash Balloon (nur Selektoren des Elementor-Editors) und ungenutztes Font Awesome weglassen
+const stile = styles.filter((s) => s.id !== 'sb-elementor-shared-style-css' && !ohneFa(s.id, s.type === 'link' ? s.href : null));
 
 // Im Build: alle Stylesheets als eine Datei (src/lib/css-bundle.ts). Leere Platzhalter mit den
 // Original-IDs bleiben stehen, weil Elementor nachgeladene Stile davor einfügt („before: #…-css“).
-const bundle = import.meta.env.PROD ? cssBundle(styles, ['/css/ergaenzungen.css', ...(einheitlich ? ['/css/einheitlich.css'] : [])]) : null;
+const bundle = import.meta.env.PROD ? cssBundle(stile, ['/css/ergaenzungen.css', ...(einheitlich ? ['/css/einheitlich.css'] : [])]) : null;
 
 // Hero mit Hintergrundvideo ganz oben: Standbild sofort laden (größtes sichtbares Element)
 const ersterHero = main.indexOf('elementor-background-video-container');
 const heroOben = ersterHero >= 0 && ersterHero < 6000;
 const standbild = (name: string) => main.match(new RegExp(`/media/${name}\\.webp\\?v=[0-9a-f]+`))?.[0];
+// Sonst: Hintergrundbild des ersten Abschnitts (CSS) sofort laden – der Browser fände es erst nach allen Stylesheets
 const preloadDesktop = heroOben ? standbild('showreel-standbild') : undefined;
 const preloadMobil = heroOben ? standbild('showreel-standbild-mobil') : undefined;
+const heroBilder = heroOben ? [] : heroBild(main, stile);
+const kachelCss = kachelnSpaet(main);
 
 // Hausschriften (lateinischer Zeichensatz) sofort laden: sonst springt der Text, sobald die
 // Schrift nach dem ersten Zeichnen eintrifft (font-display: swap → Layout-Verschiebung)
+// (Poppins nicht: wird fast nirgends gerendert und lädt bei Bedarf selbst)
 const SCHRIFTEN = [
   '/wp-content/uploads/elementor/google-fonts/fonts/outfit-97312486.woff2',
-  '/wp-content/uploads/elementor/google-fonts/fonts/poppins-d0e6a9ae.woff2',
-  '/wp-content/uploads/elementor/google-fonts/fonts/poppins-e6a077c3.woff2',
 ];
 
 // Unternehmensprofil, Leistung, FAQ als JSON-LD (src/lib/geo.ts)
@@ -86,6 +100,7 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
   <link rel="alternate" type="application/rss+xml" title="thinkfox marketing &raquo; Feed" href="/feed/" />
   {preloadDesktop && <link rel="preload" as="image" href={preloadDesktop} media="(min-width: 768px)" fetchpriority="high" />}
   {preloadMobil && <link rel="preload" as="image" href={preloadMobil} media="(max-width: 767px)" fetchpriority="high" />}
+  {heroBilder.map((b) => <link rel="preload" as="image" href={b.href} media={b.media} fetchpriority="high" />)}
   {SCHRIFTEN.map((href) => <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />)}
   {bundle ? (
     <>
@@ -94,13 +109,14 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
     </>
   ) : (
     <>
-      {styles.map((s) => s.type === 'link'
+      {stile.map((s) => s.type === 'link'
         ? <link rel="stylesheet" id={s.id ?? undefined} href={s.href} media="all" />
         : <Fragment set:html={s.css} />)}
       <link rel="stylesheet" id="tf-ergaenzungen-css" href={asset('/css/ergaenzungen.css')} media="all" />
       {einheitlich && <link rel="stylesheet" id="tf-einheitlich-css" href={asset('/css/einheitlich.css')} media="all" />}
     </>
   )}
+  {kachelCss && <style id="tf-kacheln-spaet" set:html={kachelCss} />}
   <Fragment set:html={headScripts} />
   <link rel="icon" href="/wp-content/uploads/2026/01/cropped-Logo-Finale_V2-32x32.png" sizes="32x32" />
   <link rel="icon" href="/wp-content/uploads/2026/01/cropped-Logo-Finale_V2-192x192.png" sizes="192x192" />
