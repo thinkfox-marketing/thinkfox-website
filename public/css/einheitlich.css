@@ -285,3 +285,14 @@ main .elementor-element-c9bd584 .elementor-icon-box-wrapper { display: flex !imp
 main .elementor-element-c9bd584 .elementor-icon-box-icon { margin: 0 !important; }
 /* Formularfragen: Zeilenhöhe wie Überschriften (Forminator setzt sehr großzügige Zeilenhöhe) */
 .forminator-ui.forminator-custom-form :is(.forminator-label, .forminator-field-html h3) { line-height: 1.3 !important; }
+
+/* Marketing-Ampel: die drei Schritt-Kästchen mobil untereinander in voller Breite statt halb breit mit engem Umbruch */
+@media (max-width: 767px) {
+  .elementor-12397 .elementor-element.elementor-element-3a90c61 { flex-direction: column !important; flex-wrap: nowrap !important; }
+  .elementor-12397 .elementor-element-3a90c61 > .e-con { width: 100% !important; max-width: 100% !important; --width: 100% !important; flex: 0 0 auto !important; }
+  .elementor-12397 .elementor-element-3a90c61 .elementor-counter { justify-content: flex-start !important; gap: 1rem; }
+  .elementor-12397 .elementor-element-3a90c61 .elementor-counter-title { text-align: left !important; justify-content: flex-start !important; }
+  .elementor-12397 .elementor-element-3a90c61 .elementor-counter-number-wrapper { flex: 0 0 auto !important; min-width: 1.6em; }
+  .elementor-12397 .elementor-element-3a90c61 .elementor-counter-number-suffix { flex-grow: 0 !important; }
+  .elementor-12397 .elementor-element-3a90c61 .elementor-counter-title { flex: 1 1 auto !important; }
+}
