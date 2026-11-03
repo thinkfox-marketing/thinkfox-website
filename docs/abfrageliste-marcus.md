@@ -84,12 +84,10 @@ Ohne mindestens eine dieser Seiten stützen sich die Branchenseiten auf ältere 
 **E2. Kassel-Regionalseite:** Läuft die KSV-Hessen-Kassel-Partnerschaft noch? Welche Kunden aus Kassel außer DWAZ? ____________
 - [ ] Kassel-Seite bauen [ ] nicht bauen
 
-**E3. Weiterleitungen:** Export der Rank-Math-Weiterleitungen aus WordPress (Admin: Rank Math → Weiterleitungen → Exportieren). Wer, bis wann? ____________
+**E3. Weiterleitungen:** ✅ erledigt 03.11.2026 (5 Rank-Math-Weiterleitungen in `public/.htaccess`).
 
-**E4. Formular-Mails (blockiert Go-live):** Anfragen von All-Inkl werden von GoDaddy wegen SPF abgewiesen (Test 03.11.2026).
-- [ ] SMTP über eigenes Postfach `website@thinkfox.de` (empfohlen; Daten nur in `api/config.php` auf dem Server)
-- [ ] SPF um `include:spf.kasserver.com` erweitern
-Postfach-Typ bei GoDaddy: [ ] Workspace Email [ ] Microsoft 365
+**E4. Formular-Mails:** ✅ erledigt 03.11.2026: SPF um `ip4:85.13.164.10` (All-Inkl-Server) ergänzt, Zustellung getestet.
+SMTP über ein eigenes Postfach bleibt als robustere Lösung möglich (Daten nur in `api/config.php`).
 
 ## F. Inhalte und Pflege
 
