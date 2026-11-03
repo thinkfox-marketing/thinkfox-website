@@ -35,3 +35,15 @@ $bericht = warteschlangen_abarbeiten($config, 50);
 $offen = ['crm' => count(glob(data_dir('crm') . '/*.json') ?: []), 'mail' => count(glob(data_dir('mail') . '/*.json') ?: [])];
 $haengt = count(glob(data_dir('crm/abgelehnt') . '/*.json') ?: []) + count(glob(data_dir('mail/abgelehnt') . '/*.json') ?: []);
 echo 'ok ' . json_encode(['bearbeitet' => $bericht, 'offen' => $offen, 'aufgegeben' => $haengt]) . "\n";
+
+// Übersicht ohne Personendaten: je Vorgang Versuche, nächster Versuch, letzter Fehler
+foreach (['crm' => 'offen', 'crm/abgelehnt' => 'aufgegeben'] as $ordner => $art) {
+    foreach (glob(data_dir($ordner) . '/*.json') ?: [] as $datei) {
+        $e = json_decode((string) @file_get_contents($datei), true) ?: [];
+        printf("%s %s versuche=%d naechster=%s fehler=%s\n", $art, basename($datei, '.json'), (int) ($e['versuche'] ?? 0),
+            isset($e['naechster']) ? date('d.m. H:i', (int) $e['naechster']) : '-', mb_substr((string) preg_replace('/\s+/', ' ', (string) ($e['letzter_fehler'] ?? '-')), 0, 160));
+    }
+}
+if (!function_exists('curl_init')) {
+    echo "WARNUNG: PHP-Erweiterung curl fehlt – CRM-Übergabe unmöglich\n";
+}

@@ -326,9 +326,11 @@ function crm_senden(array $config, string $rumpf, int $timeout = 5): array
         return ['status' => 'ok', 'lead_id' => (string) ($daten['lead_id'] ?? ''), 'crm_url' => (string) ($daten['crm_url'] ?? '')];
     }
     if ($status >= 500 || $status === 429 || $status === 200 || $status === 201) {
-        return ['status' => 'wiederholen', 'fehler' => "HTTP $status"];
+        $hinweis = mb_substr((string) preg_replace('/\s+/', ' ', trim(strip_tags((string) ($daten['fehler'] ?? $antwort)))), 0, 120);
+        return ['status' => 'wiederholen', 'fehler' => "HTTP $status" . ($hinweis !== '' ? ": $hinweis" : '')];
     }
-    return ['status' => 'abgelehnt', 'fehler' => "HTTP $status: " . mb_substr((string) ($daten['fehler'] ?? $antwort), 0, 300)];
+    $text = isset($daten['fehler']) ? (string) $daten['fehler'] : trim(strip_tags((string) $antwort));
+    return ['status' => 'abgelehnt', 'fehler' => "HTTP $status: " . mb_substr((string) preg_replace('/\s+/', ' ', $text), 0, 200)];
 }
 
 /** Anfrage in die Warteschlange legen und sofort einen Versuch starten. */
