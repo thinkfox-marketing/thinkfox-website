@@ -28,7 +28,13 @@ const ajax = (s: string) => s.replaceAll('/wp-admin/admin-ajax.php', '/api/ajax.
 // Formulare immer per AJAX absenden (statt Seiten-POST an WordPress)
 // Termin-Iframe im (geschlossenen) Popup erst laden, wenn das Popup geöffnet wird
 const popupLazy = popup.replace('<iframe ', '<iframe loading="lazy" title="Termin vereinbaren" ');
-const main = trennstellen(telefon(zugaenglich(einbettungen(ajax(Astro.props.main))))).replace(
+// Form-Trenner (Schrägen) aus dem inneren Kasten in den Container verschieben: Safari bemaß sie sonst
+// nach der Inhaltsbreite statt der vollen Breite (weiße Kante links/rechts). In Chrome unverändert.
+const trennerAussen = (s: string) => s.replace(
+  /<div class="e-con-inner">(\s*)((?:<div class="elementor-shape elementor-shape-(?:top|bottom)"[^>]*>\s*<svg[\s\S]*?<\/svg>\s*<\/div>\s*)+)/g,
+  (_m, ws, shapes) => `${shapes}<div class="e-con-inner">${ws}`,
+);
+const main = trennstellen(telefon(zugaenglich(einbettungen(ajax(trennerAussen(Astro.props.main)))))).replace(
   /(class="forminator-ui forminator-custom-form forminator-custom-form-\d+ [^"]*?)(\s*")/g,
   (m, cls, end) => (cls.includes('forminator_ajax') ? m : `${cls} forminator_ajax${end}`),
 );

@@ -97,17 +97,47 @@ body .elementor-posts .elementor-post__excerpt p { color: #717171; }
 /* Datenschutzerklärung: Links in Listen als ausreichend große Klickfläche (WCAG 2.5.8) */
 .elementor-widget-erecht24 li > a { display: inline-block; min-height: 24px; line-height: 24px; }
 
-/* Fehlerseite 404 (src/pages/404.astro) – Farben/Schrift aus dem Elementor-Kit */
-.tf-404 { padding: 180px 20px 120px; background: #eef7ff; }
-.tf-404__inhalt { max-width: 720px; margin: 0 auto; font-family: Outfit, sans-serif; color: #1f1f1f; }
-.tf-404__code { margin: 0; font-size: clamp(4rem, 12vw, 8rem); font-weight: 800; line-height: 1; color: var(--e-global-color-4e42812, #5b4ec8); }
-.tf-404 h1 { margin: 0.5rem 0 1rem; font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.15; color: var(--e-global-color-4e42812, #5b4ec8); }
-.tf-404 p { font-size: 1.1rem; line-height: 1.6; }
-.tf-404__links { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin: 1.5rem 0; padding: 0; list-style: none; font-size: 1.1rem; }
-.tf-404__links a { color: var(--e-global-color-4e42812, #5b4ec8); font-weight: 600; text-decoration: underline; text-underline-offset: 0.15em; }
-.tf-404__knopf { display: inline-block; padding: 12px 22px; border-radius: 6px; background: var(--e-global-color-4e42812, #5b4ec8); color: #fff; font-weight: 700; text-decoration: none; }
-.tf-404__knopf:hover, .tf-404__knopf:focus { background: #483db0; color: #fff; }
+/* Fehlerseite 404 (src/pages/404.astro): Fuchs im Linienstil des Logos, „Fährten“ als Kacheln. Mobile first. */
+.tf-404.site-main { max-width: none !important; width: 100%; margin: 0 !important; padding: 150px 20px 80px; background: #eef7ff; font-family: Outfit, system-ui, sans-serif; color: #313131; }
+.tf-404__kopf, .tf-404__faehrten { max-width: 1140px; margin: 0 auto; }
+.tf-404__kopf { display: grid; gap: 2rem; align-items: center; }
+.tf-404__fuchs { order: -1; width: min(220px, 60vw); height: auto; }
+.tf-404__dach { margin: 0 0 0.5rem; font-size: clamp(1.125rem, 0.92rem + 0.85vw, 1.5rem); font-weight: 600; color: #3b3192; }
+.tf-404 h1 { margin: 0 0 1rem; font-size: clamp(2.375rem, 1.55rem + 3.3vw, 3.75rem); line-height: 1.1; letter-spacing: -0.01em; color: #5b4ec8; }
+.tf-404__lead { margin: 0 0 2rem; font-size: clamp(1.1875rem, 1.05rem + 0.55vw, 1.3125rem); line-height: 1.55; }
+.tf-404__aktion { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin: 0; font-size: clamp(1.0625rem, 1rem + 0.15vw, 1.125rem); }
+.tf-404__aktion span a { color: #3b3192; font-weight: 600; text-decoration: underline; text-underline-offset: 0.15em; }
+.tf-404__faehrten { margin-top: 4.5rem; }
+.tf-404__faehrten h2 { margin: 0 0 1.25rem; font-size: clamp(1.3125rem, 1.15rem + 0.65vw, 1.625rem); line-height: 1.25; color: #3b3192; }
+.tf-404__faehrten ul { display: grid; gap: 1rem; margin: 0; padding: 0; list-style: none; }
+.tf-404__faehrten a { display: flex; flex-direction: column; gap: 0.35rem; height: 100%; padding: 1.25rem 3rem 1.25rem 1.25rem; position: relative;
+  border-radius: 10px; background: #fff; color: #313131; text-decoration: none; box-shadow: 0 1px 2px rgba(59, 49, 146, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.tf-404__faehrten a strong { font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem); color: #5b4ec8; }
+.tf-404__faehrten a span { font-size: 1rem; line-height: 1.45; }
+.tf-404__faehrten a::after { content: ""; position: absolute; right: 1.25rem; top: 50%; width: 1.1rem; height: 1.1rem; margin-top: -0.55rem;
+  background: #5b4ec8; -webkit-mask: var(--tf-pfeil) center / contain no-repeat; mask: var(--tf-pfeil) center / contain no-repeat; }
+.tf-404__faehrten a:is(:hover, :focus-visible) { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59, 49, 146, 0.16); }
 .tf-404 a:focus-visible { outline: 3px solid #1f1f1f; outline-offset: 3px; }
+@media (min-width: 640px) { .tf-404__faehrten ul { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1025px) {
+  .tf-404.site-main { padding: 200px 20px 120px; }
+  .tf-404__kopf { grid-template-columns: 1fr 340px; gap: 4rem; }
+  .tf-404__fuchs { order: 0; width: 340px; }
+  .tf-404__faehrten ul { grid-template-columns: repeat(3, 1fr); }
+}
+/* Der Fuchs sucht: Schwanz wedelt, Lupe kreist, Augen blinzeln, Fragezeichen wippt – nur ohne „Bewegung reduzieren“ */
+@media (prefers-reduced-motion: no-preference) {
+  .tf-404__fuchs :is(.tf-404__schwanz, .tf-404__lupe, .tf-404__augen) { transform-box: view-box; }
+  .tf-404__schwanz { transform-origin: 228px 316px; animation: tf-404-schwanz 2.2s ease-in-out infinite; }
+  .tf-404__lupe { transform-origin: 232px 262px; animation: tf-404-lupe 4s ease-in-out infinite; }
+  .tf-404__augen { transform-origin: 180px 150px; animation: tf-404-blinzeln 5s infinite; }
+  .tf-404__frage { transform-box: fill-box; transform-origin: center; animation: tf-404-frage 2.4s ease-in-out infinite; }
+}
+@keyframes tf-404-schwanz { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-7deg); } }
+@keyframes tf-404-lupe { 0%, 100% { transform: rotate(0); } 35% { transform: rotate(-12deg); } 70% { transform: rotate(5deg); } }
+@keyframes tf-404-blinzeln { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+@keyframes tf-404-frage { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-8px) rotate(8deg); } }
 
 /* Hintergrundvideos: Größe ab dem ersten Bild (vorher setzte erst das Skript sie → Layout-Verschiebung).
    Das Video hat bis dahin keine Quelle und ist unsichtbar.

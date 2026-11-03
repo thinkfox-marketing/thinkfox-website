@@ -1,26 +1,76 @@
 ---
 // Fehlerseite „Seite nicht gefunden“ (Apache: ErrorDocument 404 in public/.htaccess).
-// Rahmen, Stylesheets und Skripte wie die Kontaktseite.
+// Rahmen, Stylesheets und Skripte wie die Kontaktseite; Gestaltung in public/css/ergaenzungen.css (.tf-404).
+// Comic-Fuchs mit Lupe: Schwanz wedelt, Lupe sucht, Augen blinzeln (aus bei „Bewegung reduzieren“).
 import Legacy from '../layouts/Legacy.astro';
 import { pageFiles, type LegacyPage } from '../lib/wp';
 
 const kontakt = pageFiles['../legacy/pages/kontakt.json'].default as LegacyPage;
 const seo = `<title>Seite nicht gefunden – thinkfox marketing</title>
 <meta name="robots" content="noindex, follow"/>`;
+
+const faehrten = [
+  ['/', 'Startseite', 'Zurück in den Bau – alles über thinkfox auf einen Blick.'],
+  ['/professionelle-websites-fuer-den-mittelstand/', 'Websites', 'Websites für den Mittelstand: schnell, auffindbar, gut zu pflegen.'],
+  ['/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/', 'Content-Produktion', 'Video, Foto und Inhalte für Social Media aus Nordhessen.'],
+  ['/mehr-aufmerksamkeit-und-reichweite-mit-social-media/', 'Social Media', 'Mehr Aufmerksamkeit und Reichweite für deine Marke.'],
+  ['/#projekte', 'Projekte & Referenzen', 'Was wir für unsere Kunden umgesetzt haben.'],
+  ['/blog/', 'Blog', 'Wissen und Praxistipps rund ums Marketing.'],
+];
+
+const fuchs = `<svg class="tf-404__fuchs" viewBox="0 0 360 360" aria-hidden="true" focusable="false">
+  <circle cx="180" cy="184" r="168" fill="#5b4ec8"/>
+  <ellipse cx="180" cy="336" rx="118" ry="12" fill="#3b3192" opacity=".35"/>
+  <g class="tf-404__schwanz">
+    <path d="M226 318c66 6 112-52 92-118-8-27-36-30-36-6 0 40-12 76-62 88z" fill="#f07a2b"/>
+    <path d="M318 200c-8-27-36-30-36-6 0 9-1 17-2 25 14 6 33 0 38-19z" fill="#fff4e6"/>
+  </g>
+  <ellipse cx="180" cy="272" rx="72" ry="64" fill="#f07a2b"/>
+  <ellipse cx="180" cy="286" rx="42" ry="48" fill="#fff4e6"/>
+  <ellipse cx="146" cy="331" rx="24" ry="11" fill="#d9621a"/><ellipse cx="214" cy="331" rx="24" ry="11" fill="#d9621a"/>
+  <path d="M112 118 102 36l58 56z" fill="#f07a2b"/><path d="M248 118l10-82-58 56z" fill="#f07a2b"/>
+  <path d="M120 106l-6-52 36 36z" fill="#3b3192"/><path d="M240 106l6-52-36 36z" fill="#3b3192"/>
+  <path d="M100 152c2-40 34-62 80-62s78 22 80 62c1 20-8 34-22 44-18 14-36 20-58 20s-40-6-58-20c-14-10-23-24-22-44z" fill="#f07a2b"/>
+  <path d="M104 170l-24 16 34 2zM256 170l24 16-34 2z" fill="#f07a2b"/>
+  <path d="M116 170c22-18 46-14 64 6 18-20 42-24 64-6-4 26-30 44-64 46-34-2-60-20-64-46z" fill="#fff4e6"/>
+  <g class="tf-404__augen">
+    <ellipse cx="150" cy="150" rx="14" ry="18" fill="#2b2350"/><ellipse cx="210" cy="150" rx="14" ry="18" fill="#2b2350"/>
+    <circle cx="155" cy="143" r="5.5" fill="#fff"/><circle cx="215" cy="143" r="5.5" fill="#fff"/>
+    <circle cx="146" cy="157" r="2.5" fill="#fff"/><circle cx="206" cy="157" r="2.5" fill="#fff"/>
+  </g>
+  <path d="M134 124q14-8 28-2M198 118q14-10 30 0" fill="none" stroke="#2b2350" stroke-width="4.5" stroke-linecap="round"/>
+  <ellipse cx="132" cy="184" rx="11" ry="6.5" fill="#f59a9a" opacity=".7"/><ellipse cx="228" cy="184" rx="11" ry="6.5" fill="#f59a9a" opacity=".7"/>
+  <path d="M168 176c0-6 6-8 12-8s12 2 12 8-6 11-12 11-12-5-12-11z" fill="#2b2350"/>
+  <ellipse cx="176" cy="173" rx="4" ry="2.5" fill="#fff" opacity=".7"/>
+  <path d="M168 196q6 8 12 2 6 6 12-2" fill="none" stroke="#2b2350" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g class="tf-404__lupe">
+    <path d="M230 262c18-6 34-2 46 8" fill="none" stroke="#f07a2b" stroke-width="20" stroke-linecap="round"/>
+    <path d="M290 262l26 30" stroke="#3b3192" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="270" cy="238" r="32" fill="#eef7ff" fill-opacity=".5" stroke="#3b3192" stroke-width="9"/>
+    <path d="M252 228a20 20 0 0 1 14-12" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+    <ellipse cx="282" cy="268" rx="14" ry="11" fill="#fff4e6"/>
+  </g>
+  <text class="tf-404__frage" x="288" y="122" fill="#fff" font-family="Outfit, sans-serif" font-weight="700" font-size="60">?</text>
+</svg>`;
+
 const main = `
 <main id="content" class="site-main tf-404">
-  <section class="tf-404__inhalt" aria-labelledby="tf-404-titel">
-    <p class="tf-404__code" aria-hidden="true">404</p>
-    <h1 id="tf-404-titel">Diese Seite gibt es nicht (mehr).</h1>
-    <p>Vielleicht wurde sie verschoben, oder in der Adresse steckt ein Tippfehler. Hier geht es weiter:</p>
-    <ul class="tf-404__links">
-      <li><a href="/">Startseite</a></li>
-      <li><a href="/#projekte">Projekte &amp; Referenzen</a></li>
-      <li><a href="/blog/">Blog</a></li>
-      <li><a href="/kontakt/">Kontakt</a></li>
-    </ul>
-    <p><a class="tf-404__knopf" href="/thinkfox-marketing-projekt-anfragen/">Projekt anfragen</a></p>
+  <section class="tf-404__kopf" aria-labelledby="tf-404-titel">
+    <div class="tf-404__text">
+      <p class="tf-404__dach">Fehler 404</p>
+      <h1 id="tf-404-titel">Selbst ein schlauer Fuchs findet hier nichts.</h1>
+      <p class="tf-404__lead">Die Seite, die du suchst, gibt es nicht (mehr). Vielleicht ist sie umgezogen, oder in der Adresse hat sich ein Tippfehler versteckt.</p>
+      <p class="tf-404__aktion"><a class="elementor-button" href="/thinkfox-marketing-projekt-anfragen/"><span class="elementor-button-content-wrapper"><span class="elementor-button-text">Projekt anfragen</span></span></a>
+        <span>oder ruf uns an: <a href="tel:+4956239737793">05623 9737793</a></span></p>
+    </div>
+    ${fuchs}
   </section>
+  <nav class="tf-404__faehrten" aria-labelledby="tf-404-faehrten">
+    <h2 id="tf-404-faehrten">Diese Fährten führen weiter</h2>
+    <ul>
+${faehrten.map(([href, titel, text]) => `      <li><a href="${href}"><strong>${titel.replace('&', '&amp;')}</strong><span>${text}</span></a></li>`).join('\n')}
+    </ul>
+  </nav>
 </main>`;
 ---
 <Legacy seo={seo} styles={kontakt.styles} scripts={kontakt.scripts} bodyClass={kontakt.bodyClass.replace(/page-id-\d+|elementor-page-\d+/g, '') + ' error404'} main={main} />
