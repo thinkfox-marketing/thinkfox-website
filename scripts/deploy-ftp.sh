@@ -24,9 +24,8 @@ fi
 
 # 1. Alle Dateien abgleichen (neu/geändert nach Größe, gelöschte entfernen).
 # 2. Seiten und Konfigurationsdateien immer übertragen (können bei gleicher Größe geändert sein).
-# Nur auf dem Server vorhandene Ordner nie löschen: /e-zines/ (Inhalte mit externen Backlinks, nicht im Repo)
-# und /refer/ – beim Umzug in ein neues Verzeichnis dorthin mitkopieren.
-EXCL="-x ^api/config\\.php$ -x ^api/data/ -x ^e-zines/ -x ^refer/"
+# Nur auf dem Server vorhandene Ordner nie löschen: /e-zines/ (Inhalte mit externen Backlinks, nicht im Repo).
+EXCL="-x ^api/config\\.php$ -x ^api/data/ -x ^e-zines/"
 ftp "mirror -R --delete --ignore-time --parallel=8 $EXCL $SRC $TARGET"
 ftp "mirror -R --parallel=8 $EXCL -I *.html -I *.xml -I *.txt -I *.json -I *.yml -I *.php -I .htaccess $SRC $TARGET"
 echo "Übertragen nach $TARGET"

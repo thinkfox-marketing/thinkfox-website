@@ -27,6 +27,8 @@ ErrorDocument 404 /404.html
   RewriteRule ^ganzheitliches-marketing-fuer-nachhaltigen-unternehmenserfolg/$ /deine-externe-marketingabteilung-ganzheitliches-marketing-fuer-den-mittelstand/ [R=301,L]
   RewriteRule ^flyer-anzeigen/$ /category/printproduktion/ [R=301,L]
   RewriteRule ^social-media-mehr-reichweite-sichtbarkeit-fuer-dein-unternehmen/$ /social-media-aus-nordhessen-sichtbarkeit-reichweite/ [R=301,L]
+  # /refer/ leitete in WordPress auf die Startseite (Ordner wird nicht mehr benötigt)
+  RewriteRule ^refer(/.*)?$ / [R=301,L]
   # Weitere Rank-Math-Weiterleitungen (Export 03.11.2026)
   RewriteRule ^netzwerk-fuer-toleranz/$ /netzwerk-fuer-toleranz-flyer/ [R=301,L]
   RewriteRule ^anfrageseite/$ /thinkfox-marketing-projekt-anfragen/ [R=301,L]
