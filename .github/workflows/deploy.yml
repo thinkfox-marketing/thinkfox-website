@@ -11,6 +11,8 @@
 #   FTP_PASSWORD     Passwort des FTP-Benutzers
 #   STAGING_PATH     Zielverzeichnis der Vorschau aus Sicht des FTP-Benutzers, bei eigenem Benutzer: /
 #   DEPLOY_PATH      Zielverzeichnis der Live-Seite
+#   LIVE_FTP_USER    optional: eigener FTP-Benutzer nur für das Live-Verzeichnis (dann DEPLOY_PATH = /)
+#   LIVE_FTP_PASSWORD  dessen Passwort
 #   INSTAGRAM_TOKEN  optional, für die Aktualisierung des Instagram-Feeds
 # Ohne Zielverzeichnis wird nur gebaut (Ergebnis als Artefakt herunterladbar).
 name: Build & Deploy
@@ -97,4 +99,10 @@ jobs:
 
       - name: Live-Seite übertragen
         if: env.DEPLOY_PATH != ''
-        run: scripts/deploy-ftp.sh dist "$DEPLOY_PATH"
+        env:
+          # Eigener FTP-Benutzer nur für das Live-Verzeichnis (empfohlen); sonst der Vorschau-Benutzer
+          LIVE_FTP_USER: ${{ secrets.LIVE_FTP_USER }}
+          LIVE_FTP_PASSWORD: ${{ secrets.LIVE_FTP_PASSWORD }}
+        run: |
+          if [ -n "$LIVE_FTP_USER" ]; then export FTP_USER="$LIVE_FTP_USER" FTP_PASSWORD="$LIVE_FTP_PASSWORD"; fi
+          scripts/deploy-ftp.sh dist "$DEPLOY_PATH"
