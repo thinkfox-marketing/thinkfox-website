@@ -3,6 +3,7 @@
 // Platzhalter wie {{TITLE}}, {{IMG}}, {{LOOP:name}}.
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { wpImg } from './media';
+import { passendeFassung } from './bilder';
 import loops from '../legacy/loops.json';
 import taxonomies from '../legacy/taxonomies.json';
 import instagram from '../data/instagram.json';
@@ -115,7 +116,7 @@ function fillItem(tpl: string, p: Post, imgSize: 'full' | 'large'): string {
     .replaceAll('{{URL}}', urlOf(p))
     .replaceAll('{{TITLE_ATTR}}', attr(p.data.title))
     .replaceAll('{{TITLE}}', title)
-    .replaceAll('{{IMG_URL}}', p.data.bild ?? '')
+    .replaceAll('{{IMG_URL}}', passendeFassung(p.data.bild ?? ''))
     .replaceAll('{{IMG}}', wpImg(p.data.bild, {
       size: imgSize, alt: p.data.bildAlt,
       cls: `attachment-${imgSize} size-${imgSize}${p.data.wpId ? '' : ''}`,

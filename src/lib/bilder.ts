@@ -1,8 +1,8 @@
 // Bilder ohne width/height bekommen beim Build ihre echten Maße (aus dem Dateikopf gelesen).
 // Der Browser reserviert damit den Platz, bevor das Bild geladen ist – kein Springen des Layouts (CLS).
 // Die Darstellung ändert sich nicht: Das Theme setzt `img { height: auto }`, die Attribute wirken nur als Seitenverhältnis.
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { readFileSync, readdirSync } from 'node:fs';
+import { join, dirname, basename, extname } from 'node:path';
 
 const cache = new Map<string, [number, number] | null>();
 
@@ -98,4 +98,27 @@ export function spaetLaden(html: string): string {
   return html.slice(0, grenze) + html.slice(grenze).replace(/<img\b[^>]*>/g, (tag) =>
     // Logo-Laufband ausgenommen: läuft seitwärts, natives Lazy Loading erfasst das nicht zuverlässig (leere Logos)
     /\s(loading|fetchpriority)=|skip-lazy|eael-lc-img-src/.test(tag) ? tag : tag.replace(/^<img\b/, '<img loading="lazy"'));
+}
+
+const ordnerCache = new Map<string, string[]>();
+
+/** Kleinste vorhandene WordPress-Fassung (name-BREITExHÖHE.ext) mit mindestens minB × minH Pixeln, sonst das Original.
+ *  Für Hintergrundbilder der Projekt-Kacheln (max. 460 × 540 px angezeigt; 1000 px Höhe reichen auch für Retina).
+ *  Ist das Original selbst kleiner, reicht eine Fassung mit mindestens 85 % seiner Breite und Höhe. */
+export function passendeFassung(url: string, minB = 850, minH = 1000): string {
+  if (!url.startsWith('/wp-content/uploads/')) return url;
+  const ordner = dirname(url);
+  const ext = extname(url);
+  const name = basename(url, ext);
+  if (!ordnerCache.has(ordner)) {
+    try { ordnerCache.set(ordner, readdirSync(join(process.cwd(), 'public', ordner))); } catch { ordnerCache.set(ordner, []); }
+  }
+  const [ob, oh] = dateiMasse(url) ?? [Infinity, Infinity];
+  const muster = new RegExp(`^${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}-(\\d+)x(\\d+)${ext.replace('.', '\\.')}$`);
+  const fassungen = ordnerCache.get(ordner)!
+    .map((f) => { const m = f.match(muster); return m ? { f, b: +m[1], h: +m[2] } : null; })
+    // Ist schon das Original kleiner als gefordert, genügt eine Fassung mit 85 % seiner Größe (kaum sichtbarer Unterschied)
+    .filter((x): x is { f: string; b: number; h: number } => !!x && x.b >= Math.min(minB, ob * 0.85) && x.h >= Math.min(minH, oh * 0.85))
+    .sort((a, b) => a.b * a.h - b.b * b.h);
+  return fassungen.length ? `${ordner}/${fassungen[0].f}` : url;
 }

@@ -45,6 +45,8 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   (`ergaenzungen.css`, nur `@media (scripting: enabled)` – ohne JavaScript unverändert).
   Bilder bekommen beim Build ihre echten Maße (`width`/`height` aus dem Dateikopf, `src/lib/bilder.ts`) und laden ab dem
   zweiten Abschnitt mit Bild erst beim Scrollen (`loading="lazy"`, Logo-Laufband ausgenommen).
+  Projekt-Kacheln (CSS-Hintergrund) nutzen die kleinste passende WordPress-Fassung statt des Originals
+  (`passendeFassung()`, ≥ 850 × 1000 px bzw. 85 % des Originals) – Startseite rund 40 % weniger Kachel-Bilddaten.
 - **Beiträge:** Projekte und Blog nicht mehr im Elementor-Layout, sondern einheitlich (siehe Regeln unten);
   Blog im Aufbau des Originals (Bild oben über Hellblau, Titel darunter, 940 px Textbreite);
   überführt mit `scripts/umstellung/umstellen.py`.
