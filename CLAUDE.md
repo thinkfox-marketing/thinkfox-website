@@ -66,6 +66,9 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   Ergebnis-URL enthält nur Punktwerte (kein Firmenname), Werte werden auf 0–5 begrenzt (`api/ajax.php`, `src/scripts/marketing-check.js`).
 - **Kontakt & Formulare:** Telefonnummer überall klickbar (`telefon()` in `src/lib/barrierefreiheit.ts`), Forminator-Formulare in der
   Hausschrift statt des extern geladenen Roboto, Buttons mit „buchen/vereinbaren“ führen zum Terminkalender.
+  Projektanfragen (11213) gehen zusätzlich signiert ans CRM (`crm.thinkfox.marketing/api_website.php`, Vertrag
+  `docs/crm-schnittstelle.md`, Code `public/api/lib.php`, Feldzuordnung `forms.json` → `crm`); Warteschlange mit
+  Wiederholung in `api/data/crm/`, KAS-Cronjob `api/cron.php?token=…`. Mail an hallo@ immer, mit Link zum CRM-Eintrag.
 - **SEO/GEO:** echte 404-Seite (Comic-Fuchs, „Fährten“ zu den Hauptseiten, `src/pages/404.astro`) statt Weiterleitung auf die Startseite (alte WordPress-Weiterleitungen einzeln in `public/.htaccess`), Kategorie-Archive `noindex`,
   Unternehmensprofil/Service/FAQ als JSON-LD (`src/lib/geo.ts`), `/llms.txt`.
 
