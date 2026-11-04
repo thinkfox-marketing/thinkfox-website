@@ -13,6 +13,16 @@ export function bewertungenStatisch(html: string): string {
     .replace(/<div class="ti-controls">[\s\S]*?<\/div>\s*<\/div>\s*(?=<div class="ti-reviews-container-wrapper")/g, '')
     // eingebettetes Nachlade-Skript für cdn.trustindex.io/loader.js
     .replace(/<script>\s*\(function \(\) \{ if \(window\.tiLoaderFallback\)[\s\S]*?<\/script>/g, '')
+    // Sterne einmal als Text („5 von 5 Sternen“) statt fünfmal „Google star n“
+    .replace(/<span class="ti-stars([^"]*)">([\s\S]*?)<\/span>(?=\s*(?:<span class="ti-verified|<div|<\/div>))/g, (m, k, inner: string) => {
+      const voll = (inner.match(/star\/f\.svg/g) ?? []).length;
+      const halb = (inner.match(/star\/h\.svg/g) ?? []).length;
+      if (!voll && !halb) return m;
+      const wert = String(voll + halb / 2).replace('.', ',');
+      return `<span class="ti-stars${k}" role="img" aria-label="${wert} von 5 Sternen">${inner.replace(/alt="Google star \d"/g, 'alt=""')}</span>`;
+    })
+    // Profilbilder: Name steht daneben → dekorativ
+    .replace(/alt="[^"]*profile picture"/g, 'alt=""')
     // Reihe per Tastatur scrollbar und benannt
     .replace(/<div class="ti-reviews-container-wrapper">/g, '<div class="ti-reviews-container-wrapper" role="region" aria-label="Google-Bewertungen" tabindex="0">');
 }

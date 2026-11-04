@@ -4,6 +4,7 @@
 import { KOORDINATEN, UNTERNEHMEN } from './geo';
 import { kartenDokument } from './osm-karte.mjs';
 
+const TERMIN = 'https://crm.thinkfox.marketing/termin.php';
 const attr = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
 /** ARIA-/Beschriftungs-Korrekturen (Befunde aus axe-core, WCAG 2.2 AA). */
@@ -28,7 +29,40 @@ export function zugaenglich(html: string): string {
     // „Weiterlesen »“: zugänglicher Name muss den sichtbaren Text enthalten
     .replace(/aria-label="Mehr über ([^"]*)"/g, 'aria-label="Weiterlesen » $1"')
     // Instagram-Kopfzeile: englisches aria-label weicht vom sichtbaren Text ab – sichtbarer Text genügt
-    .replace(/(class="sbi_header_link"[^>]*?) aria-label="[^"]*"/g, '$1');
+    .replace(/(class="sbi_header_link"[^>]*?) aria-label="[^"]*"/g, '$1')
+    // Termin-Popup (Kontakt): Fokusfalle ließ den Kalender per Tastatur nicht erreichen → Kalender direkt öffnen
+    .replace(/href="#elementor-action%3Aaction%3Dpopup%3Aopen[^"]*"/g, `href="${TERMIN}" target="_blank" rel="noopener"`)
+    // Projekt-Kacheln: Überlagerungs-Link doppelt zum Kachel-Link (gleiches Ziel, Name nur im title) → nur Mausfläche
+    .replace(/<a class="(eael-wrapper-link-[0-9a-f]+[^"]*)" href=/g, '<a class="$1" aria-hidden="true" tabindex="-1" href=')
+    // Akkordeon (Mietstudio): Rolle und Zustand (Zustand hält src/scripts/barrierefreiheit.js aktuell)
+    .replace(/<div (id="[^"]*" )?class="elementor-tab-title eael-accordion-header( active-default)?"/g,
+      (_m, id = '', aktiv) => `<div ${id}class="elementor-tab-title eael-accordion-header${aktiv ?? ''}" role="button" aria-expanded="${aktiv ? 'true' : 'false'}"`)
+    .replace(/aria-label="Accordion\. Open links with Enter or Space, close with Escape, and navigate with Arrow Keys"/g,
+      'aria-label="Fragen und Antworten. Öffnen mit Enter oder Leertaste, schließen mit Escape, wechseln mit den Pfeiltasten"')
+    // Off-Canvas-Menü benennen
+    .replace(/aria-label="Off-Canvas"/g, 'aria-label="Menü"')
+    // Formulare: Telefon und Firma automatisch ausfüllbar (WCAG 1.3.5)
+    .replace(/(<input type="text" name="phone-1"[^>]*?) autocomplete="off"/g, '$1 autocomplete="tel" inputmode="tel"')
+    .replace(/(<input [^>]*name="name-2"[^>]*?) autocomplete="name"/g, '$1 autocomplete="organization"')
+    .replace(/(<input type="text" name="text-1" [^>]*placeholder="[^"]*Unternehmen[^"]*"[^>]*?)( \/?>)/g, (m, a, b) => (a.includes('autocomplete=') ? m : `${a} autocomplete="organization"${b}`))
+    .replace(/(<input type="url" name="url-1"[^>]*?)( \/?>)/g, (m, a, b) => (a.includes('autocomplete=') ? m : `${a} autocomplete="url"${b}`))
+    // Logo-Laufband steht (Desktop/Handy) mehrfach in der Seite – IDs eindeutig machen (nirgends referenziert)
+    .replace(/id="(eael-lc-logo-ref\d+)"/g, ((gesehen: Map<string, number>) => (_m: string, id: string) => {
+      const n = (gesehen.get(id) ?? 0) + 1;
+      gesehen.set(id, n);
+      return `id="${n === 1 ? id : `${id}-${n}`}"`;
+    })(new Map()))
+    // Stil-Blöcke der Slider-Vorlagen tragen bei mehreren Slidern dieselbe ID
+    .replace(/<style id="loop-dynamic-\d+">/g, '<style>')
+    // Überschriften-Ebenen ohne Sprung (Optik bleibt: nur die Ebene für Screenreader)
+    .replace(/<h6 class="elementor-heading-title([^"]*)">(\s*thinkfox auf Instagram)/g, '<h6 class="elementor-heading-title$1" aria-level="3">$2');
+}
+
+/** Fußzeile: Überschriften-Ebenen ohne Sprung (h4/h5/h6 → Ebene 2/3), Optik unverändert. */
+export function fussEbenen(html: string): string {
+  return html
+    .replace(/<h4 class="elementor-heading-title([^"]*)">/g, '<h4 class="elementor-heading-title$1" aria-level="2">')
+    .replace(/<h([56]) class="elementor-heading-title([^"]*)">/g, '<h$1 class="elementor-heading-title$2" aria-level="3">');
 }
 
 /** Telefonnummer überall anrufbar machen (im Original nur Text bzw. ein defekter tel:-Link ohne Vorwahl). */
@@ -121,4 +155,19 @@ export function youtubeEinbettung(url: string, titel = 'Video (YouTube)'): strin
     bild: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
   });
   return `<iframe title="${attr(titel)}" srcdoc="${doc}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>`;
+}
+
+/** Überschriften-Ebenen ohne Sprung (WCAG 1.3.1, axe „heading-order“): springt eine Überschrift mehr als eine Ebene
+ *  tiefer als die vorige (z. B. H2 → H4), bekommt sie für Screenreader die passende Ebene (aria-level).
+ *  Tag und Optik bleiben unverändert. */
+export function ebenenOhneSprung(html: string): string {
+  let vorige = 0;
+  return html.replace(/<h([1-6])(\s[^>]*)?>/g, (m, n: string, rest = '') => {
+    const vorhanden = rest.match(/\saria-level="(\d)"/);
+    const ebene = vorhanden ? Number(vorhanden[1]) : Number(n);
+    const soll = Math.min(ebene, vorige + 1);
+    vorige = soll;
+    if (soll === ebene) return m;
+    return vorhanden ? m.replace(/aria-level="\d"/, `aria-level="${soll}"`) : `<h${n}${rest} aria-level="${soll}">`;
+  });
 }

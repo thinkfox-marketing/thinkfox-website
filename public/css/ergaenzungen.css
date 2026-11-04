@@ -233,3 +233,63 @@ body > :is(header, main, footer, [data-elementor-type]) { overflow-x: clip; }
 @media (scripting: enabled) and (max-width: 767px) {
   .elementor-12397 .elementor-element.elementor-element-278f631 { min-height: 680px; }
 }
+
+/* ---------------------------------------------------------------------------------------------
+   Barrierefreiheit (Review 03.11.2026)
+   --------------------------------------------------------------------------------------------- */
+/* Sprunglink „Zum Inhalt“ – nur bei Tastaturfokus sichtbar */
+.tf-sprung { position: absolute; left: 16px; top: -100px; z-index: 100000; padding: 12px 18px; border-radius: 10px;
+  background: #3b3192; color: #fff !important; font: 600 1rem/1.2 Outfit, system-ui, sans-serif; text-decoration: none !important; }
+.tf-sprung:focus { top: 16px; outline: 3px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 6px #3b3192; }
+
+/* Fokus nicht unter der fixierten Kopfzeile verstecken (WCAG 2.4.11) */
+html { scroll-padding-top: 140px; }
+@media (max-width: 767px) { html { scroll-padding-top: 110px; } }
+/* Bei sehr geringer Höhe (Querformat-Handy, 400 % Zoom) die Kopfzeile nicht fixieren (WCAG 1.4.10) */
+@media (max-height: 500px) {
+  .elementor-sticky--active { position: relative !important; top: auto !important; }
+  .elementor-sticky__spacer { display: none !important; }
+}
+/* „Bewegung reduzieren“: der Sticky-Platzhalter (Kopie der Kopfzeile) bleibt unsichtbar */
+.elementor-sticky__spacer, .elementor-sticky__spacer .elementor-invisible { visibility: hidden !important; }
+
+/* Reflow bei 320 px: lange Adressen umbrechen, Formular nicht breiter als der Bildschirm */
+.elementor-widget-erecht24 li > a, .elementor-widget-erecht24 a { overflow-wrap: anywhere; }
+@media (max-width: 400px) {
+  #forminator-module-7075, #forminator-module-7075 .forminator-row, #forminator-module-7075 .forminator-col,
+  #forminator-module-7075 .forminator-field, #forminator-module-7075 :is(input, textarea, select, .select2) { max-width: 100%; box-sizing: border-box; }
+  .elementor-icon-box-description { overflow-wrap: anywhere; }
+}
+
+/* Deutlicher Fokus in Formularen und Instagram-Kacheln (WCAG 2.4.7, 1.4.11) */
+.forminator-ui :is(input, textarea, select):focus-visible,
+.forminator-ui .forminator-checkbox:focus-within, .forminator-ui .forminator-radio:focus-within,
+.forminator-ui .select2-selection:focus { outline: 3px solid #3b3192 !important; outline-offset: 2px; }
+#sb_instagram a:focus-visible { outline: 3px solid #3b3192 !important; outline-offset: 3px; }
+.eael-ext-scroll-to-top-button:focus-visible { outline: 3px solid #3b3192; outline-offset: 3px; }
+
+/* Hintergrundvideo abdunkeln: weißer Text auf hellen Videobildern lag stellenweise unter 3:1 (WCAG 1.4.3) */
+.elementor-background-video-container::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgb(0 0 0 / 0.55) 0%, rgb(0 0 0 / 0.38) 55%, rgb(0 0 0 / 0.2) 100%);
+}
+@media (max-width: 767px) {
+  .elementor-background-video-container::after { background: linear-gradient(180deg, rgb(0 0 0 / 0.25) 0%, rgb(0 0 0 / 0.5) 100%); }
+}
+
+/* Pause-Knopf für automatisch laufende Slider und das Logo-Laufband (WCAG 2.2.2), src/scripts/barrierefreiheit.js –
+   rund wie der Video-Knopf; im Logo-Laufband rechts neben bzw. (Handy) über dem Band statt auf den Logos */
+button.tf-bewegung {
+  position: absolute; z-index: 6; right: 10px; bottom: 10px; box-sizing: border-box; display: grid; place-items: center;
+  width: 34px; height: 34px; min-width: 0; margin: 0; padding: 0; border: 1px solid rgb(59 49 146 / 0.35); border-radius: 50%;
+  background: rgb(255 255 255 / 0.92); color: #3b3192; font-size: 0; line-height: 0; cursor: pointer;
+}
+button.tf-bewegung:hover, button.tf-bewegung:focus { background: #fff; color: #3b3192; border-color: #3b3192; }
+button.tf-bewegung:focus-visible { outline: 3px solid #3b3192; outline-offset: 2px; }
+button.tf-bewegung svg { width: 12px; height: 12px; fill: currentColor; }
+button.tf-bewegung .tf-bewegung__an, button.tf-bewegung[aria-pressed="true"] .tf-bewegung__aus { display: none; }
+button.tf-bewegung[aria-pressed="true"] .tf-bewegung__an { display: block; margin-left: 2px; }
+button.tf-bewegung--laufband { top: 50%; bottom: auto; right: -46px; transform: translateY(-50%); }
+@media (max-width: 1024px) {
+  button.tf-bewegung--laufband { right: 4px; }
+}

@@ -133,3 +133,9 @@ export function kachelnSpaet(html: string): string {
   if (!paare.size) return '';
   return `@media (scripting: enabled){${[...paare].join(',')}{background-image:none!important}}`;
 }
+
+/** title-Attribute an Bildern entfernen (WordPress-SEO-Plugin: „Werbeagentur … 32“) – erschienen als Tooltip und wurden
+ *  von Screenreadern als Beschreibung vorgelesen, bei dekorativen Bildern sogar als Name. */
+export function ohneBildTitel(html: string): string {
+  return html.replace(/<img\b[^>]*>/g, (tag) => tag.replace(/\s+title="[^"]*"/g, ''));
+}

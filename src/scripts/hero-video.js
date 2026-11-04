@@ -61,11 +61,8 @@ for (const el of document.querySelectorAll('[data-settings*="background_video_li
   }, { rootMargin: '200px 0px' }).observe(el);
 
   if (!toggle) continue;
-  const update = () => {
-    const pausiert = video.paused;
-    toggle.setAttribute('aria-pressed', String(pausiert));
-    toggle.setAttribute('aria-label', pausiert ? 'Hintergrundvideo abspielen' : 'Hintergrundvideo anhalten');
-  };
+  // Fester Name + Zustand (aria-pressed): „Hintergrundvideo anhalten, gedrückt“ = angehalten
+  const update = () => toggle.setAttribute('aria-pressed', String(video.paused));
   video.addEventListener('playing', () => { toggle.hidden = false; update(); });
   video.addEventListener('pause', update);
   toggle.addEventListener('click', () => {

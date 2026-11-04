@@ -33,6 +33,12 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 - **Barrierefreiheit (WCAG 2.2 AA, axe-core ohne Befund):** Kontraste minimal angehoben (Grün `#267f32`
   statt `#61ce70`, Lila, Grautöne – `public/css/ergaenzungen.css`), Links im Fließtext unterstrichen,
   ARIA-Korrekturen im Markup (`src/lib/barrierefreiheit.ts`, `src/scripts/barrierefreiheit.js`).
+  Seit Review 11/2026 zusätzlich: Sprunglink „Zum Inhalt springen“, Überschriften-Ebenen ohne Sprung (`aria-level`,
+  `ebenenOhneSprung()`, Fußzeile `fussEbenen()`), Sticky-Kopie der Kopfzeile unsichtbar/inert ohne doppelte IDs,
+  Slider-Kopien aus Tab-Reihenfolge, Pause-Knopf für Slider und Logo-Laufband (WCAG 2.2.2), Hintergrundvideo abgedunkelt
+  (Kontrast), Akkordeon mit Rolle/Zustand, Leertaste für Schein-Buttons, autocomplete (Telefon/Firma/URL),
+  `scroll-padding-top` gegen verdeckten Fokus, Kopfzeile bei < 500 px Höhe nicht fixiert, Bild-`title` entfernt,
+  Termin-Popup entfällt (Button öffnet den Kalender direkt), Barrierefreiheitserklärung aktualisiert und in der Fußzeile verlinkt.
 - **Karte:** OpenStreetMap statt Google Maps – statische Karte aus beim Build geladenen, lokal ausgelieferten
   Kacheln (`src/lib/osm-karte.mjs`, `scripts/astro-osm-karte.mjs`, Cache `.osm-cache/`), interaktiv erst auf Klick.
 - **Datenschutz:** YouTube und Kuula per 2-Klick-Lösung (Iframe mit `srcdoc`-Hinweis),
