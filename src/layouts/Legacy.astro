@@ -24,7 +24,8 @@ interface Props {
 }
 const { styles, scripts, bodyClass, canvas = false, einheitlich = true } = Astro.props;
 // Unternehmensangaben im JSON-LD vereinheitlichen (src/lib/geo.ts)
-const seo = organisationAngleichen(Astro.props.seo);
+// Gravatar-Bild des WordPress-Autors (Hash aus dessen E-Mail-Adresse) gehört nicht in die Strukturdaten
+const seo = organisationAngleichen(Astro.props.seo).replace(/,"image":\{"@type":"ImageObject","@id":"https:\/\/secure\.gravatar\.com[^}]*\}/g, '');
 // WordPress-AJAX-Endpunkt → eigener Endpunkt (public/api/ajax.php)
 const ajax = (s: string) => s.replaceAll('/wp-admin/admin-ajax.php', '/api/ajax.php').replaceAll('\\/wp-admin\\/admin-ajax.php', '\\/api\\/ajax.php');
 // Formulare immer per AJAX absenden (statt Seiten-POST an WordPress)

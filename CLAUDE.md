@@ -44,7 +44,8 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 - **Datenschutz:** YouTube und Kuula per 2-Klick-Lösung (Iframe mit `srcdoc`-Hinweis),
   Bilder/Schriften des Bewertungs-Widgets und YouTube-Vorschaubilder lokal (`scripts/astro-extern-lokal.mjs`),
   kein WordPress-Emoji-Skript, Termin-Iframe lädt erst beim Öffnen. Google-Bewertungen statisch ohne Trustindex-Ladeskript
-  (`src/lib/bewertungen.ts`, wischbare Reihe in `ergaenzungen.css`); kein Usercentrics-„Smart Data Protector“ (uc-block). Google-Tag und Meta-Pixel laden erst nach
+  (`src/lib/bewertungen.ts`, wischbare Reihe in `ergaenzungen.css`); kein Usercentrics-„Smart Data Protector“ (uc-block). Kein Gravatar-Hash im
+  JSON-LD, Elementor-Zähler im Browser-Speicher werden entfernt (`src/scripts/datenschutz.js`), Opt-out-Link durch Hinweis auf den Usercentrics-Widerruf ersetzt. Google-Tag und Meta-Pixel laden erst nach
   Zustimmung zum jeweiligen Usercentrics-Dienst (`src/components/Tracking.astro`, Erkennung über den Dienstnamen).
 - **Ladezeit:** Stylesheets als wenige Bündel (`src/lib/css-bundle.ts`, nur im Build), Hero-Standbild und
   Hausschriften per Preload, verdecktes Hero-Hintergrundbild entfernt. Gegen Layout-Verschiebungen (CLS):
@@ -77,6 +78,9 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 - **Selbsttest „Marketing-Ampel“** (`/marketing-ampel/`, Ergebnis `/marketing-ampel/ergebnis/`; alte Adressen per 301):
   hieß im Original „Marketing-Check“ – der Name gehört dem gleichnamigen Beratungsangebot. Skalenfragen als Einfachauswahl,
   Ergebnis-URL enthält nur Punktwerte (kein Firmenname), Werte werden auf 0–5 begrenzt (`api/ajax.php`, `src/scripts/marketing-check.js`).
+  Kontaktdaten freiwillig (Datenminimierung, Kopplungsverbot): Auswertung auch ohne Name/E-Mail; nur mit E-Mail oder Telefon
+  **und** Häkchen „thinkfox darf sich melden“ wird gespeichert und an hallo@ gemailt (`forms.json` → `einstellungen.kontakt_freiwillig`,
+  diese Regeln haben Vorrang vor `api/config.php`).
 - **Kontakt & Formulare:** Telefonnummer überall klickbar (`telefon()` in `src/lib/barrierefreiheit.ts`), Forminator-Formulare in der
   Hausschrift statt des extern geladenen Roboto, Buttons mit „buchen/vereinbaren“ führen zum Terminkalender.
   Projektanfragen (11213) gehen zusätzlich signiert ans CRM (`crm.thinkfox.marketing/api_website.php`, Vertrag

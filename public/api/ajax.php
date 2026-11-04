@@ -46,10 +46,12 @@ if ($action !== 'forminator_submit_form_custom-forms') {
 }
 
 $formId = (string) ($_POST['form_id'] ?? '');
-$form = $config['forms'][$formId] ?? null;
-if (!$form || !isset($forms[$formId])) {
+if (!isset($forms[$formId]) || (!isset($config['forms'][$formId]) && !isset($forms[$formId]['einstellungen']))) {
     respond(false, ['message' => 'Unbekanntes Formular.']);
 }
+// Formular-Regeln aus forms.json („einstellungen“, im Repository) haben Vorrang; api/config.php liefert v. a. die Empfänger
+$form = array_replace($config['forms'][$formId] ?? [], $forms[$formId]['einstellungen'] ?? []);
+$form['to'] = $form['to'] ?? ['hallo@thinkfox.de'];
 
 // Spam-Schutz – Bots erhalten jeweils eine normale Erfolgsantwort, damit sie nichts lernen
 $alter = nonce_age($formId, (string) ($_POST['forminator_nonce'] ?? ''), $config);
@@ -122,6 +124,22 @@ if (!empty($form['scores'])) {
     $values['Auswertung'] = implode(', ', array_map(fn ($k, $v) => "$k: $v", array_keys($scores), $scores));
     // Nur die Punktzahlen kommen in die Ergebnis-URL – kein Firmenname (Server-Logs, Verlauf, Analyse-Tools)
     $extra['scores'] = $scores;
+}
+
+// Freiwillige Kontaktdaten (Marketing-Ampel): ohne E-Mail/Telefon nur die Auswertung – nichts speichern, nichts mailen
+if (!empty($form['kontakt_freiwillig'])) {
+    $kf = $form['kontakt_freiwillig'];
+    $mitKontakt = false;
+    foreach ($kf['felder'] ?? [] as $feld) {
+        $mitKontakt = $mitKontakt || (is_string($_POST[$feld] ?? null) && trim($_POST[$feld]) !== '');
+    }
+    if (!$mitKontakt) {
+        respond(true, behaviour($form, $extra));
+    }
+    if (empty($_POST[$kf['einwilligung'] ?? 'consent-1'])) {
+        respond(false, ['message' => 'Bitte bestätige, dass wir uns bei dir melden dürfen – oder lass die Kontaktfelder leer.',
+            'errors' => [[($kf['einwilligung'] ?? 'consent-1') => 'Bitte bestätigen oder Kontaktfelder leer lassen.']]]);
+    }
 }
 
 $gespeichert = store($formId, $values);

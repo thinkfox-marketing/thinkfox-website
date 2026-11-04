@@ -54,7 +54,49 @@
    "text-4": "Deine Website",
    "checkbox-17": "Ja, ich möchte, dass sich ein Experte von thinkfox wegen meiner Auswertung meldet",
    "consent-1": "consent-1"
-  }
+  },
+  "einstellungen": {
+   "_hinweis": "Vorrang vor api/config.php (dort nur noch Empfänger 'to'). Kontaktdaten freiwillig: ohne E-Mail/Telefon wird nichts gespeichert oder gemailt, es gibt nur die Auswertung.",
+   "subject": "Neue Marketing-Ampel über thinkfox.de",
+   "required": [
+    "select-1",
+    "select-2"
+   ],
+   "redirect": "/marketing-ampel/ergebnis/",
+   "kontakt_freiwillig": {
+    "felder": [
+     "email-1",
+     "phone-1"
+    ],
+    "einwilligung": "consent-1"
+   },
+   "scores": {
+    "website_seo": [
+     "checkbox-1",
+     "checkbox-2",
+     "checkbox-3"
+    ],
+    "content_social": [
+     "checkbox-4",
+     "checkbox-5",
+     "checkbox-6"
+    ],
+    "strategie": [
+     "checkbox-7",
+     "checkbox-8"
+    ],
+    "recruiting": [
+     "checkbox-9",
+     "checkbox-10"
+    ],
+    "ganzheit": [
+     "checkbox-11",
+     "checkbox-12",
+     "checkbox-13"
+    ]
+   }
+  },
+  "einwilligung_bezeichnung": "thinkfox darf sich melden"
  },
  "11213": {
   "seite": "thinkfox-marketing-projekt-anfragen",

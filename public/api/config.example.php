@@ -53,7 +53,8 @@ return [
             'required' => ['checkbox-1', 'checkbox-2', 'radio-2', 'text-1', 'email-1', 'consent-1'],
             'redirect' => '/danke_projektanfrage/',
         ],
-        '12432' => [ // Marketing-Ampel (Selbsttest)
+        '12432' => [ // Marketing-Ampel (Selbsttest) – Regeln (Pflichtfelder, Punkte, freiwillige Kontaktdaten) stehen in
+                     // forms.json → "einstellungen" und haben Vorrang; hier genügt der Empfänger
             'to' => ['hallo@thinkfox.de'],
             'subject' => 'Neue Marketing-Ampel über thinkfox.de',
             'required' => ['name-2', 'select-1', 'select-2', 'name-1', 'email-1', 'consent-1'],
