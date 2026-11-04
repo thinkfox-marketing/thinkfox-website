@@ -80,7 +80,7 @@ const LEISTUNGEN: Record<string, { name: string; serviceType: string }> = {
 /** Bessere Meta-Beschreibungen für übernommene Seiten (Original zu kurz). */
 export const BESCHREIBUNGEN: Record<string, string> = {
   '/marketing-ampel/':
-    'Marketing-Ampel: kostenloser Selbsttest für KMU in Nordhessen – Website, Content, Strategie und Recruiting in wenigen Minuten bewerten, mit Ampel-Auswertung je Bereich.',
+    'Kostenloser Marketing-Selbsttest für KMU: Website, Content, Strategie und Recruiting in wenigen Minuten bewerten – mit Ampel je Bereich.',
   '/360-grad-rundgaenge/cine-k-korbach/':
     'Virtueller 360-Grad-Rundgang durch das Kino Cine K in Korbach – erstellt von thinkfox marketing. Säle und Foyer bequem online erkunden.',
   '/360-grad-rundgaenge/altstadtblick-1/':

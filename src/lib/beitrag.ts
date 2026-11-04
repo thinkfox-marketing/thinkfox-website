@@ -119,13 +119,15 @@ async function weitere(p: Post, titel: string, mehr: string): Promise<string> {
   };
   const auswahl = alle.map((x, i) => ({ x, i, s: punkte(x) })).sort((a, b) => b.s - a.s || a.i - b.i).slice(0, 3).map((o) => o.x);
   if (!auswahl.length) return '';
+  // Kachelbild: Titel steht als Linktext daneben → Bild für Screenreader ausgeblendet (sonst doppelt vorgelesen),
+  // Alt-Text trotzdem gesetzt (Suchmaschinen, Bildausfall; Seobility zählt leeres alt als „fehlend“)
   return `<section class="tf-weitere" aria-labelledby="tf-weitere-titel">
   <div class="tf-huelle">
     <h2 id="tf-weitere-titel">${esc(titel)}</h2>
     <ul class="tf-karten" role="list">
     ${auswahl.map((x) => `<li class="tf-karte">
       <a class="tf-karte__link" href="/${x.id}/">
-        <span class="tf-karte__bild">${wpImg(x.data.bild, { size: 'medium_large', alt: '', cls: '' })}</span>
+        <span class="tf-karte__bild" aria-hidden="true">${wpImg(x.data.bild, { size: 'medium_large', alt: x.data.title, cls: '' })}</span>
         <span class="tf-karte__kategorie">${esc(categoryName(x.data.kategorien[0] ?? ''))}</span>
         <span class="tf-karte__titel">${esc(x.data.title)}</span>
         <span class="tf-karte__mehr" aria-hidden="true">${esc(mehr)} →</span>

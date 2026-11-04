@@ -19,10 +19,14 @@ export function bewertungenStatisch(html: string): string {
       const halb = (inner.match(/star\/h\.svg/g) ?? []).length;
       if (!voll && !halb) return m;
       const wert = String(voll + halb / 2).replace('.', ',');
-      return `<span class="ti-stars${k}" role="img" aria-label="${wert} von 5 Sternen">${inner.replace(/alt="Google star \d"/g, 'alt=""')}</span>`;
+      return `<span class="ti-stars${k}" role="img" aria-label="${wert} von 5 Sternen">${inner
+        // Kinder von role="img" sind für Screenreader ohnehin unsichtbar; der Alt-Text dient nur Crawlern/Bildausfall
+        .replace(/alt="Google star \d"/g, 'alt="Stern"')
+        // doppeltes loading-Attribut aus dem Original-Markup
+        .replace(/(<img loading="lazy"[^>]*?) loading="lazy"/g, '$1')}</span>`;
     })
-    // Profilbilder: Name steht daneben → dekorativ
-    .replace(/alt="[^"]*profile picture"/g, 'alt=""')
+    // Profilbilder: Name steht daneben → für Screenreader ausgeblendet (sonst doppelt), Alt-Text für Crawler/Bildausfall
+    .replace(/alt="([^"]*) profile picture"/g, 'alt="Profilbild von $1" aria-hidden="true"')
     // Reihe per Tastatur scrollbar und benannt
     .replace(/<div class="ti-reviews-container-wrapper">/g, '<div class="ti-reviews-container-wrapper" role="region" aria-label="Google-Bewertungen" tabindex="0">');
 }

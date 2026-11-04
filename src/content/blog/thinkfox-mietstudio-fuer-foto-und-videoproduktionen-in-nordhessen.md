@@ -74,20 +74,20 @@ Ob für Videoproduktionen, Werbefilme, Modeaufnahmen, kreative Projekte oder als
 - Endreinigung
 - Strom & Heizung
 
-![](/wp-content/uploads/2024/09/thinkfox_studio_8.jpg)
+![Kamera mit Mikrofon zwischen LED-Leuchten vor violettem Hintergrund](/wp-content/uploads/2024/09/thinkfox_studio_8.jpg)
 
-![](/wp-content/uploads/2024/09/thinkfox_studio_7.jpg)
+![Blick über Hohlkehle, Küche und Besprechungsbereich des Mietstudios](/wp-content/uploads/2024/09/thinkfox_studio_7.jpg)
 
-![](/wp-content/uploads/2024/09/thinkfox_studio_6.jpg)
+![Weiße Hohlkehle mit zwei orangefarbenen Sesseln im thinkfox Mietstudio](/wp-content/uploads/2024/09/thinkfox_studio_6.jpg)
 
-![](/wp-content/uploads/2024/09/thinkfox_studio_5.jpg)
+![Arbeits- und Lounge-Bereich mit Schnittplatz und Bildschirm im Mietstudio](/wp-content/uploads/2024/09/thinkfox_studio_5.jpg)
 
-![](/wp-content/uploads/2024/09/thinkfox_studio_4.jpg)
+![Schminkspiegel mit Leuchtrahmen im Maske-Bereich des Mietstudios](/wp-content/uploads/2024/09/thinkfox_studio_4.jpg)
 
-![](/wp-content/uploads/2024/09/thinkfox_studio_3.jpg)
+![Besprechungstisch vor großem Bildschirm im thinkfox Mietstudio](/wp-content/uploads/2024/09/thinkfox_studio_3.jpg)
 
-![](/wp-content/uploads/2024/09/thinkfox_studio_2.jpg)
+![Kaffeeecke mit Kaffeevollautomat im thinkfox Mietstudio](/wp-content/uploads/2024/09/thinkfox_studio_2.jpg)
 
-![](/wp-content/uploads/2024/09/thinkfox_studio_1.jpg)
+![Videokameras auf Stativen vor LED-Röhrenleuchten im thinkfox Mietstudio](/wp-content/uploads/2024/09/thinkfox_studio_1.jpg)
 
 ##### Du hast Interesse, das Studio zu mieten?
