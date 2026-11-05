@@ -293,3 +293,7 @@ button.tf-bewegung--laufband { top: 50%; bottom: auto; right: -46px; transform: 
 @media (max-width: 1024px) {
   button.tf-bewegung--laufband { right: 4px; }
 }
+
+/* 360°-Rundgänge (Unterseiten): Einleitung unter der Überschrift (SEO: Bezug zwischen H1 und Text, Link zur Übersicht) */
+.tf-rundgang-text { max-width: 46rem; margin: -1em auto 3em; text-align: center; }
+.tf-rundgang-text p { margin: 0 0 .75em; }
