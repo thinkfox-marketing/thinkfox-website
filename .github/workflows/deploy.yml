@@ -45,7 +45,7 @@ jobs:
       STAGING_PATH: ${{ secrets.STAGING_PATH }}
       DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v5
         with:
