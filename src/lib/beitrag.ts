@@ -145,12 +145,6 @@ function pfad(stufen: { text: string; link?: string }[]): string {
 
 // ------------------------------------------------------------------ Projekt
 
-/** Pfeile der Leistungs-Leiste: nur sichtbar, wenn die Leiste breiter als der Platz ist. */
-const LEISTE_JS = `(()=>{const s=document.currentScript.parentElement,l=s.querySelector('.tf-leistungen__leiste'),p=s.querySelector('.tf-leistungen__pfeile'),b=p.querySelectorAll('button');
-const z=()=>{const m=l.scrollWidth>l.clientWidth+2;p.hidden=!m;s.classList.toggle('tf-leistungen--mehr',m);b[0].disabled=l.scrollLeft<4;b[1].disabled=l.scrollLeft+l.clientWidth>l.scrollWidth-4;};
-b.forEach(x=>x.addEventListener('click',()=>l.scrollBy({left:x.dataset.richtung*l.clientWidth*0.8,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})));
-l.addEventListener('scroll',z,{passive:true});addEventListener('resize',z);z();})();`;
-
 export async function projektSeite(p: Projekt): Promise<string> {
   const d = p.data;
   const teile = [
@@ -166,22 +160,9 @@ export async function projektSeite(p: Projekt): Promise<string> {
   ].filter(Boolean) as [string, string][];
   const link = d.projektLink
     ? `<div class="tf-steckbrief__link"><dt>Online ansehen</dt><dd><a href="${esc(d.projektLink.url)}" target="_blank" rel="noopener">${esc(d.projektLink.text)}<span class="tf-sr"> (öffnet in neuem Tab)</span> ↗</a></dd></div>` : '';
-  // Leistungen als Wischleiste unter dem Kopfbereich (lange Einträge sprengten sonst den Steckbrief)
-  const leistungen = d.leistungen.length ? `<section class="tf-leistungen" aria-labelledby="tf-leistungen-titel">
-    <div class="tf-huelle tf-huelle--breit">
-      <div class="tf-leistungen__kopf">
-        <h2 id="tf-leistungen-titel" class="tf-leistungen__titel">Leistungen im Projekt</h2>
-        <div class="tf-leistungen__pfeile" hidden>
-          <button type="button" class="tf-leistungen__pfeil" data-richtung="-1" aria-label="Vorherige Leistungen">←</button>
-          <button type="button" class="tf-leistungen__pfeil" data-richtung="1" aria-label="Weitere Leistungen">→</button>
-        </div>
-      </div>
-      <div class="tf-leistungen__leiste" role="region" aria-labelledby="tf-leistungen-titel" tabindex="0">
-        <ol class="tf-leistungen__liste" role="list">${d.leistungen.map((l, i) => `<li><span class="tf-leistungen__nr" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>${esc(l)}</li>`).join('')}</ol>
-      </div>
-    </div>
-    <script>${LEISTE_JS}</script>
-  </section>` : '';
+  // Leistungen als Schlagworte in den Projektdaten (wie im Original links; funktioniert von 1 bis 8 Einträgen)
+  const leistungen = d.leistungen.length
+    ? `<div class="tf-steckbrief__leistungen"><dt>Leistungen</dt><dd><ul class="tf-schlagworte" role="list">${d.leistungen.map((l) => `<li>${esc(l)}</li>`).join('')}</ul></dd></div>` : '';
   // Reine Videoprojekte: oben das erste Video statt des Beitragsbilds (wie im Original)
   const kopfVideo = d.kopf === 'video' ? d.medien.find((m) => m.typ === 'video') : undefined;
   const medien = d.medien.filter((m) => m !== kopfVideo);
@@ -205,11 +186,11 @@ export async function projektSeite(p: Projekt): Promise<string> {
     </div>
     ${kopfMedium}
   </header>
-  ${leistungen}
   <div class="tf-case tf-huelle tf-huelle--breit">
-    ${steckbrief.length || link ? `<aside class="tf-case__fakten" aria-label="Projektdaten">
+    ${steckbrief.length || leistungen || link ? `<aside class="tf-case__fakten" aria-label="Projektdaten">
       <dl class="tf-steckbrief">
         ${steckbrief.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('\n        ')}
+        ${leistungen}
         ${link}
       </dl>
     </aside>` : ''}
