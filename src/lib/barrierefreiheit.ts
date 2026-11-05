@@ -59,7 +59,9 @@ export function zugaenglich(html: string): string {
     // Stil-Blöcke der Slider-Vorlagen tragen bei mehreren Slidern dieselbe ID
     .replace(/<style id="loop-dynamic-\d+">/g, '<style>')
     // Überschriften-Ebenen ohne Sprung (Optik bleibt: nur die Ebene für Screenreader)
-    .replace(/<h6 class="elementor-heading-title([^"]*)">(\s*thinkfox auf Instagram)/g, '<h6 class="elementor-heading-title$1" aria-level="3">$2');
+    // Instagram-Block: h6 → role="heading" (Ebene 3) – sonst Sprung H3 → H6, seit die Fußzeile keine h4/h5 mehr hat
+    .replace(/<h6 class="elementor-heading-title([^"]*)">(\s*thinkfox auf Instagram\s*)<\/h6>/g,
+      '<div class="elementor-heading-title$1" role="heading" aria-level="3" data-tf-h="6">$2</div>');
 }
 
 /** Fußzeile: Überschriften-Ebenen ohne Sprung (h4/h5/h6 → Ebene 2/3), Optik unverändert. */

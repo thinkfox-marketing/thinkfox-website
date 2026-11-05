@@ -35,7 +35,8 @@ main .elementor-widget-heading div.elementor-heading-title[aria-level="1"] { fon
 main .elementor-widget-heading h2.elementor-heading-title,
 main .elementor-widget-heading div.elementor-heading-title[aria-level="2"] { font-size: var(--fs-h2) !important; line-height: 1.15 !important; }
 main .elementor-widget-heading h3.elementor-heading-title { font-size: var(--fs-h3) !important; line-height: 1.25 !important; }
-main .elementor-widget-heading :is(h4, h5, h6).elementor-heading-title { font-size: var(--fs-h4) !important; line-height: 1.3 !important; }
+main .elementor-widget-heading :is(h4, h5, h6).elementor-heading-title,
+main .elementor-widget-heading div.elementor-heading-title[data-tf-h] { font-size: var(--fs-h4) !important; line-height: 1.3 !important; }
 main .elementor-heading-title :is(span, b, strong) { font-size: inherit !important; }
 
 /* Rolle statt Tag: Überschriften, die optisch Abschnittstitel sind (z. B. H6 „thinkfox auf Instagram“) */

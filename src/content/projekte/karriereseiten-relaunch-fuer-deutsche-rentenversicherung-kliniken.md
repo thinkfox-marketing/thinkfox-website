@@ -29,6 +29,6 @@ loesung: |
 
   Technisch wurden die Grundlagen für eine saubere Auffindbarkeit geschaffen, inklusive **strukturierter Daten für Stellenanzeigen**, damit Jobs auch in Suchsystemen sinnvoll ausgespielt werden können.
 
-  #### **Nutzen für den Kunden**
+  ### Nutzen für den Kunden
 ergebnis: "Ein **einheitlicher Arbeitgeberauftritt** über drei Standorte hinweg, weniger Reibung im **Bewerbungsprozess** und ein **Karrierebereich**, der sowohl für Bewerbende als auch für die interne Pflege pragmatisch funktioniert."
 ---
