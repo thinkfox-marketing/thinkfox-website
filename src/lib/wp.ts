@@ -241,11 +241,10 @@ export function singleTemplate(p: Post): SingleTemplate {
 }
 
 
-// --- Projekte vorerst 1:1 im Original-Layout (Elementor-Markup aus dem Import) -----------------------
-// Gilt für alle Projekte, zu denen es Original-Markup gibt (src/legacy/posts/<slug>.html); neue Projekte
-// aus dem CMS erscheinen im einheitlichen Layout (src/lib/beitrag.ts). Achtung: Änderungen an den CMS-Feldern
-// bestehender Projekte wirken erst, wenn PROJEKTE_IM_ORIGINAL wieder auf false steht.
-export const PROJEKTE_IM_ORIGINAL = true;
+// --- Projekte im Original-Layout (Elementor-Markup aus dem Import) – seit 11/2026 aus ----------------------
+// Alle Projekte erscheinen im einheitlichen Layout aus den CMS-Feldern (src/lib/beitrag.ts). Mit true kämen
+// Projekte mit Original-Markup (src/legacy/posts/<slug>.html) wieder 1:1 wie früher – CMS-Änderungen wirkten dann nicht.
+export const PROJEKTE_IM_ORIGINAL = false;
 
 export function imOriginal(p: Post): boolean {
   return PROJEKTE_IM_ORIGINAL && p.collection === 'projekte'

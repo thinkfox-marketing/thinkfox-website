@@ -15,7 +15,7 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 1. **Legacy-Ebene (eingefroren):** Markup, CSS und Frontend-JS der Elementor-Seite.
    - `src/legacy/pages/*.json`, `src/legacy/chrome/*.html`, `src/legacy/templates/*`, `src/legacy/posts/*`
      werden von `scripts/wp-import/import.py` erzeugt – nicht von Hand umbauen, sondern gezielt editieren.
-     `src/legacy/posts/*`: Projekte werden vorerst daraus ausgegeben (1:1), Blogbeiträge nicht mehr.
+     `src/legacy/posts/*`: nur noch Archiv – Projekte und Blog kommen aus dem CMS.
    - `public/wp-content/**`, `public/wp-includes/**`: Original-Assets und Laufzeit (jQuery, Elementor,
      Swiper, Forminator). Nicht ersetzen/aktualisieren – sonst ist die 1:1-Optik nicht mehr garantiert.
    - Platzhalter in Templates: `{{LOOP:name}}`, `{{TITLE}}`, `{{IMG}}`, `{{CONTENT}}` … → `src/lib/wp.ts`.
@@ -64,10 +64,10 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 - **Beiträge:** Projekte und Blog nicht mehr im Elementor-Layout, sondern einheitlich (siehe Regeln unten);
   Blog im Aufbau des Originals (Bild oben über Hellblau, Titel darunter, 940 px Textbreite);
   überführt mit `scripts/umstellung/umstellen.py`.
-  **Projekte vorerst 1:1 im Original** (Elementor-Markup aus `src/legacy/posts/`, ohne `einheitlich.css`;
-  Schalter `PROJEKTE_IM_ORIGINAL` in `src/lib/wp.ts`). Textkorrekturen dort direkt im Original-Markup pflegen.
-  Neue Projekte ohne Original-Markup nutzen das neue Layout (`src/lib/beitrag.ts`: Projektdaten links, Fließtext
-  rechts, Leistungen als Wischleiste, bei `kopf: video` das erste Video statt des Beitragsbilds).
+  **Projekte seit 11/2026 ebenfalls im einheitlichen Layout** aus den CMS-Feldern (`src/lib/beitrag.ts`: Projektdaten links,
+  Aufgabe/Lösung/Ergebnis rechts, Leistungen als Wischleiste, bei `kopf: video` das erste Video statt des Beitragsbilds).
+  Vorher bereinigt: Korrekturen aus dem Original-Markup übernommen, Leistungen/Auszüge aus dem Import aufgeräumt.
+  Texte nur noch im CMS pflegen; `src/legacy/posts/` ist Archiv (Schalter `PROJEKTE_IM_ORIGINAL` in `src/lib/wp.ts`).
 - **Einheitliches Erscheinungsbild (Design-Review 11/2026):** `public/css/einheitlich.css` – eine Typo-Skala
   (H1 60/38, H2 46/30, H3 26/21, Einleitung 21/19, Text 18/17 px), Buttons gefüllt Lila bzw. weißer Rahmen auf
   dunklem Grund (10 px Ecken, Pfeil), Dachzeilen als reine Textzeile ohne Hintergrund/Pille (Größe im Verhältnis zur Überschrift, mobil bündig) statt grauer Schein-Buttons, Grün nur als Akzent, nur Hausschrift,

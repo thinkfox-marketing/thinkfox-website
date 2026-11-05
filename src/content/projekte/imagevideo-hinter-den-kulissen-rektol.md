@@ -7,7 +7,7 @@ schlagworte: ["content-produktion", "startseite", "videoproduktion"]
 platzierung: ["content-produktion", "startseite"]
 bild: "/wp-content/uploads/2023/12/imagevideo_rektol.jpg"
 bildAlt: "Imagevideo Rektol Korbach"
-auszug: "KUNDE REKTOL GmbH & Co. KG, Korbach Veröffentlichung: 2023 LEISTUNGEN Konzeption, Umsetzung, Videoproduktion,  Postproduktion AUFGABE Konzeption & Umsetzung von Imagevideo inkl. Erklärung von Abläufen und Produkten – Hinter den Kulissen der Schmiermittelproduktion bei Rektol in Korbach. UMSETZUNG/ERGEBNIS Ideenfindung & Konzeption für Rektol, Storyentwicklung zur individuellen Produktion von Motorenöl, Location Scouting im Unternehmen. Regie und Dreh"
+auszug: "Konzeption & Umsetzung von Imagevideo inkl. Erklärung von Abläufen und Produkten – Hinter den Kulissen der Schmiermittelproduktion bei Rektol in Korbach."
 seo: {"titel": "Imagevideo \"Hinter den Kulissen!\" - Rektol - thinkfox marketing", "beschreibung": "Konzeption & Umsetzung von Imagevideo - Hinter den Kulissen der Schmiermittelproduktion bei Rektol in Korbach.", "fokusKeyword": "Rektol", "lesedauer": "Weniger als eine Minute"}
 wpId: 14141
 template: "10946"

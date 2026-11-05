@@ -7,7 +7,7 @@ schlagworte: ["content-produktion", "korbach", "startseite", "wachenfeld-bau"]
 platzierung: ["content-produktion", "startseite"]
 bild: "/wp-content/uploads/2026/01/wachenfeld_bau_imagefilm_recruitmentfilm.jpg"
 bildAlt: "Imagefilm – Recruitmentfilm – Wachenfeld Bau Korbach"
-auszug: "KUNDE Wachenfeld Bau GmbH Veröffentlichung: 2024 LEISTUNGEN Videoproduktion Recruitment, Konzeption, Umsetzung AUFGABE Konzeption des Image- und Recruitmentfilm. Casting, Locationscouting, Erstellung Storyboard. Aussage: Warum ist dein Job bei Wachenfeld so wichtig? Wir zeigen die Helden des Tiefbaus! UMSETZUNG/ERGEBNIS Konzeption, Szenerie und Dreh des Filmes am Standort Wachenfeld in Korbach sowie einer nahegelegen Baustelle. Postproduktion & Export"
+auszug: "Konzeption des Image- und Recruitmentfilm. Casting, Locationscouting, Erstellung Storyboard."
 seo: {"titel": "Recruitmentfilm – Wachenfeld Bau Korbach - thinkfox marketing", "beschreibung": "Konzeption/Umsetzung Recruitmentfilm. Casting, Locationscouting, Erstellung Storyboard. Aussage: Warum ist dein Job bei Wachenfeld so wichtig?", "fokusKeyword": "Recruitment, Wachenfeld", "lesedauer": "Weniger als eine Minute"}
 wpId: 14124
 template: "10946"

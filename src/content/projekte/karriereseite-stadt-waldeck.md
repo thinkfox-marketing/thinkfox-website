@@ -7,7 +7,7 @@ schlagworte: ["karriereseite", "startseite", "waldeck", "website"]
 platzierung: ["startseite", "website"]
 bild: "/wp-content/uploads/2026/01/Stadt_waldeck_karriere.jpg"
 bildAlt: "thinkfox marketing hat die Karriereseite der Stadt Waldeck neu erstellt. Inkl. Google Jobs, 360 Grad Rundgang und Videoproduktion."
-auszug: "KUNDE Nationalparkstadt Waldeck Veröffentlichung: 2024 LEISTUNGEN Konzeption & Design der Karriereseite technische Umsetzung der Karriereseite für die Nationalparkstadt Waldeck mit WordPress Google Jobs Konformität Videoproduktion Recruitmentvideo & Social Media Fotoproduktion für Karriereseite 360 Grad Rundgang durch die Jobbereiche und Implementierung der Reels für die 3 Job-Bereiche Features für bessere Nutzerführung und Auffindbarkeit thinkfox marketing Werbeagentur"
+auszug: "thinkfox marketing Werbeagentur hat die Karriereseite der Stadt Waldeck vollständig neu konzipiert, strukturiert und optisch modernisiert. Ziel war es, die Stadt als attraktive Arbeitgeberin klarer zu positionieren, die Orientierung für Bewerberinnen und Bewerber zu verbessern und offene Stellen deutlich besser auffindbar zu machen."
 seo: {"titel": "Karriereseite der Stadt Waldeck - thinkfox marketing", "beschreibung": "thinkfox marketing hat die Karriereseite der Stadt Waldeck neu erstellt. Inkl. Google Jobs, 360 Grad Rundgang und Videoproduktion.", "fokusKeyword": "Waldeck", "lesedauer": "1 Minute"}
 wpId: 13489
 template: "10946"

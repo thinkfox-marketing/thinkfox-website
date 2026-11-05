@@ -7,18 +7,16 @@ schlagworte: ["startseite"]
 platzierung: ["startseite"]
 bild: "/wp-content/uploads/2021/12/vitos_haina_broschueren_flyer_social_media.jpg"
 bildAlt: "Vitos Haina Unternehmenskommunikation Beispiele"
-auszug: "KUNDE Vitos Haina gemeinnützige GmbH Veröffentlichung: 2023 – heute Leistungen: Layout Flyer, Broschüren, Anzeigen etc., allg. Grafikleistung, Videoproduktion Marketingunterstützung für Vitos Haina & andere Standorte Die Vitos Haina gemeinnützige GmbH ist Teil der Vitos-Gruppe – einer der führenden Einrichtungen im Gesundheits- und Sozialwesen in Hessen. Mit einem breiten Spektrum an medizinischen, psychiatrischen und sozialen Leistungen"
+auszug: "Die Vitos Haina gemeinnützige GmbH ist Teil der Vitos-Gruppe – einer der führenden Einrichtungen im Gesundheits- und Sozialwesen in Hessen. Mit einem breiten Spektrum an medizinischen, psychiatrischen und sozialen Leistungen leistet Vitos Haina einen wichtigen Beitrag zur Versorgung und Betreuung von Patientinnen und Patienten."
 seo: {"titel": "Vitos Haina Marketingunterstützung - thinkfox marketing", "beschreibung": "Vitos Haina gGmbH - Unternehmenskommunikation und Marketingunterstützung", "fokusKeyword": "Vitos Haina", "lesedauer": "1 Minute"}
 wpId: 366
 template: "10946"
 legacy: false
 kunde: "Vitos Haina gemeinnützige GmbH"
 veroeffentlichung: "2023 – heute"
-leistungen: ["Layout Flyer", "Broschüren", "Anzeigen etc", "allg. Grafikleistung", "Videoproduktion"]
+leistungen: ["Layout Flyer", "Broschüren", "Anzeigen", "Grafikleistungen", "Videoproduktion"]
 aufgabe: "Die **Vitos Haina gemeinnützige GmbH** ist Teil der Vitos-Gruppe – einer der führenden Einrichtungen im Gesundheits- und Sozialwesen in Hessen. Mit einem breiten Spektrum an medizinischen, psychiatrischen und sozialen Leistungen leistet **Vitos Haina** einen wichtigen Beitrag zur Versorgung und Betreuung von Patientinnen und Patienten."
 loesung: |
-  ### Marketingunterstützung für Vitos Haina & andere Standorte
-
   ### Zielgerichtete Kommunikation für Vitos Haina
 
   Um diese Leistungen wirkungsvoll nach außen zu kommunizieren, setzt Vitos auf modernes, strategisches Marketing und professionelle Contentproduktion.
@@ -33,7 +31,7 @@ loesung: |
 
   Die Umsetzung umfasst eine Vielzahl kreativer und technischer Leistungen:
 
-  - **Layout & Grafikdesign**: Gestaltung von Broschüren, Flyern und Anzeigen nach den Vitos**Corporate-Design-Richtlinien**.
+  - **Layout & Grafikdesign**: Gestaltung von Broschüren, Flyern und Anzeigen nach den Vitos-**Corporate-Design-Richtlinien**.
   - **Contentproduktion**: Entwicklung von Inhalten, die die Botschaften von Vitos Haina klar und verständlich vermitteln.
   - **Videoproduktion & Social Media**: Erstellung emotionaler **Video-Content-Formate**, die die Arbeit von Vitos authentisch zeigen und auf digitalen Plattformen für Aufmerksamkeit sorgen.
 ergebnis: "Durch den gezielten Einsatz moderner Kommunikationsmittel entsteht für Vitos eine starke, konsistente Markenpräsenz – sowohl im Printbereich als auch online. So wird die Marke Vitos sichtbar, nahbar und vertrauenswürdig."

@@ -7,7 +7,7 @@ schlagworte: ["content-produktion", "continental", "korbach", "startseite", "vid
 platzierung: ["content-produktion", "startseite"]
 bild: "/wp-content/uploads/2026/01/continental_3d-druck.jpg"
 bildAlt: "Continental imagevideo 3D Druck Korbach"
-auszug: "KUNDE Continental Korbach Veröffentlichung: 2025 LEISTUNGEN Videoproduktion Image, Konzeption, Umsetzung AUFGABE Konzeption und Umsetzung des Imagefilm. Locationscouting, Erstellung Storyboard, Drehbuch, Produktion Aussage: Welchen Vorteil biete die eigene 3D-Druck Abteilung im Haus? Wie wirkt sich das auf die Produktion bei Continental in Korbach aus? UMSETZUNG/ERGEBNIS Vom Prototyp zum Ersatzteil: 3D-Druck als Turbo für die Produktion bei"
+auszug: "Konzeption und Umsetzung des Imagefilms. Locationscouting, Erstellung Storyboard, Drehbuch, Produktion"
 seo: {"titel": "Imagefilm 3D Druck – Continental Korbach - thinkfox marketing", "beschreibung": "Konzeption und Umsetzung des Imagefilm Additive Fertigung (3D-Druck) Continental Reifen in Korbach.", "fokusKeyword": "Continental", "lesedauer": "Weniger als eine Minute"}
 wpId: 14036
 template: "10946"
@@ -16,11 +16,11 @@ kunde: "Continental Korbach"
 veroeffentlichung: "2025"
 leistungen: ["Videoproduktion Image", "Konzeption", "Umsetzung"]
 aufgabe: |
-  Konzeption und Umsetzung des Imagefilm. Locationscouting, Erstellung Storyboard, Drehbuch, Produktion
+  Konzeption und Umsetzung des Imagefilms. Locationscouting, Erstellung Storyboard, Drehbuch, Produktion
 
-  **Aussage:** Welchen Vorteil biete die eigene 3D-Druck Abteilung im Haus? Wie wirkt sich das auf die Produktion bei Continental in Korbach aus?
+  **Aussage:** Welchen Vorteil bietet die eigene 3D-Druck Abteilung im Haus? Wie wirkt sich das auf die Produktion bei Continental in Korbach aus?
 loesung: |
-  **Vom Prototyp zum Ersatzteil:**3D-Druck als Turbo für die Produktion bei Continental in Korbach.
+  **Vom Prototyp zum Ersatzteil:** 3D-Druck als Turbo für die Produktion bei Continental in Korbach.
 
   thinkfox marketing hat für Continental am Standort Korbach ein Video produziert, das zeigt, wie Innovation im Alltag wirklich funktioniert: durch additive Fertigung – also 3D-Druck – direkt im Werk.
 
