@@ -20,8 +20,9 @@ name: Build & Deploy
 on:
   push:
     branches: [main]
-    # Reine Doku-Änderungen lösen keinen Deploy aus (spart Actions-Minuten)
-    paths-ignore: ['docs/**', '**/*.md']
+    # Reine Doku-Änderungen lösen keinen Deploy aus (spart Actions-Minuten). Nur docs/ und .md im Hauptordner
+    # (README, CLAUDE) – NICHT '**/*.md': sonst würden CMS-Inhalte (src/content/**/*.md) nie veröffentlicht.
+    paths-ignore: ['docs/**', '*.md']
   # Täglicher Lauf nur für den Instagram-Feed – erst wieder einschalten, wenn INSTAGRAM_TOKEN gesetzt ist:
   # schedule:
   #   - cron: '17 4 * * *'
