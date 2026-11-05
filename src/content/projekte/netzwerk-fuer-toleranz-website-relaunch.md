@@ -14,7 +14,7 @@ template: "10946"
 legacy: false
 kunde: "Netzwerk für Toleranz"
 veroeffentlichung: "2023"
-leistungen: ["Konzeption", "Screendesign", "Aufbau CMS", "Erstellung responsive Template", "Individualisierung der Inhalte durch „Custom Fields“"]
+leistungen: ["Konzeption", "Screendesign", "Aufbau CMS", "Erstellung responsive Template", "Custom Fields für individuelle Inhalte"]
 projektLink:
   text: "toleranzwafkb.de/"
   url: "https://toleranzwafkb.de/"

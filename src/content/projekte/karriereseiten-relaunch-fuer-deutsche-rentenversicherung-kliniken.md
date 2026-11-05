@@ -14,7 +14,7 @@ template: "10946"
 legacy: false
 kunde: "Deutsche Rentenversicherung Oldenburg-Bremen"
 veroeffentlichung: "2025"
-leistungen: ["Konzeption & Struktur, Screendesign", "WordPress-Umsetzung", "Stellenanzeigen-Logik mit Such- und Filterfunktion", "Mobile-First, SEO-Basis inkl. strukturierter Daten für JobPosting, barrierearme Umsetzung", "Fotoshooting Rheumaklinik Bad Wildungen"]
+leistungen: ["Konzeption & Struktur", "Screendesign", "WordPress-Umsetzung", "Stellenbörse mit Suche & Filter", "Mobile-First", "SEO inkl. JobPosting-Daten", "Barrierearme Umsetzung", "Fotoshooting Rheumaklinik Bad Wildungen"]
 projektLink:
   text: "rheumaklinik-karriere.de/"
   url: "https://rheumaklinik-karriere.de/"

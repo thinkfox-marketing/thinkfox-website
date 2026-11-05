@@ -14,7 +14,7 @@ template: "10946"
 legacy: false
 kunde: "Nationalparkstadt Waldeck"
 veroeffentlichung: "2024"
-leistungen: ["Konzeption & Design der Karriereseite", "technische Umsetzung der Karriereseite für die Nationalparkstadt Waldeck mit WordPress", "Google Jobs Konformität", "Videoproduktion Recruitmentvideo & Social Media", "Fotoproduktion für Karriereseite", "360 Grad Rundgang durch die Jobbereiche und Implementierung der Reels für die 3 Job-Bereiche", "Features für bessere Nutzerführung und Auffindbarkeit"]
+leistungen: ["Konzeption & Design", "Umsetzung mit WordPress", "Google Jobs Konformität", "Recruitmentvideo & Social-Media-Clips", "Fotoproduktion für Karriereseite", "360-Grad-Rundgang durch die Jobbereiche", "Reels für 3 Job-Bereiche", "Nutzerführung & Auffindbarkeit"]
 projektLink:
   text: "waldeck.jobonline24.com"
   url: "https://waldeck.jobonline24.com"

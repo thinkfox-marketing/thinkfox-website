@@ -14,7 +14,7 @@ template: "10946"
 legacy: false
 kunde: "KKD GmbH in Essen"
 veroeffentlichung: "2025"
-leistungen: ["Konzeption & Re-Design", "Umstieg auf CMS", "strukturelle Vereinfachung", "Integration Karrierebereich", "Features für bessere Nutzerführung und Auffindbarkeit"]
+leistungen: ["Konzeption & Re-Design", "Umstieg auf CMS", "strukturelle Vereinfachung", "Integration Karrierebereich", "Nutzerführung & Auffindbarkeit"]
 projektLink:
   text: "kkd-gmbh.de"
   url: "https://kkd-gmbh.de"

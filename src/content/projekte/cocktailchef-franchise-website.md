@@ -14,7 +14,7 @@ template: "10946"
 legacy: false
 kunde: "Cocktailchef GmbH"
 veroeffentlichung: "2024"
-leistungen: ["Konzeption & Re-Design", "Neustrukturierung", "SEO-Optimierung", "Mehrsprachigkeit", "individuelle Franchiseseiten mit granularer Rechtevergabe", "Implementierung einer Umkreissuche"]
+leistungen: ["Konzeption & Re-Design", "Neustrukturierung", "SEO-Optimierung", "Mehrsprachigkeit", "Franchiseseiten mit Rechtevergabe", "Implementierung einer Umkreissuche"]
 projektLink:
   text: "cocktailchef-anlage.de"
   url: "https://cocktailchef-anlage.de"

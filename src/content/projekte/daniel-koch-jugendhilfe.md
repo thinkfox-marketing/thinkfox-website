@@ -14,7 +14,7 @@ template: "10946"
 legacy: false
 kunde: "Daniel Koch Jugendhilfe gGmbH"
 veroeffentlichung: "2022-heute"
-leistungen: ["Konzeption & Aufbau aller Kommunikationsmittel", "Logoentwicklung (Wort-Bild-Marke)", "responsive Website mit Karrierebereich", "Gestaltung von Printmaterialien", "Contentproduktion (Recruitment-Shorts, Gruppen- & Konzeptvorstellungen, Videoformate) für eine einheitliche Außendarstellung"]
+leistungen: ["Kommunikationsmittel", "Logoentwicklung (Wort-Bild-Marke)", "Website mit Karrierebereich", "Gestaltung von Printmaterialien", "Contentproduktion", "Recruitment-Shorts", "Gruppen- & Konzeptvorstellungen"]
 aufgabe: "Für die Daniel Koch Jugendhilfe gGmbH entwickelte thinkfox marketing ein ganzheitliches Corporate Design."
 loesung: |
   ### Corporate Design
