@@ -13,6 +13,10 @@ export function zugaenglich(html: string): string {
     // Off-Canvas-Menü: Icon-Links ohne Text
     .replace(/<a ([^>]*href="#elementor-action%3Aaction%3Doff_canvas%3Aopen[^"]*")/g, '<a role="button" aria-label="Menü öffnen" $1')
     .replace(/<a ([^>]*href="#elementor-action%3Aaction%3Doff_canvas%3Aclose[^"]*")/g, '<a role="button" aria-label="Menü schließen" $1')
+    // Instagram-Kopf: Profilbild neben dem Namen „thinkfox.marketing“ → für Screenreader ausgeblendet (sonst doppelt),
+    // Alt-Text für Crawler/Bildausfall (Seobility zählt leeres alt als „fehlend“)
+    .replace(/(<img [^>]*src="\/wp-content\/uploads\/sb-instagram-feed-images\/thinkfox\.marketing\.webp"[^>]*?) alt=""/g,
+      '$1 alt="Profilbild thinkfox.marketing" aria-hidden="true"')
     // Slider: role="list" passt nicht zu Folien mit role="group"
     .replace(/(<div class="swiper elementor-loop-container[^"]*") role="list"/g, '$1')
     // Beitragsraster (Blog): Listeneinträge auszeichnen
