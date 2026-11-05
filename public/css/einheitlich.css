@@ -29,8 +29,11 @@ main .elementor-heading-title, main .elementor-button, main .forminator-button, 
   font-family: "Outfit", system-ui, sans-serif !important;
 }
 
-main .elementor-widget-heading h1.elementor-heading-title { font-size: var(--fs-h1) !important; line-height: 1.1 !important; letter-spacing: -0.01em; }
-main .elementor-widget-heading h2.elementor-heading-title { font-size: var(--fs-h2) !important; line-height: 1.15 !important; }
+/* div[aria-level]: zweite (Handy-)Fassung einer Überschrift, damit es nur eine <h1> gibt – gleich gestaltet */
+main .elementor-widget-heading h1.elementor-heading-title,
+main .elementor-widget-heading div.elementor-heading-title[aria-level="1"] { font-size: var(--fs-h1) !important; line-height: 1.1 !important; letter-spacing: -0.01em; }
+main .elementor-widget-heading h2.elementor-heading-title,
+main .elementor-widget-heading div.elementor-heading-title[aria-level="2"] { font-size: var(--fs-h2) !important; line-height: 1.15 !important; }
 main .elementor-widget-heading h3.elementor-heading-title { font-size: var(--fs-h3) !important; line-height: 1.25 !important; }
 main .elementor-widget-heading :is(h4, h5, h6).elementor-heading-title { font-size: var(--fs-h4) !important; line-height: 1.3 !important; }
 main .elementor-heading-title :is(span, b, strong) { font-size: inherit !important; }
@@ -46,7 +49,7 @@ main .elementor-element-7fa180e .elementor-heading-title,
 .elementor-13322 .elementor-element-9c69bfa .elementor-heading-title { font-size: var(--fs-h3) !important; line-height: 1.25 !important; }
 .elementor-11253 .elementor-element-9285bc6 .elementor-heading-title,
 /* Unterzeile direkt unter dem Seitentitel: technisch H2, optisch Einleitung */
-main .elementor-widget-heading:has(h1) + .elementor-widget-heading .elementor-heading-title { font-size: var(--fs-lead) !important; line-height: 1.45 !important; }
+main .elementor-widget-heading:has(h1, div[aria-level="1"]) + .elementor-widget-heading .elementor-heading-title { font-size: var(--fs-lead) !important; line-height: 1.45 !important; }
 /* Unterzeilen im Kopfbereich mit Video sind technisch H2, optisch Einleitung */
 main [data-tf-hochkant] h2.elementor-heading-title { font-size: var(--fs-lead) !important; line-height: 1.45 !important; }
 /* Untertitel direkt unter dem H1 der Websites-Seite */
@@ -60,8 +63,8 @@ main .elementor-widget-text-editor :is(p, li, span),
 main .elementor-icon-list-text,
 main .elementor-icon-box-description,
 main .elementor-widget-erecht24 :is(p, li) { font-size: var(--fs-text) !important; line-height: 1.6 !important; }
-main .elementor-widget-heading:has(h1) + .elementor-widget-text-editor,
-main .elementor-widget-heading:has(h1) + .elementor-widget-text-editor :is(p, span) { font-size: var(--fs-lead) !important; line-height: 1.5 !important; }
+main .elementor-widget-heading:has(h1, div[aria-level="1"]) + .elementor-widget-text-editor,
+main .elementor-widget-heading:has(h1, div[aria-level="1"]) + .elementor-widget-text-editor :is(p, span) { font-size: var(--fs-lead) !important; line-height: 1.5 !important; }
 main .elementor-widget-text-editor :is(h2, h3, h4) { font-size: var(--fs-h4) !important; line-height: 1.3 !important; }
 
 /* Grauer Fließtext (#54595f) und graue Seitentitel → Textfarbe bzw. Lila wie überall */

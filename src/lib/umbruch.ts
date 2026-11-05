@@ -28,9 +28,13 @@ const regex = (liste: typeof eintraege) => new RegExp(
 const muster = { alle: regex(eintraege), ohneH1: regex(eintraege.filter((e) => !e.nurH1)) };
 const ersatz = new Map(eintraege.map((e) => [e.wort, e.getrennt]));
 
-/** Setzt die Trennstellen im Text von <h1>–<h6> (nicht in Attributen). */
+/** Setzt die Trennstellen im Text von <h1>–<h6> und <div role="heading" aria-level="n"> (nicht in Attributen). */
 export function trennstellen(html: string): string {
-  return html.replace(/(<h([1-6])\b[^>]*>)([\s\S]*?)(<\/h\2>)/g, (m, auf: string, n: string, inhalt: string, zu: string) =>
+  const setzen = (auf: string, n: string, inhalt: string, zu: string) =>
     auf + inhalt.replace(/(^|>)([^<]+)/g, (t, vor: string, text: string) =>
-      vor + text.replace(n === '1' ? muster.alle : muster.ohneH1, (w) => ersatz.get(w) ?? w)) + zu);
+      vor + text.replace(n === '1' ? muster.alle : muster.ohneH1, (w) => ersatz.get(w) ?? w)) + zu;
+  return html
+    .replace(/(<h([1-6])\b[^>]*>)([\s\S]*?)(<\/h\2>)/g, (m, auf: string, n: string, inhalt: string, zu: string) => setzen(auf, n, inhalt, zu))
+    .replace(/(<div\b[^>]*\brole="heading"[^>]*\baria-level="([1-6])"[^>]*>)([^<]*)(<\/div>)/g,
+      (m, auf: string, n: string, inhalt: string, zu: string) => setzen(auf, n, inhalt, zu));
 }

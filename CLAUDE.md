@@ -75,6 +75,8 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 - **Handy-Darstellung:** zu lange Wörter in Überschriften mit Trennstellen (`src/lib/umbruch.ts`) bzw.
   `overflow-wrap`, Überstände am Rand abgeschnitten statt seitlich verschiebbar (iPhone), Menü-Links nicht unterstrichen.
   Beiträge bekommen ein `<main>` (fehlte im Original).
+  Doppelte Handy-Fassung einer Überschrift (z. B. Kopf der Bad-Wildungen-Seite) als `<div role="heading" aria-level="n">`,
+  damit es nur eine `<h1>` gibt; gleich gestaltet über `einheitlich.css` (`div[aria-level]`), Trennstellen in `umbruch.ts`.
 - **Selbsttest „Marketing-Ampel“** (`/marketing-ampel/`, Ergebnis `/marketing-ampel/ergebnis/`; alte Adressen per 301):
   hieß im Original „Marketing-Check“ – der Name gehört dem gleichnamigen Beratungsangebot. Skalenfragen als Einfachauswahl,
   Ergebnis-URL enthält nur Punktwerte (kein Firmenname), Werte werden auf 0–5 begrenzt (`api/ajax.php`, `src/scripts/marketing-check.js`).
