@@ -297,3 +297,13 @@ button.tf-bewegung--laufband { top: 50%; bottom: auto; right: -46px; transform: 
 /* 360°-Rundgänge (Unterseiten): Einleitung unter der Überschrift (SEO: Bezug zwischen H1 und Text, Link zur Übersicht) */
 .tf-rundgang-text { max-width: 46rem; margin: -1em auto 3em; text-align: center; }
 .tf-rundgang-text p { margin: 0 0 .75em; }
+
+/* Fußzeile: frühere h4–h6 als div[data-tf-h] (fussEbenen()) – gleiche Spezifität wie die Tag-Regeln von Theme und Kit */
+div:where([data-tf-h]) { font-weight: 500; line-height: 1.2; margin-block: .5rem 1rem; }
+div:where([data-tf-h="4"]) { font-size: 1.5rem; }
+div:where([data-tf-h="5"]) { font-size: 1.25rem; }
+div:where([data-tf-h="6"]) { font-size: 1rem; }
+.elementor-kit-52 div:where([data-tf-h="4"]) { color: var(--e-global-color-4e42812); font-family: "Outfit", Sans-serif; font-size: 20px; font-weight: bold; }
+.elementor-kit-52 div:where([data-tf-h="5"]) { color: var(--e-global-color-4e42812); font-family: "Outfit", Sans-serif; font-size: 20px; font-weight: bold; }
+.elementor-kit-52 div:where([data-tf-h="6"]) { color: #54595F; font-family: "Outfit", Sans-serif; font-size: 17px; font-weight: bold; }
+.tf-fett { font-weight: bolder; }

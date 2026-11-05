@@ -51,7 +51,8 @@ main .elementor-element-7fa180e .elementor-heading-title,
 /* Unterzeile direkt unter dem Seitentitel: technisch H2, optisch Einleitung */
 main .elementor-widget-heading:has(h1, div[aria-level="1"]) + .elementor-widget-heading .elementor-heading-title { font-size: var(--fs-lead) !important; line-height: 1.45 !important; }
 /* Unterzeilen im Kopfbereich mit Video sind technisch H2, optisch Einleitung */
-main [data-tf-hochkant] h2.elementor-heading-title { font-size: var(--fs-lead) !important; line-height: 1.45 !important; }
+main [data-tf-hochkant] h2.elementor-heading-title,
+main [data-tf-hochkant] div.elementor-heading-title[aria-level="2"] { font-size: var(--fs-lead) !important; line-height: 1.45 !important; }
 /* Untertitel direkt unter dem H1 der Websites-Seite */
 .elementor-13322 .elementor-element-500ce61 .elementor-heading-title { font-size: var(--fs-lead) !important; line-height: 1.4 !important; }
 /* Dekorativer Schriftzug „SHOWREEL“ bleibt groß */

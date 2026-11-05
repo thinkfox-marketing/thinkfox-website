@@ -77,6 +77,8 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   Beiträge bekommen ein `<main>` (fehlte im Original).
   Doppelte Handy-Fassung einer Überschrift (z. B. Kopf der Bad-Wildungen-Seite) als `<div role="heading" aria-level="n">`,
   damit es nur eine `<h1>` gibt; gleich gestaltet über `einheitlich.css` (`div[aria-level]`), Trennstellen in `umbruch.ts`.
+  Gilt für Startseite und Bad Wildungen. Fußzeile: Überschriften als `div[role=heading][data-tf-h]` statt h4–h6 und Fettungen als
+  `span.tf-fett` statt `<strong>` (`fussEbenen()`, Gestaltung in `ergaenzungen.css`) – optisch gleich, keine Gliederungssprünge für Crawler.
 - **Selbsttest „Marketing-Ampel“** (`/marketing-ampel/`, Ergebnis `/marketing-ampel/ergebnis/`; alte Adressen per 301):
   hieß im Original „Marketing-Check“ – der Name gehört dem gleichnamigen Beratungsangebot. Skalenfragen als Einfachauswahl,
   Ergebnis-URL enthält nur Punktwerte (kein Firmenname), Werte werden auf 0–5 begrenzt (`api/ajax.php`, `src/scripts/marketing-check.js`).

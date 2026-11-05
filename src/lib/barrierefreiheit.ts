@@ -65,8 +65,13 @@ export function zugaenglich(html: string): string {
 /** Fußzeile: Überschriften-Ebenen ohne Sprung (h4/h5/h6 → Ebene 2/3), Optik unverändert. */
 export function fussEbenen(html: string): string {
   return html
-    .replace(/<h4 class="elementor-heading-title([^"]*)">/g, '<h4 class="elementor-heading-title$1" aria-level="2">')
-    .replace(/<h([56]) class="elementor-heading-title([^"]*)">/g, '<h$1 class="elementor-heading-title$2" aria-level="3">');
+    // Überschriften der Fußzeile als role="heading" statt h4–h6: Screenreader behalten sie (Ebene 2/3), in der
+    // Gliederung für Suchmaschinen entsteht kein Sprung H1 → H4 (Seobility „Strukturproblem“ auf kurzen Seiten).
+    // data-tf-h: Gestaltung wie das frühere Tag (ergaenzungen.css)
+    .replace(/<h([456]) class="elementor-heading-title([^"]*)">([\s\S]*?)<\/h\1>/g, (m, n: string, k: string, t: string) =>
+      `<div class="elementor-heading-title${k}" role="heading" aria-level="${n === '4' ? 2 : 3}" data-tf-h="${n}">${t}</div>`)
+    // Fettungen der Fußzeile sind Gestaltung, keine Betonung (zählten sonst auf jeder Seite als <strong>)
+    .replace(/<strong>([^<]*)<\/strong>/g, '<span class="tf-fett">$1</span>');
 }
 
 /** Telefonnummer überall anrufbar machen (im Original nur Text bzw. ein defekter tel:-Link ohne Vorwahl). */
