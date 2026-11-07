@@ -61,7 +61,7 @@ jobs:
         run: npm run instagram
 
       # OpenStreetMap-Kacheln der Kontakt-Karte nicht bei jedem Build neu laden (OSM-Nutzungsregeln)
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           path: .osm-cache
           key: osm-karte-v1
