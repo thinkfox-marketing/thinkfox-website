@@ -21,6 +21,8 @@ In einer zunehmend digitalisierten Welt hat sich das Verhalten von Kundinnen und
 
 Bei thinkfox marketing unterstützen wir Unternehmen jeder Größe und Branche dabei, ihr Potenzial im Online-Bereich voll auszuschöpfen. Mit einer ganzheitlichen SEO-Strategie sorgen wir dafür, dass du nicht nur kurzzeitig, sondern langfristig von besserer Sichtbarkeit profitierst. Doch warum ist SEO so wichtig, welche Leistungen gehören zum Paket und wie genau gehen wir vor? In diesem Beitrag erfährst du alle relevanten Details.
 
+SEO beginnt bei der Website selbst: Wie wir Websites von Anfang an für Suchmaschinen und KI-Suche aufbauen, zeigen wir auf unserer Seite [Webdesign & Websites für den Mittelstand](/professionelle-websites-fuer-den-mittelstand/).
+
 ## Warum ist SEO so wichtig für das Online-Marketing?
 
 **1. Mehr Sichtbarkeit in Suchmaschinen**

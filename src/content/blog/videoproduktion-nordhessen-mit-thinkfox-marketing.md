@@ -34,7 +34,7 @@ In der heutigen digitalen Welt sind Videoproduktionen für Unternehmen zu einem 
 
 ### Das leistet thinkfox marketing für dich und dein Unternehmen
 
-thinkfox marketing bietet mit**Videoproduktion aus Nordhessen** ein breites Spektrum an Leistungen rund um Unternehmensvideos und Filme:
+thinkfox marketing bietet mit **[Videoproduktion aus Nordhessen](/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/)** ein breites Spektrum an Leistungen rund um Unternehmensvideos und Filme:
 
 - **Imagefilm Produktion Nordhessen:** Konzeption und Produktion von Imagefilmen, die dein Unternehmen, deine Werte und Visionen emotional in Szene setzen. Ein Imagefilm stärkt die Markenidentität und macht dein Unternehmen für Kunden und Partner sympathisch und greifbar.
 - **Werbefilm und Unternehmensvideo:** Kreative Werbefilme und Unternehmensvideos, die Produkte oder Dienstleistungen eindrucksvoll präsentieren. thinkfox marketing entwickelt packende Storyboards für Kino- oder Online-Werbung und setzt diese mit modernster Technik professionell um – für maximale Werbewirkung.

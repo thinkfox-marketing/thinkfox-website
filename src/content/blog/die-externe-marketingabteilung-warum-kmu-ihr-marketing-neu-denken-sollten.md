@@ -25,7 +25,7 @@ cta:
 ---
 Im hektischen Unternehmensalltag von kleinen und mittleren Unternehmen (KMU) bleibt ein entscheidender Wachstumsfaktor oft auf der Strecke: das Marketing. Wenn das Tagesgeschäft die volle Aufmerksamkeit des Teams fordert, fehlen schlichtweg die Kapazitäten für strategische Markenführung, frischen Content oder eine moderne Website. Für viele Entscheider stellt sich daher die Frage: Wie lässt sich professionelle Unternehmenskommunikation umsetzen, ohne gleich ein teures Inhouse-Team aufzubauen?
 
-Die Antwort darauf ist oft eine **externe Marketingabteilung**. Was genau das ist, welche handfesten Vorteile dieser Schritt bietet und warum es für dein Unternehmen Sinn machen kann, beleuchten wir in diesem Beitrag.
+Die Antwort darauf ist oft eine **externe Marketingabteilung**. Was genau das ist, welche handfesten Vorteile dieser Schritt bietet und warum es für dein Unternehmen Sinn machen kann, beleuchten wir in diesem Beitrag. Wie das bei uns konkret aussieht – Leistungen, Ablauf und Beispiele –, zeigen wir auf unserer Seite [Externe Marketingabteilung für den Mittelstand](/deine-externe-marketingabteilung-ganzheitliches-marketing-fuer-den-mittelstand/).
 
 ## Was ist eine externe Marketingabteilung?
 
