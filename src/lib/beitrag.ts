@@ -167,7 +167,10 @@ export async function projektSeite(p: Projekt): Promise<string> {
     'video-podcast': ['/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/', 'Video- & Content-Produktion'],
     'socialmedia-betreuung': ['/mehr-aufmerksamkeit-und-reichweite-mit-social-media/', 'Social-Media-Betreuung'],
   };
-  const leistungsseiten = [...new Map(d.kategorien.map((k) => LEISTUNGSSEITE[k]).filter(Boolean).map((x) => [x[0], x])).values()].slice(0, 2);
+  // Recruiting-Projekte (Recruitingfilm, Karriereseite) zuerst auf Employer Branding & Recruiting
+  const recruiting: [string, string][] = /recruiting|karriere/i.test(`${d.title} ${d.leistungen.join(' ')}`)
+    ? [['/employer-branding-agentur-recruitingfilm-karriereseite/', 'Employer Branding & Recruiting']] : [];
+  const leistungsseiten = [...new Map([...recruiting, ...d.kategorien.map((k) => LEISTUNGSSEITE[k]).filter(Boolean)].map((x) => [x[0], x])).values()].slice(0, 2);
   const mehr = leistungsseiten.length
     ? `<div class="tf-steckbrief__link"><dt>Mehr zur Leistung</dt>${leistungsseiten.map(([url, text]) => `<dd><a href="${url}">${esc(text)}</a></dd>`).join('')}</div>` : '';
   const link = d.projektLink
