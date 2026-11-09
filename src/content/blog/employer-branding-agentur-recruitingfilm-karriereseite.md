@@ -7,8 +7,8 @@ schlagworte: ["employer-branding", "recruiting", "recruitingfilm", "karriereseit
 platzierung: []
 bild: "/wp-content/uploads/2026/01/Stadt_waldeck_karriere.jpg"
 bildAlt: "Karriereseite der Nationalparkstadt Waldeck „Dein Job. Dein Waldeck.“ auf zwei Tablets"
-auszug: "Gute Leute bewerben sich dort, wo sie sich ein Bild machen können. Wir bauen Arbeitgebermarken für den Mittelstand: mit Recruitingfilmen, Karriereseiten, Fotos von echten Mitarbeitenden und Kampagnen, die Bewerberinnen und Bewerber dort erreichen, wo sie unterwegs sind."
-seo: {"titel": "Employer Branding Agentur & Recruitingfilm | thinkfox", "beschreibung": "Recruitingfilm, Karriereseite mit Google-Jobs-Anbindung und Kampagnen: Wir machen den Mittelstand als Arbeitgeber sichtbar – aus Nordhessen, für ganz Deutschland.", "fokusKeyword": "Employer Branding Agentur", "lesedauer": "5 Minuten"}
+auszug: "Gute Leute bewerben sich dort, wo sie sich ein Bild machen können. Wir bauen Arbeitgebermarken für den Mittelstand: mit Recruitingfilmen, Karriereseiten, 360-Grad-Rundgängen durch die Arbeitsplätze, Fotos von echten Mitarbeitenden und Kampagnen, die Bewerberinnen und Bewerber dort erreichen, wo sie unterwegs sind."
+seo: {"titel": "Employer Branding Agentur & Recruitingfilm | thinkfox", "beschreibung": "Recruitingfilm, Karriereseite mit Google Jobs, Arbeitsplätze in 360 Grad und Kampagnen: Wir machen den Mittelstand als Arbeitgeber sichtbar.", "fokusKeyword": "Employer Branding Agentur", "lesedauer": "5 Minuten"}
 legacy: false
 faq:
   titel: "Häufige Fragen zu Employer Branding und Recruitingfilm"
@@ -20,7 +20,7 @@ cta:
 ---
 Gute Leute bewerben sich dort, wo sie sich ein Bild machen können. Eine Stellenanzeige mit „flachen Hierarchien“ und „spannenden Aufgaben“ liefert dieses Bild nicht – das schreibt jeder. Was Bewerberinnen und Bewerber überzeugt, sind echte Menschen, ein ehrlicher Einblick in den Arbeitsalltag und ein Bewerbungsweg, der ohne Hürden funktioniert.
 
-Genau daran arbeiten wir mit mittelständischen Unternehmen, Kanzleien, Kliniken und Kommunen. Als **Employer-Branding-Agentur** verbinden wir Recruitingfilm, Fotos, Karriereseite und Kampagnen zu einem Auftritt, der zu euch passt – und den ihr über Jahre weiter nutzen könnt.
+Genau daran arbeiten wir mit mittelständischen Unternehmen, Kanzleien, Kliniken und Kommunen. Als **Employer-Branding-Agentur** verbinden wir Recruitingfilm, Fotos, 360-Grad-Rundgänge, Karriereseite und Kampagnen zu einem Auftritt, der zu euch passt – und den ihr über Jahre weiter nutzen könnt.
 
 ## Was wir für eure Arbeitgebermarke machen
 
@@ -29,6 +29,8 @@ Genau daran arbeiten wir mit mittelständischen Unternehmen, Kanzleien, Kliniken
 **Kurze Clips für Social Media.** Aus dem Dreh entstehen zusätzliche Fassungen für die sozialen Netzwerke. Bei DWAZ zum Beispiel eigene Clips je Protagonistin und Protagonist, die auf den Hauptfilm verweisen.
 
 **Karriereseite.** Eine Seite, auf der Interessierte schnell die passende Stelle finden und sich ohne Umwege bewerben. Für die Nationalparkstadt Waldeck haben wir die Karriereseite neu konzipiert und so umgesetzt, dass die Stellen in der Google-Jobsuche erscheinen. Für drei Kliniken der Deutschen Rentenversicherung haben wir eigenständige Karriereseiten in einheitlichem Auftritt gebaut – mit Stellenbörse, Such- und Filterfunktion.
+
+**Arbeitsplätze in 360 Grad.** Bewerberinnen und Bewerber schauen sich den künftigen Arbeitsplatz an, bevor sie sich bewerben – Raum für Raum, auf dem Handy wie am Rechner. Für die Nationalparkstadt Waldeck führt ein [360-Grad-Rundgang](/360-grad-rundgaenge/) durch die Jobbereiche, ergänzt um Reels für drei Job-Bereiche. Auf der [Website von Wachenfeld Bau](/website-re-design-fuer-wachenfeld-bau/) macht eine 360°-Tour alle Arbeitsbereiche virtuell erlebbar.
 
 **Fotos von echten Mitarbeitenden.** Ob Teamfotos, Porträts für die Website oder Bilder aus dem Arbeitsalltag: bei euch vor Ort oder in unserem Studio im Edertal.
 
@@ -45,7 +47,7 @@ Genau daran arbeiten wir mit mittelständischen Unternehmen, Kanzleien, Kliniken
 
 1. **Gespräch:** Welche Stellen sind schwer zu besetzen, wen wollt ihr erreichen, was unterscheidet euch als Arbeitgeber?
 2. **Konzept:** Kernaussage, Drehorte, Protagonisten und Storyboard – abgestimmt, bevor die Kamera läuft.
-3. **Produktion:** Dreh mit Ton und Licht bei euch vor Ort, Schnitt und alle Fassungen für Website und Social Media.
+3. **Produktion:** Dreh mit Ton und Licht bei euch vor Ort, Fotos und 360-Grad-Aufnahmen der Arbeitsplätze, Schnitt und alle Fassungen für Website und Social Media.
 4. **Ausspielung:** Karriereseite, Stellenanzeigen, Social-Media-Beiträge und auf Wunsch bezahlte Kampagnen.
 
 Mehr Hintergrund dazu, wie ihr eure Arbeitgebermarke Schritt für Schritt aufbaut, findest du in unserem Beitrag [Employer Branding – wie du deine Arbeitgebermarke stärkst](/employer-branding-wie-du-deine-arbeitgebermarke-staerkst-und-qualifizierte-mitarbeiter-gewinnst/).
@@ -54,6 +56,7 @@ Mehr Hintergrund dazu, wie ihr eure Arbeitgebermarke Schritt für Schritt aufbau
 
 - [Recruitingfilm für die DWAZ Wirtschaftskanzlei](/recruitmentfilm-dwaz-wirtschaftskanzlei/)
 - [Recruitingfilm für Wachenfeld Bau, Korbach](/recruitmentfilm-wachenfeld-bau-korbach/)
-- [Karriereseite der Nationalparkstadt Waldeck](/karriereseite-stadt-waldeck/)
+- [Karriereseite der Nationalparkstadt Waldeck mit 360-Grad-Rundgang](/karriereseite-stadt-waldeck/)
+- [Website mit Karrierebereich und 360°-Tour für Wachenfeld Bau](/website-re-design-fuer-wachenfeld-bau/)
 - [Karriereseiten für drei Kliniken der Deutschen Rentenversicherung](/karriereseiten-relaunch-fuer-deutsche-rentenversicherung-kliniken/)
 - [Gesamtauftritt der Daniel Koch Jugendhilfe](/daniel-koch-jugendhilfe/)
