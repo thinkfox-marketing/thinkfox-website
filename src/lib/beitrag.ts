@@ -158,6 +158,18 @@ export async function projektSeite(p: Projekt): Promise<string> {
     d.branche && ['Branche', esc(d.branche)],
     d.veroeffentlichung && ['Jahr', esc(d.veroeffentlichung)],
   ].filter(Boolean) as [string, string][];
+  // Interne Verlinkung: passende Leistungsseite(n) zum Projekt (aus den Kategorien, höchstens zwei)
+  const LEISTUNGSSEITE: Record<string, [string, string]> = {
+    website: ['/professionelle-websites-fuer-den-mittelstand/', 'Websites für den Mittelstand'],
+    seo: ['/professionelle-websites-fuer-den-mittelstand/', 'Websites für den Mittelstand'],
+    'video-filmproduktion': ['/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/', 'Video- & Content-Produktion'],
+    fotoproduktion: ['/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/', 'Video- & Content-Produktion'],
+    'video-podcast': ['/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/', 'Video- & Content-Produktion'],
+    'socialmedia-betreuung': ['/mehr-aufmerksamkeit-und-reichweite-mit-social-media/', 'Social-Media-Betreuung'],
+  };
+  const leistungsseiten = [...new Map(d.kategorien.map((k) => LEISTUNGSSEITE[k]).filter(Boolean).map((x) => [x[0], x])).values()].slice(0, 2);
+  const mehr = leistungsseiten.length
+    ? `<div class="tf-steckbrief__link"><dt>Mehr zur Leistung</dt>${leistungsseiten.map(([url, text]) => `<dd><a href="${url}">${esc(text)}</a></dd>`).join('')}</div>` : '';
   const link = d.projektLink
     ? `<div class="tf-steckbrief__link"><dt>Online ansehen</dt><dd><a href="${esc(d.projektLink.url)}" target="_blank" rel="noopener">${esc(d.projektLink.text)}<span class="tf-sr"> (öffnet in neuem Tab)</span> ↗</a></dd></div>` : '';
   // Leistungen als Schlagworte in den Projektdaten (wie im Original links; funktioniert von 1 bis 8 Einträgen)
@@ -187,11 +199,12 @@ export async function projektSeite(p: Projekt): Promise<string> {
     ${kopfMedium}
   </header>
   <div class="tf-case tf-huelle tf-huelle--breit">
-    ${steckbrief.length || leistungen || link ? `<aside class="tf-case__fakten" aria-label="Projektdaten">
+    ${steckbrief.length || leistungen || link || mehr ? `<aside class="tf-case__fakten" aria-label="Projektdaten">
       <dl class="tf-steckbrief">
         ${steckbrief.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('\n        ')}
         ${leistungen}
         ${link}
+        ${mehr}
       </dl>
     </aside>` : ''}
     ${caseHtml.length ? `<div class="tf-case__text tf-text">
