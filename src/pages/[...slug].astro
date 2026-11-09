@@ -7,7 +7,7 @@ import {
 } from '../lib/wp';
 import { seoHead } from '../lib/seo';
 import { renderHeroVideos } from '../lib/hero-video';
-import { BESCHREIBUNGEN } from '../lib/geo';
+import { BESCHREIBUNGEN, TITEL } from '../lib/geo';
 import { beitragSeite, beitragStyles, mitWeiteren, weitereProjekte } from '../lib/beitrag';
 
 export async function getStaticPaths() {
@@ -30,6 +30,12 @@ if (page) {
   const neu = BESCHREIBUNGEN[page.path];
   if (neu) {
     seo = seo.replace(/(<meta (?:name|property)="(?:description|og:description|twitter:description)" content=")[^"]*/g, `$1${neu.replace(/"/g, '&quot;')}`);
+  }
+  const titel = TITEL[page.path];
+  if (titel) {
+    const t = titel.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+    seo = seo.replace(/<title>[^<]*<\/title>/, `<title>${t}</title>`)
+      .replace(/(<meta (?:name|property)="(?:og:title|twitter:title)" content=")[^"]*/g, `$1${t}`);
   }
   styles = page.styles;
   scripts = page.scripts;
