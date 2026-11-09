@@ -20,7 +20,7 @@ cta:
   button: "Jetzt Projekt anfragen"
   link: "/thinkfox-marketing-projekt-anfragen/"
 ---
-Als Unternehmen möchtest du qualifizierte Mitarbeiter gewinnen und langfristig halten. Eine starke Arbeitgebermarke kann dabei helfen. Wir zeigen dir, wie du dein **Employer Branding** verbessern kannst.
+Als Unternehmen möchtest du qualifizierte Mitarbeiter gewinnen und langfristig halten. Eine starke Arbeitgebermarke kann dabei helfen. Wir zeigen dir, wie du dein **Employer Branding** verbessern kannst. Wenn du dabei Unterstützung suchst – vom Recruitingfilm bis zur Karriereseite –, findest du unser Angebot auf der Seite [Employer Branding & Recruiting für den Mittelstand](/employer-branding-agentur-recruitingfilm-karriereseite/).
 
 ## Was ist Employer Branding?
 

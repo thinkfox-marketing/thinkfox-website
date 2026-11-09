@@ -31,6 +31,7 @@ seit ${UNTERNEHMEN.foundingDate}. Sitz in ${a.addressLocality} (Landkreis Waldec
 - [Websites, SEO & GEO](${SITE}/professionelle-websites-fuer-den-mittelstand/): Konzeption, Design und Umsetzung von Websites und Karriereseiten, Suchmaschinen- und KI-Sichtbarkeit.
 - [Social-Media-Betreuung](${SITE}/mehr-aufmerksamkeit-und-reichweite-mit-social-media/): Redaktionsplanung, Produktion, Community und Kampagnen.
 - [Content-Produktion](${SITE}/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/): Imagefilme, Recruitingfilme, Video-Podcasts, Fotoshootings.
+- [Employer Branding & Recruiting](${SITE}/employer-branding-agentur-recruitingfilm-karriereseite/): Recruitingfilme, Karriereseiten mit Google-Jobs-Anbindung, Mitarbeiterfotos und Recruiting-Kampagnen.
 - [Mietstudio](${SITE}/thinkfox-mietstudio-dein-fotostudio-videostudio-nordhessen/): Foto- und Videostudio mit Ausstattung in Edertal.
 - [360-Grad-Rundgänge](${SITE}/360-grad-rundgaenge/): virtuelle Rundgänge für Unternehmen, Tourismus und Recruiting.
 - [Marketing-Ampel](${SITE}/marketing-ampel/): kostenloser Selbsttest zur Einschätzung des eigenen Marketings (Ampel je Bereich).
