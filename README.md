@@ -90,19 +90,10 @@ bleiben. WordPress selbst (PHP, Datenbank, Plugins) wird nicht mehr benötigt.
 Die statischen Seiten (Startseite, Leistungsseiten, Kontakt, Impressum …) liegen als Markup in
 `src/legacy/pages/*.json`. Textänderungen dort sind möglich, aber Entwicklerarbeit.
 
-## Staging bei All-Inkl (Vorschau vor dem Umzug)
+## Vorschau (Staging)
 
-1. KAS → **Domain → Subdomain** `neu.thinkfox.de` mit eigenem Verzeichnis anlegen, SSL aktivieren
-   (DNS bei Domain Factory: A-Record `neu` → IP des All-Inkl-Servers).
-2. KAS → **FTP → Neuer FTP-Benutzer**, Verzeichnis = Verzeichnis der Subdomain.
-3. GitHub → Repository → **Settings → Secrets and variables → Actions** → „New repository secret“:
-   `FTP_HOST` (z. B. `w0123456.kasserver.com`), `FTP_USER`, `FTP_PASSWORD`, `STAGING_PATH` (`/`).
-4. GitHub → **Actions → Build & Deploy → Run workflow** – oder einfach auf `main` pushen.
-   Jeder Stand auf `main` geht auf die Vorschau; mit gesetztem `DEPLOY_PATH` zusätzlich live.
-
-Übertragen wird per FTPS. Die Staging-Seite ist für Suchmaschinen gesperrt (robots.txt + `X-Robots-Tag`).
-Beim ersten Deploy wird `api/config.php` mit Standardwerten angelegt – danach per FTP/KAS-Dateimanager
-anpassen (SMTP-Zugang!); Deploys überschreiben sie nie.
+Die Vorschau `neu.thinkfox.de` wurde am 09.11.2026 abgebaut (Subdomain, Ordner, FTP-Benutzer, DNS-Eintrag) und
+ist aus dem Workflow entfernt. Jeder Stand auf `main` geht direkt live – vorher lokal prüfen (siehe „Lokal“).
 
 ## Einrichtung auf dem Server (einmalig)
 

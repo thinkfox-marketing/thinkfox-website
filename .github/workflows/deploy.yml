@@ -2,14 +2,12 @@
 #
 #   Push auf main (auch Veröffentlichungen aus dem CMS), täglich 4:17 Uhr (Instagram-Feed),
 #   manuell über „Run workflow“:
-#     → Vorschau  (Secret STAGING_PATH, z. B. neu.thinkfox.de – für Suchmaschinen gesperrt)
-#     → Live      (Secret DEPLOY_PATH – erst beim Umzug der Domain setzen)
+#     → Live      (Secret DEPLOY_PATH). Die Vorschau neu.thinkfox.de wurde am 09.11.2026 abgebaut.
 #
 # Secrets (GitHub → Repository oder Organisation → Settings → Secrets and variables → Actions):
 #   FTP_HOST         FTP-Server, bei All-Inkl z. B. w0123456.kasserver.com
 #   FTP_USER         FTP-Benutzer (empfohlen: eigener Benutzer nur für das Zielverzeichnis)
 #   FTP_PASSWORD     Passwort des FTP-Benutzers
-#   STAGING_PATH     Zielverzeichnis der Vorschau aus Sicht des FTP-Benutzers, bei eigenem Benutzer: /
 #   DEPLOY_PATH      Zielverzeichnis der Live-Seite
 #   LIVE_FTP_USER    optional: eigener FTP-Benutzer nur für das Live-Verzeichnis (dann DEPLOY_PATH = /)
 #   LIVE_FTP_PASSWORD  dessen Passwort
@@ -42,7 +40,6 @@ jobs:
       FTP_HOST: ${{ secrets.FTP_HOST }}
       FTP_USER: ${{ secrets.FTP_USER }}
       FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-      STAGING_PATH: ${{ secrets.STAGING_PATH }}
       DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
     steps:
       - uses: actions/checkout@v5
@@ -74,16 +71,6 @@ jobs:
       - name: CMS ohne Login nicht veröffentlichen
         run: rm -rf dist/admin dist/api/cms-auth.php
 
-      - name: Vorschau-Version erzeugen (für Suchmaschinen gesperrt)
-        run: |
-          cp -a dist dist-staging
-          # CMS-Anmeldung über die Vorschau-Adresse (thinkfox.de läuft noch auf WordPress)
-          [ -f dist-staging/admin/config.yml ] && sed -i "s#^  base_url: https://thinkfox.de#  base_url: https://${STAGING_HOST:-neu.thinkfox.de}#; s#^site_url: https://thinkfox.de#site_url: https://${STAGING_HOST:-neu.thinkfox.de}#" dist-staging/admin/config.yml || true
-          printf 'User-Agent: *\nDisallow: /\n' > dist-staging/robots.txt
-          printf '\n<IfModule mod_headers.c>\n  Header always set X-Robots-Tag "noindex, nofollow"\n</IfModule>\n' >> dist-staging/.htaccess
-          # https-Weiterleitung auf die eigene Adresse statt auf thinkfox.de
-          sed -i 's#https://thinkfox.de%{REQUEST_URI}#https://%{HTTP_HOST}%{REQUEST_URI}#' dist-staging/.htaccess
-
       - name: Artefakt speichern
         uses: actions/upload-artifact@v5
         with:
@@ -92,19 +79,15 @@ jobs:
           retention-days: 1
 
       - name: lftp installieren
-        if: env.STAGING_PATH != '' || env.DEPLOY_PATH != ''
+        if: env.DEPLOY_PATH != ''
         run: sudo apt-get install -y -qq lftp > /dev/null
-
-      - name: Vorschau übertragen
-        if: env.STAGING_PATH != ''
-        run: scripts/deploy-ftp.sh dist-staging "$STAGING_PATH"
 
       - name: Live-Seite übertragen
         if: env.DEPLOY_PATH != ''
         env:
-          # Eigener FTP-Benutzer nur für das Live-Verzeichnis (empfohlen); sonst der Vorschau-Benutzer
+          # Eigener FTP-Benutzer nur für das Live-Verzeichnis; ohne LIVE_FTP_USER wird FTP_USER verwendet
           LIVE_FTP_USER: ${{ secrets.LIVE_FTP_USER }}
           LIVE_FTP_PASSWORD: ${{ secrets.LIVE_FTP_PASSWORD }}
         run: |
-          if [ -n "$LIVE_FTP_USER" ]; then export FTP_USER="$LIVE_FTP_USER" FTP_PASSWORD="$LIVE_FTP_PASSWORD"; fi
+          if [ -n "$LIVE_FTP_USER" ]; then export FTP_USER="$LIVE_FTP_USER" FTP_PASSWORD="$LIVE_FTP_PASSWORD"; else echo "::warning::LIVE_FTP_USER fehlt – es wird FTP_USER verwendet"; fi
           scripts/deploy-ftp.sh dist "$DEPLOY_PATH"
