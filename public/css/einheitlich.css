@@ -136,6 +136,8 @@ main .elementor-align-justify:has(a.elementor-button:not([href])) a.elementor-bu
 main .elementor-element.elementor-element-a0516f5:not(.elementor-motion-effects-element-type-background),
 main .elementor-element-a0516f5 .e-n-accordion-item-title,
 main .elementor-element-5dfd399 .e-n-accordion-item-title { background-color: var(--tf-lila-dunkel) !important; }
+/* Links in FAQ-Antworten in Textfarbe (unterstrichen) – Lila auf dunklem FAQ-Band war unlesbar */
+main .e-n-accordion-item .elementor-widget-text-editor a:not(.elementor-button) { color: inherit !important; text-decoration: underline; }
 /* Websites-Seite: Prozess-Kreise, Texte, Überschrift, Buttons */
 .elementor-13322 :is(.elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27):not(.elementor-motion-effects-element-type-background) { background-color: var(--tf-lila) !important; }
 .elementor-13322 :is(.elementor-element-f2361cc, .elementor-element-8629023, .elementor-element-5da47f6, .elementor-element-b27f4ed) .elementor-icon-box-description,
