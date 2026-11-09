@@ -11,3 +11,4 @@ node_modules/
 .astro/
 /public/admin/decap/
 /.osm-cache/
+.webp-cache/

@@ -63,6 +63,13 @@ jobs:
           path: .osm-cache
           key: osm-karte-v1
 
+      # WebP-Fassungen der Bilder nicht bei jedem Build neu kodieren (scripts/astro-webp.mjs)
+      - uses: actions/cache@v4
+        with:
+          path: .webp-cache
+          key: webp-${{ github.run_id }}
+          restore-keys: webp-
+
       - run: npm run build
 
       # CMS-Oberfläche (/admin/) und CMS-Login nicht veröffentlichen: Pflege läuft über das Repo (11/2026).

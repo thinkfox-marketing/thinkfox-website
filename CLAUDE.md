@@ -62,6 +62,9 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   Font Awesome und Smash-Balloon-Editor-CSS nur bei Bedarf; Listen-Bilder mit `sizes="auto, …480px"`;
   Formular-Höhe vorab reserviert (Marketing-Ampel, Projektanfrage); kein Video bei Datensparmodus/2G/3G;
   HTML ohne ETag (304 über Last-Modified), Medien 7 Tage, `/media/extern/` 1 Jahr.
+  WebP per Content Negotiation (11/2026): `scripts/astro-webp.mjs` legt beim Build `bild.jpg.webp` neben JPG/PNG
+  (nur wenn ≥ 10 % kleiner, Cache `.webp-cache/`), `.htaccess` liefert sie bei `Accept: image/webp` unter derselben Adresse
+  (`Vary: Accept`) – HTML/CSS unverändert; sichtbar gleich, aber nicht pixelgleich (bewusste Abweichung).
 - **Beiträge:** Projekte und Blog nicht mehr im Elementor-Layout, sondern einheitlich (siehe Regeln unten);
   Blog im Aufbau des Originals (Bild oben über Hellblau, Titel darunter, 940 px Textbreite);
   überführt mit `scripts/umstellung/umstellen.py`.
