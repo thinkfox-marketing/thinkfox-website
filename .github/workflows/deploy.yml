@@ -68,11 +68,17 @@ jobs:
 
       - run: npm run build
 
+      # CMS-Oberfläche (/admin/) und CMS-Login nicht veröffentlichen: Pflege läuft über das Repo (11/2026).
+      # Bleibt im Repo (lokal: npm run cms). Wieder aktivieren = diesen Schritt entfernen + OAuth-App in api/config.php.
+      # deploy-ftp.sh spiegelt mit --delete: beides verschwindet damit auch vom Server.
+      - name: CMS ohne Login nicht veröffentlichen
+        run: rm -rf dist/admin dist/api/cms-auth.php
+
       - name: Vorschau-Version erzeugen (für Suchmaschinen gesperrt)
         run: |
           cp -a dist dist-staging
           # CMS-Anmeldung über die Vorschau-Adresse (thinkfox.de läuft noch auf WordPress)
-          sed -i "s#^  base_url: https://thinkfox.de#  base_url: https://${STAGING_HOST:-neu.thinkfox.de}#; s#^site_url: https://thinkfox.de#site_url: https://${STAGING_HOST:-neu.thinkfox.de}#" dist-staging/admin/config.yml
+          [ -f dist-staging/admin/config.yml ] && sed -i "s#^  base_url: https://thinkfox.de#  base_url: https://${STAGING_HOST:-neu.thinkfox.de}#; s#^site_url: https://thinkfox.de#site_url: https://${STAGING_HOST:-neu.thinkfox.de}#" dist-staging/admin/config.yml || true
           printf 'User-Agent: *\nDisallow: /\n' > dist-staging/robots.txt
           printf '\n<IfModule mod_headers.c>\n  Header always set X-Robots-Tag "noindex, nofollow"\n</IfModule>\n' >> dist-staging/.htaccess
           # https-Weiterleitung auf die eigene Adresse statt auf thinkfox.de

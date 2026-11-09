@@ -6,8 +6,9 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 ## Stack
 
 - **Astro 5** (statischer Build, `npm run build` → `dist/`), URLs mit Slash am Ende wie in WordPress.
-- **Decap CMS** unter `/admin/` (`public/admin/config.yml`), Inhalte als Markdown in `src/content/`.
-- **PHP** nur für `public/api/ajax.php` (Formulare) und `public/api/cms-auth.php` (CMS-Login).
+- **Decap CMS** (`public/admin/config.yml`), Inhalte als Markdown in `src/content/`. Seit 11/2026 auf thinkfox.de
+  abgeschaltet (Workflow entfernt `dist/admin` und `api/cms-auth.php`); Pflege direkt im Repo, lokal `npm run cms`.
+- **PHP** nur für `public/api/ajax.php` (Formulare), `cron.php`/`lib.php` (CRM, Mail) und `cms-auth.php` (CMS-Login, derzeit nicht veröffentlicht).
 - Keine weiteren Abhängigkeiten ohne Rücksprache.
 
 ## Architektur – zwei Ebenen

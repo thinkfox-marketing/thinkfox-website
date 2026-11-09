@@ -14,6 +14,12 @@ und Blogbeiträge werden über ein Backend gepflegt.
 
 ## Inhalte pflegen (Redaktion)
 
+> **Seit 11/2026 ist das CMS auf thinkfox.de abgeschaltet** (`/admin/` und `api/cms-auth.php` werden nicht veröffentlicht,
+> siehe Schritt „CMS ohne Login nicht veröffentlichen“ in `.github/workflows/deploy.yml`). Inhalte werden direkt im Repository
+> gepflegt (`src/content/**/*.md`, auch im Browser auf github.com) – jede Änderung auf `main` geht automatisch live.
+> Lokal funktioniert das CMS weiter mit `npm run cms`. Wieder einschalten: den Workflow-Schritt entfernen und die OAuth-App
+> (Schritt 3 unter „Umzug“) einrichten; danach gilt die folgende Anleitung.
+
 1. `https://thinkfox.de/admin/` öffnen und mit GitHub anmelden (Konto braucht Schreibrechte auf das Repository).
 2. **Projekte & Referenzen**, **Blog** oder **Kundenlogos** wählen → „Neu“ bzw. Eintrag öffnen.
 3. Speichern legt einen Entwurf an; über **Status → Bereit → Veröffentlichen** geht der Inhalt live.
@@ -105,7 +111,7 @@ anpassen (SMTP-Zugang!); Deploys überschreiben sie nie.
 2. **`api/config.php`** auf dem Server anlegen (Vorlage `public/api/config.example.php`) – der Deploy legt sie
    **nie** an und überschreibt sie nie: zufälliges `secret`, Empfänger je Formular, ggf. SMTP-Zugang,
    CRM-Übergabe (`crm`: Adresse + gemeinsames Geheimnis, siehe `docs/crm-schnittstelle.md`), `cron_token`.
-3. **GitHub-OAuth-App** (für den CMS-Login): GitHub → Organisation → Settings → Developer settings → OAuth Apps →
+3. **GitHub-OAuth-App** (nur falls der CMS-Login wieder eingeschaltet wird, siehe oben): GitHub → Organisation → Settings → Developer settings → OAuth Apps →
    Homepage `https://thinkfox.de`, Callback `https://thinkfox.de/api/cms-auth.php`.
    Client-ID und -Secret **nur** in `api/config.php` (`'github' => [...]`) eintragen – nicht als GitHub-Secret.
 4. **GitHub-Secrets** für den Workflow (`.github/workflows/deploy.yml`): `FTP_HOST`, `FTP_USER`,
