@@ -1,5 +1,5 @@
 ---
-title: "Was kostet Social-Media-Betreuung? Die Kostenfaktoren im Überblick"
+title: "Was kostet Social-Media-Betreuung? Das bestimmt den Preis"
 date: "2026-11-09T15:00:00"
 modified: "2026-11-09T15:00:00"
 kategorien: ["blog"]
@@ -7,42 +7,49 @@ schlagworte: ["social-media", "social-media-betreuung", "kosten", "content"]
 platzierung: []
 bild: "/wp-content/uploads/2025/02/social_media_thinkfox_marketing.jpg"
 bildAlt: "Social-Media-Betreuung durch thinkfox marketing"
-auszug: "Was Social-Media-Betreuung kostet, hängt weniger vom Kanal ab als davon, wer die Inhalte produziert, wie oft gepostet wird und ob Werbung dazukommt. Hier erfährst du, welche Faktoren den Preis bestimmen."
-seo: {"titel": "Social-Media-Betreuung: Kosten und Faktoren | thinkfox", "beschreibung": "Kanäle, Beitragsfrequenz, eigene Fotos und Reels, Community-Management und Werbebudget: Was die Kosten einer Social-Media-Betreuung bestimmt.", "fokusKeyword": "Social Media Betreuung Kosten", "lesedauer": "4 Minuten"}
+auszug: "Viele Angebote für Social-Media-Betreuung sehen gleich aus: ein paar Beiträge im Monat zum festen Preis. Der Unterschied steckt im Kleingedruckten. Woran du ihn erkennst und was den Preis wirklich bestimmt."
+seo: {"titel": "Social-Media-Betreuung: Was kostet das? | thinkfox", "beschreibung": "Eigene Fotos und Reels, Kanäle, Community, Werbebudget: Was die Kosten einer Social-Media-Betreuung bestimmt und wie du Angebote vergleichst.", "fokusKeyword": "Social Media Betreuung Kosten", "lesedauer": "4 Minuten"}
 legacy: false
 faq:
   titel: "Häufige Fragen zu den Kosten einer Social-Media-Betreuung"
-  fragen: [{"frage": "Ist das Werbebudget im Preis enthalten?", "antwort": "In der Regel nicht. Das Budget für bezahlte Anzeigen geht direkt an die Plattform, zum Beispiel Meta. Die Betreuung umfasst die Planung, Erstellung und Steuerung der Kampagnen."}, {"frage": "Wie oft sollte ein Unternehmen posten?", "antwort": "Regelmäßigkeit ist wichtiger als Masse. Lieber ein fester Rhythmus, den man über Monate durchhält, als ein Feuerwerk zum Start und danach Funkstille. Welcher Rhythmus passt, hängt von Zielgruppe, Kanal und verfügbaren Inhalten ab."}, {"frage": "Lohnt sich Social Media für die Mitarbeitergewinnung?", "antwort": "Ja, gerade für Unternehmen außerhalb der Großstädte. Kurze Videos mit echten Mitarbeitenden und gezielte Anzeigen erreichen Menschen, die gar nicht aktiv nach einer neuen Stelle suchen."}, {"frage": "Was kostet Social-Media-Betreuung bei thinkfox?", "antwort": "Das hängt von den Faktoren in diesem Beitrag ab. Erzähl uns, welche Kanäle ihr nutzt und was Social Media für euch erreichen soll – dann bekommst du ein konkretes Angebot."}]
+  fragen: [{"frage": "Ist das Werbebudget im Preis enthalten?", "antwort": "Nein. Das Budget für Anzeigen geht direkt an die Plattform, zum Beispiel an Meta für Facebook und Instagram. Die Betreuung umfasst Planung, Gestaltung und Steuerung der Kampagnen."}, {"frage": "Wie oft sollten wir posten?", "antwort": "So oft, wie ihr es dauerhaft durchhaltet. Ein fester Rhythmus über Monate bringt mehr als ein Feuerwerk zum Start und danach Funkstille."}, {"frage": "Lohnt sich Social Media für die Mitarbeitersuche?", "antwort": "Ja, gerade auf dem Land. Kurze Videos mit echten Kolleginnen und Kollegen und gezielte Anzeigen erreichen auch Menschen, die gar nicht aktiv nach einem neuen Job suchen."}, {"frage": "Was kostet Social-Media-Betreuung bei thinkfox?", "antwort": "Das hängt davon ab, welche Kanäle ihr bespielt, wie oft gepostet wird und ob wir Fotos und Videos neu produzieren. Erzähl uns, was Social Media für euch erreichen soll. Nach einem ersten Gespräch bekommst du ein Angebot, in dem genau steht, was drin ist."}]
 cta:
-  text: "Du willst auf Social Media sichtbar sein, ohne selbst jede Woche Inhalte produzieren zu müssen? Erzähl uns von deinen Kanälen – wir melden uns mit einem Vorschlag."
+  text: "Ihr wollt auf Social Media sichtbar sein, ohne jede Woche selbst Inhalte zu produzieren? Erzähl uns von euren Kanälen, wir melden uns mit einem Vorschlag."
   button: "Projekt anfragen"
   link: "/thinkfox-marketing-projekt-anfragen/"
 ---
-Was Social-Media-Betreuung kostet, hängt weniger vom Kanal ab als von drei Fragen: Wer produziert die Inhalte? Wie oft wird gepostet? Kommt bezahlte Werbung dazu? Angebote unterscheiden sich vor allem darin, wie viel davon enthalten ist. Mit den folgenden Faktoren kannst du sie vergleichen.
+Viele Angebote für Social-Media-Betreuung sehen auf den ersten Blick gleich aus: eine bestimmte Zahl Beiträge im Monat zum festen Preis. Der Unterschied steckt im Kleingedruckten. Kommen die Fotos von dir oder von der Agentur? Und wer antwortet, wenn unter einem Beitrag eine Frage steht?
 
-## Die wichtigsten Kostenfaktoren
+## Was den Preis bestimmt
 
-**1. Strategie und Redaktionsplan.** Welche Ziele verfolgt ihr – mehr Anfragen, mehr Bewerbungen, mehr Bekanntheit? Welche Themen passen dazu, und in welchem Rhythmus wird veröffentlicht? Ein Redaktionsplan sorgt dafür, dass nicht jede Woche neu überlegt werden muss.
+**Woher die Inhalte kommen.** Das ist der größte Unterschied. Werden nur Handyfotos aus dem Betrieb aufbereitet, ist der Aufwand klein. Eigene Fotos und Reels mit deinen Leuten wirken deutlich stärker, brauchen aber einen Drehtermin und Schnitt. Damit das nicht jede Woche Aufwand bedeutet, produzieren wir bei dir vor Ort oder in unserem Studio Inhalte gleich für mehrere Wochen im Voraus.
 
-**2. Anzahl der Kanäle.** Instagram, Facebook, LinkedIn, TikTok: Jeder Kanal hat eigene Formate und eigenes Publikum. Inhalte lassen sich anpassen und mehrfach nutzen, ein zusätzlicher Kanal bleibt trotzdem zusätzlicher Aufwand.
+**Wie viele Kanäle und wie oft.** Instagram, Facebook, LinkedIn, TikTok: Jeder Kanal hat eigene Formate und ein eigenes Publikum. Inhalte lassen sich anpassen und mehrfach nutzen, ein Kanal mehr bleibt trotzdem mehr Arbeit. Lieber zwei Kanäle richtig als vier halbherzig.
 
-**3. Inhalte: vorhanden oder neu produziert?** Der größte Unterschied. Werden nur vorhandene Bilder aufbereitet, ist der Aufwand gering. Eigene Fotos und Reels mit euren Mitarbeitenden wirken deutlich stärker, brauchen aber Drehtermine und Schnitt. Für das [Vierbeiner Reha-Zentrum](/website-vierbeiner-reha-zentrum/) sorgt zum Beispiel eigener Content für Social Media dafür, Reichweite und Community des Zentrums auszubauen – passend zur neuen Website und zum Seminarangebot.
+**Wer sich um die Community kümmert.** Kommentare und Nachrichten beantworten, auf Bewertungen reagieren. Übernimmt das die Agentur, ist es Teil des Preises. Macht ihr es selbst, sinkt er.
 
-**4. Beitragsfrequenz.** Mehr Beiträge bedeuten mehr Produktion und mehr Abstimmung. Entscheidend ist ein Rhythmus, den ihr dauerhaft halten könnt.
+**Ob Werbung dazukommt.** Mit Anzeigen erreichst du gezielt Menschen in deiner Region, für neue Kunden genauso wie für neue Mitarbeitende. Hier gibt es zwei Posten: die Betreuung der Kampagnen und das Werbebudget, das direkt an die Plattform geht.
 
-**5. Community-Management.** Kommentare und Nachrichten beantworten, auf Bewertungen reagieren. Ob das die Agentur übernimmt oder ihr selbst, verändert den Aufwand.
+**Plan und Auswertung.** Ein Redaktionsplan legt fest, was wann erscheint. Die Auswertung zeigt, was funktioniert und was im nächsten Monat besser laufen soll. Ohne beides postet man ins Blaue.
 
-**6. Werbeanzeigen.** Bezahlte Kampagnen erreichen gezielt Menschen in eurer Region oder Zielgruppe – für Kundengewinnung ebenso wie für Recruiting. Hier fallen zwei Posten an: die Betreuung der Kampagnen und das Werbebudget, das direkt an die Plattform geht.
+## Wie viel Arbeit bei dir bleibt
 
-**7. Auswertung.** Welche Beiträge funktionieren, welche nicht – und was daraus für den nächsten Monat folgt.
+Das ist die Frage, die sich Unternehmer am häufigsten stellen. Bei uns läuft es so: Wir kommen zu dir oder du in unser Studio, wir produzieren die Inhalte und kümmern uns um den Rest. Dein Teil sind regelmäßige kurze Abstimmungen und die Freigabe der Beiträge, bevor sie online gehen.
 
-## Wo du sinnvoll sparen kannst
+## So vergleichst du Angebote
 
-- **Produktion bündeln:** Fotos und Videos für mehrere Wochen an einem Drehtag erstellen.
-- **Inhalte mehrfach nutzen:** Ein Imagefilm liefert Material für viele kurze Clips.
-- **Kanäle begrenzen:** Lieber zwei Kanäle gut als vier halbherzig.
-- **Mitarbeitende einbinden:** Echte Gesichter aus dem Unternehmen sind glaubwürdiger als jede Stockfoto-Kampagne.
+Frag bei jedem Angebot nach:
 
-## Wie wir arbeiten
+- Wer produziert Fotos und Videos, und wie oft wird gedreht?
+- Wie viele Beiträge, Stories und Reels sind enthalten, auf welchen Kanälen?
+- Wer beantwortet Kommentare und Nachrichten?
+- Ist Werbebetreuung dabei, und wie hoch soll das Budget sein?
+- Wie und wie oft bekommst du eine Auswertung?
 
-Bei uns kommen Strategie, Produktion und Betreuung aus einem Team – etwa für das [Vierbeiner Reha-Zentrum](/website-vierbeiner-reha-zentrum/), [JOWA-KLN](/webprojekt-fotoproduktion-jowa/) und das Hotel Sonneck. Fotos und Videos entstehen bei dir vor Ort oder in unserem Studio im Edertal. Mehr dazu auf unserer Seite [Social-Media-Agentur für den Mittelstand](/mehr-aufmerksamkeit-und-reichweite-mit-social-media/) und im Beitrag [Social Media – mehr Reichweite & Sichtbarkeit für dein Unternehmen](/social-media-aus-nordhessen-sichtbarkeit-reichweite/).
+Erst wenn diese Punkte geklärt sind, kannst du zwei Preise ehrlich nebeneinanderlegen.
+
+## Aus der Praxis
+
+Für das [Vierbeiner Reha-Zentrum](/website-vierbeiner-reha-zentrum/) haben wir die Website neu gebaut und produzieren Inhalte für Social Media, damit Reichweite und Community wachsen. Auch für [JOWA-KLN](/webprojekt-fotoproduktion-jowa/) und das Hotel Sonneck sind wir auf Social Media aktiv.
+
+Mehr dazu, wie wir arbeiten, auf unserer Seite [Social-Media-Agentur für den Mittelstand](/mehr-aufmerksamkeit-und-reichweite-mit-social-media/).
