@@ -77,6 +77,18 @@ const LEISTUNGEN: Record<string, { name: string; serviceType: string }> = {
     { name: 'Werbeagentur für Bad Wildungen und die Edersee-Region', serviceType: 'Werbeagentur' },
 };
 
+/** Seitentitel (<title>, og:title, twitter:title) für übernommene Seiten – auf Suchbegriffe ausgerichtet (11/2026).
+ *  H1 und Text der Seiten bleiben unverändert. Startseite bewusst nicht (rankt für „Werbeagentur Nordhessen/Edertal“). */
+export const TITEL: Record<string, string> = {
+  '/professionelle-websites-fuer-den-mittelstand/': 'Webdesign & Websites für den Mittelstand | thinkfox',
+  '/mehr-aufmerksamkeit-und-reichweite-mit-social-media/': 'Social-Media-Agentur für den Mittelstand | thinkfox',
+  '/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/': 'Videoproduktion & Imagefilm aus Nordhessen | thinkfox',
+  '/360-grad-rundgaenge/': '360-Grad-Rundgänge erstellen lassen | thinkfox',
+  '/thinkfox-mietstudio-dein-fotostudio-videostudio-nordhessen/': 'Foto- & Videostudio mieten in Nordhessen | thinkfox',
+  '/deine-externe-marketingabteilung-ganzheitliches-marketing-fuer-den-mittelstand/': 'Externe Marketingabteilung für den Mittelstand | thinkfox',
+  '/werbeagentur-bad-wildungen-thinkfox-marketing-fuer-den-mittelstand/': 'Werbeagentur Bad Wildungen | thinkfox marketing',
+};
+
 /** Bessere Meta-Beschreibungen für übernommene Seiten (Original zu kurz). */
 export const BESCHREIBUNGEN: Record<string, string> = {
   '/marketing-ampel/':
