@@ -26,7 +26,7 @@ Was Social-Media-Betreuung kostet, hängt weniger vom Kanal ab als von drei Frag
 
 **2. Anzahl der Kanäle.** Instagram, Facebook, LinkedIn, TikTok: Jeder Kanal hat eigene Formate und eigenes Publikum. Inhalte lassen sich anpassen und mehrfach nutzen, ein zusätzlicher Kanal bleibt trotzdem zusätzlicher Aufwand.
 
-**3. Inhalte: vorhanden oder neu produziert?** Der größte Unterschied. Werden nur vorhandene Bilder aufbereitet, ist der Aufwand gering. Eigene Fotos und Reels mit euren Mitarbeitenden wirken deutlich stärker, brauchen aber Drehtermine und Schnitt. Für das KFZ-Technik-, Karosserie- & Lackzentrum Kling übernehmen wir zum Beispiel Contentplan, Reels, Bilder, Posts und Redaktion – mit Einblicken in den Werkstattalltag.
+**3. Inhalte: vorhanden oder neu produziert?** Der größte Unterschied. Werden nur vorhandene Bilder aufbereitet, ist der Aufwand gering. Eigene Fotos und Reels mit euren Mitarbeitenden wirken deutlich stärker, brauchen aber Drehtermine und Schnitt. Für das [Vierbeiner Reha-Zentrum](/website-vierbeiner-reha-zentrum/) sorgt zum Beispiel eigener Content für Social Media dafür, Reichweite und Community des Zentrums auszubauen – passend zur neuen Website und zum Seminarangebot.
 
 **4. Beitragsfrequenz.** Mehr Beiträge bedeuten mehr Produktion und mehr Abstimmung. Entscheidend ist ein Rhythmus, den ihr dauerhaft halten könnt.
 
@@ -45,4 +45,4 @@ Was Social-Media-Betreuung kostet, hängt weniger vom Kanal ab als von drei Frag
 
 ## Wie wir arbeiten
 
-Bei uns kommen Strategie, Produktion und Betreuung aus einem Team. Fotos und Videos entstehen bei dir vor Ort oder in unserem Studio im Edertal. Mehr dazu auf unserer Seite [Social-Media-Agentur für den Mittelstand](/mehr-aufmerksamkeit-und-reichweite-mit-social-media/) und im Beitrag [Social Media – mehr Reichweite & Sichtbarkeit für dein Unternehmen](/social-media-aus-nordhessen-sichtbarkeit-reichweite/).
+Bei uns kommen Strategie, Produktion und Betreuung aus einem Team – etwa für das [Vierbeiner Reha-Zentrum](/website-vierbeiner-reha-zentrum/), [JOWA-KLN](/webprojekt-fotoproduktion-jowa/) und das Hotel Sonneck. Fotos und Videos entstehen bei dir vor Ort oder in unserem Studio im Edertal. Mehr dazu auf unserer Seite [Social-Media-Agentur für den Mittelstand](/mehr-aufmerksamkeit-und-reichweite-mit-social-media/) und im Beitrag [Social Media – mehr Reichweite & Sichtbarkeit für dein Unternehmen](/social-media-aus-nordhessen-sichtbarkeit-reichweite/).
