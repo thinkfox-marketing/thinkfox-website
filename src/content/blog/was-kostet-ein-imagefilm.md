@@ -18,7 +18,7 @@ cta:
   button: "Projekt anfragen"
   link: "/thinkfox-marketing-projekt-anfragen/"
 ---
-Zwei Imagefilme, beide zwei Minuten lang, und beim Preis liegt trotzdem ein Vielfaches dazwischen. Das liegt selten an der Kamera. Den Unterschied machen die Vorbereitung, die Zahl der Drehtage und die Arbeit im Schnitt. Wer weiß, wofür er bezahlt, kann Angebote vergleichen und an der richtigen Stelle sparen.
+Zwei Imagefilme, beide zwei Minuten lang, und beim Preis liegt trotzdem ein Vielfaches dazwischen. Das liegt selten an der Kamera. Den Unterschied machen die Vorbereitung, die Zahl der Drehtage und die Arbeit im Schnitt. Wer weiß, wo das Geld wirklich hingeht, kann Angebote vergleichen und an der richtigen Stelle sparen.
 
 ## Wofür du bezahlst
 

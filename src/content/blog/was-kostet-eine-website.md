@@ -1,14 +1,14 @@
 ---
 title: "Was kostet eine Website? Klartext zu Preisen und Kosten"
 date: "2026-11-09T14:00:00"
-modified: "2026-11-09T14:00:00"
+modified: "2026-11-10T09:00:00"
 kategorien: ["blog"]
 schlagworte: ["website", "webdesign", "kosten", "relaunch"]
 platzierung: []
 bild: "/wp-content/uploads/2025/10/website_wfg_waldeck_frankenberg-1.jpg"
 bildAlt: "Neue Website der Wirtschaftsförderung Waldeck-Frankenberg auf mehreren Geräten"
 auszug: "Bei uns beginnt ein OnePager bei rund 2.200 Euro, eine umfangreichere Unternehmenswebsite bei rund 5.500 Euro, jeweils zzgl. MwSt. Warum die Spanne so groß ist, was nach dem Start dazukommt und wie du Angebote vergleichst."
-seo: {"titel": "Was kostet eine Website? Preise & Kosten | thinkfox", "beschreibung": "OnePager ab ca. 2.200 €, umfangreichere Websites ab ca. 5.500 € zzgl. MwSt.: Was den Preis bestimmt, welche laufenden Kosten anfallen und wie du Angebote vergleichst.", "fokusKeyword": "Was kostet eine Website", "lesedauer": "5 Minuten"}
+seo: {"titel": "Was kostet eine Website? Preise & Kosten | thinkfox", "beschreibung": "OnePager ab ca. 2.200 €, größere Websites ab ca. 5.500 € zzgl. MwSt.: was den Preis bestimmt und wie du Angebote vergleichst.", "fokusKeyword": "Was kostet eine Website", "lesedauer": "5 Minuten"}
 legacy: false
 faq:
   titel: "Häufige Fragen zu den Kosten einer Website"
@@ -18,7 +18,7 @@ cta:
   button: "Projekt anfragen"
   link: "/thinkfox-marketing-projekt-anfragen/"
 ---
-Kurze Antwort vorweg: Bei uns beginnt ein OnePager bei rund **2.200 Euro**, eine umfangreichere Unternehmenswebsite bei rund **5.500 Euro**, jeweils zzgl. MwSt. Dazu können Texte, Fotos, Videos, SEO und besondere Funktionen kommen.
+Klartext vorweg: Bei uns beginnt ein OnePager bei rund **2.200 Euro**, eine umfangreichere Unternehmenswebsite bei rund **5.500 Euro**, jeweils zzgl. MwSt. Zu diesen Preisen kommen je nach Projekt Texte, Fotos, Videos, SEO und besondere Funktionen.
 
 Warum dann überhaupt so eine große Spanne? Weil „Website“ alles heißen kann: eine Visitenkarte im Netz mit einer Seite oder ein Auftritt mit Karrierebereich, Stellenbörse und zwei Sprachen. Wer Angebote vergleichen will, muss wissen, wofür er bezahlt.
 
