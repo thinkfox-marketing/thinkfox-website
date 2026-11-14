@@ -31,9 +31,9 @@ export function kacheln(lat, lon) {
 const STIL = `@font-face{font-family:"Schibsted Grotesk";src:url(${FONT}) format("woff2");font-weight:400 900}
 html,body{height:100%;margin:0;overflow:hidden}
 body{position:relative;font-family:"Schibsted Grotesk",system-ui,sans-serif;background:#f2efe9;color:#fff}
-.karte{position:absolute;left:50%;top:50%;display:grid;grid-template-columns:repeat(${SPALTEN},256px)}
+.karte{position:absolute;left:50%;top:28%;display:grid;grid-template-columns:repeat(${SPALTEN},256px)}
 .karte img{display:block;width:256px;height:256px}
-.pin{position:absolute;left:50%;top:50%;width:36px;height:48px;transform:translate(-50%,-100%);filter:drop-shadow(0 2px 3px rgb(0 0 0/.35))}
+.pin{position:absolute;left:50%;top:28%;width:36px;height:48px;transform:translate(-50%,-100%);filter:drop-shadow(0 2px 3px rgb(0 0 0/.35))}
 .box{position:absolute;left:16px;bottom:32px;max-width:23rem;margin-right:16px;padding:1rem 1.2rem;border-radius:4px;background:rgb(20 22 26/.94);font-size:15px;line-height:1.5}
 .box strong{display:block;font-size:17px}
 .box p{margin:0}
