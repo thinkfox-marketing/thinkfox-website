@@ -97,6 +97,18 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 - **SEO/GEO:** echte 404-Seite (Comic-Fuchs, „Fährten“ zu den Hauptseiten, `src/pages/404.astro`) statt Weiterleitung auf die Startseite (alte WordPress-Weiterleitungen einzeln in `public/.htaccess`), Kategorie-Archive `noindex`,
   Unternehmensprofil/Service/FAQ als JSON-LD (`src/lib/geo.ts`), `/llms.txt`.
 
+## Positionierung (bestätigt 14.11.2026)
+
+- **Wer:** Marketingpartner für mittelständische Unternehmen und Einrichtungen in Nordhessen.
+- **Was:** Sichtbarkeit – über Website, Social Media, Film und Foto. Daraus folgen mehr Kunden und mehr Bewerbungen
+  (Recruiting ist Folge der Sichtbarkeit, kein eigener Schwerpunkt).
+- **Wie:** Einstieg meist über ein einzelnes Projekt (z. B. Website oder Social Media). Die **externe Marketingabteilung**
+  ist ein eigenes Angebot mit eigener Seite (Suchanfragen), aber nicht die Hauptbotschaft.
+- **Studio:** Werkzeug, kein Alleinstellungsmerkmal und nicht im Mittelpunkt. Nur als Beleg bei Film und Foto erwähnen
+  („eigenes Studio mit Hohlkehle in Edertal“); kein eigener Startseiten-Abschnitt, kein Hauptmenüpunkt. Vermietung nur auf
+  Anfrage – die Mietstudio-Seite bleibt, verlinkt in der Fußzeile.
+- **Wortmarke:** Der bisherige Schriftzug „thinkfox“ bleibt unverändert.
+
 ## Entwicklungsbereich (Relaunch)
 
 - Neue Struktur/Inhalte entstehen im Zweig **`relaunch`** und werden automatisch nach **thinkfox.de/vorschau/** gebaut
