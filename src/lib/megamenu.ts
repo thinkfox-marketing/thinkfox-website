@@ -18,7 +18,7 @@ interface Wahl { titel: string; href: string; links: Link[]; bild: string; bildB
 interface Spalte2 { auge: string; links: Link[] }
 
 const esc = (s: string) => s.replace(/&(?!amp;)/g, '&amp;').replace(/"/g, '&quot;');
-const pille = (t: string) => `<p class="tf-mega__pille">${t}</p>`;
+const pille = (t: string) => `<p class="tf-mega__rubrik">${t}</p>`;
 const linkListe = (links: Link[], cls = '') => `<ul class="tf-mega__gross${cls}" role="list">${links.map((l) => `<li><a href="${esc(l.href)}">${esc(l.text)}</a></li>`).join('')}</ul>`;
 const fuss = (links: Link[], socials = false) => `<div class="tf-mega__fuss">
     <ul class="tf-mega__fusslinks" role="list">${links.map((l) => `<li><a href="${esc(l.href)}">${esc(l.text)}</a></li>`).join('')}</ul>

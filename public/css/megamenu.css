@@ -1,91 +1,91 @@
 /* Mega-Menü (Desktop ab 1200 px) – src/lib/megamenu.ts, src/scripts/megamenu.js. Darunter: Burger/Off-Canvas wie bisher.
-   Stil angelehnt an eine 21st.dev-Vorlage (große Links, Pillen-Überschriften, Vorschaubild), Hausfarben Lila/Hellblau. */
+   Gestaltung über Typografie statt Deko (Entscheidung 14.11.): Hierarchie aus Größe und Schnitt, Rubriken in
+   gesperrten Versalien mit Haarlinie, Bildunterschrift unter dem Bild, keine Pillen, keine Karten, kaum Rundungen.
+   Größenstufen aus dem Hausraster (einheitlich.css): 26 / 18 / 15 px + Rubrik 12,5 px; nur Outfit. */
 .tf-mega { display: none; }
 
 @media (min-width: 1200px) and (scripting: enabled) {
   .tf-mega {
-    --mega-lila: #5b4ec8; --mega-lila-dunkel: #3b3192; --mega-lila-hell: #eceafb; --mega-hellblau: #eef7ff;
-    --mega-text: #1d1b33; --mega-grau: #55536a; --mega-linie: #dcdbe8;
-    display: block; margin-left: auto; margin-right: 18px; font-family: "Outfit", system-ui, sans-serif;
+    --mega-lila: #5b4ec8; --mega-lila-dunkel: #3b3192; --mega-text: #1d1b33; --mega-grau: #55536a; --mega-linie: #d6d4e6;
+    display: block; margin-left: auto; margin-right: 22px; font-family: "Outfit", system-ui, sans-serif;
   }
   .elementor-element-9058bab { display: none !important; }          /* Burger nur noch unterhalb 1200 px */
   .elementor-element-3438163 > .e-con-inner { position: relative; }  /* Bezug für die Panels */
 
-  /* --- Leiste ------------------------------------------------------------------------------------- */
-  .tf-mega__leiste { display: flex; align-items: center; gap: 4px; margin: 0; padding: 0; list-style: none; }
+  /* --- Leiste: Text auf Lila, aktiver Punkt unterstrichen --------------------------------------------- */
+  .tf-mega__leiste { display: flex; align-items: center; gap: 30px; margin: 0; padding: 0; list-style: none; }
   .tf-mega .tf-mega__auf, .tf-mega .tf-mega__link {
-    display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 16px;
-    border: 0; border-radius: 999px; background: transparent; color: #fff !important;
-    font: 600 17px/1.2 "Outfit", system-ui, sans-serif; text-decoration: none !important; cursor: pointer;
-    transition: background-color .15s;
+    display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0;
+    border: 0; border-radius: 0; background: transparent; color: #fff !important;
+    font: 500 17px/1.2 "Outfit", system-ui, sans-serif; text-decoration: none !important; cursor: pointer;
+    background-image: linear-gradient(currentColor, currentColor); background-repeat: no-repeat;
+    background-size: 0 2px; background-position: 0 calc(100% - 8px); transition: background-size .2s;
   }
   /* gegen die globalen Button-Stile des Elementor-Kits (.elementor-kit-52 button: Gelb/Grau, 15 px) */
-  .tf-mega button.tf-mega__auf { background: transparent !important; color: #fff !important; border: 0 !important; box-shadow: none !important; text-transform: none !important; letter-spacing: 0 !important; }
-  .tf-mega .tf-mega__auf:hover, .tf-mega .tf-mega__link:hover, .tf-mega button.tf-mega__auf[aria-expanded="true"] { background: var(--mega-lila-dunkel) !important; color: #fff !important; }
-  .tf-mega .tf-mega__auf:focus-visible, .tf-mega .tf-mega__link:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
-  .tf-mega__pfeil { width: 12px; height: 8px; transition: transform .3s; }
+  .tf-mega button.tf-mega__auf { background-color: transparent !important; color: #fff !important; border: 0 !important; box-shadow: none !important; text-transform: none !important; letter-spacing: 0 !important; padding: 0 !important; }
+  .tf-mega .tf-mega__auf:hover, .tf-mega .tf-mega__link:hover, .tf-mega button.tf-mega__auf[aria-expanded="true"] { background-size: 100% 2px; }
+  .tf-mega .tf-mega__auf:focus-visible, .tf-mega .tf-mega__link:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+  .tf-mega__pfeil { width: 11px; height: 7px; transition: transform .25s; }
   .tf-mega__auf[aria-expanded="true"] .tf-mega__pfeil { transform: rotate(180deg); }
 
   /* --- Panel -------------------------------------------------------------------------------------- */
   .tf-mega__panel {
-    position: absolute; left: 0; right: 0; top: calc(100% + 10px); z-index: 1000;
-    padding: 32px 32px 26px; border: 1px solid rgba(220, 219, 232, .7); border-radius: 24px; background: #fff; color: var(--mega-text);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 18px 44px -10px rgba(29, 27, 51, .22);
-    animation: tf-mega-ein .32s cubic-bezier(.22, 1, .36, 1);
-    transform-origin: top center;
+    position: absolute; left: 0; right: 0; top: calc(100% + 8px); z-index: 1000;
+    padding: 36px 40px 28px; border-radius: 6px; background: #fff; color: var(--mega-text);
+    box-shadow: 0 14px 34px rgba(29, 27, 51, .16);
+    animation: tf-mega-ein .22s ease-out;
   }
   .tf-mega__panel[hidden] { display: none; }
-  @keyframes tf-mega-ein { from { opacity: 0; transform: translateY(-8px) scaleY(.97); } to { opacity: 1; transform: none; } }
+  @keyframes tf-mega-ein { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
 
-  .tf-mega__inhalt { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 300px; gap: 40px; align-items: start; }
-  .tf-mega__spalte { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+  .tf-mega__inhalt { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) 280px; column-gap: 48px; align-items: start; }
+  .tf-mega__spalte { min-width: 0; }
 
-  .tf-mega__pille {
-    width: fit-content; margin: 0; padding: 6px 14px; border: 1px solid var(--mega-linie); border-radius: 999px;
-    font-size: 13px; font-weight: 600; line-height: 1.2; color: var(--mega-lila);
+  /* Rubrik: gesperrte Versalien, Haarlinie darunter (über die Spaltenbreite) */
+  .tf-mega__rubrik {
+    margin: 0 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--mega-linie);
+    font-size: 12.5px; font-weight: 600; line-height: 1.2; letter-spacing: .1em; text-transform: uppercase; color: var(--mega-grau);
   }
 
-  .tf-mega__gross { display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; list-style: none; }
+  .tf-mega__gross { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+  /* Linke Spalte: 26 px halbfett, enger Zeilenabstand – die Hauptebene */
   .tf-mega__gross a {
-    display: inline-flex; align-items: center; gap: 10px; font-size: 21px; font-weight: 700; line-height: 1.25;
+    display: inline-flex; align-items: baseline; gap: 10px; padding: 7px 0;
+    font-size: 26px; font-weight: 600; line-height: 1.15; letter-spacing: -.01em;
     color: var(--mega-text) !important; text-decoration: none !important; transition: color .15s;
   }
   .tf-mega__gross a:hover { color: var(--mega-lila) !important; }
-  .tf-mega__gross--klein a { font-size: 18px; font-weight: 600; color: var(--mega-lila-dunkel) !important; }
+  /* Rechte Spalte: 18 px normaler Schnitt – zweite Ebene, ruhiger */
+  .tf-mega__gross--klein a { padding: 6px 0; font-size: 18px; font-weight: 400; line-height: 1.4; letter-spacing: 0; color: var(--mega-text) !important; }
+  .tf-mega__gross--klein a:hover { color: var(--mega-lila) !important; text-decoration: underline !important; text-underline-offset: 3px; }
 
-  /* Auswahl links: aktive Zeile unterstrichen, Pfeil zeigt „rechts geht es weiter“ */
-  .tf-mega__wahl a.is-aktiv { color: var(--mega-lila) !important; text-decoration: underline !important; text-underline-offset: 5px; text-decoration-thickness: 2px; }
-  .tf-mega__weiter { opacity: 0; transform: translateX(-4px); transition: opacity .15s, transform .15s; color: var(--mega-lila); }
-  .tf-mega__wahl a.is-aktiv .tf-mega__weiter, .tf-mega__wahl a:hover .tf-mega__weiter { opacity: 1; transform: none; }
+  /* Auswahl links: aktive Zeile in Lila, Pfeil als Hinweis auf die rechte Spalte */
+  .tf-mega__wahl a.is-aktiv { color: var(--mega-lila) !important; }
+  .tf-mega__weiter { font-weight: 400; opacity: 0; transition: opacity .15s; color: var(--mega-lila); }
+  .tf-mega__wahl a.is-aktiv .tf-mega__weiter { opacity: 1; }
   .tf-mega__wechsel[hidden] { display: none; }
-  .tf-mega__wechsel { animation: tf-mega-wechsel .2s ease-out; }
-  @keyframes tf-mega-wechsel { from { opacity: 0; } to { opacity: 1; } }
 
-  /* Vorschaubild mit Bildunterschrift auf Verlauf */
-  .tf-mega__bild { position: relative; display: flex; align-items: flex-end; height: 250px; margin: 0; overflow: hidden; border-radius: 18px; background: var(--mega-hellblau); }
-  .tf-mega__bild img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .tf-mega__bild figcaption {
-    position: relative; z-index: 1; width: 100%; padding: 44px 16px 14px;
-    background: linear-gradient(to top, rgba(29, 27, 51, .85), rgba(29, 27, 51, 0));
-    font-size: 15px; font-weight: 600; font-style: normal; line-height: 1.35; color: #fff;
-  }
+  /* Vorschaubild, Bildunterschrift darunter */
+  .tf-mega__bild { margin: 0; }
+  .tf-mega__bild img { display: block; width: 100%; height: 196px; object-fit: cover; border-radius: 3px; background: #eef7ff; }
+  .tf-mega__bild figcaption { margin-top: 10px; font-size: 15px; font-style: normal; font-weight: 400; line-height: 1.4; color: var(--mega-grau); }
 
   /* Fußzeile des Panels */
-  .tf-mega__fuss { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--mega-linie); }
-  .tf-mega__fusslinks { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 0; padding: 0; list-style: none; }
-  .tf-mega__fusslinks a { font-size: 15px; font-weight: 500; color: var(--mega-grau) !important; text-decoration: none !important; }
-  .tf-mega__fusslinks a:hover { color: var(--mega-lila) !important; text-decoration: underline !important; }
-  .tf-mega__socials { display: flex; gap: 10px; margin: 0; padding: 0; list-style: none; }
-  .tf-mega__socials a { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; background: var(--mega-lila-hell); color: var(--mega-lila) !important; transition: background-color .15s, color .15s; }
-  .tf-mega__socials a:hover { background: var(--mega-lila); color: #fff !important; }
-  .tf-mega__socials svg { width: 18px; height: 18px; }
+  .tf-mega__fuss { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--mega-linie); }
+  .tf-mega__fusslinks { display: flex; flex-wrap: wrap; gap: 6px 28px; margin: 0; padding: 0; list-style: none; }
+  .tf-mega__fusslinks a { font-size: 15px; font-weight: 400; color: var(--mega-grau) !important; text-decoration: none !important; }
+  .tf-mega__fusslinks a:hover { color: var(--mega-lila) !important; text-decoration: underline !important; text-underline-offset: 3px; }
+  .tf-mega__socials { display: flex; gap: 18px; margin: 0; padding: 0; list-style: none; }
+  .tf-mega__socials a { display: grid; place-items: center; width: 32px; height: 32px; color: var(--mega-grau) !important; transition: color .15s; }
+  .tf-mega__socials a:hover { color: var(--mega-lila) !important; }
+  .tf-mega__socials svg { width: 20px; height: 20px; }
 
-  .tf-mega__panel a:focus-visible { outline: 3px solid var(--mega-lila-dunkel); outline-offset: 3px; border-radius: 6px; }
+  .tf-mega__panel a:focus-visible { outline: 2px solid var(--mega-lila-dunkel); outline-offset: 3px; }
 
   /* Claim neben dem Logo nur bei viel Platz (Kopfleiste sonst zu voll) */
   @media (max-width: 1399px) { .elementor-element-325ba44 { display: none !important; } }
 }
 @media (prefers-reduced-motion: reduce) {
-  .tf-mega__panel, .tf-mega__wechsel { animation: none !important; }
-  .tf-mega__pfeil, .tf-mega__weiter { transition: none !important; }
+  .tf-mega__panel { animation: none !important; }
+  .tf-mega .tf-mega__auf, .tf-mega .tf-mega__link, .tf-mega__pfeil, .tf-mega__weiter { transition: none !important; }
 }
