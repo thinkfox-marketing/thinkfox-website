@@ -27,5 +27,18 @@ for (const nav of document.querySelectorAll('.tf-mega')) {
       if (e.key === 'Escape' && b.getAttribute('aria-expanded') === 'true') { zu(b); b.focus(); }
     });
   }
+  // Auswahl links (Anliegen/Branche): rechts passende Liste und Bild zeigen – beim Überfahren und beim Fokussieren
+  for (const panelEl of nav.querySelectorAll('.tf-mega__panel')) {
+    const wahlen = [...panelEl.querySelectorAll('a[data-tf-wahl]')];
+    if (!wahlen.length) continue;
+    const zeige = (i) => {
+      wahlen.forEach((a) => a.classList.toggle('is-aktiv', a.dataset.tfWahl === i));
+      for (const w of panelEl.querySelectorAll('.tf-mega__wechsel')) w.hidden = w.dataset.tfWahl !== i;
+    };
+    for (const a of wahlen) {
+      a.addEventListener('pointerenter', () => zeige(a.dataset.tfWahl));
+      a.addEventListener('focus', () => zeige(a.dataset.tfWahl));
+    }
+  }
   document.addEventListener('click', (e) => { if (!nav.contains(e.target)) alleZu(); });
 }
