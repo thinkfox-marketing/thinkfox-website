@@ -120,11 +120,14 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 - **Kopf- und Fußzeile** für alle Seiten: `src/lib/chrome.ts` + `src/scripts/chrome.js` (Aufklapp-Navigation, Handy-Menü).
   Die Elementor-Kopfzeile samt Mega-Menü (`src/legacy/chrome/*`, `megamenu.*`) ist nur noch Archiv.
 - **Neue Seiten** ohne Elementor: Rahmen `src/layouts/Seite.astro`, Bausteine `public/css/seite.css` (Sektionsbaukasten:
-  Aufmacher versetzt, Bild mit Textinsel, Teilung 7:5, Kontaktbogen, Pause, Mosaik), Inhalte `src/lib/seiten.ts`.
-  Umgesetzt: Startseite, Leistungsseite „Websites und SEO“ (unter der bisherigen Adresse).
+  Aufmacher versetzt, Bild mit Textinsel, Teilung 7:5, Kontaktbogen, Pause, Mosaik). Umgesetzt: Startseite
+  (`src/lib/seiten.ts`) und die vier Leistungsseiten Websites und SEO, Social Media, Film und Foto, Externe Marketingabteilung
+  (`src/lib/leistungen.ts`, ein gemeinsamer Aufbau: Ausgangslage → Lösung → Ergebnis → Vorgehen → Referenzen → Kosten → Fragen;
+  unter den bisherigen Adressen, ausgeliefert über `src/pages/[...slug].astro`). `seoNeu()` entfernt die alten Fragen aus den
+  übernommenen Strukturdaten; die neuen kommen aus dem Markup (`details.tf-faq__eintrag`).
 - **Übergang:** Projekte, Blog und Branchenseiten behalten ihr Layout (`beitrag.css`) und sind über Variablen in `chrome.css`
-  umgefärbt. Übrige Elementor-Seiten (Social Media, Film und Foto, Externe Marketingabteilung, Kontakt, Mietstudio, 360°,
-  Bad Wildungen, Blog-Übersicht, Rechtliches) haben nur die neue Kopf- und Fußzeile und sind inhaltlich noch im alten Stand.
+  umgefärbt. Übrige Elementor-Seiten (Kontakt, Mietstudio, 360°, Bad Wildungen, Projektanfrage, Blog-Übersicht,
+  Rechtliches) haben nur die neue Kopf- und Fußzeile und sind inhaltlich noch im alten Stand.
 - **Wording:** Sie-Form; Aufbau Ausgangslage → Lösung → Ergebnis; Überschriften benennen den Inhalt (keine Pointen, keine
   Zweiteiler); Verben wie konzipieren, entwickeln, umsetzen, betreuen, produzieren; Sichtbarkeit immer mit Bezug (bei wem, wo,
   wofür); jede Leistung mit Ergebniszeile; Handlungsaufrufe „Erstgespräch vereinbaren“, „Projekt anfragen“, „Referenzen ansehen“.

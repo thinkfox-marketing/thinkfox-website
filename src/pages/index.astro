@@ -2,14 +2,12 @@
 // Startseite (Relaunch): neues Erscheinungsbild – Inhalte in src/lib/seiten.ts, Rahmen src/layouts/Seite.astro.
 // SEO-Kopf aus der bisherigen Startseite (Titel, JSON-LD von Rank Math), Beschreibung neu.
 import Seite from '../layouts/Seite.astro';
-import { START_BESCHREIBUNG, START_HEROBILD, startSeite } from '../lib/seiten';
+import { START_BESCHREIBUNG, START_HEROBILD, seoNeu, startSeite } from '../lib/seiten';
 import legacyStart from '../legacy/pages/index.json';
 
 const b = START_BESCHREIBUNG.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
-const seo = legacyStart.seo
-  .replace(/(<meta (?:name|property)="(?:description|og:description|twitter:description)" content=")[^"]*/g, `$1${b}`)
-  // Angaben eines Artikels (Lesedauer, Autor) passen nicht zur Startseite
-  .replace(/<meta name="twitter:(?:label|data)\d" content="[^"]*" \/>\n?/g, '');
+const seo = seoNeu(legacyStart.seo
+  .replace(/(<meta (?:name|property)="(?:description|og:description|twitter:description)" content=")[^"]*/g, `$1${b}`));
 const main = await startSeite();
 ---
 <Seite seo={seo} main={main} heroBild={START_HEROBILD} />

@@ -1,4 +1,4 @@
-// Neue Seiten im Relaunch (Markenentwurf 14.11.2026): Startseite und Leistungsseite „Websites und SEO“.
+// Neue Seiten im Relaunch (Markenentwurf 14.11.2026): gemeinsame Bausteine und Startseite. Leistungsseiten: src/lib/leistungen.ts.
 // Rahmen: src/layouts/Seite.astro, Gestaltung: public/css/seite.css (Sektionsbaukasten t1–t8).
 // Wording: sachlich-fachlich, Sie-Form, Aufbau Ausgangslage → Lösung → Ergebnis; Positionierung siehe CLAUDE.md.
 // Inhalte nur aus belegten Projektfakten; Kunden ohne Freigabe werden nicht namentlich genannt.
@@ -7,12 +7,42 @@ import { wpImg } from './media';
 import { asset } from './asset';
 import { ANFRAGE, CONTENT, EXTERN, SOCIAL, STUDIO, TERMIN, WEB } from './chrome';
 
-const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+export const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const PFEIL = '<span aria-hidden="true">→</span>';
-const knopf = (text: string, href: string, variante = '') => `<a class="knopf${variante ? ` knopf--${variante}` : ''}" href="${href}">${esc(text)}${variante ? '' : ` ${PFEIL}`}</a>`;
+export const knopf = (text: string, href: string, variante = '') => `<a class="knopf${variante ? ` knopf--${variante}` : ''}" href="${href}">${esc(text)}${variante ? '' : ` ${PFEIL}`}</a>`;
+
+/** SEO-Kopf einer übernommenen Seite für die neue Fassung: Die alten Fragen (FAQPage von Rank Math) und die Artikel-Angaben
+ *  (Lesedauer, Autor) stehen nicht mehr auf der Seite – die neuen Fragen kommen über strukturierteDaten() in Seite.astro. */
+export function seoNeu(seo: string): string {
+  return seo
+    .replace(/<meta name="twitter:(?:label|data)\d" content="[^"]*" \/>\n?/g, '')
+    .replace(/(<script type="application\/ld\+json"[^>]*>)([\s\S]*?)(<\/script>)/g, (m, auf: string, json: string, zu: string) => {
+      let daten: { '@graph'?: Record<string, unknown>[] };
+      try { daten = JSON.parse(json); } catch { return m; }
+      if (!daten['@graph']) return m;
+      // FAQPage steht als eigener Knoten oder verschachtelt (z. B. Article → subjectOf) im Graphen
+      const istFaq = (n: unknown) => !!n && typeof n === 'object' && [(n as { '@type'?: unknown })['@type']].flat().includes('FAQPage');
+      const ohne = (n: unknown): unknown => {
+        if (Array.isArray(n)) return n.filter((x) => !istFaq(x)).map(ohne);
+        if (n && typeof n === 'object') {
+          const o: Record<string, unknown> = {};
+          for (const [k, v] of Object.entries(n)) {
+            if (istFaq(v)) continue;
+            const w = ohne(v);
+            if (Array.isArray(w) && Array.isArray(v) && v.length && !w.length) continue; // Liste bestand nur aus der FAQ
+            o[k] = w;
+          }
+          return o;
+        }
+        return n;
+      };
+      daten = ohne(daten) as typeof daten;
+      return auf + JSON.stringify(daten).replace(/</g, '\\u003c') + zu;
+    });
+}
 
 /** Abschnitt im Raster: links die Rubrik, rechts Überschrift, Einleitung und Inhalt. */
-function abschnitt(o: { id: string; rubrik: string; titel: string; einleitung?: string; inhalt: string; cls?: string; anker?: string }): string {
+export function abschnitt(o: { id: string; rubrik: string; titel: string; einleitung?: string; inhalt: string; cls?: string; anker?: string }): string {
   return `<section class="abschnitt${o.cls ? ` ${o.cls}` : ''}"${o.anker ? ` id="${o.anker}"` : ''} aria-labelledby="${o.id}">
     <div class="huelle raster">
       <p class="label sp-label">${esc(o.rubrik)}</p>
@@ -25,20 +55,20 @@ function abschnitt(o: { id: string; rubrik: string; titel: string; einleitung?: 
   </section>`;
 }
 
-const drei = (punkte: [string, string][]) => `<div class="drei">${punkte.map(([t, p]) => `<div><h3>${esc(t)}</h3><p>${esc(p)}</p></div>`).join('')}</div>`;
+export const drei = (punkte: [string, string][]) => `<div class="drei">${punkte.map(([t, p]) => `<div><h3>${esc(t)}</h3><p>${esc(p)}</p></div>`).join('')}</div>`;
 
 const leistung = (titel: string, text: string, ergebnis: string, link?: [string, string]) => `<li class="zeile"><h3>${titel}</h3><div><p>${esc(text)}</p><p class="ergebnis"><b>Ergebnis</b>${esc(ergebnis)}</p>${link ? `<a class="link" href="${link[1]}">${esc(link[0])}</a>` : ''}</div></li>`;
 
-const preis = (titel: string, text: string, betrag: string) => `<div class="preis"><h3>${esc(titel)}</h3><p>${esc(text)}</p><strong>${esc(betrag)}</strong></div>`;
+export const preis = (titel: string, text: string, betrag: string) => `<div class="preis"><h3>${esc(titel)}</h3><p>${esc(text)}</p><strong>${esc(betrag)}</strong></div>`;
 
 /** Filmstills und Website-Ansichten als seitlich scrollbare Reihe („Kontaktbogen“). */
-function bogen(label: string, eintraege: { bild: string; hoehe: number; kunde: string; art: string; href: string }[]): string {
+export function bogen(label: string, eintraege: { bild: string; hoehe: number; kunde: string; art: string; href: string }[]): string {
   return `<ul class="bogen" aria-label="${esc(label)}" tabindex="0">
       ${eintraege.map((e) => `<li style="--h:${e.hoehe}px"><figure><a href="${e.href}">${e.bild}<figcaption><b>${esc(e.kunde)}</b>${esc(e.art)}</figcaption></a></figure></li>`).join('\n      ')}
     </ul>`;
 }
 
-const still = (name: string, alt: string, w = 1280, h = 720, eager = false) =>
+export const still = (name: string, alt: string, w = 1280, h = 720, eager = false) =>
   `<img src="${asset(`/media/start/${name}.webp`)}" alt="${esc(alt)}" width="${w}" height="${h}"${eager ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async">`;
 
 /** Abschluss jeder Seite: Erstgespräch und Kontaktwege. */
@@ -183,96 +213,6 @@ export async function startSeite(): Promise<string> {
   ${abschnitt({ id: 'agentur-titel', anker: 'agentur', cls: 'abschnitt--kalk', rubrik: 'Agentur', titel: 'Seit 2015 in Nordhessen',
     einleitung: 'thinkfox marketing ist eine Werbeagentur mit Sitz in Edertal. Strategie, Gestaltung, Webentwicklung und Produktion liegen im eigenen Team.',
     inhalt: '' })}
-
-  ${KONTAKT}`;
-}
-
-// ------------------------------------------------------------------ Leistungsseite „Websites und SEO“
-
-const web = (datei: string, alt: string, sizes = '480px', eager = false) => wpImg(`/wp-content/uploads/${datei}`, { size: 'full', alt, cls: '', sizes, ...(eager ? { fetchpriority: 'high' as const } : {}) });
-
-export function websitesSeite(): string {
-  return `<section class="t1 t1--unterseite" aria-labelledby="titel">
-    <div class="huelle">
-      <nav aria-label="Brotkrumen"><ol class="pfad" role="list"><li><a href="/">Start</a></li><li><a href="/#leistungen">Leistungen</a></li><li><span aria-current="page">Websites und SEO</span></li></ol></nav>
-      <div class="raster">
-        <h1 id="titel">Websites, mit denen mittel&shy;ständische Unternehmen gefunden werden.</h1>
-        <div class="t1__unten">
-          <p class="t1__text">Wir konzipieren, gestalten und entwickeln Unternehmenswebsites. Sie sind so aufgebaut, dass Google und KI-Suchen ihre Inhalte erfassen und Besucher schnell zur Anfrage gelangen.</p>
-          <div class="knoepfe">${knopf('Erstgespräch vereinbaren', TERMIN)}${knopf('Preise ansehen', '#preise', 'rahmen')}</div>
-        </div>
-      </div>
-      <figure class="t1__bild">${web('2025/02/Website-vierbeiner-reha-zentrum-bad-wildungen.jpg', 'Website des Vierbeiner Reha-Zentrums auf mehreren Bildschirmen', '(min-width: 960px) 75vw, 100vw', true)}<figcaption class="bildtext">Website für das Vierbeiner Reha-Zentrum, Bad Wildungen</figcaption></figure>
-    </div>
-  </section>
-
-  ${abschnitt({ id: 'lage-titel', rubrik: 'Ausgangslage', titel: 'Typische Schwachstellen bestehender Websites',
-    inhalt: drei([
-      ['Geringe Auffindbarkeit', 'Das Unternehmen erscheint bei relevanten Suchanfragen nicht oder erst hinter dem Wettbewerb.'],
-      ['Unklare Nutzerführung', 'Besucher finden Leistungen, Ansprechpartner und Kontaktwege nicht schnell genug.'],
-      ['Aufwendige Pflege', 'Inhalte lassen sich nicht selbst aktualisieren. Die Website veraltet.'],
-    ]) })}
-
-  <section class="t3 t3--rechts" aria-labelledby="loesung-titel">
-    <div class="huelle raster">
-      <div class="t3__text sp-5" style="order:1">
-        <p class="label">Lösung</p>
-        <h2 id="loesung-titel" class="h2--klein">Leistungsumfang</h2>
-        <ul class="zeilen zeilen--eng" role="list">
-          <li class="zeile"><h3>Konzeption</h3><p>Ziele, Zielgruppen und Seitenstruktur.</p></li>
-          <li class="zeile"><h3>Webdesign</h3><p>Gestaltung im Erscheinungsbild Ihres Unternehmens, für alle Bildschirmgrößen.</p></li>
-          <li class="zeile"><h3>Technische Umsetzung</h3><p>Entwicklung mit WordPress, sodass Sie Inhalte selbst pflegen können.</p></li>
-          <li class="zeile"><h3>Suchmaschinenoptimierung</h3><p>Struktur und Inhalte für Google (SEO) und KI-Suchen (GEO).</p></li>
-          <li class="zeile"><h3>Barrierefreiheit</h3><p>Wir berücksichtigen sie von Beginn an. Unsere eigene Website erfüllt die WCAG 2.2 AA.</p></li>
-        </ul>
-      </div>
-      <figure class="t3__bild sp-7r" style="order:2">${web('2026/01/Stadt_waldeck_karriere.jpg', 'Karriereseite der Stadt Waldeck auf Tablets', '(min-width: 960px) 58vw, 100vw')}<figcaption class="bildtext">Karriereseite der Nationalparkstadt Waldeck</figcaption></figure>
-    </div>
-  </section>
-
-  ${abschnitt({ id: 'ergebnis-titel', rubrik: 'Ergebnis', titel: 'Was Ihre neue Website leistet',
-    inhalt: `${drei([
-      ['Auffindbar', 'Suchmaschinen und KI-Assistenten erfassen Ihre Leistungen und zeigen sie bei passenden Suchanfragen an.'],
-      ['Verständlich', 'Besucher erkennen, was Sie anbieten, und finden den Weg zur Anfrage oder Bewerbung.'],
-      ['Selbst pflegbar', 'Ihr Team aktualisiert Texte, Bilder und Stellenangebote eigenständig.'],
-    ])}
-        <h3 class="unter">Beispiele aus Projekten</h3>
-        <ul class="leistungsliste" role="list" style="margin-top:16px"><li><b>Vierbeiner Reha-Zentrum</b><br>Seminare und Kurse werden über die Website gebucht.</li><li><b>Wirtschaftsförderung Waldeck-Frankenberg</b><br>Verzeichnis freier Gewerbeflächen und Objekte.</li><li><b>Kliniken der Deutschen Rentenversicherung</b><br>Jede Klinik pflegt ihre Stellenangebote selbst.</li></ul>` })}
-
-  ${abschnitt({ id: 'ablauf-titel', cls: 'abschnitt--linie', rubrik: 'Vorgehen', titel: 'Ablauf eines Website-Projekts',
-    inhalt: `<ol class="ablauf">
-          <li><b>Erstgespräch und Analyse</b><span>Ziele, Zielgruppen und Bestandsaufnahme der bisherigen Website.</span></li>
-          <li><b>Konzept und Gestaltung</b><span>Seitenstruktur, Inhalte und Design zur Abstimmung.</span></li>
-          <li><b>Umsetzung</b><span>Technische Entwicklung, Texte, Bilder und Suchmaschinenoptimierung.</span></li>
-          <li><b>Veröffentlichung und Betreuung</b><span>Livegang, Einweisung Ihres Teams, auf Wunsch Wartung und Weiterentwicklung.</span></li>
-        </ol>` })}
-
-  <section class="t4" aria-labelledby="ref-titel">
-    <div class="huelle raster">
-      <p class="label sp-label">Referenzen</p>
-      <div class="sp-inhalt"><h2 id="ref-titel">Websites für unsere Kunden</h2></div>
-    </div>
-    ${bogen('Referenzen, seitlich scrollbar', [
-      { bild: web('2025/02/Website-vierbeiner-reha-zentrum-bad-wildungen.jpg', 'Website des Vierbeiner Reha-Zentrums'), hoehe: 340, kunde: 'Vierbeiner Reha-Zentrum', art: 'Website mit Kursbuchung', href: '/website-vierbeiner-reha-zentrum/' },
-      { bild: web('2025/10/website_wfg_waldeck_frankenberg-1.jpg', 'Website der Wirtschaftsförderung Waldeck-Frankenberg'), hoehe: 380, kunde: 'Wirtschaftsförderung Waldeck-Frankenberg', art: 'Website-Relaunch', href: '/website-relaunch-wirtschaftsfoerderung-waldeck-frankenberg/' },
-      { bild: web('2025/09/wachenfeld_website-2.jpg', 'Website von Wachenfeld Bau'), hoehe: 300, kunde: 'Wachenfeld Bau', art: 'Website-Redesign', href: '/website-re-design-fuer-wachenfeld-bau/' },
-      { bild: web('2025/11/website_relaunch_kkd_essen.jpg', 'Website der KKD GmbH'), hoehe: 360, kunde: 'KKD GmbH, Essen', art: 'Website-Relaunch', href: '/website-relaunch-fuer-kkd-gmbh-essen/' },
-    ])}
-  </section>
-
-  ${abschnitt({ id: 'preis-titel', anker: 'preise', rubrik: 'Preise', titel: 'Kosten einer Website',
-    inhalt: `<div class="preise">
-          ${preis('OnePager', 'Kompakte Website auf einer Seite', 'ab ca. 2.200 €')}
-          ${preis('Unternehmenswebsite', 'Mehrere Seiten, eigenständig pflegbar', 'ab ca. 5.500 €')}
-        </div>
-        <p class="fussnote">Alle Preise zzgl. MwSt. Wovon die Kosten abhängen, erläutert der Ratgeber <a href="/was-kostet-eine-website/">Was kostet eine Website?</a></p>` })}
-
-  ${abschnitt({ id: 'faq-titel', cls: 'abschnitt--kalk', rubrik: 'Fragen', titel: 'Häufige Fragen',
-    inhalt: `<div class="faq">
-          <details class="tf-faq__eintrag"><summary class="tf-faq__frage">Mit welchem System arbeiten Sie?</summary><p>Wir arbeiten vorrangig mit dem Content-Management-System WordPress.</p></details>
-          <details class="tf-faq__eintrag"><summary class="tf-faq__frage">Können wir Inhalte selbst pflegen?</summary><p>Ja. Ihr Team erhält eine Einweisung und aktualisiert Texte, Bilder und Stellenangebote eigenständig.</p></details>
-          <details class="tf-faq__eintrag"><summary class="tf-faq__frage">Ist die Website barrierefrei?</summary><p>Barrierefreiheit berücksichtigen wir von Beginn an. Unsere eigene Website erfüllt die WCAG 2.2 AA und wird bei jeder Änderung automatisch geprüft.</p></details>
-        </div>` })}
 
   ${KONTAKT}`;
 }
