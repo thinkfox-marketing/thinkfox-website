@@ -1,62 +1,166 @@
-/* Startseite (Relaunch, src/lib/startseite.ts) – ergänzt beitrag.css + branchen.css, mobile-first.
-   Typografie statt Deko: Abschnitte über Hintergrundwechsel (Weiß / Hellblau / Hell-Lila), Textblöcke mit Haarlinie. */
+/* Startseite (Relaunch, src/lib/startseite.ts) – ergänzt beitrag.css, mobile-first.
+   Muster großer Produktseiten (Entscheidung 14.11.2026): große Typografie mit wenig Text je Abschnitt, Bilder über die
+   volle Breite, Wechsel Hell/Weiß/Nachtlila, Highlight-Leiste, Bento-Kacheln mit 28 px Rundung, Buttons mit 10 px Ecken,
+   dezente Einblendungen (src/scripts/startseite.js, nur mit JavaScript und ohne „Bewegung reduzieren“). */
+
+.tf-start2 {
+  --tf-nacht: #1d1b33;
+  --tf-nacht-text: #cfcbea;
+  --tf-akzent-dunkel: #b3abff;
+  --tf-kachel: #f4f3fb;
+  --tf-rund: 28px;
+  color: #1d1b33;
+}
+.tf-start2 .tf-huelle { max-width: 1240px; }
 
 /* --- Kopf mit Showreel ------------------------------------------------------------------------- */
 .tf-start-kopf {
   --tf-kopfzeile: 83px; /* Höhe der Kopfzeile (Elementor): Video läuft dahinter weiter */
   position: relative; isolation: isolate; overflow: hidden;
-  display: flex; align-items: flex-end;
-  margin-top: calc(-1 * var(--tf-kopfzeile)); padding: calc(var(--tf-kopfzeile) + 56px) 0 48px; background: #1d1b33; color: #fff;
+  display: flex; align-items: center; min-height: min(92svh, 900px);
+  margin-top: calc(-1 * var(--tf-kopfzeile)); padding: calc(var(--tf-kopfzeile) + 48px) 0 64px;
+  background: var(--tf-nacht); color: #fff; text-align: center;
 }
-/* Kopfzeile über dem Video statt auf weißem Streifen */
 .tf-startseite .elementor-location-header { position: relative; z-index: 20; }
 .tf-startseite .elementor-location-header > .elementor-element { background: transparent; }
 .tf-start-kopf .elementor-background-video-container { position: absolute; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
 .tf-start-kopf .elementor-background-video-hosted { display: block; width: 100%; height: 100%; object-fit: cover; }
-/* Abdunklung für Lesbarkeit (Kontrast auch bei hellen Filmbildern) */
-.tf-start-kopf::after {
-  content: ""; position: absolute; inset: 0; z-index: -1;
-  background: rgb(29 27 51 / 0.72);
+.tf-start-kopf::after { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse at center, rgb(29 27 51 / 0.66) 0, rgb(29 27 51 / 0.8) 100%); }
+.tf-start-kopf__inhalt { position: relative; display: flex; flex-direction: column; align-items: center; }
+.tf-start-kopf__marke { margin: 0 0 1rem; font-size: clamp(1.0625rem, 1.6vw, 1.3125rem); font-weight: 600; color: var(--tf-akzent-dunkel); }
+.tf-start2 .tf-start-kopf__titel {
+  max-width: 14ch; margin: 0 0 1.25rem; font-size: clamp(2.625rem, 8vw, 6.25rem); font-weight: 700;
+  line-height: 1.02; letter-spacing: -0.03em; color: #fff; text-wrap: balance;
 }
-.tf-start-kopf__inhalt { position: relative; }
-.tf-start .tf-start-kopf .tf-kopf__marke { color: #d9d5ff; }
-.tf-start .tf-start-kopf .tf-kopf__titel { max-width: 15ch; color: #fff; }
-.tf-start .tf-start-kopf .tf-kopf__teaser { max-width: 56ch; color: #fff; }
-.tf-start .tf-start-kopf a:focus-visible { outline-color: #fff; }
+.tf-start-kopf__teaser { max-width: 40ch; margin: 0 0 2.25rem; font-size: clamp(1.125rem, 2vw, 1.5rem); line-height: 1.45; color: #fff; }
+.tf-start-kopf__knoepfe { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 0; }
+.tf-start2 .tf-start-kopf a:focus-visible, .tf-start2 .tf-s--dunkel a:focus-visible { outline-color: #fff; }
 .tf-start-kopf button.tf-video-toggle { top: auto; right: 20px; bottom: 20px; }
 
-/* --- Abschnitte -------------------------------------------------------------------------------- */
-.tf-start .tf-huelle { max-width: 1180px; }
-.tf-start__abschnitt, .tf-start__ueber, .tf-start__bewertungen { padding-block: 3.5rem; }
-.tf-start__zielgruppen, .tf-start__ueber, .tf-start .tf-start__ratgeber { background: var(--tf-hell); }
-.tf-start .tf-weitere { padding-block: 3.5rem; }
-.tf-start .tf-faq { margin-block: 3.5rem; }
-.tf-start .tf-anfrage { margin-top: 0; }
+/* --- Abschnitte ------------------------------------------------------------------------------- */
+.tf-s { padding-block: clamp(4rem, 9vw, 8rem); }
+.tf-s--hell { background: #f5f5fa; }
+.tf-s--dunkel { background: var(--tf-nacht); color: #fff; }
+.tf-s-kopf { max-width: 900px; margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+.tf-s-dach { margin: 0 0 0.75rem; font-size: clamp(1.0625rem, 1.4vw, 1.25rem); font-weight: 600; color: var(--tf-lila); }
+.tf-s--dunkel .tf-s-dach { color: var(--tf-akzent-dunkel); }
+.tf-start2 .tf-s-titel {
+  margin: 0; font-size: clamp(2.125rem, 5.4vw, 4.25rem); font-weight: 700; line-height: 1.05;
+  letter-spacing: -0.025em; color: inherit; text-wrap: balance;
+}
+.tf-s-einleitung { max-width: 54ch; margin: 1.25rem 0 0; font-size: clamp(1.125rem, 1.7vw, 1.3125rem); line-height: 1.5; color: #55536a; }
+.tf-s--dunkel .tf-s-einleitung { color: var(--tf-nacht-text); }
+.tf-start2 .tf-s-link { font-weight: 600; color: var(--tf-lila-dunkel); text-decoration: none; }
+.tf-start2 .tf-s-link:hover { text-decoration: underline; text-underline-offset: 0.18em; }
+.tf-start2 .tf-s--dunkel .tf-s-link { color: var(--tf-akzent-dunkel); }
 
-/* Anliegen: vier Blöcke als 2 × 2 statt 3 + 1 */
-@media (min-width: 1024px) { .tf-start__anliegen .tf-aufgaben { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 64px; } }
+/* Statement */
+.tf-statement { padding-block: clamp(4.5rem, 11vw, 9rem); }
+.tf-start2 .tf-statement__text {
+  max-width: 22ch; margin: 0 auto; text-align: center; font-size: clamp(2rem, 5.6vw, 4.5rem); font-weight: 700;
+  line-height: 1.08; letter-spacing: -0.025em; color: #1d1b33; text-wrap: balance;
+}
+.tf-statement__text span { color: var(--tf-lila); }
 
-/* Fakten: große Zeile + Erläuterung, Haarlinie oben */
-.tf-fakten { display: grid; gap: 28px 40px; margin: 0 0 1.75rem; padding: 0; }
-.tf-fakten div { padding-top: 16px; border-top: 1px solid var(--tf-lila); }
-.tf-fakten dt { margin: 0 0 0.35rem; font-size: clamp(1.375rem, 2.6vw, 1.75rem); font-weight: 700; line-height: 1.15; color: var(--tf-lila); }
-.tf-fakten dd { margin: 0; }
-@media (min-width: 720px) { .tf-fakten { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 1024px) { .tf-fakten { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+/* --- Highlight-Leiste (Referenzen) ----------------------------------------------------------------- */
+.tf-leiste__band {
+  display: flex; gap: 20px; margin: 0; padding: 0 max(20px, calc((100vw - 1240px) / 2 + 32px)) 8px; list-style: none;
+  overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: max(20px, calc((100vw - 1240px) / 2 + 32px));
+  scrollbar-width: none;
+}
+.tf-leiste__band::-webkit-scrollbar { display: none; }
+.tf-leiste__band:focus-visible { outline: 3px solid var(--tf-lila-dunkel); outline-offset: -3px; }
+.tf-leiste__eintrag { flex: 0 0 min(82vw, 760px); scroll-snap-align: start; }
+.tf-start2 .tf-leiste__link { display: block; color: inherit; text-decoration: none; }
+.tf-leiste__bild { display: block; overflow: hidden; border-radius: var(--tf-rund); background: #e7e5f4; }
+.tf-leiste__bild img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; transition: transform 0.6s ease; }
+.tf-leiste__link:hover .tf-leiste__bild img { transform: scale(1.03); }
+.tf-leiste__kunde { display: block; margin: 1.1rem 0 0.25rem; font-size: 0.9375rem; font-weight: 600; color: var(--tf-lila-dunkel); }
+.tf-leiste__titel { display: block; max-width: 34ch; font-size: clamp(1.25rem, 2vw, 1.625rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+.tf-leiste__link:hover .tf-leiste__titel { text-decoration: underline; text-underline-offset: 0.15em; }
+.tf-leiste__steuerung { display: flex; justify-content: flex-end; gap: 12px; margin-top: 1.75rem; }
+.tf-leiste__steuerung[hidden] { display: none; }
+.tf-start2 button.tf-leiste__knopf {
+  display: grid; place-items: center; width: 48px; height: 48px; padding: 0; border: 0; border-radius: 50%;
+  background: #e4e2f3; color: #1d1b33; cursor: pointer; transition: background-color 0.2s;
+}
+.tf-start2 button.tf-leiste__knopf:hover { background: #d6d3ee; }
+.tf-start2 button.tf-leiste__knopf:disabled { opacity: 0.4; cursor: default; }
+.tf-start2 button.tf-leiste__knopf:focus-visible { outline: 3px solid var(--tf-lila-dunkel); outline-offset: 3px; }
+.tf-leiste__knopf svg { width: 18px; height: 18px; }
 
-/* Lange Wörter in Kacheltiteln (z. B. „Unternehmenskommunikation“) mit Trennstrich statt hartem Umbruch */
-.tf-start .tf-karte__titel { hyphens: auto; }
+/* --- Bento (Anliegen) ------------------------------------------------------------------------------ */
+.tf-bento { display: grid; gap: 20px; margin: 0; padding: 0; list-style: none; }
+.tf-bento__kachel { display: flex; flex-direction: column; overflow: hidden; border-radius: var(--tf-rund); background: var(--tf-kachel); }
+.tf-bento__text { padding: clamp(1.75rem, 3vw, 2.75rem) clamp(1.5rem, 3vw, 2.75rem) 1.5rem; }
+.tf-start2 .tf-bento__titel { margin: 0 0 0.75rem; font-size: clamp(1.625rem, 3vw, 2.375rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #1d1b33; }
+.tf-bento__text p { margin: 0 0 0.9rem; max-width: 46ch; color: #3d3b52; }
+.tf-bento__links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+.tf-bento__bild { margin-top: auto; }
+.tf-bento__bild img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.tf-bento__kachel--1 .tf-bento__bild img { object-position: center 30%; }
+@media (min-width: 900px) {
+  .tf-bento { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .tf-bento__kachel--1 { grid-column: span 7; }
+  .tf-bento__kachel--2 { grid-column: span 5; }
+  .tf-bento__kachel--3 { grid-column: span 5; }
+  .tf-bento__kachel--4 { grid-column: span 7; }
+  .tf-bento__kachel--1 .tf-bento__bild img, .tf-bento__kachel--4 .tf-bento__bild img { aspect-ratio: 16 / 9; }
+  .tf-bento__kachel--2 .tf-bento__bild img, .tf-bento__kachel--3 .tf-bento__bild img { aspect-ratio: 4 / 3; }
+}
 
-/* Handy: vier statt acht Referenzen (sonst rund 2.400 px Scrollstrecke) */
-@media (max-width: 719px) { .tf-start__referenzen .tf-karte:nth-child(n+5) { display: none; } }
+/* --- Produktion (dunkel) ---------------------------------------------------------------------------- */
+.tf-produktion__bild { margin: 0 0 clamp(2.5rem, 5vw, 4rem); overflow: hidden; border-radius: var(--tf-rund); }
+.tf-produktion__bild img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.tf-kennzahlen { display: grid; gap: 2rem 3rem; margin: 0 0 2.5rem; padding: 0; }
+.tf-kennzahlen dt { margin: 0 0 0.4rem; font-size: clamp(1.5rem, 2.4vw, 2.125rem); hyphens: manual; overflow-wrap: break-word; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; color: #fff; }
+.tf-kennzahlen dd { margin: 0; color: var(--tf-nacht-text); }
+.tf-produktion__links { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; margin: 0; }
+@media (min-width: 720px) { .tf-kennzahlen { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .tf-kennzahlen { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
-/* Ratgeber: drei Kacheln */
-@media (min-width: 1024px) { .tf-start .tf-start__ratgeber .tf-karten { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* --- Zielgruppen: farbige Kacheln ------------------------------------------------------------------------ */
+.tf-zielgruppen__raster { display: grid; gap: 20px; margin: 0; padding: 0; list-style: none; }
+.tf-zielgruppe { display: flex; flex-direction: column; padding: clamp(1.75rem, 3vw, 2.5rem); border-radius: var(--tf-rund); background: var(--tf-kachel); }
+.tf-zielgruppe--1 { background: var(--tf-lila); color: #fff; }
+.tf-zielgruppe--2 { background: var(--tf-nacht); color: #fff; }
+.tf-start2 .tf-zielgruppe__titel { margin: 0 0 0.9rem; font-size: clamp(1.625rem, 2.6vw, 2.125rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: inherit; }
+.tf-zielgruppe p { margin: 0 0 1rem; }
+.tf-zielgruppe__link { margin-top: auto !important; }
+.tf-start2 .tf-zielgruppe--1 .tf-s-link, .tf-start2 .tf-zielgruppe--2 .tf-s-link { color: #fff; text-decoration: underline; text-underline-offset: 0.18em; }
+.tf-start2 .tf-zielgruppe--1 a:focus-visible, .tf-start2 .tf-zielgruppe--2 a:focus-visible { outline-color: #fff; }
+@media (min-width: 900px) { .tf-zielgruppen__raster { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* --- Einstieg: Vergleich nebeneinander ----------------------------------------------------------------- */
+.tf-vergleich { display: grid; gap: 2.5rem; margin: 0; padding: 0; list-style: none; }
+.tf-vergleich__spalte { padding-top: 1.5rem; border-top: 1px solid #d6d4e6; }
+.tf-start2 .tf-vergleich__titel { margin: 0 0 0.75rem; font-size: clamp(1.5rem, 2.4vw, 2rem); font-weight: 700; letter-spacing: -0.02em; color: #1d1b33; }
+.tf-vergleich__spalte p { margin: 0 0 1rem; color: #3d3b52; }
+@media (min-width: 900px) { .tf-vergleich { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3rem; } }
+
+/* --- FAQ, Ratgeber, Bewertungen ------------------------------------------------------------------------ */
+.tf-fragen .tf-faq { margin: 0; }
+.tf-start2 .tf-fragen .tf-faq h2 { font-size: clamp(2.125rem, 5vw, 3.5rem); letter-spacing: -0.025em; color: #1d1b33; margin-bottom: 1.5rem; }
+.tf-start2 .tf-ratgeber { padding-block: clamp(4rem, 9vw, 8rem); background: #fff; }
+.tf-start2 .tf-ratgeber h2 { font-size: clamp(2.125rem, 5vw, 3.5rem); letter-spacing: -0.025em; color: #1d1b33; }
+.tf-start2 .tf-ratgeber .tf-karte__link { border-radius: var(--tf-rund); box-shadow: none; background: var(--tf-kachel); }
+.tf-start2 .tf-karte__titel { hyphens: auto; }
+@media (min-width: 1024px) { .tf-start2 .tf-ratgeber .tf-karten { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* --- Abschluss ------------------------------------------------------------------------------------------- */
+.tf-schluss { text-align: center; }
+.tf-schluss .tf-huelle { display: flex; flex-direction: column; align-items: center; }
+.tf-start2 .tf-schluss__titel { max-width: 18ch; margin: 0; font-size: clamp(2.25rem, 6vw, 4.75rem); font-weight: 700; line-height: 1.04; letter-spacing: -0.03em; color: #fff; text-wrap: balance; }
+.tf-schluss .tf-s-einleitung { margin: 1.25rem auto 2.25rem; }
+
+/* --- Dezente Einblendung beim Scrollen (nur mit JavaScript, ohne „Bewegung reduzieren“) ------------------- */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .tf-start2.tf-bewegt .tf-s-ein { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .tf-start2.tf-bewegt .tf-s-ein.ist-sichtbar { opacity: 1; transform: none; }
+}
 
 @media (min-width: 768px) {
-  .tf-start-kopf { --tf-kopfzeile: 85px; min-height: min(86vh, 820px); padding-bottom: 72px; }
-  .tf-start-kopf::after { background: linear-gradient(90deg, rgb(29 27 51 / 0.82) 0, rgb(29 27 51 / 0.7) 55%, rgb(29 27 51 / 0.45) 100%); }
+  .tf-start-kopf { --tf-kopfzeile: 85px; }
   .tf-start-kopf button.tf-video-toggle { right: 32px; bottom: 32px; }
-  .tf-start__abschnitt, .tf-start__ueber, .tf-start__bewertungen, .tf-start .tf-weitere { padding-block: 4.5rem; }
 }
 @media (min-width: 1200px) { .tf-start-kopf { --tf-kopfzeile: 112px; } }

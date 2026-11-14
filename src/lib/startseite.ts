@@ -2,8 +2,9 @@
 // (public/css/startseite.css, ergänzt beitrag.css + branchen.css). Positionierung breit (externe Marketingabteilung
 // aus Nordhessen), Schwerpunkt-Branchen als zweite Ebene. Tonalität: CLAUDE.md → Regeln → Tonalität.
 // Inhalte nur aus belegten Projektfakten; Kunden ohne Freigabe werden nicht namentlich genannt.
-import { allPosts, type Post } from './wp';
-import { anfrage, esc, faqHtml, knopf, projektKarten } from './beitrag';
+import { allPosts, categoryName, type Post } from './wp';
+import { wpImg } from './media';
+import { esc, faqHtml, knopf, projektKarten } from './beitrag';
 import { videoHintergrund } from './hero-video';
 import legacyStart from '../legacy/pages/index.json';
 
@@ -74,15 +75,23 @@ const ZIELGRUPPEN: { titel: string; einleitung: string; bloecke: Block[] } = {
   ],
 };
 
+/** Großes Statement unter dem Kopf (Kernaussage der Positionierung, Hervorhebung in Lila). */
+const STATEMENT = 'Wir planen, gestalten und produzieren Kommunikation für Organisationen, die <span>Vertrauen gewinnen</span> müssen.';
+
+const PRODUKTION = {
+  titel: 'Film und Foto entstehen bei uns im Haus.',
+  text: 'Imagefilme, Recruitingfilme, Social-Media-Clips, Fotos von Mitarbeitenden und Räumen sowie 360°-Rundgänge: gedreht in unserem Studio in Edertal oder bei Ihnen vor Ort.',
+};
+
 const REFERENZEN = [
   'karriereseiten-relaunch-fuer-deutsche-rentenversicherung-kliniken',
   'karriereseite-stadt-waldeck',
   'vitos-haina-unternehmenskommunikation',
-  'recruitmentfilm-dwaz-wirtschaftskanzlei',
   'imagefilm-continental-korbach-3d-druck',
-  'website-vierbeiner-reha-zentrum',
   'kampagne-ewf-ein-leben-lang',
+  'korbach-becher-machen',
   'website-re-design-fuer-wachenfeld-bau',
+  'website-relaunch-fuer-kkd-gmbh-essen',
 ];
 
 const UEBER = {
@@ -91,7 +100,7 @@ const UEBER = {
   fakten: [
     { wert: 'Seit 2015', text: 'Werbeagentur mit Sitz in Edertal' },
     { wert: 'Eigenes Studio', text: 'für Film- und Fotoproduktion in Edertal' },
-    { wert: 'Ein Ansprechpartner', text: 'für Strategie, Gestaltung und Produktion' },
+    { wert: 'Ein Ansprech\u00adpartner', text: 'für Strategie, Gestaltung und Produktion' },
     { wert: 'WCAG 2.2 AA', text: 'Barrierefreiheit unserer Website, bei jeder Änderung automatisch geprüft' },
   ],
   studio: { text: 'Unser Studio vermieten wir auch für eigene Produktionen', href: STUDIO },
@@ -120,21 +129,66 @@ const RATGEBER = ['was-kostet-eine-website', 'was-kostet-ein-imagefilm', 'employ
 /** Neue Meta-Beschreibung; <title> bleibt (rankt für „Werbeagentur Nordhessen/Kassel“). */
 export const BESCHREIBUNG = 'Werbeagentur aus Nordhessen nahe Kassel: externe Marketingabteilung für Mittelstand, Gesundheitswesen und Kommunen. Websites, Social Media, Film und Foto.';
 
-const bloeckeHtml = (bloecke: Block[]) => bloecke.map((b) => `<li class="tf-aufgabe">
-        <h3 class="tf-aufgabe__titel">${esc(b.titel)}</h3>
-        <p>${esc(b.text)}</p>
-        ${b.links.map((l) => `<p class="tf-aufgabe__link"><a href="${esc(l.href)}">${esc(l.text)}</a></p>`).join('')}
-      </li>`).join('\n      ');
+// --- Gestaltung nach dem Muster großer Produktseiten (Entscheidung 14.11.2026): große Typografie, Bilder über die volle
+// Breite, Highlight-Leiste, Bento-Kacheln mit großen Rundungen, Buttons mit 10 px Ecken, dezente Einblendungen.
 
-const abschnitt = (id: string, titel: string, einleitung: string, bloecke: Block[], cls = '') => `<section class="tf-start__abschnitt${cls}" aria-labelledby="${id}">
+/** Bilder der Bento-Kacheln (Anliegen) – eigene Produktionen bzw. Projektbilder. */
+const ANLIEGEN_BILDER: Record<string, { bild: string; alt: string }> = {
+  'Fachkräfte gewinnen': { bild: '/wp-content/uploads/2025/10/DWAZ_Wirtschaftskanzlei_recruitmentfilm.jpg', alt: 'Szene aus dem Recruitingfilm für die DWAZ Wirtschaftskanzlei' },
+  'Sichtbar werden und Kunden gewinnen': { bild: '/wp-content/uploads/2025/02/Website-vierbeiner-reha-zentrum-bad-wildungen.jpg', alt: 'Website des Vierbeiner Reha-Zentrums auf verschiedenen Geräten' },
+  'Marke und Vertrauen stärken': { bild: '/wp-content/uploads/2022/05/Daniel_Koch_Branding.jpg', alt: 'Erscheinungsbild der Daniel Koch Jugendhilfe auf Website und Ausweis' },
+  'Marketing auslagern': { bild: '/wp-content/uploads/2026/01/thinkfox_studio_header_03.jpg', alt: 'Beratungsgespräch bei thinkfox' },
+};
+const PRODUKTION_BILD = { bild: '/wp-content/uploads/2025/10/thinkfox_studio_header_12.jpg', alt: 'Kamera und Leuchten im thinkfox Studio in Edertal' };
+
+const PFEIL_KLEIN = '<span aria-hidden="true">&nbsp;›</span>';
+const mehr = (l: Link) => `<a class="tf-s-link" href="${esc(l.href)}">${esc(l.text)}${PFEIL_KLEIN}</a>`;
+/** Abschnittskopf: Dachzeile, große Überschrift, optional Einleitung */
+const kopf = (dach: string, id: string, titel: string, text = '') => `<header class="tf-s-kopf tf-s-ein">
+        <p class="tf-s-dach">${esc(dach)}</p>
+        <h2 id="${id}" class="tf-s-titel">${esc(titel)}</h2>
+        ${text ? `<p class="tf-s-einleitung">${esc(text)}</p>` : ''}
+      </header>`;
+
+function bento(): string {
+  return ANLIEGEN.bloecke.map((b, i) => {
+    const bild = ANLIEGEN_BILDER[b.titel];
+    return `<li class="tf-bento__kachel tf-bento__kachel--${i + 1} tf-s-ein">
+          <div class="tf-bento__text">
+            <h3 class="tf-bento__titel">${esc(b.titel)}</h3>
+            <p>${esc(b.text)}</p>
+            <p class="tf-bento__links">${b.links.map(mehr).join(' ')}</p>
+          </div>
+          ${bild ? `<div class="tf-bento__bild">${wpImg(bild.bild, { size: 'full', alt: bild.alt, cls: '', sizes: '(min-width: 1024px) 40vw, 90vw' })}</div>` : ''}
+        </li>`;
+  }).join('\n        ');
+}
+
+function highlights(projekte: Post[]): string {
+  return `<section id="projekte" class="tf-s tf-s--hell tf-highlights" aria-labelledby="tf-referenzen-titel">
     <div class="tf-huelle">
-      <h2 id="${id}">${esc(titel)}</h2>
-      <p class="tf-branche__einleitung">${esc(einleitung)}</p>
-      <ul class="tf-aufgaben" role="list">
-      ${bloeckeHtml(bloecke)}
+      ${kopf('Referenzen', 'tf-referenzen-titel', 'Projekte für Kliniken, Kommunen und Mittelstand')}
+    </div>
+    <div class="tf-leiste" data-tf-leiste>
+      <ul class="tf-leiste__band" role="list" tabindex="0" aria-label="Referenzen, seitlich wischen oder mit den Pfeiltasten blättern">
+        ${projekte.map((x) => {
+          const d = x.data as Post['data'] & { kunde?: string };
+          return `<li class="tf-leiste__eintrag">
+          <a class="tf-leiste__link" href="/${x.id}/">
+            <span class="tf-leiste__bild" aria-hidden="true">${wpImg(d.bild, { size: 'full', alt: d.title, cls: '', sizes: '(min-width: 1024px) 760px, 82vw' })}</span>
+            <span class="tf-leiste__kunde">${esc(d.kunde ?? categoryName(d.kategorien[0] ?? ''))}</span>
+            <span class="tf-leiste__titel">${esc(d.title)}</span>
+          </a>
+        </li>`;
+        }).join('\n        ')}
       </ul>
+      <div class="tf-leiste__steuerung tf-huelle" hidden>
+        <button type="button" class="tf-leiste__knopf" data-richtung="-1" aria-label="Vorherige Referenz"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="tf-leiste__knopf" data-richtung="1" aria-label="Nächste Referenz"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
     </div>
   </section>`;
+}
 
 /** Google-Bewertungen: vorgerendertes Trustindex-Markup aus der bisherigen Startseite (statisch, src/lib/bewertungen.ts). */
 function bewertungen(): string {
@@ -142,10 +196,9 @@ function bewertungen(): string {
   const a = m.indexOf('<pre class="ti-widget">');
   if (a < 0) return '';
   const e = m.indexOf('</pre>', a) + '</pre>'.length;
-  return `<section class="tf-start__bewertungen" aria-labelledby="tf-bewertungen-titel">
+  return `<section class="tf-s tf-s--hell tf-start__bewertungen" aria-labelledby="tf-bewertungen-titel">
     <div class="tf-huelle">
-      <h2 id="tf-bewertungen-titel">Bewertungen unserer Kunden</h2>
-      <p class="tf-branche__einleitung">Was Kundinnen und Kunden in ihren Google-Rezensionen über die Zusammenarbeit mit uns schreiben.</p>
+      ${kopf('Kundenstimmen', 'tf-bewertungen-titel', 'Bewertungen unserer Kunden', 'Was Kundinnen und Kunden in ihren Google-Rezensionen über die Zusammenarbeit mit uns schreiben.')}
       ${m.slice(a, e)}
     </div>
   </section>`;
@@ -159,37 +212,87 @@ export async function startSeite(): Promise<string> {
   const alle = await allPosts();
   const nach = (ids: string[]) => ids.map((id) => alle.find((p) => p.id === id)).filter((p): p is Post => !!p && !!p.data.bild);
   const video = videoHintergrund();
-  return `<div class="tf-beitrag tf-branche tf-start">
+  return `<div class="tf-beitrag tf-start2">
   <header class="tf-start-kopf" ${video.attribute}>
     ${video.html}
-    <div class="tf-huelle tf-huelle--text tf-start-kopf__inhalt">
-      <p class="tf-kopf__marke">${esc(KOPF.marke)}</p>
-      <h1 class="tf-kopf__titel">${KOPF.titel.replace('­', '&shy;')}</h1>
-      <p class="tf-kopf__teaser">${esc(KOPF.teaser)}</p>
-      <p class="tf-branche__knoepfe">${knopf('Erstgespräch vereinbaren', TERMIN)} ${knopf('Projekt anfragen', ANFRAGE, 'rahmen')}</p>
+    <div class="tf-huelle tf-start-kopf__inhalt">
+      <p class="tf-start-kopf__marke">${esc(KOPF.marke)}</p>
+      <h1 class="tf-start-kopf__titel">${KOPF.titel.replace('\u00ad', '&shy;')}</h1>
+      <p class="tf-start-kopf__teaser">${esc(KOPF.teaser)}</p>
+      <p class="tf-start-kopf__knoepfe">${knopf('Erstgespräch vereinbaren', TERMIN)} ${knopf('Projekt anfragen', ANFRAGE, 'rahmen')}</p>
     </div>
   </header>
-  ${abschnitt('tf-anliegen-titel', ANLIEGEN.titel, ANLIEGEN.einleitung, ANLIEGEN.bloecke, ' tf-start__anliegen')}
-  ${abschnitt('tf-zielgruppen-titel', ZIELGRUPPEN.titel, ZIELGRUPPEN.einleitung, ZIELGRUPPEN.bloecke, ' tf-start__zielgruppen')}
-  <div id="projekte" class="tf-start__referenzen">
-  ${projektKarten(nach(REFERENZEN), 'Ausgewählte Referenzen', 'Projekt ansehen', 'tf-referenzen-titel')}
-  </div>
-  <section class="tf-start__ueber" aria-labelledby="tf-ueber-titel">
+
+  <section class="tf-s tf-statement" aria-labelledby="tf-statement-titel">
     <div class="tf-huelle">
-      <h2 id="tf-ueber-titel">${esc(UEBER.titel)}</h2>
-      <p class="tf-branche__einleitung">${esc(UEBER.text)}</p>
-      <dl class="tf-fakten">
-        ${UEBER.fakten.map((f) => `<div><dt>${esc(f.wert)}</dt><dd>${esc(f.text)}</dd></div>`).join('\n        ')}
-      </dl>
-      <p class="tf-aufgabe__link"><a href="${UEBER.studio.href}">${esc(UEBER.studio.text)}</a></p>
+      <h2 id="tf-statement-titel" class="tf-statement__text tf-s-ein">${STATEMENT}</h2>
     </div>
   </section>
+
+  ${highlights(nach(REFERENZEN))}
+
+  <section class="tf-s tf-anliegen" aria-labelledby="tf-anliegen-titel">
+    <div class="tf-huelle">
+      ${kopf('Leistungen', 'tf-anliegen-titel', ANLIEGEN.titel, ANLIEGEN.einleitung)}
+      <ul class="tf-bento" role="list">
+        ${bento()}
+      </ul>
+    </div>
+  </section>
+
+  <section class="tf-s tf-s--dunkel tf-produktion" aria-labelledby="tf-produktion-titel">
+    <div class="tf-huelle">
+      ${kopf('Film & Foto', 'tf-produktion-titel', PRODUKTION.titel, PRODUKTION.text)}
+      <figure class="tf-produktion__bild tf-s-ein">${wpImg(PRODUKTION_BILD.bild, { size: 'full', alt: PRODUKTION_BILD.alt, cls: '', sizes: '(min-width: 1280px) 1180px, 94vw' })}</figure>
+      <dl class="tf-kennzahlen">
+        ${UEBER.fakten.map((f) => `<div class="tf-s-ein"><dt>${esc(f.wert)}</dt><dd>${esc(f.text)}</dd></div>`).join('\n        ')}
+      </dl>
+      <p class="tf-produktion__links">${mehr({ text: 'Film, Foto & Content', href: CONTENT })} ${mehr({ text: UEBER.studio.text, href: UEBER.studio.href })}</p>
+    </div>
+  </section>
+
+  <section class="tf-s tf-zielgruppen" aria-labelledby="tf-zielgruppen-titel">
+    <div class="tf-huelle">
+      ${kopf('Branchen', 'tf-zielgruppen-titel', ZIELGRUPPEN.titel, ZIELGRUPPEN.einleitung)}
+      <ul class="tf-zielgruppen__raster" role="list">
+        ${ZIELGRUPPEN.bloecke.map((b, i) => `<li class="tf-zielgruppe tf-zielgruppe--${i + 1} tf-s-ein">
+          <h3 class="tf-zielgruppe__titel">${esc(b.titel)}</h3>
+          <p>${esc(b.text)}</p>
+          <p class="tf-zielgruppe__link">${b.links.map(mehr).join(' ')}</p>
+        </li>`).join('\n        ')}
+      </ul>
+    </div>
+  </section>
+
   ${bewertungen()}
-  ${abschnitt('tf-einstieg-titel', EINSTIEG.titel, EINSTIEG.text, EINSTIEG.bloecke, ' tf-branche__einstieg')}
-  <div class="tf-huelle tf-huelle--text">
-    ${faqHtml('Häufige Fragen', FRAGEN)}
-  </div>
-  ${projektKarten(nach(RATGEBER), 'Ratgeber', 'Weiterlesen', 'tf-ratgeber-titel').replace('<section class="tf-weitere"', '<section class="tf-weitere tf-start__ratgeber"')}
-  ${anfrage({ titel: 'Sprechen Sie mit uns über Ihr Vorhaben', text: 'In einem ersten Gespräch klären wir, wo Sie stehen und welcher Schritt sich als Nächstes lohnt.', button: 'Erstgespräch vereinbaren', link: TERMIN })}
+
+  <section class="tf-s tf-einstiege2" aria-labelledby="tf-einstieg-titel">
+    <div class="tf-huelle">
+      ${kopf('Einstieg', 'tf-einstieg-titel', EINSTIEG.titel, EINSTIEG.text)}
+      <ul class="tf-vergleich" role="list">
+        ${EINSTIEG.bloecke.map((b) => `<li class="tf-vergleich__spalte tf-s-ein">
+          <h3 class="tf-vergleich__titel">${esc(b.titel)}</h3>
+          <p>${esc(b.text)}</p>
+          <p class="tf-vergleich__link">${b.links.map(mehr).join(' ')}</p>
+        </li>`).join('\n        ')}
+      </ul>
+    </div>
+  </section>
+
+  <section class="tf-s tf-s--hell tf-fragen" aria-label="Häufige Fragen">
+    <div class="tf-huelle tf-huelle--text">
+      ${faqHtml('Häufige Fragen', FRAGEN)}
+    </div>
+  </section>
+
+  ${projektKarten(nach(RATGEBER), 'Ratgeber', 'Weiterlesen', 'tf-ratgeber-titel').replace('<section class="tf-weitere"', '<section class="tf-weitere tf-ratgeber"')}
+
+  <section class="tf-s tf-s--dunkel tf-schluss" aria-labelledby="tf-schluss-titel">
+    <div class="tf-huelle tf-s-ein">
+      <h2 id="tf-schluss-titel" class="tf-schluss__titel">Sprechen Sie mit uns über Ihr Vorhaben.</h2>
+      <p class="tf-s-einleitung">In einem ersten Gespräch klären wir, wo Sie stehen und welcher Schritt sich als Nächstes lohnt.</p>
+      <p class="tf-start-kopf__knoepfe">${knopf('Erstgespräch vereinbaren', TERMIN)} ${knopf('Projekt anfragen', ANFRAGE, 'rahmen')}</p>
+    </div>
+  </section>
 </div>`;
 }
