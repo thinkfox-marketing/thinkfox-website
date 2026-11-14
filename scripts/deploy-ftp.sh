@@ -22,8 +22,9 @@ fi
 # 1. Alle Dateien abgleichen (neu/geändert nach Größe, gelöschte entfernen).
 # 2. Seiten und Konfigurationsdateien immer übertragen (können bei gleicher Größe geändert sein).
 # Nur auf dem Server vorhandene Dateien nie löschen: Konfiguration, Formulardaten/Warteschlangen, /e-zines/ (externe
-# Backlinks, nicht im Repo), /.well-known/ (Zertifikate, Bestätigungsdateien).
-EXCL="-x ^api/config\\.php$ -x ^api/config-github\\.php$ -x ^api/data/ -x ^e-zines/ -x ^\\.well-known/"
+# Backlinks, nicht im Repo), /.well-known/ (Zertifikate, Bestätigungsdateien), /vorschau/ (Entwicklungsbereich, eigener
+# Deploy aus dem Zweig „relaunch“ über scripts/deploy-vorschau.sh).
+EXCL="-x ^api/config\\.php$ -x ^api/config-github\\.php$ -x ^api/data/ -x ^e-zines/ -x ^\\.well-known/ -x ^vorschau/"
 ftp "mirror -R --delete --ignore-time --parallel=8 $EXCL $SRC $TARGET"
 ftp "mirror -R --parallel=8 $EXCL -I *.html -I *.xml -I *.txt -I *.json -I *.yml -I *.php -I .htaccess $SRC $TARGET"
 echo "Übertragen nach $TARGET"
