@@ -1,8 +1,8 @@
 ---
 // Seitenrahmen im Markup der bisherigen WordPress/Elementor-Seite.
+// Kopf- und Fußzeile kommen seit dem Relaunch aus src/lib/chrome.ts (neues Erscheinungsbild).
 import Tracking from '../components/Tracking.astro';
-import header from '../legacy/chrome/header.html?raw';
-import footer from '../legacy/chrome/footer.html?raw';
+import { KOPF, FUSS } from '../lib/chrome';
 import type { ScriptRef, StyleRef } from '../lib/wp';
 import { asset } from '../lib/asset';
 import { ebenenOhneSprung, einbettungen, fussEbenen, telefon, zugaenglich } from '../lib/barrierefreiheit';
@@ -12,7 +12,6 @@ import { cssBundle } from '../lib/css-bundle';
 import { heroBild } from '../lib/hero-bild';
 import { bewertungenStatisch } from '../lib/bewertungen';
 import { strukturierteDaten, organisationAngleichen } from '../lib/geo';
-import { megaMenue } from '../lib/megamenu';
 
 interface Props {
   seo: string;          // <title>, Meta-Tags, JSON-LD
@@ -49,7 +48,7 @@ const tag = (s: ScriptRef) => s.src
 // die Grafiken von s.w.org (WordPress.org) geladen – ohne Einwilligung
 const ohneEmoji = scripts.filter((s) => !/wp-emoji/.test(`${s.id ?? ''} ${s.src ?? ''} ${(s.inline ?? '').slice(0, 300)}`));
 // Font Awesome nur, wenn die Seite fa-Klassen nutzt (alle Symbole sind sonst SVG) – spart 87 KB CSS + Skript im <head>
-const mitFa = /class="[^"]*\bfa[srb]?\b[^"]*\bfa-[a-z]/.test(main + header + footer);
+const mitFa = /class="[^"]*\bfa[srb]?\b[^"]*\bfa-[a-z]/.test(main);
 const ohneFa = (id?: string | null, url?: string | null) => !mitFa && /font-awesome|fontawesome|v4-shims/.test(`${id ?? ''} ${url ?? ''}`);
 // Trustindex-Ladeskript entfällt (Bewertungen statisch, src/lib/bewertungen.ts)
 const skripte = ohneEmoji.filter((s) => !ohneFa(s.id, s.src) && !/trustindex/.test(`${s.id ?? ''} ${s.src ?? ''}`));
@@ -64,7 +63,7 @@ const stile = styles.filter((s) => s.id !== 'sb-elementor-shared-style-css' && s
 
 // Im Build: alle Stylesheets als eine Datei (src/lib/css-bundle.ts). Leere Platzhalter mit den
 // Original-IDs bleiben stehen, weil Elementor nachgeladene Stile davor einfügt („before: #…-css“).
-const bundle = import.meta.env.PROD ? cssBundle(stile, ['/css/ergaenzungen.css', '/css/megamenu.css', ...(einheitlich ? ['/css/einheitlich.css'] : [])]) : null;
+const bundle = import.meta.env.PROD ? cssBundle(stile, ['/css/ergaenzungen.css', ...(einheitlich ? ['/css/einheitlich.css'] : []), '/css/chrome.css']) : null;
 
 // Hero mit Hintergrundvideo ganz oben: Standbild sofort laden (größtes sichtbares Element)
 const ersterHero = main.indexOf('elementor-background-video-container');
@@ -81,6 +80,7 @@ const kachelCss = kachelnSpaet(main);
 // (Poppins nicht: wird fast nirgends gerendert und lädt bei Bedarf selbst)
 const SCHRIFTEN = [
   '/wp-content/uploads/elementor/google-fonts/fonts/outfit-97312486.woff2',
+  '/media/schrift/schibsted-grotesk-latin.woff2',
 ];
 
 // Unternehmensprofil, Leistung, FAQ als JSON-LD (src/lib/geo.ts)
@@ -114,8 +114,8 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
         ? <link rel="stylesheet" id={s.id ?? undefined} href={s.href} media="all" />
         : <Fragment set:html={s.css} />)}
       <link rel="stylesheet" id="tf-ergaenzungen-css" href={asset('/css/ergaenzungen.css')} media="all" />
-      <link rel="stylesheet" id="tf-megamenu-css" href={asset('/css/megamenu.css')} media="all" />
       {einheitlich && <link rel="stylesheet" id="tf-einheitlich-css" href={asset('/css/einheitlich.css')} media="all" />}
+      <link rel="stylesheet" id="tf-chrome-css" href={asset('/css/chrome.css')} media="all" />
     </>
   )}
   {kachelCss && <style id="tf-kacheln-spaet" set:html={kachelCss} />}
@@ -127,9 +127,9 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
 </head>
 <body class={bodyClass}>
   <a class="tf-sprung" href="#content">Zum Inhalt springen</a>
-  {!canvas && <Fragment set:html={ohneBildTitel(bildMasse(telefon(zugaenglich(megaMenue(header)))))} />}
+  {!canvas && <Fragment set:html={KOPF} />}
   {mitMain ? <Fragment set:html={main} /> : <main id="content"><Fragment set:html={main} /></main>}
-  {!canvas && <Fragment set:html={ohneBildTitel(bildMasse(fussEbenen(telefon(footer))))} />}
+  {!canvas && <Fragment set:html={FUSS} />}
   {!canvas && <Fragment set:html={scrollTop} />}
   <script src="../scripts/main.js"></script>
   <Fragment set:html={bodyScripts} />

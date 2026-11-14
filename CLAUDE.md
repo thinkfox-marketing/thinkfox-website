@@ -106,10 +106,28 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   ist ein eigenes Angebot mit eigener Seite (Suchanfragen), aber nicht die Hauptbotschaft.
 - **Studio:** Werkzeug für eigene Produktionen, kein großes Alleinstellungsmerkmal und nicht die Hauptbotschaft. Darf auf der
   Startseite als eigener, ruhiger Abschnitt vorkommen (in der Region haben wenige Agenturen ein eigenes Studio mit Hohlkehle),
-  aber sachlich als Ausstattung beschrieben, nicht als Aufmacher. In der Navigation als „Studio & Vermietung“ unter „Agentur“ (Mega-Menü) und im Handy-Menü,
+  aber sachlich als Ausstattung beschrieben, nicht als Aufmacher. In der Navigation als „Studio & Vermietung“ unter „Agentur“ und im Handy-Menü,
   damit die Vermietung auffindbar ist; kein eigener Punkt der obersten Ebene. Vermietung nur auf Anfrage – die
   Mietstudio-Seite bleibt, zusätzlich verlinkt im Studio-Abschnitt und in der Fußzeile.
 - **Wortmarke:** Der bisherige Schriftzug „thinkfox“ bleibt unverändert.
+
+## Neues Erscheinungsbild (Relaunch, seit 14.11.2026 im Zweig `relaunch`)
+
+- **Grundlagen** (`public/css/chrome.css`, auf allen Seiten): Farben Weiß, Kalk `#efefea`, Tinte `#14161a`, Stein `#64666b`,
+  Akzent Kellerwald `#2b5a43` (Tokens `--tfn-*`); Hausschrift **Schibsted Grotesk** (OFL, lokal in `public/media/schrift/`);
+  Wortmarke = bisheriger Schriftzug als Maske (`public/media/wortmarke.png`, aus dem Logo freigestellt – für den Go-live durch
+  eine Vektordatei ersetzen). Kein Lila, kein Fuchs-Kreis, keine Pillen, Buttons mit 4 px Ecken.
+- **Kopf- und Fußzeile** für alle Seiten: `src/lib/chrome.ts` + `src/scripts/chrome.js` (Aufklapp-Navigation, Handy-Menü).
+  Die Elementor-Kopfzeile samt Mega-Menü (`src/legacy/chrome/*`, `megamenu.*`) ist nur noch Archiv.
+- **Neue Seiten** ohne Elementor: Rahmen `src/layouts/Seite.astro`, Bausteine `public/css/seite.css` (Sektionsbaukasten:
+  Aufmacher versetzt, Bild mit Textinsel, Teilung 7:5, Kontaktbogen, Pause, Mosaik), Inhalte `src/lib/seiten.ts`.
+  Umgesetzt: Startseite, Leistungsseite „Websites und SEO“ (unter der bisherigen Adresse).
+- **Übergang:** Projekte, Blog und Branchenseiten behalten ihr Layout (`beitrag.css`) und sind über Variablen in `chrome.css`
+  umgefärbt. Übrige Elementor-Seiten (Social Media, Film und Foto, Externe Marketingabteilung, Kontakt, Mietstudio, 360°,
+  Bad Wildungen, Blog-Übersicht, Rechtliches) haben nur die neue Kopf- und Fußzeile und sind inhaltlich noch im alten Stand.
+- **Wording:** Sie-Form; Aufbau Ausgangslage → Lösung → Ergebnis; Überschriften benennen den Inhalt (keine Pointen, keine
+  Zweiteiler); Verben wie konzipieren, entwickeln, umsetzen, betreuen, produzieren; Sichtbarkeit immer mit Bezug (bei wem, wo,
+  wofür); jede Leistung mit Ergebniszeile; Handlungsaufrufe „Erstgespräch vereinbaren“, „Projekt anfragen“, „Referenzen ansehen“.
 
 ## Entwicklungsbereich (Relaunch)
 

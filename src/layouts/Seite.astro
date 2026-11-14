@@ -1,0 +1,46 @@
+---
+// Seitenrahmen im neuen Erscheinungsbild (Relaunch): ohne Elementor-CSS und -Skripte.
+// Für neu gebaute Seiten (Startseite, Leistungsseiten). Übernommene Seiten nutzen weiter Legacy.astro, bekommen dort
+// aber dieselbe Kopf- und Fußzeile (src/lib/chrome.ts).
+import Tracking from '../components/Tracking.astro';
+import { asset } from '../lib/asset';
+import { KOPF, FUSS } from '../lib/chrome';
+import { strukturierteDaten, organisationAngleichen } from '../lib/geo';
+import { bildMasse } from '../lib/bilder';
+
+interface Props {
+  seo: string;      // <title>, Meta-Tags, JSON-LD
+  main: string;     // Inhalt von <main>
+  heroBild?: string; // größtes Bild im ersten Abschnitt – wird vorgeladen
+}
+const seo = organisationAngleichen(Astro.props.seo).replace(/,"image":\{"@type":"ImageObject","@id":"https:\/\/secure\.gravatar\.com[^}]*\}/g, '');
+const main = bildMasse(Astro.props.main);
+const beschreibung = seo.match(/<meta name="description" content="([^"]*)"/)?.[1];
+const jsonLd = strukturierteDaten(Astro.url.pathname, main, beschreibung);
+const { heroBild } = Astro.props;
+---
+<!doctype html>
+<html lang="de" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {!import.meta.env.PUBLIC_VORSCHAU && <Tracking />}
+  <Fragment set:html={seo} />
+  <Fragment set:html={jsonLd} />
+  <link rel="alternate" type="application/rss+xml" title="thinkfox marketing &raquo; Feed" href="/feed/" />
+  <link rel="preload" as="font" type="font/woff2" href="/media/schrift/schibsted-grotesk-latin.woff2" crossorigin />
+  {heroBild && <link rel="preload" as="image" href={heroBild} fetchpriority="high" />}
+  <link rel="stylesheet" href={asset('/css/chrome.css')} />
+  <link rel="stylesheet" href={asset('/css/seite.css')} />
+  <link rel="icon" href="/wp-content/uploads/2026/01/cropped-Logo-Finale_V2-32x32.png" sizes="32x32" />
+  <link rel="icon" href="/wp-content/uploads/2026/01/cropped-Logo-Finale_V2-192x192.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/wp-content/uploads/2026/01/cropped-Logo-Finale_V2-180x180.png" />
+</head>
+<body class="tf-neu">
+  <a class="tf-sprung" href="#content">Zum Inhalt springen</a>
+  <Fragment set:html={KOPF} />
+  <main id="content"><Fragment set:html={main} /></main>
+  <Fragment set:html={FUSS} />
+  <script src="../scripts/chrome.js"></script>
+</body>
+</html>

@@ -11,11 +11,12 @@ import { BESCHREIBUNGEN, TITEL } from '../lib/geo';
 import { beitragSeite, beitragStyles, mitWeiteren, weitereProjekte } from '../lib/beitrag';
 
 export async function getStaticPaths() {
+  // Seiten mit eigener Datei im neuen Erscheinungsbild (src/pages/index.astro, …-websites-….astro); die JSON-Dateien bleiben Archiv
+  const NEU = ['/', '/professionelle-websites-fuer-den-mittelstand/'];
   const pages = Object.values(pageFiles).map((m) => m.default as LegacyPage);
   const posts = await allPosts();
   return [
-    // Startseite: eigene Seite im Relaunch (src/pages/index.astro, src/lib/startseite.ts); index.json bleibt als Archiv
-    ...pages.filter((page) => page.path !== '/').map((page) => ({
+    ...pages.filter((page) => !NEU.includes(page.path)).map((page) => ({
       params: { slug: page.path === '/' ? undefined : page.path.replace(/^\/|\/$/g, '') },
       props: { page },
     })),

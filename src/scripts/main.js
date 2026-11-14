@@ -7,5 +7,4 @@ import './barrierefreiheit.js';
 import './formular-quelle.js';
 import './kacheln.js';
 import './datenschutz.js';
-import './megamenu.js';
-import './startseite.js';
+import './chrome.js';

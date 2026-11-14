@@ -223,7 +223,7 @@ export async function projektSeite(p: Projekt): Promise<string> {
   </div>
   ${medien.length ? `<section class="tf-medien tf-huelle" aria-label="Bilder und Videos">${medien.map(medium).join('\n')}</section>` : ''}
   ${stimme}
-  ${anfrage({ titel: 'Ähnliches Projekt geplant?', text: 'Erzähl uns von deinem Vorhaben – wir melden uns mit einer ersten Einschätzung.', button: 'Projekt anfragen', link: ANFRAGE })}
+  ${anfrage({ titel: 'Vergleichbares Projekt geplant?', text: 'In einem ersten Gespräch besprechen wir Ihre Ausgangslage und die möglichen nächsten Schritte.', button: 'Projekt anfragen', link: ANFRAGE })}
   ${await weitere(p, 'Weitere Projekte', 'Projekt ansehen')}
 </article>`;
 }
