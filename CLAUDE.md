@@ -104,9 +104,10 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   (Recruiting ist Folge der Sichtbarkeit, kein eigener Schwerpunkt).
 - **Wie:** Einstieg meist über ein einzelnes Projekt (z. B. Website oder Social Media). Die **externe Marketingabteilung**
   ist ein eigenes Angebot mit eigener Seite (Suchanfragen), aber nicht die Hauptbotschaft.
-- **Studio:** Werkzeug, kein Alleinstellungsmerkmal und nicht im Mittelpunkt. Nur als Beleg bei Film und Foto erwähnen
-  („eigenes Studio mit Hohlkehle in Edertal“); kein eigener Startseiten-Abschnitt, kein Hauptmenüpunkt. Vermietung nur auf
-  Anfrage – die Mietstudio-Seite bleibt, verlinkt in der Fußzeile.
+- **Studio:** Werkzeug für eigene Produktionen, kein großes Alleinstellungsmerkmal und nicht die Hauptbotschaft. Darf auf der
+  Startseite als eigener, ruhiger Abschnitt vorkommen (in der Region haben wenige Agenturen ein eigenes Studio mit Hohlkehle),
+  aber sachlich als Ausstattung beschrieben, nicht als Aufmacher. Kein Hauptmenüpunkt. Vermietung nur auf Anfrage – die
+  Mietstudio-Seite bleibt, verlinkt im Studio-Abschnitt und in der Fußzeile.
 - **Wortmarke:** Der bisherige Schriftzug „thinkfox“ bleibt unverändert.
 
 ## Entwicklungsbereich (Relaunch)
