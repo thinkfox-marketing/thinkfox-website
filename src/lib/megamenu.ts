@@ -149,7 +149,7 @@ const BRANCHEN = wechselPanel('Branchen', 'Beispiele aus der Praxis', [
 const AGENTUR = festPanel(
   { auge: 'Agentur', links: [
     { text: 'So arbeiten wir', href: EXTERN },
-    { text: 'Unser Studio', href: '/thinkfox-mietstudio-dein-fotostudio-videostudio-nordhessen/' },
+    { text: 'Studio & Vermietung', href: '/thinkfox-mietstudio-dein-fotostudio-videostudio-nordhessen/' },
     { text: 'Ratgeber & Blog', href: '/blog/' },
   ] },
   { auge: 'Kontakt', links: [

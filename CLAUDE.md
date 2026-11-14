@@ -106,8 +106,9 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   ist ein eigenes Angebot mit eigener Seite (Suchanfragen), aber nicht die Hauptbotschaft.
 - **Studio:** Werkzeug für eigene Produktionen, kein großes Alleinstellungsmerkmal und nicht die Hauptbotschaft. Darf auf der
   Startseite als eigener, ruhiger Abschnitt vorkommen (in der Region haben wenige Agenturen ein eigenes Studio mit Hohlkehle),
-  aber sachlich als Ausstattung beschrieben, nicht als Aufmacher. Kein Hauptmenüpunkt. Vermietung nur auf Anfrage – die
-  Mietstudio-Seite bleibt, verlinkt im Studio-Abschnitt und in der Fußzeile.
+  aber sachlich als Ausstattung beschrieben, nicht als Aufmacher. In der Navigation als „Studio & Vermietung“ unter „Agentur“ (Mega-Menü) und im Handy-Menü,
+  damit die Vermietung auffindbar ist; kein eigener Punkt der obersten Ebene. Vermietung nur auf Anfrage – die
+  Mietstudio-Seite bleibt, zusätzlich verlinkt im Studio-Abschnitt und in der Fußzeile.
 - **Wortmarke:** Der bisherige Schriftzug „thinkfox“ bleibt unverändert.
 
 ## Entwicklungsbereich (Relaunch)
