@@ -13,6 +13,7 @@ wpId: 366
 template: "10946"
 legacy: false
 kunde: "Vitos Haina gemeinnützige GmbH"
+branchen: ["gesundheit-soziales"]
 veroeffentlichung: "2023 – heute"
 leistungen: ["Layout Flyer", "Broschüren", "Anzeigen", "Grafikleistungen", "Videoproduktion"]
 aufgabe: "Die **Vitos Haina gemeinnützige GmbH** ist Teil der Vitos-Gruppe – einer der führenden Einrichtungen im Gesundheits- und Sozialwesen in Hessen. Mit einem breiten Spektrum an medizinischen, psychiatrischen und sozialen Leistungen leistet **Vitos Haina** einen wichtigen Beitrag zur Versorgung und Betreuung von Patientinnen und Patienten."

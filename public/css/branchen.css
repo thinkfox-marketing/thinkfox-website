@@ -1,0 +1,32 @@
+/* Branchenseiten (/branchen/<slug>/, src/lib/branchen.ts) – ergänzt beitrag.css, mobile-first, Hausfarben. */
+.tf-branche .tf-kopf { padding-bottom: 2.5rem; background: var(--tf-hell); }
+.tf-branche__knoepfe { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+.tf-knopf--zweit { background: transparent; color: var(--tf-lila) !important; border-color: var(--tf-lila); }
+.tf-knopf--zweit:hover { background: var(--tf-lila); color: #fff !important; }
+
+.tf-branche h2 { margin: 0 0 1.5rem; font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 700; line-height: 1.2; color: var(--tf-lila); text-wrap: balance; }
+.tf-branche__aufgaben, .tf-branche__einstieg { padding-block: 3.5rem; }
+.tf-branche__aufgaben .tf-huelle, .tf-branche__einstieg .tf-huelle { max-width: 1180px; }
+
+.tf-aufgaben, .tf-einstiege { display: grid; gap: 20px; margin: 0; padding: 0; list-style: none; }
+@media (min-width: 720px) { .tf-aufgaben, .tf-einstiege { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .tf-aufgaben, .tf-einstiege { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.tf-aufgabe { padding: 22px 22px 18px; border: 1px solid var(--tf-linie); border-radius: var(--tf-radius); background: #fff; }
+.tf-aufgabe p { margin: 0 0 0.75rem; }
+.tf-aufgabe__titel, .tf-einstieg__titel { margin: 0 0 0.5rem; font-size: clamp(1.125rem, 2.2vw, 1.3rem); font-weight: 700; line-height: 1.3; color: var(--tf-lila-dunkel); }
+.tf-aufgabe__link, .tf-einstieg__link { margin: 0; font-weight: 600; }
+.tf-aufgabe__link a, .tf-einstieg__link a { color: var(--tf-lila); }
+
+.tf-branche__einstieg { background: var(--tf-lila-hell); }
+.tf-branche__einleitung { max-width: 68ch; margin: 0 0 1.75rem; font-size: clamp(1.0625rem, 2vw, 1.1875rem); }
+.tf-einstieg { padding: 22px 22px 18px; border-radius: var(--tf-radius); background: #fff; }
+.tf-einstieg p { margin: 0 0 0.75rem; }
+.tf-branche .tf-weitere { background: #fff; }
+
+/* Gleiche Kante für alle Abschnitte (Kopf, Raster, Fragen) – Text bleibt über max-width lesbar */
+.tf-branche .tf-huelle--text { max-width: 1180px; }
+.tf-branche .tf-kopf__teaser { max-width: 62ch; }
+.tf-branche .tf-faq { max-width: 860px; }
+/* Projektkacheln: so viele Spalten wie passen (4 bei voller Breite), keine einzelne Kachel in der letzten Reihe bei 4 Projekten */
+@media (min-width: 1024px) { .tf-branche .tf-karten { grid-template-columns: repeat(4, minmax(0, 1fr)); } }

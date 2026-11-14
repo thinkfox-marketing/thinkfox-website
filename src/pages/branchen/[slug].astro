@@ -1,0 +1,30 @@
+---
+// Branchenseiten (Relaunch): /branchen/gesundheit-soziales/, /branchen/oeffentliche-hand/ – Inhalte in src/lib/branchen.ts.
+import Legacy from '../../layouts/Legacy.astro';
+import { allPosts } from '../../lib/wp';
+import { beitragStyles, esc } from '../../lib/beitrag';
+import { asset } from '../../lib/asset';
+import { BRANCHEN, brancheSeite, type Branche } from '../../lib/branchen';
+
+export function getStaticPaths() {
+  return BRANCHEN.map((b) => ({ params: { slug: b.slug }, props: { b } }));
+}
+const { b } = Astro.props as { b: Branche };
+
+// Rahmen, Stylesheets und Skripte wie die Blogbeiträge (einheitliches Layout) + branchen.css
+const vorlage = (await allPosts()).find((p) => p.collection === 'blog')!;
+const { styles, scripts, bodyClass } = beitragStyles(vorlage);
+const url = `https://thinkfox.de/branchen/${b.slug}/`;
+const seo = `<title>${esc(b.seoTitel)}</title>
+<meta name="description" content="${esc(b.beschreibung)}"/>
+<meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+<link rel="canonical" href="${url}" />
+<meta property="og:locale" content="de_DE" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="${esc(b.seoTitel)}" />
+<meta property="og:description" content="${esc(b.beschreibung)}" />
+<meta property="og:url" content="${url}" />
+<meta property="og:site_name" content="thinkfox marketing" />`;
+const main = await brancheSeite(b);
+---
+<Legacy seo={seo} styles={[...styles, { type: 'link', href: asset('/css/branchen.css'), id: 'branchen-css' }]} scripts={scripts} bodyClass={bodyClass} main={main} />

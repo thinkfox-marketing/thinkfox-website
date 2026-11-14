@@ -48,6 +48,7 @@ const projekte = defineCollection({
     medien: z.array(medium).default([]),
     // Einheitliches Projekt-Layout (src/lib/beitrag.ts): Steckbrief + Case Study (Markdown)
     branche: z.string().optional(),
+    branchen: z.array(z.string()).optional(), // Zuordnung zu Branchenseiten (/branchen/<slug>/)
     aufgabe: z.string().optional(),
     loesung: z.string().optional(),
     ergebnis: z.string().optional(),

@@ -13,6 +13,7 @@ wpId: 14160
 template: "none"
 legacy: false
 kunde: "Stadt Korbach"
+branchen: ["oeffentliche-hand"]
 veroeffentlichung: "2022/2023"
 leistungen: ["Fotoshooting", "Erklärvideo", "Social-Media-Reels"]
 projektLink:

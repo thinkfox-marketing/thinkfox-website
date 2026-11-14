@@ -13,6 +13,7 @@ wpId: 11489
 template: "10946"
 legacy: false
 kunde: "Wirtschaftsförderung und Regionalmanagement Waldeck-Frankenberg GmbH"
+branchen: ["oeffentliche-hand"]
 veroeffentlichung: "2025"
 leistungen: ["Konzeption & Re-Design", "Umstieg auf ein CMS", "Strukturelle Vereinfachung", "Flächen- und Objektverzeichnis", "Nutzerführung & Auffindbarkeit"]
 projektLink:

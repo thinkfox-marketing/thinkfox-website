@@ -12,7 +12,7 @@ import { allPosts, categoryName, postFiles, singleTemplate, type Blog, type Post
 import { asset } from './asset';
 import { zerlegen, type Baustein } from './zerlegen';
 
-const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+export const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const nurText = (h: string) => h.replace(/<[^>]+>/g, ' ').replace(/&[a-z#0-9]+;/g, ' ').replace(/\s+/g, ' ').trim();
 
 const MONATE = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
@@ -22,7 +22,7 @@ const ANFRAGE = '/thinkfox-marketing-projekt-anfragen/';
 
 // Pfeil-Symbol der Buttons auf der Startseite (Font Awesome „arrow-alt-circle-right“)
 const PFEIL = '<svg class="tf-knopf__symbol" aria-hidden="true" viewBox="0 0 512 512"><path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zM140 300h116v70.9c0 10.7 13 16.1 20.5 8.5l114.3-114.9c4.7-4.7 4.7-12.2 0-16.9l-114.3-115c-7.6-7.6-20.5-2.2-20.5 8.5V212H140c-6.6 0-12 5.4-12 12v64c0 6.6 5.4 12 12 12z"/></svg>';
-const knopf = (text: string, link: string, variante = '') =>
+export const knopf = (text: string, link: string, variante = '') =>
   `<a class="tf-knopf${variante ? ` tf-knopf--${variante}` : ''}" href="${esc(link)}">${PFEIL}<span>${esc(text)}</span></a>`;
 
 /** Teaser unter dem Titel: eigene Einleitung, sonst SEO-Beschreibung – aber nicht, wenn er nur den
@@ -67,7 +67,7 @@ function medium(m: Baustein | Projekt['data']['medien'][number]): string {
   return '';
 }
 
-function faqHtml(titel: string, fragen: { frage: string; antwort: string }[]): string {
+export function faqHtml(titel: string, fragen: { frage: string; antwort: string }[]): string {
   if (!fragen.length) return '';
   return `<section class="tf-faq" aria-labelledby="tf-faq-titel">
   <h2 id="tf-faq-titel">${esc(titel || 'Häufige Fragen')}</h2>
@@ -75,7 +75,7 @@ function faqHtml(titel: string, fragen: { frage: string; antwort: string }[]): s
 </section>`;
 }
 
-function anfrage(o: { titel: string; text: string; button: string; link: string }): string {
+export function anfrage(o: { titel: string; text: string; button: string; link: string }): string {
   return `<aside class="tf-anfrage" aria-labelledby="tf-anfrage-titel">
   <div class="tf-huelle tf-anfrage__innen">
     <div><h2 id="tf-anfrage-titel" class="tf-anfrage__titel">${esc(o.titel)}</h2><p>${esc(o.text)}</p></div>
@@ -105,6 +105,27 @@ function themen(x: Post): Set<string> {
     || (text.match(new RegExp(re.source, 'gi'))?.length ?? 0) >= 4).map(([t]) => t));
 }
 
+/** Kachel-Raster (Projekte/Beiträge) – „Weitere …“ und Branchenseiten (src/lib/branchen.ts). */
+export function projektKarten(auswahl: Post[], titel: string, mehr: string, id = 'tf-weitere-titel'): string {
+  // Kachelbild: Titel steht als Linktext daneben → Bild für Screenreader ausgeblendet (sonst doppelt vorgelesen),
+  // Alt-Text trotzdem gesetzt (Suchmaschinen, Bildausfall; Seobility zählt leeres alt als „fehlend“)
+  return `<section class="tf-weitere" aria-labelledby="${id}">
+  <div class="tf-huelle">
+    <h2 id="${id}">${esc(titel)}</h2>
+    <ul class="tf-karten" role="list">
+    ${auswahl.map((x) => `<li class="tf-karte">
+      <a class="tf-karte__link" href="/${x.id}/">
+        <span class="tf-karte__bild" aria-hidden="true">${wpImg(x.data.bild, { size: 'medium_large', alt: x.data.title, cls: '' })}</span>
+        <span class="tf-karte__kategorie">${esc(categoryName(x.data.kategorien[0] ?? ''))}</span>
+        <span class="tf-karte__titel">${esc(x.data.title)}</span>
+        <span class="tf-karte__mehr" aria-hidden="true">${esc(mehr)} →</span>
+      </a>
+    </li>`).join('\n    ')}
+    </ul>
+  </div>
+</section>`;
+}
+
 async function weitere(p: Post, titel: string, mehr: string): Promise<string> {
   const alle = (await allPosts()).filter((x) => x.collection === p.collection && x.id !== p.id && x.data.bild);
   // Punkte: gleiche (fachliche) Kategorie + Themenähnlichkeit (Jaccard, damit „passt zu allem“-Beiträge nicht
@@ -121,24 +142,10 @@ async function weitere(p: Post, titel: string, mehr: string): Promise<string> {
   if (!auswahl.length) return '';
   // Kachelbild: Titel steht als Linktext daneben → Bild für Screenreader ausgeblendet (sonst doppelt vorgelesen),
   // Alt-Text trotzdem gesetzt (Suchmaschinen, Bildausfall; Seobility zählt leeres alt als „fehlend“)
-  return `<section class="tf-weitere" aria-labelledby="tf-weitere-titel">
-  <div class="tf-huelle">
-    <h2 id="tf-weitere-titel">${esc(titel)}</h2>
-    <ul class="tf-karten" role="list">
-    ${auswahl.map((x) => `<li class="tf-karte">
-      <a class="tf-karte__link" href="/${x.id}/">
-        <span class="tf-karte__bild" aria-hidden="true">${wpImg(x.data.bild, { size: 'medium_large', alt: x.data.title, cls: '' })}</span>
-        <span class="tf-karte__kategorie">${esc(categoryName(x.data.kategorien[0] ?? ''))}</span>
-        <span class="tf-karte__titel">${esc(x.data.title)}</span>
-        <span class="tf-karte__mehr" aria-hidden="true">${esc(mehr)} →</span>
-      </a>
-    </li>`).join('\n    ')}
-    </ul>
-  </div>
-</section>`;
+  return projektKarten(auswahl, titel, mehr);
 }
 
-function pfad(stufen: { text: string; link?: string }[]): string {
+export function pfad(stufen: { text: string; link?: string }[]): string {
   return `<nav class="tf-pfad" aria-label="Brotkrumen"><ol>${stufen.map((s) =>
     `<li>${s.link ? `<a href="${esc(s.link)}">${esc(s.text)}</a>` : `<span aria-current="page">${esc(s.text)}</span>`}</li>`).join('')}</ol></nav>`;
 }

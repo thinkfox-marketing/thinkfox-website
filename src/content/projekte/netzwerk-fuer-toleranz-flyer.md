@@ -13,6 +13,7 @@ wpId: 8372
 template: "10946"
 legacy: false
 kunde: "Netzwerk für Toleranz Waldeck-Frankenberg"
+branchen: ["oeffentliche-hand"]
 veroeffentlichung: "2024"
 leistungen: ["Corporate Design", "Printproduktion"]
 loesung: "Thinkfox konzipierte und gestaltete neue Flyer im DIN-lang-Format (2-seitig). Die Gestaltung wurde an das aktuelle Webdesign angepasst und konsequent im Corporate Design umgesetzt. Inhaltliche Struktur, Typografie und Bildsprache wurden so entwickelt, dass Botschaften schnell erfassbar sind und die Wiedererkennbarkeit der Marke stärken – ideal für Auslage, Events und direkte Kundenansprache."

@@ -13,6 +13,7 @@ wpId: 7638
 template: "10946"
 legacy: false
 kunde: "Netzwerk für Toleranz"
+branchen: ["oeffentliche-hand"]
 veroeffentlichung: "2023"
 leistungen: ["Konzeption", "Screendesign", "Aufbau CMS", "Erstellung responsive Template", "Custom Fields für individuelle Inhalte"]
 projektLink:

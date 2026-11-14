@@ -13,6 +13,7 @@ wpId: 1086
 template: "10946"
 legacy: false
 kunde: "Daniel Koch Jugendhilfe gGmbH"
+branchen: ["gesundheit-soziales"]
 veroeffentlichung: "2022-heute"
 leistungen: ["Kommunikationsmittel", "Logoentwicklung (Wort-Bild-Marke)", "Website mit Karrierebereich", "Gestaltung von Printmaterialien", "Contentproduktion", "Recruitment-Shorts", "Gruppen- & Konzeptvorstellungen"]
 aufgabe: "Für die Daniel Koch Jugendhilfe gGmbH entwickelte thinkfox marketing ein ganzheitliches Corporate Design."

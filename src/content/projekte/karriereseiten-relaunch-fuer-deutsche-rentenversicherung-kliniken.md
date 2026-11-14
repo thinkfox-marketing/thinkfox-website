@@ -13,6 +13,7 @@ wpId: 15342
 template: "10946"
 legacy: false
 kunde: "Deutsche Rentenversicherung Oldenburg-Bremen"
+branchen: ["gesundheit-soziales"]
 veroeffentlichung: "2025"
 leistungen: ["Konzeption & Struktur", "Screendesign", "WordPress-Umsetzung", "Stellenbörse mit Suche & Filter", "Mobile-First", "SEO inkl. JobPosting-Daten", "Barrierearme Umsetzung", "Fotoshooting Rheumaklinik Bad Wildungen"]
 projektLink:

@@ -13,6 +13,7 @@ wpId: 6602
 template: "10946"
 legacy: false
 kunde: "Stadt Korbach"
+branchen: ["oeffentliche-hand"]
 veroeffentlichung: "2022/2023"
 leistungen: ["Corporate Design", "Fotoproduktion", "Kampagnen", "Printproduktion", "SocialMedia Betreuung", "Video-/Filmproduktion", "Website"]
 projektLink:

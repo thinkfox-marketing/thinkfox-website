@@ -13,6 +13,7 @@ wpId: 9803
 template: "10946"
 legacy: false
 kunde: "Vierbeiner Reha-Zentrum GmbH"
+branchen: ["gesundheit-soziales"]
 veroeffentlichung: "2025"
 leistungen: ["Konzeption", "Website-Relaunch", "Seminar-Kalender", "SEO-Konzept", "Videoproduktion", "Fotoproduktion", "Social Media Betreuung"]
 projektLink:

@@ -13,6 +13,7 @@ wpId: 10870
 template: "10946"
 legacy: false
 kunde: "Energie Waldeck-Frankenberg GmbH"
+branchen: ["oeffentliche-hand"]
 veroeffentlichung: "2025"
 leistungen: ["Konzeption", "Claimentwicklung", "Videoproduktion", "Fotoproduktion", "Printproduktionen"]
 projektLink:
