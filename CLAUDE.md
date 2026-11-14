@@ -113,6 +113,10 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 - **Optik:** Jede Änderung mit Screenshot-Vergleich prüfen (Playwright, 1440 px und 390 px).
   Ohne JavaScript muss das Ergebnis pixelgleich zur Vorlage sein – abgesehen von den oben
   genannten bewussten Abweichungen; mit JavaScript sind zusätzlich Video-/Slider-Timing-Unterschiede zulässig.
+- **Tonalität (14.11.2026):** Sie-Form. Sachlich-fachlich, aber nicht steif: Aktivsätze, konkrete Aussagen, Fachbegriffe
+  der Zielbranche (z. B. Pflegedienstleitung, Vergabestelle). Keine Umgangssprache („was drückt“, „genau das“, „mag“) und keine
+  Werbefloskeln („ganzheitlich“, „aus einer Hand“, „Ziele erreichen“, „maßgeschneidert“, „Mehrwert“). Belegen statt behaupten:
+  jede Leistungsaussage mit Projekt oder Fakt; Kunden ohne Freigabe nicht namentlich nennen.
 - **Barrierefreiheit prüfen:** axe-core (WCAG 2.2 AA) muss ohne Befund bleiben.
 - **Beiträge (Projekte/Blog)** haben ein einheitliches, eigenes Layout: `src/lib/beitrag.ts` +
   `public/css/beitrag.css`, Inhalte ausschließlich aus CMS-Feldern (keine Elementor-Markup-Ausgabe).

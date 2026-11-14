@@ -2,6 +2,7 @@
 // Aufbau im einheitlichen Beitragslayout (public/css/beitrag.css + branchen.css): Kopf, Aufgaben aus echten
 // Projekten, Projektkacheln (automatisch aus dem Feld `branchen` der Projekte), Einstieg, Fragen, Anfrage.
 // Inhalte nur aus belegten Projektfakten; Kunden ohne Freigabe werden nicht namentlich genannt.
+// Tonalität (14.11.): Sie-Form, sachlich-fachlich, keine Umgangssprache, keine Werbefloskeln, belegen statt behaupten.
 import { allPosts, type Post } from './wp';
 import { anfrage, esc, faqHtml, knopf, pfad, projektKarten } from './beitrag';
 
@@ -18,6 +19,7 @@ export interface Branche {
   beschreibung: string;     // Meta-Beschreibung
   teaser: string;
   aufgabenTitel: string;
+  aufgabenEinleitung: string; // ein Satz unter der Überschrift: konkrete Ziele statt Floskel
   aufgaben: Aufgabe[];
   projekteTitel: string;
   einstiegTitel: string;
@@ -33,63 +35,65 @@ export const BRANCHEN: Branche[] = [
     menue: 'Gesundheit & Soziales',
     titel: 'Marketing für Kliniken, Reha und soziale Einrichtungen',
     seoTitel: 'Marketing für Kliniken, Reha & soziale Einrichtungen | thinkfox',
-    beschreibung: 'Externe Marketingabteilung für Kliniken, Reha-Zentren und soziale Träger in Nordhessen: Social Media, Gestaltung nach Ihrem CD, Karriereportale, Websites, Film und Foto.',
-    teaser: 'Wer sich für eine Klinik, eine Reha oder einen Träger entscheidet, will wissen, wem er vertraut. Wir zeigen Ihre Einrichtung so, wie sie ist: mit Ihren Mitarbeitenden, Ihren Räumen und Informationen, die Patienten, Angehörige und Bewerber verstehen.',
-    aufgabenTitel: 'Was wir für Einrichtungen im Gesundheits- und Sozialwesen machen',
+    beschreibung: 'Marketing für Kliniken, Reha-Zentren und soziale Träger in Nordhessen: laufende Betreuung, Gestaltung nach Corporate Design, Karriereportale, Websites, Film und Foto.',
+    teaser: 'Patienten, Angehörige und Bewerber entscheiden sich für Einrichtungen, denen sie vertrauen. Wir machen sichtbar, wofür Ihre Einrichtung steht: mit Aufnahmen Ihrer Mitarbeitenden und Räumlichkeiten und mit verständlich aufbereiteten Informationen.',
+    aufgabenTitel: 'Wie wir Einrichtungen im Gesundheits- und Sozialwesen unterstützen',
+    aufgabenEinleitung: 'Ob Patientenkommunikation, Personalgewinnung oder ein neuer Markenauftritt: Wir übernehmen Konzeption und Umsetzung und arbeiten dabei eng mit Ihrer Geschäftsführung, Ihrer Pflegedienstleitung oder Ihrer Personalabteilung zusammen.',
     aufgaben: [
-      { titel: 'Laufende Betreuung als externe Marketingabteilung', text: 'Social Media, Patienteninformation und Wissensvermittlung, abgestimmt mit Ihrem Team. Für eine Klinikgruppe in der Region machen wir genau das laufend.' },
-      { titel: 'Gestaltung nach Ihrem Corporate Design', text: 'Flyer, Broschüren, Anzeigen und Layouts, sauber nach Ihren Vorgaben. So arbeiten wir zum Beispiel für Vitos Haina.', link: { text: 'Projekt Vitos Haina', href: '/vitos-haina-unternehmenskommunikation/' } },
-      { titel: 'Karriereportale für mehrere Häuser', text: 'Für drei Kliniken der Deutschen Rentenversicherung haben wir eigene Karriereseiten im gleichen Design gebaut, mit Stellenbörse, Suche und Filter. Jede Klinik pflegt ihre Stellen selbst.', link: { text: 'Projekt DRV-Kliniken', href: '/karriereseiten-relaunch-fuer-deutsche-rentenversicherung-kliniken/' } },
-      { titel: 'Websites, über die gebucht wird', text: 'Beim Vierbeiner Reha-Zentrum verkauft die Website Seminare und Kurse. Wir betreuen dazu Social Media und sorgen mit SEO und GEO dafür, dass die Kurse bei Google und in KI-Suchen gefunden werden.', link: { text: 'Projekt Vierbeiner Reha-Zentrum', href: '/website-vierbeiner-reha-zentrum/' } },
-      { titel: 'Ein Auftritt aus einer Hand', text: 'Für die Daniel Koch Jugendhilfe haben wir vom Logo über die Website mit Karrierebereich bis zu Recruiting-Shorts für Social Media alles aufeinander abgestimmt.', link: { text: 'Projekt Daniel Koch Jugendhilfe', href: '/daniel-koch-jugendhilfe/' } },
-      { titel: 'Barrierefreiheit mitgedacht', text: 'Die Karriereseiten der DRV-Kliniken sind barrierearm umgesetzt. Unsere eigene Website erfüllt WCAG 2.2 AA und wird bei jeder Änderung automatisch geprüft.' },
+      { titel: 'Laufende Betreuung als externe Marketingabteilung', text: 'Social Media, Patienteninformation und Wissensvermittlung in enger Abstimmung mit Ihrem Team. Diese Aufgabe übernehmen wir unter anderem dauerhaft für eine Klinikgruppe in der Region.' },
+      { titel: 'Gestaltung nach Ihrem Corporate Design', text: 'Flyer, Broschüren, Anzeigen und Layouts, umgesetzt nach Ihren gestalterischen Vorgaben. So arbeiten wir beispielsweise für Vitos Haina.', link: { text: 'Projekt Vitos Haina', href: '/vitos-haina-unternehmenskommunikation/' } },
+      { titel: 'Karriereportale für mehrere Standorte', text: 'Für drei Kliniken der Deutschen Rentenversicherung haben wir eigenständige Karriereseiten in einheitlichem Design entwickelt, mit Stellenbörse, Suche und Filter. Jede Klinik pflegt ihre Stellenangebote selbst.', link: { text: 'Projekt DRV-Kliniken', href: '/karriereseiten-relaunch-fuer-deutsche-rentenversicherung-kliniken/' } },
+      { titel: 'Websites mit Buchungsfunktion', text: 'Über die Website des Vierbeiner Reha-Zentrums werden Seminare und Kurse gebucht. Ergänzend betreuen wir Social Media und sorgen mit SEO und GEO dafür, dass die Angebote bei Google und in KI-Suchen gefunden werden.', link: { text: 'Projekt Vierbeiner Reha-Zentrum', href: '/website-vierbeiner-reha-zentrum/' } },
+      { titel: 'Einheitlicher Auftritt vom Logo bis zur Stellenanzeige', text: 'Für die Daniel Koch Jugendhilfe haben wir Logo, Website mit Karrierebereich und Recruiting-Videos für Social Media aufeinander abgestimmt.', link: { text: 'Projekt Daniel Koch Jugendhilfe', href: '/daniel-koch-jugendhilfe/' } },
+      { titel: 'Barrierefreie Umsetzung', text: 'Die Karriereseiten der DRV-Kliniken sind barrierearm umgesetzt. Unsere eigene Website erfüllt die WCAG 2.2 AA und wird bei jeder Änderung automatisch geprüft.' },
     ],
-    projekteTitel: 'Projekte aus Gesundheit und Sozialem',
-    einstiegTitel: 'So fangen wir an',
-    einstiegText: 'Am Anfang steht ein Gespräch darüber, was bei Ihnen gerade drückt: offene Stellen, zu wenige Anfragen oder eine Website, die keiner mehr pflegen mag. Danach starten wir mit einem klar umrissenen ersten Projekt. Viele unserer Kunden sind so geblieben.',
+    projekteTitel: 'Referenzen aus dem Gesundheits- und Sozialwesen',
+    einstiegTitel: 'Der Einstieg in die Zusammenarbeit',
+    einstiegText: 'Am Anfang steht ein Gespräch über Ihre aktuelle Situation, etwa offene Stellen, rückläufige Anfragen oder eine Website, die sich nicht mehr pflegen lässt. Darauf aufbauend schlagen wir ein klar abgegrenztes erstes Projekt vor. Viele unserer Kunden betreuen wir anschließend dauerhaft.',
     einstiege: [
-      { titel: 'Recruiting-Paket', text: 'Karriereseite mit Google-Jobs-Anbindung, kurze Videos aus Ihren Arbeitsbereichen und ein 360°-Rundgang durch die Arbeitsplätze.', link: { text: 'Mehr zu Employer Branding', href: '/employer-branding-agentur-recruitingfilm-karriereseite/' } },
-      { titel: 'Imagefilm', text: 'Ein Film mit Ihren Mitarbeitenden, bei Ihnen vor Ort oder in unserem Studio gedreht, mit Fassungen für Website und Social Media.', link: { text: 'Was kostet ein Imagefilm?', href: '/was-kostet-ein-imagefilm/' } },
-      { titel: 'Website-Relaunch', text: 'Eine Website, die Patienten, Angehörige und Bewerber schnell zum Ziel bringt. OnePager ab ca. 2.200 €, umfangreichere Websites ab ca. 5.500 € zzgl. MwSt.', link: { text: 'Was kostet eine Website?', href: '/was-kostet-eine-website/' } },
+      { titel: 'Recruiting-Paket', text: 'Karriereseite mit Anbindung an Google Jobs, kurze Videos aus Ihren Arbeitsbereichen und ein 360°-Rundgang durch die Arbeitsplätze.', link: { text: 'Mehr zu Employer Branding', href: '/employer-branding-agentur-recruitingfilm-karriereseite/' } },
+      { titel: 'Imagefilm', text: 'Ein Film mit Ihren Mitarbeitenden, gedreht in Ihrer Einrichtung oder in unserem Studio, mit Fassungen für Website und Social Media.', link: { text: 'Was kostet ein Imagefilm?', href: '/was-kostet-ein-imagefilm/' } },
+      { titel: 'Website-Relaunch', text: 'Eine Website, auf der Patienten, Angehörige und Bewerber schnell finden, was sie suchen. OnePager ab ca. 2.200 €, umfangreichere Websites ab ca. 5.500 € zzgl. MwSt.', link: { text: 'Was kostet eine Website?', href: '/was-kostet-eine-website/' } },
     ],
     fragen: [
-      { frage: 'Arbeiten Sie nach unserem Corporate Design?', antwort: '<p>Ja. Für Vitos Haina setzen wir zum Beispiel Flyer, Broschüren und Anzeigen nach den Vorgaben des Hauses um.</p>' },
-      { frage: 'Können Sie mehrere Häuser oder Standorte einheitlich abbilden?', antwort: '<p>Ja. Für drei Kliniken der Deutschen Rentenversicherung haben wir eigene Karriereseiten im gleichen Design gebaut. Jede Klinik pflegt ihre Stellen selbst.</p>' },
-      { frage: 'Wo wird gedreht und fotografiert?', antwort: '<p>Bei Ihnen vor Ort oder in unserem Studio in Edertal.</p>' },
-      { frage: 'Ist die Website barrierefrei?', antwort: '<p>Barrierefreiheit planen wir von Anfang an mit ein. Unsere eigene Website erfüllt WCAG 2.2 AA und wird bei jeder Änderung automatisch geprüft.</p>' },
+      { frage: 'Arbeiten Sie nach unserem Corporate Design?', antwort: '<p>Ja. Für Vitos Haina setzen wir beispielsweise Flyer, Broschüren und Anzeigen nach den Gestaltungsvorgaben des Hauses um.</p>' },
+      { frage: 'Können Sie mehrere Häuser oder Standorte einheitlich abbilden?', antwort: '<p>Ja. Für drei Kliniken der Deutschen Rentenversicherung haben wir eigenständige Karriereseiten in einheitlichem Design entwickelt. Jede Klinik pflegt ihre Stellenangebote selbst.</p>' },
+      { frage: 'Wo finden Dreharbeiten und Fotoaufnahmen statt?', antwort: '<p>In Ihrer Einrichtung oder in unserem Studio in Edertal.</p>' },
+      { frage: 'Ist die Website barrierefrei?', antwort: '<p>Barrierefreiheit berücksichtigen wir von Beginn an. Unsere eigene Website erfüllt die WCAG 2.2 AA und wird bei jeder Änderung automatisch geprüft.</p>' },
     ],
-    anfrage: { titel: 'Ihre Einrichtung soll sichtbarer werden?', text: 'Ob Fachkräfte, Patientenanfragen oder ein neuer Auftritt: Erzählen Sie uns, was gerade ansteht.' },
+    anfrage: { titel: 'Sprechen Sie mit uns über Ihr Vorhaben', text: 'In einem ersten Gespräch klären wir, wo Sie stehen und welcher Schritt sich als Nächstes lohnt.' },
   },
   {
     slug: 'oeffentliche-hand',
     menue: 'Kommunen & öffentliche Hand',
     titel: 'Marketing für Kommunen und öffentliche Einrichtungen',
     seoTitel: 'Marketing für Kommunen & öffentliche Einrichtungen | thinkfox',
-    beschreibung: 'Karriereseiten, Kampagnen und barrierefreie Websites für Städte, Gemeinden und kommunale Unternehmen in Nordhessen, mit Film und Foto aus dem eigenen Studio.',
-    teaser: 'Städte, Gemeinden und kommunale Unternehmen suchen Personal und müssen erklären, was sie tun. Wir machen beides verständlich und barrierefrei, mit Bildern aus Ihrer Verwaltung statt aus der Bilddatenbank.',
-    aufgabenTitel: 'Was wir für Kommunen und öffentliche Einrichtungen machen',
+    beschreibung: 'Marketing für Kommunen und öffentliche Einrichtungen in Nordhessen: Karriereseiten, Kampagnen und barrierefreie Websites, mit Film und Foto aus eigener Produktion.',
+    teaser: 'Städte, Gemeinden und kommunale Unternehmen gewinnen Personal und informieren Bürgerinnen und Bürger. Wir unterstützen beides mit verständlicher, barrierefreier Kommunikation und mit Aufnahmen aus Ihrer Verwaltung statt aus der Bilddatenbank.',
+    aufgabenTitel: 'Wie wir Kommunen und öffentliche Einrichtungen unterstützen',
+    aufgabenEinleitung: 'Ob Personalgewinnung, Bürgerinformation oder eine neue Website: Wir übernehmen Konzeption und Umsetzung und erstellen Angebote, die zu Ihrem Haushalt und Ihren Vergaberegeln passen.',
     aufgaben: [
-      { titel: 'Karriereseiten für die Verwaltung', text: 'Für die Nationalparkstadt Waldeck haben wir eine Karriereseite mit Google-Jobs-Anbindung gebaut, dazu kurze Videos aus drei Arbeitsbereichen und einen 360°-Rundgang, der auf die Videos verlinkt.', link: { text: 'Projekt Stadt Waldeck', href: '/karriereseite-stadt-waldeck/' } },
-      { titel: 'Kampagnen, die man im Ort sieht', text: 'Für die Stadt Korbach haben wir die Mehrweg-Kampagne „Korbach becher machen!“ mit Fotos, Erklärvideo und Reels umgesetzt. Für die Energie Waldeck-Frankenberg die Kampagne „ein Leben lang“ mit Claim, Film, Foto und Print.', link: { text: 'Projekt „Korbach becher machen!“', href: '/korbach-becher-machen/' } },
-      { titel: 'Websites für Wirtschaftsförderung und Verwaltung', text: 'Für die Wirtschaftsförderung Waldeck-Frankenberg haben wir die Website neu aufgebaut, mit einem Verzeichnis freier Gewerbeflächen und Objekte.', link: { text: 'Projekt Wirtschaftsförderung', href: '/website-relaunch-wirtschaftsfoerderung-waldeck-frankenberg/' } },
-      { titel: 'Barrierefreiheit nach BITV', text: 'Öffentliche Stellen müssen barrierefrei sein. Unsere eigene Website erfüllt WCAG 2.2 AA und wird bei jeder Änderung automatisch geprüft. Diese Arbeitsweise bringen wir in Ihre Projekte mit.' },
-      { titel: 'Angebote, die Sie direkt vergeben können', text: 'In Hessen dürfen Liefer- und Dienstleistungen seit Juni 2026 bis 100.000 € netto direkt vergeben werden (HVTG). Wir erstellen ein Angebot mit klar beschriebenem Leistungsumfang. Ihre eigene Vergaberichtlinie kann strengere Regeln haben.' },
+      { titel: 'Karriereseiten für die Verwaltung', text: 'Für die Nationalparkstadt Waldeck haben wir eine Karriereseite mit Anbindung an Google Jobs entwickelt, ergänzt um kurze Videos aus drei Arbeitsbereichen und einen 360°-Rundgang, der auf die Videos verweist.', link: { text: 'Projekt Stadt Waldeck', href: '/karriereseite-stadt-waldeck/' } },
+      { titel: 'Kampagnen für Stadt und Region', text: 'Für die Stadt Korbach haben wir die Mehrweg-Kampagne „Korbach becher machen!“ mit Fotos, Erklärvideo und Reels umgesetzt, für die Energie Waldeck-Frankenberg die Kampagne „ein Leben lang“ mit Claim, Film, Foto und Printmedien.', link: { text: 'Projekt „Korbach becher machen!“', href: '/korbach-becher-machen/' } },
+      { titel: 'Websites für Wirtschaftsförderung und Verwaltung', text: 'Für die Wirtschaftsförderung Waldeck-Frankenberg haben wir die Website neu konzipiert, einschließlich eines Verzeichnisses freier Gewerbeflächen und Objekte.', link: { text: 'Projekt Wirtschaftsförderung', href: '/website-relaunch-wirtschaftsfoerderung-waldeck-frankenberg/' } },
+      { titel: 'Barrierefreiheit nach BITV', text: 'Öffentliche Stellen sind zur Barrierefreiheit verpflichtet. Unsere eigene Website erfüllt die WCAG 2.2 AA und wird bei jeder Änderung automatisch geprüft. Diese Arbeitsweise übertragen wir auf Ihre Projekte.' },
+      { titel: 'Angebote für die Direktvergabe', text: 'In Hessen dürfen Liefer- und Dienstleistungen seit Juni 2026 bis 100.000 € netto direkt vergeben werden (HVTG). Wir erstellen Angebote mit klar beschriebenem Leistungsumfang. Ihre eigene Vergaberichtlinie kann strengere Regeln vorsehen.' },
     ],
-    projekteTitel: 'Projekte für Kommunen und öffentliche Einrichtungen',
-    einstiegTitel: 'So fangen wir an',
-    einstiegText: 'Wir klären zuerst, welche Stellen schwer zu besetzen sind oder was die Bürger verstehen sollen. Dann schlagen wir ein erstes, klar abgegrenztes Projekt vor, das sich in Ihren Haushalt und Ihre Vergaberegeln einfügt.',
+    projekteTitel: 'Referenzen aus Kommunen und öffentlichen Einrichtungen',
+    einstiegTitel: 'Der Einstieg in die Zusammenarbeit',
+    einstiegText: 'Zunächst klären wir, welche Stellen schwer zu besetzen sind oder welche Informationen Bürgerinnen und Bürger erreichen sollen. Darauf aufbauend schlagen wir ein klar abgegrenztes erstes Projekt vor, das zu Ihrem Haushalt und Ihren Vergaberegeln passt.',
     einstiege: [
-      { titel: 'Recruiting-Paket für die Verwaltung', text: 'Karriereseite mit Google-Jobs-Anbindung, kurze Videos aus Ihren Arbeitsbereichen und ein 360°-Rundgang, wie bei der Stadt Waldeck.', link: { text: 'Projekt Stadt Waldeck', href: '/karriereseite-stadt-waldeck/' } },
-      { titel: 'Kampagne', text: 'Eine Idee, die zu Ihrem Ort passt, mit Fotos, Film und Material für Social Media und Print.', link: { text: 'Projekt EWF', href: '/kampagne-ewf-ein-leben-lang/' } },
-      { titel: 'Website-Relaunch', text: 'Eine barrierefreie Website, die Bürger und Unternehmen schnell zum Ziel bringt. OnePager ab ca. 2.200 €, umfangreichere Websites ab ca. 5.500 € zzgl. MwSt.', link: { text: 'Was kostet eine Website?', href: '/was-kostet-eine-website/' } },
+      { titel: 'Recruiting-Paket für die Verwaltung', text: 'Karriereseite mit Anbindung an Google Jobs, kurze Videos aus Ihren Arbeitsbereichen und ein 360°-Rundgang, wie bei der Stadt Waldeck.', link: { text: 'Projekt Stadt Waldeck', href: '/karriereseite-stadt-waldeck/' } },
+      { titel: 'Kampagne', text: 'Eine Kampagnenidee, die zu Ihrer Stadt oder Region passt, umgesetzt mit Fotos, Film sowie Material für Social Media und Print.', link: { text: 'Projekt Energie Waldeck-Frankenberg', href: '/kampagne-ewf-ein-leben-lang/' } },
+      { titel: 'Website-Relaunch', text: 'Eine barrierefreie Website, auf der Bürgerinnen, Bürger und Unternehmen schnell finden, was sie suchen. OnePager ab ca. 2.200 €, umfangreichere Websites ab ca. 5.500 € zzgl. MwSt.', link: { text: 'Was kostet eine Website?', href: '/was-kostet-eine-website/' } },
     ],
     fragen: [
-      { frage: 'Können Sie ein Angebot erstellen, das wir direkt vergeben können?', antwort: '<p>Ja. Wir beschreiben den Leistungsumfang so, dass Sie ihn prüfen und vergeben können. Seit Juni 2026 sind in Hessen Direktvergaben für Dienstleistungen bis 100.000 € netto möglich (HVTG). Ob Ihre eigene Vergaberichtlinie strenger ist, klärt am besten Ihre Vergabestelle.</p>' },
-      { frage: 'Ist die Website barrierefrei nach BITV?', antwort: '<p>Barrierefreiheit planen wir von Anfang an mit ein. Unsere eigene Website erfüllt WCAG 2.2 AA, den Standard, auf den die BITV verweist, und wird bei jeder Änderung automatisch geprüft.</p>' },
-      { frage: 'Können die Stellenanzeigen in der Google-Jobsuche erscheinen?', antwort: '<p>Ja. Die Karriereseite der Stadt Waldeck ist so umgesetzt, dass die Stellen in Google Jobs erscheinen.</p>' },
-      { frage: 'Wo wird gedreht und fotografiert?', antwort: '<p>Bei Ihnen vor Ort, in der Verwaltung, im Bauhof oder in der Kita, oder in unserem Studio in Edertal.</p>' },
+      { frage: 'Können Sie ein Angebot für eine Direktvergabe erstellen?', antwort: '<p>Ja. Wir beschreiben den Leistungsumfang so, dass Ihre Vergabestelle ihn prüfen und vergeben kann. Seit Juni 2026 sind in Hessen Direktvergaben für Dienstleistungen bis 100.000 € netto möglich (HVTG). Ob Ihre eigene Vergaberichtlinie strengere Regeln vorsieht, klärt Ihre Vergabestelle.</p>' },
+      { frage: 'Ist die Website barrierefrei nach BITV?', antwort: '<p>Barrierefreiheit berücksichtigen wir von Beginn an. Unsere eigene Website erfüllt die WCAG 2.2 AA, auf die die BITV verweist, und wird bei jeder Änderung automatisch geprüft.</p>' },
+      { frage: 'Können die Stellenanzeigen in der Google-Jobsuche erscheinen?', antwort: '<p>Ja. Die Karriereseite der Stadt Waldeck ist so umgesetzt, dass die Stellenangebote in Google Jobs erscheinen.</p>' },
+      { frage: 'Wo finden Dreharbeiten und Fotoaufnahmen statt?', antwort: '<p>Vor Ort, etwa in der Verwaltung, im Bauhof oder in der Kita, oder in unserem Studio in Edertal.</p>' },
     ],
-    anfrage: { titel: 'Sie suchen Personal oder wollen etwas erklären?', text: 'Erzählen Sie uns, was ansteht. Wir schlagen ein erstes Projekt vor, das zu Haushalt und Vergabe passt.' },
+    anfrage: { titel: 'Sprechen Sie mit uns über Ihr Vorhaben', text: 'In einem ersten Gespräch klären wir Ziele, Rahmen und Vergabeweg und schlagen einen ersten Schritt vor.' },
   },
 ];
 
@@ -119,6 +123,7 @@ export async function brancheSeite(b: Branche): Promise<string> {
   <section class="tf-branche__aufgaben" aria-labelledby="tf-aufgaben-titel">
     <div class="tf-huelle">
       <h2 id="tf-aufgaben-titel">${esc(b.aufgabenTitel)}</h2>
+      <p class="tf-branche__einleitung">${esc(b.aufgabenEinleitung)}</p>
       <ul class="tf-aufgaben" role="list">
       ${aufgaben}
       </ul>
