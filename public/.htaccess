@@ -100,6 +100,13 @@ FileETag None
   AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json application/xml application/rss+xml image/svg+xml
 </IfModule>
 
+# Entwicklungsbereich /vorschau/ (passwortgeschützt, Zweig „relaunch“) nie indexieren
+<If "%{REQUEST_URI} =~ m#^/vorschau(/|$)#">
+  <IfModule mod_headers.c>
+    Header always set X-Robots-Tag "noindex, nofollow"
+  </IfModule>
+</If>
+
 # Übergangsdomain nie indexieren
 <If "%{HTTP_HOST} =~ /kasserver\.com$/">
   <IfModule mod_headers.c>
