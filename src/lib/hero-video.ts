@@ -16,7 +16,7 @@ const STANDBILD_MOBIL = asset('/media/showreel-standbild-mobil.webp');
 
 const PAUSE = '<svg class="tf-video-toggle__pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12"/><rect x="9.5" y="2" width="3.5" height="12"/></svg>';
 const PLAY = '<svg class="tf-video-toggle__play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z"/></svg>';
-const TOGGLE = `<button type="button" class="tf-video-toggle" aria-label="Hintergrundvideo anhalten" aria-pressed="false" hidden>${PAUSE}${PLAY}</button>`;
+export const TOGGLE = `<button type="button" class="tf-video-toggle" aria-label="Hintergrundvideo anhalten" aria-pressed="false" hidden>${PAUSE}${PLAY}</button>`;
 
 export function renderHeroVideos(main: string): string {
   const re = /data-settings="([^"]*background_video_link[^"]*)"/g;
@@ -46,4 +46,15 @@ export function renderHeroVideos(main: string): string {
     re.lastIndex = containerEnd;
   }
   return out + main.slice(last);
+}
+
+/** Showreel als Hintergrund eines eigenen Bereichs (Startseite im Relaunch): gleiches Markup wie die Elementor-Heroes,
+ *  damit src/scripts/hero-video.js Laden, Hochkant-Fassung, „Bewegung reduzieren“ und Pause-Knopf übernimmt. */
+export function videoHintergrund(): { attribute: string; html: string } {
+  const settings = JSON.stringify({ background_background: 'video', background_video_link: SHOWREEL, background_play_on_mobile: 'yes' })
+    .replaceAll('/', '\\/').replaceAll('"', '&quot;');
+  return {
+    attribute: `data-settings="${settings}" data-tf-hochkant="${SHOWREEL_MOBIL}" data-tf-standbild-hochkant="${STANDBILD_MOBIL}"`,
+    html: `<div class="elementor-background-video-container" aria-hidden="true" style="background:url(${STANDBILD}) center/cover no-repeat"><video class="elementor-background-video-hosted" autoplay muted playsinline loop></video></div>${TOGGLE}`,
+  };
 }

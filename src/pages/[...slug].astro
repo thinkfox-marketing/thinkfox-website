@@ -14,7 +14,8 @@ export async function getStaticPaths() {
   const pages = Object.values(pageFiles).map((m) => m.default as LegacyPage);
   const posts = await allPosts();
   return [
-    ...pages.map((page) => ({
+    // Startseite: eigene Seite im Relaunch (src/pages/index.astro, src/lib/startseite.ts); index.json bleibt als Archiv
+    ...pages.filter((page) => page.path !== '/').map((page) => ({
       params: { slug: page.path === '/' ? undefined : page.path.replace(/^\/|\/$/g, '') },
       props: { page },
     })),

@@ -1,0 +1,26 @@
+---
+// Startseite (Relaunch): eigene Seite im einheitlichen Layout – Inhalte in src/lib/startseite.ts.
+// SEO-Kopf aus der bisherigen Startseite (Titel, JSON-LD von Rank Math), Beschreibung neu.
+import Legacy from '../layouts/Legacy.astro';
+import { allPosts } from '../lib/wp';
+import { beitragStyles } from '../lib/beitrag';
+import { asset } from '../lib/asset';
+import { BESCHREIBUNG, BEWERTUNGEN_CSS, startSeite } from '../lib/startseite';
+import legacyStart from '../legacy/pages/index.json';
+
+const vorlage = (await allPosts()).find((p) => p.collection === 'blog')!;
+const { styles, scripts, bodyClass } = beitragStyles(vorlage);
+const b = BESCHREIBUNG.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+const seo = legacyStart.seo
+  .replace(/(<meta (?:name|property)="(?:description|og:description|twitter:description)" content=")[^"]*/g, `$1${b}`)
+  // Angaben eines Artikels (Lesedauer, Autor) passen nicht zur Startseite
+  .replace(/<meta name="twitter:(?:label|data)\d" content="[^"]*" \/>\n?/g, '');
+const main = await startSeite();
+---
+<Legacy
+  seo={seo}
+  styles={[...styles, ...BEWERTUNGEN_CSS, { type: 'link', href: asset('/css/branchen.css'), id: 'branchen-css' }, { type: 'link', href: asset('/css/startseite.css'), id: 'startseite-css' }]}
+  scripts={scripts}
+  bodyClass={`home ${bodyClass} tf-startseite`}
+  main={main}
+/>

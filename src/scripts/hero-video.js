@@ -38,7 +38,8 @@ for (const el of document.querySelectorAll('[data-settings*="background_video_li
     continue;
   }
 
-  if (handy && link.startsWith(QUERFORMAT)) {
+  // includes statt startsWith: im Vorschau-Build steht /vorschau davor
+  if (handy && link.includes(QUERFORMAT)) {
     link = el.dataset.tfHochkant;
     video.parentElement.style.backgroundImage = `url(${el.dataset.tfStandbildHochkant})`;
   }

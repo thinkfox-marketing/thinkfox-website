@@ -1,0 +1,62 @@
+/* Startseite (Relaunch, src/lib/startseite.ts) – ergänzt beitrag.css + branchen.css, mobile-first.
+   Typografie statt Deko: Abschnitte über Hintergrundwechsel (Weiß / Hellblau / Hell-Lila), Textblöcke mit Haarlinie. */
+
+/* --- Kopf mit Showreel ------------------------------------------------------------------------- */
+.tf-start-kopf {
+  --tf-kopfzeile: 83px; /* Höhe der Kopfzeile (Elementor): Video läuft dahinter weiter */
+  position: relative; isolation: isolate; overflow: hidden;
+  display: flex; align-items: flex-end;
+  margin-top: calc(-1 * var(--tf-kopfzeile)); padding: calc(var(--tf-kopfzeile) + 56px) 0 48px; background: #1d1b33; color: #fff;
+}
+/* Kopfzeile über dem Video statt auf weißem Streifen */
+.tf-startseite .elementor-location-header { position: relative; z-index: 20; }
+.tf-startseite .elementor-location-header > .elementor-element { background: transparent; }
+.tf-start-kopf .elementor-background-video-container { position: absolute; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
+.tf-start-kopf .elementor-background-video-hosted { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* Abdunklung für Lesbarkeit (Kontrast auch bei hellen Filmbildern) */
+.tf-start-kopf::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: rgb(29 27 51 / 0.72);
+}
+.tf-start-kopf__inhalt { position: relative; }
+.tf-start .tf-start-kopf .tf-kopf__marke { color: #d9d5ff; }
+.tf-start .tf-start-kopf .tf-kopf__titel { max-width: 15ch; color: #fff; }
+.tf-start .tf-start-kopf .tf-kopf__teaser { max-width: 56ch; color: #fff; }
+.tf-start .tf-start-kopf a:focus-visible { outline-color: #fff; }
+.tf-start-kopf button.tf-video-toggle { top: auto; right: 20px; bottom: 20px; }
+
+/* --- Abschnitte -------------------------------------------------------------------------------- */
+.tf-start .tf-huelle { max-width: 1180px; }
+.tf-start__abschnitt, .tf-start__ueber, .tf-start__bewertungen { padding-block: 3.5rem; }
+.tf-start__zielgruppen, .tf-start__ueber, .tf-start .tf-start__ratgeber { background: var(--tf-hell); }
+.tf-start .tf-weitere { padding-block: 3.5rem; }
+.tf-start .tf-faq { margin-block: 3.5rem; }
+.tf-start .tf-anfrage { margin-top: 0; }
+
+/* Anliegen: vier Blöcke als 2 × 2 statt 3 + 1 */
+@media (min-width: 1024px) { .tf-start__anliegen .tf-aufgaben { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 64px; } }
+
+/* Fakten: große Zeile + Erläuterung, Haarlinie oben */
+.tf-fakten { display: grid; gap: 28px 40px; margin: 0 0 1.75rem; padding: 0; }
+.tf-fakten div { padding-top: 16px; border-top: 1px solid var(--tf-lila); }
+.tf-fakten dt { margin: 0 0 0.35rem; font-size: clamp(1.375rem, 2.6vw, 1.75rem); font-weight: 700; line-height: 1.15; color: var(--tf-lila); }
+.tf-fakten dd { margin: 0; }
+@media (min-width: 720px) { .tf-fakten { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .tf-fakten { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* Lange Wörter in Kacheltiteln (z. B. „Unternehmenskommunikation“) mit Trennstrich statt hartem Umbruch */
+.tf-start .tf-karte__titel { hyphens: auto; }
+
+/* Handy: vier statt acht Referenzen (sonst rund 2.400 px Scrollstrecke) */
+@media (max-width: 719px) { .tf-start__referenzen .tf-karte:nth-child(n+5) { display: none; } }
+
+/* Ratgeber: drei Kacheln */
+@media (min-width: 1024px) { .tf-start .tf-start__ratgeber .tf-karten { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+@media (min-width: 768px) {
+  .tf-start-kopf { --tf-kopfzeile: 85px; min-height: min(86vh, 820px); padding-bottom: 72px; }
+  .tf-start-kopf::after { background: linear-gradient(90deg, rgb(29 27 51 / 0.82) 0, rgb(29 27 51 / 0.7) 55%, rgb(29 27 51 / 0.45) 100%); }
+  .tf-start-kopf button.tf-video-toggle { right: 32px; bottom: 32px; }
+  .tf-start__abschnitt, .tf-start__ueber, .tf-start__bewertungen, .tf-start .tf-weitere { padding-block: 4.5rem; }
+}
+@media (min-width: 1200px) { .tf-start-kopf { --tf-kopfzeile: 112px; } }
