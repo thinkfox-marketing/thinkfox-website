@@ -1,0 +1,66 @@
+name: Vorschau (thinkfox.de/vorschau)
+
+# Entwicklungsbereich für die neue Website: Zweig „relaunch“ → thinkfox.de/vorschau/ (passwortgeschützt, noindex,
+# kein Tracking, Formulare gesperrt). Läuft getrennt vom Live-Deploy; schlägt er fehl, ist die Live-Seite nicht betroffen.
+on:
+  push:
+    branches: [relaunch]
+    paths-ignore: ['docs/**', '*.md']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  vorschau:
+    runs-on: ubuntu-latest
+    env:
+      FTP_HOST: ${{ secrets.FTP_HOST }}
+      DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - uses: actions/cache@v4
+        with:
+          path: .osm-cache
+          key: osm-karte-v1
+
+      - uses: actions/cache@v4
+        with:
+          path: .webp-cache
+          key: webp-${{ github.run_id }}
+          restore-keys: webp-
+
+      - name: Bauen (Vorschau-Modus)
+        run: npm run build
+        env:
+          PUBLIC_VORSCHAU: '1'
+
+      - name: Vorschau-Fassung erzeugen
+        run: node scripts/vorschau.mjs
+
+      - name: lftp installieren
+        if: env.DEPLOY_PATH != ''
+        run: sudo apt-get install -y -qq lftp > /dev/null
+
+      - name: Nach /vorschau/ übertragen
+        if: env.DEPLOY_PATH != ''
+        env:
+          LIVE_FTP_USER: ${{ secrets.LIVE_FTP_USER }}
+          LIVE_FTP_PASSWORD: ${{ secrets.LIVE_FTP_PASSWORD }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          if [ -n "$LIVE_FTP_USER" ]; then export FTP_USER="$LIVE_FTP_USER" FTP_PASSWORD="$LIVE_FTP_PASSWORD"; fi
+          scripts/deploy-vorschau.sh dist-vorschau "${DEPLOY_PATH%/}/vorschau"

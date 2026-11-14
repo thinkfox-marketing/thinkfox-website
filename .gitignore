@@ -12,3 +12,4 @@ node_modules/
 /public/admin/decap/
 /.osm-cache/
 .webp-cache/
+/dist-vorschau/

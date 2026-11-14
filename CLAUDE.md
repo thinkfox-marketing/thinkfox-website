@@ -97,6 +97,17 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 - **SEO/GEO:** echte 404-Seite (Comic-Fuchs, „Fährten“ zu den Hauptseiten, `src/pages/404.astro`) statt Weiterleitung auf die Startseite (alte WordPress-Weiterleitungen einzeln in `public/.htaccess`), Kategorie-Archive `noindex`,
   Unternehmensprofil/Service/FAQ als JSON-LD (`src/lib/geo.ts`), `/llms.txt`.
 
+## Entwicklungsbereich (Relaunch)
+
+- Neue Struktur/Inhalte entstehen im Zweig **`relaunch`** und werden automatisch nach **thinkfox.de/vorschau/** gebaut
+  (`.github/workflows/vorschau.yml`): `PUBLIC_VORSCHAU=1 npm run build && node scripts/vorschau.mjs` → `dist-vorschau/`,
+  Upload nur per `scripts/deploy-vorschau.sh` (bricht ab, wenn das Ziel nicht auf `/vorschau` endet).
+- Vorschau-Modus: alle eigenen Pfade mit Präfix `/vorschau`, `/wp-content/` + `/wp-includes/` kommen von der Live-Seite,
+  noindex (Meta + Header aus der Live-`.htaccess`), Band „Vorschau – nicht öffentlich“, kein Tracking, Formulare gesperrt.
+- Passwortschutz: Verzeichnisschutz von All-Inkl auf den Ordner `vorschau` (`.htaccess`/`.htpasswd` dort werden nie
+  überschrieben). Der Live-Deploy lässt `vorschau/` unangetastet (`-x ^vorschau/` in `scripts/deploy-ftp.sh`).
+- `main` regelmäßig in `relaunch` übernehmen; Go-live = `relaunch` nach `main` (ohne `/vorschau`-Präfix, das entsteht nur im Vorschau-Build).
+
 ## Regeln
 
 - **Optik:** Jede Änderung mit Screenshot-Vergleich prüfen (Playwright, 1440 px und 390 px).

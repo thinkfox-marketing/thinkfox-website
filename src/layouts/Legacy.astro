@@ -94,7 +94,7 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <Tracking />
+  {!import.meta.env.PUBLIC_VORSCHAU && <Tracking />}
   <Fragment set:html={seo} />
   <Fragment set:html={jsonLd} />
   <link rel="alternate" type="application/rss+xml" title="thinkfox marketing &raquo; Feed" href="/feed/" />
