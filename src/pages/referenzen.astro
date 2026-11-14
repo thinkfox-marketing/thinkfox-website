@@ -1,0 +1,20 @@
+---
+// Übersicht aller Referenzen (Relaunch) – Inhalte aus den Projekten im CMS, Aufbau in src/lib/referenz.ts.
+import Seite from '../layouts/Seite.astro';
+import { referenzenSeite } from '../lib/referenz';
+
+const titel = 'Referenzen | thinkfox marketing';
+const beschreibung = 'Referenzen von thinkfox marketing: Websites, Social Media, Film, Foto und Print für mittelständische Unternehmen, Kliniken und Kommunen in Nordhessen.';
+const url = 'https://thinkfox.de/referenzen/';
+const seo = `<title>${titel}</title>
+<meta name="description" content="${beschreibung}"/>
+<meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+<link rel="canonical" href="${url}" />
+<meta property="og:locale" content="de_DE" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="${titel}" />
+<meta property="og:description" content="${beschreibung}" />
+<meta property="og:url" content="${url}" />
+<meta property="og:site_name" content="thinkfox marketing" />`;
+---
+<Seite seo={seo} main={await referenzenSeite()} />

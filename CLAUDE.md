@@ -119,15 +119,27 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   eine Vektordatei ersetzen). Kein Lila, kein Fuchs-Kreis, keine Pillen, Buttons mit 4 px Ecken.
 - **Kopf- und Fußzeile** für alle Seiten: `src/lib/chrome.ts` + `src/scripts/chrome.js` (Aufklapp-Navigation, Handy-Menü).
   Die Elementor-Kopfzeile samt Mega-Menü (`src/legacy/chrome/*`, `megamenu.*`) ist nur noch Archiv.
-- **Neue Seiten** ohne Elementor: Rahmen `src/layouts/Seite.astro`, Bausteine `public/css/seite.css` (Sektionsbaukasten:
-  Aufmacher versetzt, Bild mit Textinsel, Teilung 7:5, Kontaktbogen, Pause, Mosaik). Umgesetzt: Startseite
-  (`src/lib/seiten.ts`) und die vier Leistungsseiten Websites und SEO, Social Media, Film und Foto, Externe Marketingabteilung
-  (`src/lib/leistungen.ts`, ein gemeinsamer Aufbau: Ausgangslage → Lösung → Ergebnis → Vorgehen → Referenzen → Kosten → Fragen;
-  unter den bisherigen Adressen, ausgeliefert über `src/pages/[...slug].astro`). `seoNeu()` entfernt die alten Fragen aus den
-  übernommenen Strukturdaten; die neuen kommen aus dem Markup (`details.tf-faq__eintrag`).
-- **Übergang:** Projekte, Blog und Branchenseiten behalten ihr Layout (`beitrag.css`) und sind über Variablen in `chrome.css`
-  umgefärbt. Übrige Elementor-Seiten (Kontakt, Mietstudio, 360°, Bad Wildungen, Projektanfrage, Blog-Übersicht,
-  Rechtliches) haben nur die neue Kopf- und Fußzeile und sind inhaltlich noch im alten Stand.
+- **Alle Seiten ohne Elementor** (Stand 14.11.2026): Rahmen `src/layouts/Seite.astro`, Bausteine `public/css/seite.css`
+  (Sektionsbaukasten: Aufmacher versetzt, Bild mit Textinsel, Teilung 7:5, Kontaktbogen, dunkle Abschnitte, Mosaik, Stufen).
+  - Startseite `src/lib/start.ts` (neun unterscheidbare Abschnitte; Ausgangslage → Leistung als Zeilen direkt unter dem Aufmacher).
+  - Leistungsseiten und Bad Wildungen `src/lib/leistungen.ts` (ein Aufbau: Ausgangslage → Lösung → Ergebnis → Vorgehen →
+    Referenzen → Kosten → Fragen), ausgeliefert über `src/pages/[...slug].astro` unter den bisherigen Adressen.
+  - Referenzen `src/lib/referenz.ts` (Projektseiten aus den CMS-Feldern, Übersicht `/referenzen/`).
+  - Kontakt, Studio & Vermietung, 360°-Rundgänge samt vier Beispielen, Danke-Seiten, Rechtliches (Text unverändert über
+    `prosa()`), Ratgeber-Übersicht: `src/lib/weitere-seiten.ts` (`SONDERSEITEN`). Kategorie-Archive und 404 im selben Rahmen.
+  - Ratgeber-Artikel und Branchenseiten: Rahmen `Seite.astro`, Inhalt weiter aus `beitrag.ts`/`branchen.ts` mit `beitrag.css`
+    (über Variablen in `chrome.css` umgefärbt). Ratgeber-Artikel stehen inhaltlich noch in Du-Form.
+  - `seoNeu()` entfernt alte Fragen und Videos aus den übernommenen Strukturdaten; die neuen Fragen kommen aus dem Markup
+    (`details.tf-faq__eintrag`). Titel/Beschreibungen in Sie-Form: `TITEL`/`BESCHREIBUNGEN` in `src/lib/geo.ts`
+    (`jsonLdTexte()` setzt sie auch im übernommenen JSON-LD).
+- **Formularseiten** (Projektanfrage, Marketing-Ampel, Ergebnis) bleiben wegen Forminator im Elementor-Rahmen (`Legacy.astro`,
+  Canvas ohne Kopf-/Fußzeile). Formular-Markup unverändert; Farben/Schrift/Ecken über `public/css/formular.css`, sichtbare Texte
+  in Sie-Form über `src/lib/formularseiten.ts` (Ersetzungsliste, Build bricht ab, wenn ein Ausgangstext fehlt – nie `value`
+  ändern). Auswertungstexte: `src/scripts/marketing-check.js`. Interne Feldnamen in `forms.json` (Mail an hallo@) unverändert.
+- **2-Klick-Hinweise** (YouTube, Kuula, Karte) im neuen Erscheinungsbild und in Sie-Form (`platzhalter()` in
+  `src/lib/barrierefreiheit.ts`, `src/lib/osm-karte.mjs`); Kuula-Rahmen mit `data-tf-bild` zeigt das Vorschaubild.
+- **Archiv (nicht mehr ausgeliefert):** `src/legacy/pages/*.json` liefert nur noch SEO-Kopf und die drei Formularseiten;
+  `megamenu.*`, `src/legacy/chrome/*`, `einheitlich.css`/`ergaenzungen.css` wirken nur noch auf den Formularseiten.
 - **Wording:** Sie-Form; Aufbau Ausgangslage → Lösung → Ergebnis; Überschriften benennen den Inhalt (keine Pointen, keine
   Zweiteiler); Verben wie konzipieren, entwickeln, umsetzen, betreuen, produzieren; Sichtbarkeit immer mit Bezug (bei wem, wo,
   wofür); jede Leistung mit Ergebniszeile; Handlungsaufrufe „Erstgespräch vereinbaren“, „Projekt anfragen“, „Referenzen ansehen“.

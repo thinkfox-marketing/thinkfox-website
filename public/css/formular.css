@@ -1,0 +1,85 @@
+/* Formularseiten (Projektanfrage, Marketing-Ampel, Ergebnis) im neuen Erscheinungsbild.
+   Diese drei Seiten bleiben wegen der Forminator-Formulare auf dem Elementor-Rahmen (Legacy.astro, Canvas ohne Kopf-/Fußzeile).
+   Das Formular-Markup und -Skript bleibt unverändert – hier werden nur Farben, Schrift und Ecken an chrome.css angeglichen.
+   Geltungsbereich: body.page-template-elementor_canvas (nur diese Seiten). Texte in Sie-Form: src/lib/formularseiten.ts. */
+
+.page-template-elementor_canvas {
+  --e-global-color-4e42812: var(--tfn-tinte);
+  --e-global-color-8ce9af0: var(--tfn-wald);
+  --e-global-color-b1bcc49: var(--tfn-kalk);
+  --e-global-color-dabd73e: var(--tfn-kalk);
+  --tf-lila: var(--tfn-tinte);
+  --tfo-fokus: var(--tfn-tinte);
+  background: var(--tfn-weiss);
+  color: var(--tfn-tinte);
+}
+
+/* Schrift: überall die Hausschrift, Symbolschriften (Forminator, Font Awesome) ausgenommen */
+body.page-template-elementor_canvas :is(h1, h2, h3, h4, p, a, li, label, legend, b, strong, input, textarea, select, button, div, span):not([class*="forminator-icon"]):not([class*="fa-"]):not(.iti__flag) {
+  font-family: var(--tfn-schrift) !important;
+}
+
+/* Kopf: Rücksprung, Dachzeile, Überschrift, Einleitung */
+body.page-template-elementor_canvas .elementor-icon-box-title a { color: var(--tfn-text2) !important; font-size: 0.9375rem; font-weight: 500; text-decoration: underline; text-decoration-color: var(--tfn-linie); text-underline-offset: 4px; }
+body.page-template-elementor_canvas .elementor-icon-box-title a:hover { color: var(--tfn-tinte) !important; text-decoration-color: currentColor; }
+body.page-template-elementor_canvas .elementor-icon-box-icon :is(a, svg) { color: var(--tfn-tinte) !important; fill: var(--tfn-tinte) !important; }
+body.page-template-elementor_canvas .elementor .elementor-element p.elementor-heading-title { color: var(--tfn-stein) !important; font-size: 0.875rem !important; font-weight: 600 !important; letter-spacing: 0.04em !important; }
+body.page-template-elementor_canvas p.elementor-heading-title::before { content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 10px; background: var(--tfn-wald); }
+body.page-template-elementor_canvas h1.elementor-heading-title { color: var(--tfn-tinte) !important; font-size: clamp(2.25rem, 1.4rem + 2.9vw, 3.75rem) !important; font-weight: 800 !important; line-height: 1.02 !important; letter-spacing: -0.04em !important; }
+body.page-template-elementor_canvas :is(h2, h3, h4, b, strong) { color: var(--tfn-tinte) !important; }
+body.page-template-elementor_canvas :is(h2, h3) { font-weight: 700 !important; letter-spacing: -0.02em !important; }
+body.page-template-elementor_canvas .elementor-widget-text-editor, body.page-template-elementor_canvas .elementor-widget-text-editor p { color: var(--tfn-text2) !important; }
+body.page-template-elementor_canvas .elementor a:not(.elementor-button):not(.elementor-icon) { color: var(--tfn-tinte) !important; }
+
+/* Ablauf-Kästen der Marketing-Ampel: Kalk, eckig */
+body.page-template-elementor_canvas .elementor-12397 :is(.elementor-element-1c92653, .elementor-element-7e43920, .elementor-element-a7d8d41),
+body.page-template-elementor_canvas .elementor-12397 :is(.elementor-element-1c92653, .elementor-element-7e43920, .elementor-element-a7d8d41) > .elementor-motion-effects-container > .elementor-motion-effects-layer { background-color: var(--tfn-kalk) !important; border-radius: 4px !important; }
+body.page-template-elementor_canvas .elementor-counter :is(.elementor-counter-number-wrapper, .elementor-counter-title) { color: var(--tfn-tinte) !important; }
+
+/* Bildspalte: neutrale Abdunklung statt lila Schleier; Marketing-Ampel und Ergebnis mit eigenem Foto (Konzeptarbeit am Whiteboard) statt Stockbild */
+body.page-template-elementor_canvas :is(.elementor-12397, .elementor-12631) .elementor-element-686b550:not(.elementor-motion-effects-element-type-background),
+body.page-template-elementor_canvas :is(.elementor-12397, .elementor-12631) .elementor-element-686b550 > .elementor-motion-effects-container > .elementor-motion-effects-layer { background-image: url("/wp-content/uploads/2026/01/konzept.jpg") !important; background-position: 70% 30% !important; background-size: cover !important; }
+body.page-template-elementor_canvas .elementor-element-686b550::before,
+body.page-template-elementor_canvas .elementor-element-686b550 > .elementor-motion-effects-container > .elementor-motion-effects-layer::before { background-color: var(--tfn-tinte) !important; }
+
+/* Formular: Beschriftungen, Felder, Auswahl */
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form .forminator-label { color: var(--tfn-tinte) !important; }
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form :is(.forminator-description, .forminator-checkbox-label, .forminator-radio-label, .forminator-option) { color: var(--tfn-text2) !important; }
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form :is(.forminator-input, .forminator-textarea, .select2-selection) { border-radius: 4px !important; color: var(--tfn-tinte) !important; }
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form :is(.forminator-input, .forminator-textarea):focus,
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form .iti__selected-country:focus { outline: 2px solid var(--tfn-tinte) !important; }
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form :is(.forminator-radio, .forminator-checkbox) input:checked + :is(.forminator-radio-bullet, .forminator-checkbox-box) { background-color: var(--tfn-tinte) !important; border-color: var(--tfn-tinte) !important; }
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form .forminator-checkbox-box { border-radius: 2px !important; }
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form :is(.forminator-radio, .forminator-checkbox) input:focus-visible + :is(.forminator-radio-bullet, .forminator-checkbox-box) { outline: 2px solid var(--tfn-tinte) !important; outline-offset: 2px; }
+body.page-template-elementor_canvas .forminator-ui :is(input, textarea, select):focus-visible,
+body.page-template-elementor_canvas .forminator-ui :is(.forminator-checkbox, .forminator-radio):focus-within,
+body.page-template-elementor_canvas .forminator-ui .select2-selection:focus { outline-color: var(--tfn-tinte) !important; }
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form .forminator-description a { color: var(--tfn-tinte) !important; }
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form .select2-selection:hover .select2-selection__arrow { color: var(--tfn-tinte) !important; }
+
+/* Fortschritt und Schaltflächen */
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form .forminator-pagination-progress .forminator-progress-bar { background-color: var(--tfn-kalk) !important; border-radius: 0 !important; }
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form .forminator-pagination-progress .forminator-progress-bar span { background-color: var(--tfn-wald) !important; border-radius: 0 !important; }
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form .forminator-button,
+body.page-template-elementor_canvas .thinkfox-check-result a.elementor-button { background-color: var(--tfn-tinte) !important; border: 1px solid var(--tfn-tinte) !important; border-radius: 4px !important; color: var(--tfn-weiss) !important; font-weight: 600 !important; box-shadow: none !important; }
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form .forminator-button:is(:hover, :focus),
+body.page-template-elementor_canvas .thinkfox-check-result a.elementor-button:is(:hover, :focus) { background-color: #2c2f36 !important; border-color: #2c2f36 !important; color: var(--tfn-weiss) !important; }
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form .forminator-button.forminator-button-back { background-color: var(--tfn-weiss) !important; color: var(--tfn-tinte) !important; }
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form .forminator-button.forminator-button-back:is(:hover, :focus) { background-color: var(--tfn-kalk) !important; border-color: var(--tfn-tinte) !important; color: var(--tfn-tinte) !important; }
+body.page-template-elementor_canvas .forminator-ui.forminator-custom-form .forminator-button:focus-visible,
+body.page-template-elementor_canvas .thinkfox-check-result a.elementor-button:focus-visible { outline: 3px solid var(--tfn-tinte) !important; outline-offset: 2px; }
+body.page-template-elementor_canvas .forminator-ui .forminator-response-message.forminator-success,
+body.page-template-elementor_canvas .forminator-ui .forminator-response-message.forminator-success p { color: var(--tfn-tinte) !important; }
+
+/* Auswahlliste (select2 hängt am Body) */
+body.page-template-elementor_canvas .forminator-select-dropdown-container--open .select2-results__option--selected { background-color: var(--tfn-tinte) !important; }
+body.page-template-elementor_canvas .forminator-select-dropdown-container--open .select2-results__option--highlighted { outline-color: var(--tfn-tinte) !important; }
+
+/* Sprunglink wie auf den neuen Seiten */
+body.page-template-elementor_canvas .tf-sprung { border-radius: 4px; background: var(--tfn-tinte); color: var(--tfn-weiss); }
+body.page-template-elementor_canvas .tf-sprung:focus { box-shadow: 0 0 0 6px var(--tfn-tinte); }
+
+/* Auswertung der Marketing-Ampel */
+body.page-template-elementor_canvas .thinkfox-check-result p { font-size: 1.0625rem !important; line-height: 1.55 !important; color: var(--tfn-text2) !important; }
+body.page-template-elementor_canvas .thinkfox-check-result h3 { margin-top: 1.75rem !important; }
+body.page-template-elementor_canvas .thinkfox-check-result .thinkfox-result-overview { padding: 0.5rem 0 1rem; border-bottom: 1px solid var(--tfn-linie); }

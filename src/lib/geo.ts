@@ -20,8 +20,8 @@ export const UNTERNEHMEN = {
   logo: `${SITE}/wp-content/uploads/2026/01/Logo-Finale_V2.png`,
   image: `${SITE}/media/showreel-standbild.webp`,
   description:
-    'Werbeagentur aus Edertal in Nordhessen (nahe Kassel) und externe Marketingabteilung für den Mittelstand: '
-    + 'Strategie & Branding, Websites, SEO/SEA/GEO, Social Media, Video- und Fotoproduktion, Print sowie ein Mietstudio.',
+    'Werbeagentur aus Edertal in Nordhessen (nahe Kassel), Marketingpartner für mittelständische Unternehmen und Einrichtungen: '
+    + 'Websites und SEO, Social Media, Film und Foto für mehr Sichtbarkeit bei Kunden und Bewerbern – auf Wunsch als externe Marketingabteilung.',
   foundingDate: '2015',
   email: 'hallo@thinkfox.de',
   telephone: '+49 5623 9737793',
@@ -87,10 +87,64 @@ export const TITEL: Record<string, string> = {
   '/thinkfox-mietstudio-dein-fotostudio-videostudio-nordhessen/': 'Foto- & Videostudio mieten in Nordhessen | thinkfox',
   '/deine-externe-marketingabteilung-ganzheitliches-marketing-fuer-den-mittelstand/': 'Externe Marketingabteilung für den Mittelstand | thinkfox',
   '/werbeagentur-bad-wildungen-thinkfox-marketing-fuer-den-mittelstand/': 'Werbeagentur Bad Wildungen | thinkfox marketing',
+  '/kontakt/': 'Kontakt | thinkfox marketing',
+  '/thinkfox-marketing-projekt-anfragen/': 'Projekt anfragen | thinkfox marketing',
+  '/marketing-ampel/': 'Marketing-Ampel: Selbsttest für Ihr Marketing | thinkfox',
+  '/marketing-ampel/ergebnis/': 'Ihre Marketing-Ampel | thinkfox marketing',
+  '/danke_projektanfrage/': 'Vielen Dank für Ihre Anfrage | thinkfox marketing',
+  '/danke_websites/': 'Vielen Dank für Ihre Anfrage | thinkfox marketing',
+  '/danke_social-media/': 'Vielen Dank für Ihre Anfrage | thinkfox marketing',
+  '/danke_content-produktion/': 'Vielen Dank für Ihre Anfrage | thinkfox marketing',
 };
+
+/** Titel/Beschreibung auch im übernommenen JSON-LD (WebPage, Article) setzen – dort stehen sonst die alten Texte. */
+export function jsonLdTexte(seo: string, t: { beschreibung?: string; titel?: string }): string {
+  if (!t.beschreibung && !t.titel) return seo;
+  return seo.replace(/(<script type="application\/ld\+json"[^>]*>)([\s\S]*?)(<\/script>)/g, (m, a: string, json: string, z: string) => {
+    try {
+      const daten = JSON.parse(json);
+      const lauf = (k: unknown): void => {
+        if (Array.isArray(k)) { k.forEach(lauf); return; }
+        if (!k || typeof k !== 'object') return;
+        const o = k as Record<string, unknown>;
+        if (/WebPage|Article|BlogPosting/.test([o['@type']].flat().join(' '))) {
+          if (t.beschreibung && 'description' in o) o.description = t.beschreibung;
+          if (t.titel && 'name' in o) o.name = t.titel;
+          if (t.titel && 'headline' in o) o.headline = t.titel;
+        } else if (/VideoObject/.test([o['@type']].flat().join(' ')) && t.beschreibung && 'description' in o) {
+          o.description = t.beschreibung;
+        }
+        Object.values(o).forEach(lauf);
+      };
+      lauf(daten);
+      return `${a}${JSON.stringify(daten)}${z}`;
+    } catch { return m; }
+  });
+}
 
 /** Bessere Meta-Beschreibungen für übernommene Seiten (Original zu kurz). */
 export const BESCHREIBUNGEN: Record<string, string> = {
+  // Relaunch: Sie-Form und Positionierung (Sichtbarkeit für mittelständische Unternehmen)
+  '/professionelle-websites-fuer-den-mittelstand/':
+    'Websites für mittelständische Unternehmen: Konzeption, Gestaltung, Umsetzung und Pflege – mit SEO und KI-Sichtbarkeit, damit Anfragen und Bewerbungen ankommen.',
+  '/mehr-aufmerksamkeit-und-reichweite-mit-social-media/':
+    'Social-Media-Betreuung für mittelständische Unternehmen: Redaktionsplanung, Produktion vor Ort, Veröffentlichung und Anzeigen aus Nordhessen.',
+  '/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/':
+    'Imagefilm, Recruitingfilm und Fotografie aus Nordhessen: Konzeption, Dreh und Schnitt für Website, Social Media und Personalgewinnung.',
+  '/360-grad-rundgaenge/':
+    'Virtuelle 360-Grad-Rundgänge für Unternehmen, Ferienobjekte und Veranstaltungsorte: Beratung, Aufnahmen, Erstellung und Hosting aus Nordhessen.',
+  '/thinkfox-mietstudio-dein-fotostudio-videostudio-nordhessen/':
+    'Foto- und Videostudio mit Hohlkehle in Edertal (Nordhessen) mieten: rund 70 m² Spielfläche, Technik auf Wunsch, stunden- oder tageweise.',
+  '/kontakt/':
+    'Kontakt zu thinkfox marketing in Edertal: Telefon, E-Mail, Anfahrt und Terminauswahl für ein Erstgespräch.',
+  '/thinkfox-marketing-projekt-anfragen/':
+    'Projektanfrage an thinkfox marketing: Mit wenigen Angaben zu Thema und Bedarf ordnen wir Ihre Anfrage ein und melden uns bei Ihnen.',
+  '/barrierefreiheitserklaerung/':
+    'Barrierefreiheit von thinkfox.de: Stand der Vereinbarkeit mit WCAG 2.2 AA, bekannte Einschränkungen und wie Sie uns Barrieren melden.',
+  '/danke_projektanfrage/': 'Ihre Anfrage ist bei thinkfox marketing eingegangen. Wir melden uns bei Ihnen.',
+  '/danke_websites/': 'Ihre Anfrage ist bei thinkfox marketing eingegangen. Wir melden uns bei Ihnen.',
+  '/danke_social-media/': 'Ihre Anfrage ist bei thinkfox marketing eingegangen. Wir melden uns bei Ihnen.',
+  '/danke_content-produktion/': 'Ihre Anfrage ist bei thinkfox marketing eingegangen. Wir melden uns bei Ihnen.',
   '/marketing-ampel/':
     'Kostenloser Marketing-Selbsttest für KMU: Website, Content, Strategie und Recruiting in wenigen Minuten bewerten – mit Ampel je Bereich.',
   '/360-grad-rundgaenge/cine-k-korbach/':

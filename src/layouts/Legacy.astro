@@ -63,7 +63,7 @@ const stile = styles.filter((s) => s.id !== 'sb-elementor-shared-style-css' && s
 
 // Im Build: alle Stylesheets als eine Datei (src/lib/css-bundle.ts). Leere Platzhalter mit den
 // Original-IDs bleiben stehen, weil Elementor nachgeladene Stile davor einfügt („before: #…-css“).
-const bundle = import.meta.env.PROD ? cssBundle(stile, ['/css/ergaenzungen.css', ...(einheitlich ? ['/css/einheitlich.css'] : []), '/css/chrome.css']) : null;
+const bundle = import.meta.env.PROD ? cssBundle(stile, ['/css/ergaenzungen.css', ...(einheitlich ? ['/css/einheitlich.css'] : []), '/css/chrome.css', ...(canvas ? ['/css/formular.css'] : [])]) : null;
 
 // Hero mit Hintergrundvideo ganz oben: Standbild sofort laden (größtes sichtbares Element)
 const ersterHero = main.indexOf('elementor-background-video-container');
@@ -116,6 +116,7 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
       <link rel="stylesheet" id="tf-ergaenzungen-css" href={asset('/css/ergaenzungen.css')} media="all" />
       {einheitlich && <link rel="stylesheet" id="tf-einheitlich-css" href={asset('/css/einheitlich.css')} media="all" />}
       <link rel="stylesheet" id="tf-chrome-css" href={asset('/css/chrome.css')} media="all" />
+      {canvas && <link rel="stylesheet" id="tf-formular-css" href={asset('/css/formular.css')} media="all" />}
     </>
   )}
   {kachelCss && <style id="tf-kacheln-spaet" set:html={kachelCss} />}

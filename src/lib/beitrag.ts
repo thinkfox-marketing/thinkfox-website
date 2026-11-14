@@ -27,7 +27,7 @@ export const knopf = (text: string, link: string, variante = '') =>
 
 /** Teaser unter dem Titel: eigene Einleitung, sonst SEO-Beschreibung – aber nicht, wenn er nur den
  *  Textanfang wiederholt (Beschreibung wurde in WordPress oft aus dem ersten Satz kopiert). */
-function teaserText(d: Post['data'], textHtml: string): string {
+export function teaserText(d: Post['data'], textHtml: string): string {
   if (d.einleitung) return d.einleitung;
   const t = d.seo.beschreibung ?? '';
   const anfang = (x: string) => x.toLowerCase().replace(/[^a-zäöüß0-9]+/g, ' ').trim().slice(0, 45);
@@ -57,7 +57,7 @@ function ankerSetzen(h: string): { html: string; toc: { id: string; text: string
   return { html: out, toc };
 }
 
-function medium(m: Baustein | Projekt['data']['medien'][number]): string {
+export function medium(m: Baustein | Projekt['data']['medien'][number]): string {
   if (m.typ === 'video') return `<figure class="tf-medium tf-medium--video">${youtubeEinbettung(m.youtube)}</figure>`;
   if (m.typ === 'bild') return `<figure class="tf-medium tf-medium--bild">${wpImg(m.bild, { size: 'full', alt: m.alt, cls: '' })}</figure>`;
   if (m.typ === 'galerie') {
@@ -126,7 +126,8 @@ export function projektKarten(auswahl: Post[], titel: string, mehr: string, id =
 </section>`;
 }
 
-async function weitere(p: Post, titel: string, mehr: string): Promise<string> {
+/** Thematisch passende weitere Beiträge derselben Sammlung (für „Weitere …“ und die neuen Referenzseiten). */
+export async function aehnliche(p: Post, anzahl = 3): Promise<Post[]> {
   const alle = (await allPosts()).filter((x) => x.collection === p.collection && x.id !== p.id && x.data.bild);
   // Punkte: gleiche (fachliche) Kategorie + Themenähnlichkeit (Jaccard, damit „passt zu allem“-Beiträge nicht
   // überall auftauchen); bei Gleichstand die neueren zuerst
@@ -138,10 +139,12 @@ async function weitere(p: Post, titel: string, mehr: string): Promise<string> {
     const vereinigt = new Set([...andere, ...eigene]).size || 1;
     return 2 * x.data.kategorien.filter((k) => kat.has(k)).length + gemeinsam / vereinigt;
   };
-  const auswahl = alle.map((x, i) => ({ x, i, s: punkte(x) })).sort((a, b) => b.s - a.s || a.i - b.i).slice(0, 3).map((o) => o.x);
+  return alle.map((x, i) => ({ x, i, s: punkte(x) })).sort((a, b) => b.s - a.s || a.i - b.i).slice(0, anzahl).map((o) => o.x);
+}
+
+async function weitere(p: Post, titel: string, mehr: string): Promise<string> {
+  const auswahl = await aehnliche(p, 3);
   if (!auswahl.length) return '';
-  // Kachelbild: Titel steht als Linktext daneben → Bild für Screenreader ausgeblendet (sonst doppelt vorgelesen),
-  // Alt-Text trotzdem gesetzt (Suchmaschinen, Bildausfall; Seobility zählt leeres alt als „fehlend“)
   return projektKarten(auswahl, titel, mehr);
 }
 

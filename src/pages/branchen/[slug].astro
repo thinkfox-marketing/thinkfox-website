@@ -1,9 +1,7 @@
 ---
 // Branchenseiten (Relaunch): /branchen/gesundheit-soziales/, /branchen/oeffentliche-hand/ – Inhalte in src/lib/branchen.ts.
-import Legacy from '../../layouts/Legacy.astro';
-import { allPosts } from '../../lib/wp';
-import { beitragStyles, esc } from '../../lib/beitrag';
-import { asset } from '../../lib/asset';
+import Seite from '../../layouts/Seite.astro';
+import { esc } from '../../lib/beitrag';
 import { BRANCHEN, brancheSeite, type Branche } from '../../lib/branchen';
 
 export function getStaticPaths() {
@@ -11,9 +9,6 @@ export function getStaticPaths() {
 }
 const { b } = Astro.props as { b: Branche };
 
-// Rahmen, Stylesheets und Skripte wie die Blogbeiträge (einheitliches Layout) + branchen.css
-const vorlage = (await allPosts()).find((p) => p.collection === 'blog')!;
-const { styles, scripts, bodyClass } = beitragStyles(vorlage);
 const url = `https://thinkfox.de/branchen/${b.slug}/`;
 const seo = `<title>${esc(b.seoTitel)}</title>
 <meta name="description" content="${esc(b.beschreibung)}"/>
@@ -27,4 +22,4 @@ const seo = `<title>${esc(b.seoTitel)}</title>
 <meta property="og:site_name" content="thinkfox marketing" />`;
 const main = await brancheSeite(b);
 ---
-<Legacy seo={seo} styles={[...styles, { type: 'link', href: asset('/css/branchen.css'), id: 'branchen-css' }]} scripts={scripts} bodyClass={bodyClass} main={main} />
+<Seite seo={seo} main={main} css={['/css/beitrag.css', '/css/branchen.css']} />

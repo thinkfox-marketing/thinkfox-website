@@ -89,25 +89,25 @@ export function telefon(html: string): string {
     .replace(/href="tel:5623 9737793"/g, `href="${TEL}"`);
 }
 
-// --- 2-Klick-Lösung für YouTube und Kuula, Karte mit OpenStreetMap -------------------------------------------
+// --- 2-Klick-Lösung für YouTube und Kuula (Hinweis im neuen Erscheinungsbild, Sie-Form), Karte mit OpenStreetMap -------------------------------------------
 
-const FONT = '/wp-content/uploads/elementor/google-fonts/fonts/outfit-97312486.woff2';
+const FONT = '/media/schrift/schibsted-grotesk-latin.woff2';
 
 /** Platzhalter-Dokument (srcdoc): Hinweis + Link, der den Rahmen erst auf Klick zum Anbieter navigiert. */
 function platzhalter(o: { anbieter: string; firma: string; was: string; ziel: string; bild?: string }): string {
-  const hintergrund = o.bild ? `url(${o.bild}) center/cover no-repeat, #3b3192` : '#3b3192';
+  const hintergrund = o.bild ? `linear-gradient(rgb(20 22 26/.35),rgb(20 22 26/.35)), url(${o.bild}) center/cover no-repeat, #14161a` : '#14161a';
   const doc = `<!doctype html><html lang="de"><head><meta charset="utf-8"><style>
-@font-face{font-family:Outfit;src:url(${FONT}) format("woff2");font-weight:100 900}
+@font-face{font-family:"Schibsted Grotesk";src:url(${FONT}) format("woff2");font-weight:400 900}
 html,body{height:100%;margin:0}
-body{display:grid;place-items:center;font-family:Outfit,system-ui,sans-serif;color:#fff;background:${hintergrund}}
-.box{max-width:30rem;margin:1rem;padding:1.1rem 1.4rem;border-radius:12px;background:rgb(20 16 60/.85);text-align:center;font-size:15px;line-height:1.45}
+body{display:grid;place-items:center;font-family:"Schibsted Grotesk",system-ui,sans-serif;color:#fff;background:${hintergrund}}
+.box{max-width:30rem;margin:1rem;padding:1.1rem 1.4rem;border-radius:4px;background:rgb(20 22 26/.92);text-align:center;font-size:15px;line-height:1.5}
 p{margin:0}
 a{color:#fff}
-.laden{display:inline-block;margin:.8rem .3rem 0;padding:.6rem 1.1rem;border-radius:6px;background:#5b4ec8;font-weight:600;text-decoration:none}
-.laden:hover{background:#4a3fb0}
+.laden{display:inline-block;margin:.9rem .3rem 0;padding:.6rem 1.1rem;border-radius:4px;background:#fff;color:#14161a;font-weight:600;text-decoration:none}
+.laden:hover{background:#efefea}
 a:focus-visible{outline:3px solid #fff;outline-offset:2px}
 </style></head><body><div class="box">
-<p>Hier ist ${o.was} von <strong>${o.anbieter}</strong> eingebunden. Beim Laden werden Daten wie deine IP-Adresse an ${o.firma} übertragen. <a href="/datenschutz/" target="_top">Datenschutz</a></p>
+<p>Hier ist ${o.was} von <strong>${o.anbieter}</strong> eingebunden. Beim Laden werden Daten wie Ihre IP-Adresse an ${o.firma} übertragen. <a href="/datenschutz/" target="_top">Datenschutz</a></p>
 <a class="laden" href="${attr(o.ziel)}">${o.was.replace(/^(ein|eine|einen) /, '').replace(/^./, (c) => c.toUpperCase())} laden</a>
 </div></body></html>`;
   return attr(doc);
@@ -150,8 +150,10 @@ export function einbettungen(html: string): string {
   return html.replace(/<iframe\b([^>]*?)\ssrc="(https:\/\/kuula\.co\/[^"]+)"([^>]*)>/g,
     (m, vor: string, src: string, nach: string) => {
       const ziel = src.replace(/&#0?38;|&amp;/g, '&');
-      const doc = platzhalter({ anbieter: 'Kuula', firma: 'Kuula', was: 'ein 360°-Rundgang', ziel });
-      const rest = `${vor}${nach}`.replace(/\s(title|aria-label)="[^"]*"/g, '');
+      // data-tf-bild: lokales Vorschaubild des Rundgangs als Hintergrund des Hinweises
+      const bild = `${vor}${nach}`.match(/\sdata-tf-bild="([^"]*)"/)?.[1];
+      const doc = platzhalter({ anbieter: 'Kuula', firma: 'Kuula', was: 'ein 360°-Rundgang', ziel, bild });
+      const rest = `${vor}${nach}`.replace(/\s(title|aria-label|data-tf-bild)="[^"]*"/g, '');
       return `<iframe${rest} title="360°-Rundgang (Kuula)" srcdoc="${doc}">`;
     });
 }

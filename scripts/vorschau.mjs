@@ -49,6 +49,8 @@ function html(s) {
   s = s.replace(/(['`])\/(media|css|_css|_astro|uploads|js)\//g, `$1${BASE}/$2/`);
   // dieselben Pfade JSON-escaped in Elementor-Einstellungen (data-settings, &quot;\/media\/…&quot;)
   s = s.replace(/(&quot;|")\\\/(media|css|_css|_astro|uploads|js)\\\//g, `$1\\/vorschau\\/$2\\/`);
+  // maskierte Pfade in srcdoc-Dokumenten (Karten-Kacheln, Schrift im 2-Klick-Hinweis)
+  s = s.replace(/&quot;\/(media|css|uploads)\//g, `&quot;${BASE}/$1/`);
   s = s.replace(/<meta name="robots"[^>]*>/gi, '');
   s = s.replace(/<head>/i, '<head>\n<meta name="robots" content="noindex, nofollow">');
   s = s.replace(/(<body[^>]*>)/i, `$1${BAND}`);

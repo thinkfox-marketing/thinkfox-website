@@ -7,33 +7,33 @@
 const BEREICHE = {
   website_seo: {
     titel: 'Website & SEO',
-    rot: 'Deine Website arbeitet noch nicht für dich: Sie bringt kaum Anfragen und wird bei Google schlecht gefunden. Hier liegt das größte Potenzial.',
-    gelb: 'Die Basis steht, aber Sichtbarkeit und Anfragen bleiben hinter den Möglichkeiten. Mit gezielter SEO- und Conversion-Optimierung holst du deutlich mehr heraus.',
-    gruen: 'Deine Website ist gut aufgestellt und bringt regelmäßig Anfragen. Jetzt geht es um Feinschliff und lokale Sichtbarkeit inkl. KI-Suche (GEO).',
+    rot: 'Ihre Website bringt bisher kaum Anfragen und wird bei Google selten gefunden. Hier liegt das größte Potenzial.',
+    gelb: 'Die Grundlage steht, Sichtbarkeit und Anfragen bleiben aber hinter den Möglichkeiten. Suchmaschinenoptimierung und eine klarere Nutzerführung bringen hier am meisten.',
+    gruen: 'Ihre Website ist gut aufgestellt und bringt regelmäßig Anfragen. Sinnvoll sind jetzt Feinarbeit sowie die Sichtbarkeit in der regionalen Suche und in KI-Suchen.',
   },
   content_social: {
     titel: 'Content & Social Media',
-    rot: 'Inhalte entstehen eher zufällig. Ohne regelmäßigen Content fehlt dir Sichtbarkeit – bei Kunden und Bewerbern.',
-    gelb: 'Du bist aktiv, aber nicht konstant. Ein Redaktionsplan und professionelle Produktion bringen Ruhe und Wirkung rein.',
-    gruen: 'Du veröffentlichst regelmäßig und zeigst, was dein Unternehmen kann. Gezielte Kampagnen und Anzeigen können die Reichweite weiter steigern.',
+    rot: 'Inhalte entstehen bisher unregelmäßig. Ohne laufende Veröffentlichungen fehlt Sichtbarkeit bei Kunden und Bewerbern.',
+    gelb: 'Sie veröffentlichen, aber nicht durchgehend. Ein Redaktionsplan und eine feste Produktion sorgen für Regelmäßigkeit.',
+    gruen: 'Sie veröffentlichen regelmäßig und zeigen, was Ihr Unternehmen leistet. Anzeigen und Kampagnen können die Reichweite weiter erhöhen.',
   },
   strategie: {
     titel: 'Strategie & Klarheit',
-    rot: 'Zielgruppe und Maßnahmen sind noch unscharf. Ohne klare Strategie verpufft Budget – hier lohnt sich ein gemeinsamer Workshop.',
-    gelb: 'Du hast eine Richtung, aber noch keinen klaren Plan. Eine geschärfte Positionierung macht alle weiteren Maßnahmen effizienter.',
-    gruen: 'Du weißt, wen du erreichen willst, und planst deine Aktivitäten. Sehr gute Grundlage für Wachstum.',
+    rot: 'Zielgruppe und Maßnahmen sind noch nicht klar festgelegt. Ohne diese Grundlage wird Budget wenig wirksam eingesetzt. Hier empfiehlt sich ein gemeinsamer Workshop.',
+    gelb: 'Die Richtung ist erkennbar, ein verbindlicher Plan fehlt noch. Eine geschärfte Positionierung macht alle weiteren Maßnahmen wirksamer.',
+    gruen: 'Sie wissen, wen Sie erreichen wollen, und planen Ihre Maßnahmen. Das ist eine gute Grundlage für den weiteren Ausbau.',
   },
   recruiting: {
     titel: 'Recruiting & Arbeitgebermarke',
-    rot: 'Es kommen zu wenige passende Bewerbungen. Eine sichtbare Arbeitgebermarke mit Karriereseite und Recruiting-Content kann das ändern.',
-    gelb: 'Bewerbungen kommen, aber nicht in der gewünschten Qualität oder Menge. Authentische Einblicke ins Team machen den Unterschied.',
-    gruen: 'Dein Unternehmen wird als Arbeitgeber gut wahrgenommen. Bleib sichtbar, damit das so bleibt.',
+    rot: 'Es kommen zu wenige passende Bewerbungen. Eine Karriereseite und Einblicke in den Arbeitsalltag machen Ihr Unternehmen als Arbeitgeber sichtbar.',
+    gelb: 'Bewerbungen kommen, aber nicht in der gewünschten Zahl oder Eignung. Einblicke in Team und Arbeitsalltag verbessern die Passung.',
+    gruen: 'Ihr Unternehmen wird als Arbeitgeber gut wahrgenommen. Mit regelmäßigen Einblicken bleibt das so.',
   },
   ganzheit: {
-    titel: 'Ganzheitliches Marketing & Organisation',
-    rot: 'Überblick, Erfolgsmessung und Budget fehlen weitgehend. Eine externe Marketingabteilung schafft Struktur und entlastet dich.',
-    gelb: 'Teile laufen, aber nicht aus einem Guss. Klare Zuständigkeiten, Budget und Kennzahlen bringen dein Marketing auf Kurs.',
-    gruen: 'Du hast dein Marketing gut im Griff. Mit einem festen Partner lässt sich das Tempo halten und weiter ausbauen.',
+    titel: 'Organisation & Steuerung',
+    rot: 'Überblick, Erfolgsmessung und Budget fehlen weitgehend. Eine externe Marketingabteilung übernimmt Planung und Umsetzung und entlastet Sie.',
+    gelb: 'Einzelne Maßnahmen laufen, sind aber nicht aufeinander abgestimmt. Klare Zuständigkeiten, ein Budget und Kennzahlen schaffen Verbindlichkeit.',
+    gruen: 'Ihr Marketing ist gut organisiert. Mit einem festen Ansprechpartner lässt sich dieser Stand halten und ausbauen.',
   },
 };
 
@@ -74,7 +74,7 @@ const data = box && lesen();
 if (data) {
   const style = box.querySelector('style');
   box.replaceChildren(...(style ? [style] : []));
-  box.append(el('h2', 'So steht dein Marketing heute da'));
+  box.append(el('h2', 'So steht Ihr Marketing heute da'));
 
   const liste = el('ul', '', 'thinkfox-result-overview');
   const eintraege = Object.entries(BEREICHE).filter(([key]) => key in data.scores);

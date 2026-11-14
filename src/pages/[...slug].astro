@@ -5,12 +5,15 @@ import Legacy from '../layouts/Legacy.astro';
 import Seite from '../layouts/Seite.astro';
 import { LEISTUNGSSEITEN, leistungsSeite } from '../lib/leistungen';
 import { seoNeu } from '../lib/seiten';
+import { referenzSeite } from '../lib/referenz';
+import { SONDERSEITEN } from '../lib/weitere-seiten';
+import { istFormularseite, sieForm, sieFormSkript } from '../lib/formularseiten';
 import {
   allPosts, imOriginal, originalSeite, originalStyles, pageFiles, renderInstagram, renderLoops, renderReferenzen, type LegacyPage, type Post,
 } from '../lib/wp';
 import { seoHead } from '../lib/seo';
 import { renderHeroVideos } from '../lib/hero-video';
-import { BESCHREIBUNGEN, TITEL } from '../lib/geo';
+import { BESCHREIBUNGEN, TITEL, jsonLdTexte } from '../lib/geo';
 import { beitragSeite, beitragStyles, mitWeiteren, weitereProjekte } from '../lib/beitrag';
 
 export async function getStaticPaths() {
@@ -30,7 +33,9 @@ const { page, post } = Astro.props as { page?: LegacyPage; post?: Post };
 
 let seo: string, styles, scripts, bodyClass: string, main: string, canvas = false, einheitlich = true;
 // Leistungsseiten im neuen Erscheinungsbild (src/lib/leistungen.ts): eigener Inhalt, SEO-Kopf der bisherigen Seite
-const neuesLayout = !!page && page.path in LEISTUNGSSEITEN;
+const sonder = page ? SONDERSEITEN[page.path] : undefined;
+const neuesLayout = !page || page.path in LEISTUNGSSEITEN || !!sonder;
+let css: string[] = [];
 if (page) {
   seo = page.seo;
   const neu = BESCHREIBUNGEN[page.path];
@@ -43,31 +48,35 @@ if (page) {
     seo = seo.replace(/<title>[^<]*<\/title>/, `<title>${t}</title>`)
       .replace(/(<meta (?:name|property)="(?:og:title|twitter:title)" content=")[^"]*/g, `$1${t}`);
   }
+  seo = jsonLdTexte(seo, { beschreibung: neu, titel });
   styles = page.styles;
   scripts = page.scripts;
   bodyClass = page.bodyClass;
   canvas = page.canvas;
   if (neuesLayout) {
     seo = seoNeu(seo);
-    main = leistungsSeite(page.path);
+    main = sonder ? await sonder(page) : leistungsSeite(page.path);
   } else {
     main = renderHeroVideos(renderInstagram(await renderReferenzen(await renderLoops(page.main))));
+    // Formularseiten (Forminator) bleiben im Elementor-Rahmen: Texte in Sie-Form, Gestaltung über formular.css
+    if (istFormularseite(page.path)) {
+      main = sieForm(page.path, main);
+      scripts = scripts.map((x) => (x.inline ? { ...x, inline: sieFormSkript(x.inline) } : x));
+    }
   }
 } else {
   const p = post!;
   seo = seoHead(p);
-  if (imOriginal(p)) {
-    // Projekte vorerst 1:1 wie im Original (src/lib/wp.ts, PROJEKTE_IM_ORIGINAL)
-    ({ styles, scripts, bodyClass } = mitWeiteren(originalStyles(p)));
-    main = originalSeite(p) + await weitereProjekte(p);
-    einheitlich = false;
+  if (p.collection === 'projekte') {
+    // Referenzen im neuen Erscheinungsbild (src/lib/referenz.ts)
+    ({ main } = await referenzSeite(p));
   } else {
-    // Blog (und neue Projekte) im einheitlichen Layout (src/lib/beitrag.ts)
-    ({ styles, scripts, bodyClass } = beitragStyles(p));
+    // Blog im einheitlichen Beitragslayout (src/lib/beitrag.ts + beitrag.css), ohne Elementor
     main = await beitragSeite(p);
+    css = ['/css/beitrag.css'];
   }
 }
 ---
 {neuesLayout
-  ? <Seite seo={seo} main={main} />
+  ? <Seite seo={seo} main={main} css={css} />
   : <Legacy seo={seo} styles={styles} scripts={scripts} bodyClass={bodyClass} main={main} canvas={canvas} einheitlich={einheitlich} />}

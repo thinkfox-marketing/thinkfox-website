@@ -7,17 +7,20 @@ import { asset } from '../lib/asset';
 import { KOPF, FUSS } from '../lib/chrome';
 import { strukturierteDaten, organisationAngleichen } from '../lib/geo';
 import { bildMasse } from '../lib/bilder';
+import { einbettungen } from '../lib/barrierefreiheit';
 
 interface Props {
   seo: string;      // <title>, Meta-Tags, JSON-LD
   main: string;     // Inhalt von <main>
   heroBild?: string; // größtes Bild im ersten Abschnitt – wird vorgeladen
+  css?: string[];    // zusätzliche Stylesheets, z. B. /css/beitrag.css für Blog und Branchenseiten
 }
 const seo = organisationAngleichen(Astro.props.seo).replace(/,"image":\{"@type":"ImageObject","@id":"https:\/\/secure\.gravatar\.com[^}]*\}/g, '');
-const main = bildMasse(Astro.props.main);
+// Karten (Google Maps → OpenStreetMap) und 360°-Rundgänge (Kuula) per 2-Klick, wie auf den übernommenen Seiten
+const main = bildMasse(einbettungen(Astro.props.main));
 const beschreibung = seo.match(/<meta name="description" content="([^"]*)"/)?.[1];
 const jsonLd = strukturierteDaten(Astro.url.pathname, main, beschreibung);
-const { heroBild } = Astro.props;
+const { heroBild, css = [] } = Astro.props;
 ---
 <!doctype html>
 <html lang="de" prefix="og: https://ogp.me/ns#">
@@ -32,6 +35,7 @@ const { heroBild } = Astro.props;
   {heroBild && <link rel="preload" as="image" href={heroBild} fetchpriority="high" />}
   <link rel="stylesheet" href={asset('/css/chrome.css')} />
   <link rel="stylesheet" href={asset('/css/seite.css')} />
+  {css.map((href) => <link rel="stylesheet" href={asset(href)} />)}
   <link rel="icon" href="/wp-content/uploads/2026/01/cropped-Logo-Finale_V2-32x32.png" sizes="32x32" />
   <link rel="icon" href="/wp-content/uploads/2026/01/cropped-Logo-Finale_V2-192x192.png" sizes="192x192" />
   <link rel="apple-touch-icon" href="/wp-content/uploads/2026/01/cropped-Logo-Finale_V2-180x180.png" />

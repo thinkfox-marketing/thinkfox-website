@@ -7,7 +7,7 @@
 export const ZOOM = 16;
 export const SPALTEN = 5; // 5 × 5 Kacheln à 256 px (1280 px) decken den Kartenrahmen auch auf großen Bildschirmen ab
 export const ZEILEN = 5;
-const FONT = '/wp-content/uploads/elementor/google-fonts/fonts/outfit-97312486.woff2';
+const FONT = '/media/schrift/schibsted-grotesk-latin.woff2';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
@@ -28,25 +28,25 @@ export function kacheln(lat, lon) {
   return { liste, versatzX: (x - x0) * 256, versatzY: (y - y0) * 256 };
 }
 
-const STIL = `@font-face{font-family:Outfit;src:url(${FONT}) format("woff2");font-weight:100 900}
+const STIL = `@font-face{font-family:"Schibsted Grotesk";src:url(${FONT}) format("woff2");font-weight:400 900}
 html,body{height:100%;margin:0;overflow:hidden}
-body{position:relative;font-family:Outfit,system-ui,sans-serif;background:#f2efe9;color:#fff}
+body{position:relative;font-family:"Schibsted Grotesk",system-ui,sans-serif;background:#f2efe9;color:#fff}
 .karte{position:absolute;left:50%;top:50%;display:grid;grid-template-columns:repeat(${SPALTEN},256px)}
 .karte img{display:block;width:256px;height:256px}
 .pin{position:absolute;left:50%;top:50%;width:36px;height:48px;transform:translate(-50%,-100%);filter:drop-shadow(0 2px 3px rgb(0 0 0/.35))}
-.box{position:absolute;left:16px;bottom:32px;max-width:23rem;margin-right:16px;padding:1rem 1.2rem;border-radius:12px;background:rgb(20 16 60/.92);font-size:15px;line-height:1.45}
+.box{position:absolute;left:16px;bottom:32px;max-width:23rem;margin-right:16px;padding:1rem 1.2rem;border-radius:4px;background:rgb(20 22 26/.94);font-size:15px;line-height:1.5}
 .box strong{display:block;font-size:17px}
 .box p{margin:0}
 a{color:#fff}
-.laden{display:inline-block;margin:.7rem .5rem 0 0;padding:.55rem 1rem;border-radius:6px;background:#5b4ec8;font-weight:600;text-decoration:none}
-.laden:hover{background:#4a3fb0}
+.laden{display:inline-block;margin:.7rem .5rem 0 0;padding:.55rem 1rem;border-radius:4px;background:#fff;color:#14161a;font-weight:600;text-decoration:none}
+.laden:hover{background:#efefea}
 .hinweis{margin-top:.6rem!important;font-size:13px}
 .quelle{position:absolute;right:0;bottom:0;padding:2px 6px;background:rgb(255 255 255/.9);font:12px/1.4 system-ui,sans-serif;color:#333}
 .quelle a{color:#333}
 a:focus-visible{outline:3px solid #fff;outline-offset:2px}
-.quelle a:focus-visible{outline-color:#3b3192}`;
+.quelle a:focus-visible{outline-color:#14161a}`;
 
-const PIN = '<svg class="pin" viewBox="0 0 24 32" aria-hidden="true"><path d="M12 0C5.4 0 0 5.3 0 11.9 0 20.8 12 32 12 32s12-11.2 12-20.1C24 5.3 18.6 0 12 0z" fill="#3b3192"/><circle cx="12" cy="12" r="4.5" fill="#fff"/></svg>';
+const PIN = '<svg class="pin" viewBox="0 0 24 32" aria-hidden="true"><path d="M12 0C5.4 0 0 5.3 0 11.9 0 20.8 12 32 12 32s12-11.2 12-20.1C24 5.3 18.6 0 12 0z" fill="#2b5a43"/><circle cx="12" cy="12" r="4.5" fill="#fff"/></svg>';
 
 /**
  * Inhalt des Karten-Rahmens (für srcdoc, bereits maskiert).
@@ -69,10 +69,10 @@ export function kartenDokument(o) {
   } else {
     links = `<a class="laden" href="https://www.openstreetmap.org/search?query=${encodeURIComponent(adresse)}" target="_blank" rel="noopener">In OpenStreetMap öffnen</a>`;
   }
-  const doc = `<!doctype html><html lang="de"><head><meta charset="utf-8"><base target="_self"><style>${STIL}</style></head><body${mitKarte ? '' : ' style="background:#3b3192"'}>
+  const doc = `<!doctype html><html lang="de"><head><meta charset="utf-8"><base target="_self"><style>${STIL}</style></head><body${mitKarte ? '' : ' style="background:#efefea"'}>
 ${karte}<div class="box"><p><strong>${esc(o.name)}</strong>${esc(o.strasse)}<br>${esc(o.plz)} ${esc(o.ort)}</p>
 ${links}
-<p class="hinweis">Interaktive Karte und Route kommen von OpenStreetMap: Dabei werden Daten wie deine IP-Adresse an die OpenStreetMap Foundation übertragen. <a href="/datenschutz/" target="_top">Datenschutz</a></p></div>
+<p class="hinweis">Interaktive Karte und Route kommen von OpenStreetMap: Dabei werden Daten wie Ihre IP-Adresse an die OpenStreetMap Foundation übertragen. <a href="/datenschutz/" target="_top">Datenschutz</a></p></div>
 ${mitKarte ? '<div class="quelle">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>-Mitwirkende</div>' : ''}
 </body></html>`;
   return esc(doc);

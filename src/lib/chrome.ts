@@ -34,7 +34,7 @@ const GRUPPEN: Gruppe[] = [
     { text: 'Kontakt', href: '/kontakt/', zusatz: 'Anschrift, Telefon, Anfahrt' },
   ] },
 ];
-const REFERENZEN: Link = { text: 'Referenzen', href: '/#referenzen' };
+const REFERENZEN: Link = { text: 'Referenzen', href: '/referenzen/' };
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const PFEIL = '<svg class="tfk-nav__pfeil" viewBox="0 0 12 8" aria-hidden="true" focusable="false"><path d="M1 1.5 6 6.5l5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';

@@ -1,8 +1,9 @@
 ---
-// Startseite (Relaunch): neues Erscheinungsbild – Inhalte in src/lib/seiten.ts, Rahmen src/layouts/Seite.astro.
+// Startseite (Relaunch): neues Erscheinungsbild – Inhalte in src/lib/start.ts, Rahmen src/layouts/Seite.astro.
 // SEO-Kopf aus der bisherigen Startseite (Titel, JSON-LD von Rank Math), Beschreibung neu.
 import Seite from '../layouts/Seite.astro';
-import { START_BESCHREIBUNG, START_HEROBILD, seoNeu, startSeite } from '../lib/seiten';
+import { seoNeu } from '../lib/seiten';
+import { START_BESCHREIBUNG, START_HEROBILD, startSeite } from '../lib/start';
 import legacyStart from '../legacy/pages/index.json';
 
 const b = START_BESCHREIBUNG.replace(/&/g, '&amp;').replace(/"/g, '&quot;');

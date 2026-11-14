@@ -9,6 +9,8 @@ import { KONTAKT, abschnitt, bogen, drei, esc, knopf, preis, still } from './sei
 interface Zeile { titel: string; text: string; link?: [string, string] }
 interface Leistungsseite {
   kurz: string;                       // Name im Brotkrumenpfad
+  ohneEltern?: boolean;               // Brotkrumenpfad ohne „Leistungen“ (z. B. Ortsseite)
+  rubrikLage?: string;                // Rubrik des ersten Abschnitts (Standard: Ausgangslage)
   titel: string;                      // H1 (darf &shy; enthalten)
   einleitung: string;
   zweiterKnopf: [string, string];
@@ -16,9 +18,9 @@ interface Leistungsseite {
   lage: { titel: string; punkte: [string, string][] };
   loesung: { titel: string; zeilen: Zeile[]; bild: { datei: string; alt: string; text: string }; hinweis?: string };
   ergebnis: { titel: string; punkte: [string, string][]; beispiele: [string, string][] };
-  ablauf: { titel: string; schritte: [string, string][] };
+  ablauf?: { titel: string; schritte: [string, string][] };
   referenzen?: { titel: string; eintraege: { bild: string; hoehe: number; kunde: string; art: string; href: string }[] };
-  kosten: { titel: string; html: string };
+  kosten?: { titel: string; html: string };
   fragen: [string, string][];
 }
 
@@ -214,6 +216,39 @@ export const LEISTUNGSSEITEN: Record<string, Leistungsseite> = {
       ['Wann zeigen sich erste Ergebnisse?', 'Anzeigen auf Social Media wirken kurzfristig. Suchmaschinenoptimierung und Markenaufbau brauchen länger. Beides läuft parallel.'],
     ],
   },
+
+  '/werbeagentur-bad-wildungen-thinkfox-marketing-fuer-den-mittelstand/': {
+    kurz: 'Werbeagentur Bad Wildungen', ohneEltern: true, rubrikLage: 'Region',
+    titel: 'Werbeagentur für Bad Wildungen und die Edersee-Region',
+    einleitung: 'thinkfox marketing hat seinen Sitz in Edertal, zwischen Bad Wildungen und dem Edersee. Wir unterstützen Unternehmen im Landkreis Waldeck-Frankenberg mit Websites, Social Media, Film und Foto.',
+    zweiterKnopf: ['Leistungen ansehen', '#loesung'],
+    bild: { datei: '2025/02/Website-vierbeiner-reha-zentrum-bad-wildungen.jpg', alt: 'Website des Vierbeiner Reha-Zentrums auf mehreren Bildschirmen', text: 'Website für das Vierbeiner Reha-Zentrum, Bad Wildungen' },
+    lage: { titel: 'Eine Agentur aus der Region', punkte: [
+      ['Kurze Wege', 'Termine finden bei Ihnen in Bad Wildungen, am Edersee oder an unserem Standort in Edertal statt.'],
+      ['Regionale Erfahrung', 'Seit über zehn Jahren arbeiten wir für Unternehmen und Einrichtungen in Waldeck-Frankenberg.'],
+      ['Lokale Auffindbarkeit', 'Wir richten Websites auf Suchanfragen aus der Region aus, bei Google und in KI-Suchen.'],
+    ] },
+    loesung: { titel: 'Leistungen', zeilen: [
+      { titel: 'Websites und SEO', text: 'Webauftritte für Gäste und Kunden aus der Region, optimiert für alle Geräte.', link: ['Websites und SEO', WEB] },
+      { titel: 'Social Media', text: 'Redaktionsplan, Produktion und Anzeigen mit regionalem Schwerpunkt.', link: ['Social Media', SOCIAL] },
+      { titel: 'Film und Foto', text: 'Aufnahmen bei Ihnen vor Ort oder in unserem Studio in Edertal.', link: ['Film und Foto', CONTENT] },
+      { titel: 'Marke und Print', text: 'Logos, Corporate Designs und Printmedien.' },
+      { titel: 'Externe Marketingabteilung', text: 'Planung und Umsetzung Ihres gesamten Marketings.', link: ['Externe Marketingabteilung', EXTERN] },
+    ], bild: { datei: '2026/01/Stadt_waldeck_karriere.jpg', alt: 'Karriereseite der Stadt Waldeck auf Tablets', text: 'Karriereseite der Nationalparkstadt Waldeck' } },
+    ergebnis: { titel: 'Was Sichtbarkeit in der Region bewirkt', punkte: [
+      ['Kundengewinnung', 'Interessenten aus Bad Wildungen und der Edersee-Region finden Ihr Angebot und nehmen Kontakt auf.'],
+      ['Personalgewinnung', 'Bewerberinnen und Bewerber aus der Region lernen Ihr Unternehmen als Arbeitgeber kennen.'],
+      ['Einheitlicher Auftritt', 'Website, Social Media und Printmedien folgen einer gemeinsamen Linie.'],
+    ], beispiele: [
+      ['Vierbeiner Reha-Zentrum, Bad Wildungen', 'Website mit Kursbuchung, Social Media sowie SEO und GEO.'],
+      ['Beysshaus, Bad Wildungen und Edertal', '360°-Rundgänge für drei Ferienhäuser.'],
+      ['Nationalparkstadt Waldeck', 'Karriereseite mit Videos und 360°-Rundgang.'],
+    ] },
+    fragen: [
+      ['Welche Vorteile hat eine Agentur aus der Region?', 'Kurze Wege und Kenntnis des Marktes in Nordhessen. Beratungstermine finden bei Ihnen vor Ort oder an unserem Standort in Edertal statt.'],
+      ['Unterstützen Sie auch kleine und mittlere Unternehmen beim Webdesign?', 'Ja. In über zehn Jahren haben wir zahlreiche Projekte für kleine und mittlere Unternehmen umgesetzt. Die Websites sind auf Suchanfragen aus der Region ausgerichtet.'],
+    ],
+  },
 };
 
 export function leistungsSeite(pfad: string): string {
@@ -221,7 +256,7 @@ export function leistungsSeite(pfad: string): string {
   const zeile = (z: Zeile) => `<li class="zeile"><h3>${esc(z.titel)}</h3><p>${esc(z.text)}${z.link ? ` <a class="link" href="${z.link[1]}">${esc(z.link[0])}</a>` : ''}</p></li>`;
   return `<section class="t1 t1--unterseite" aria-labelledby="titel">
     <div class="huelle">
-      <nav aria-label="Brotkrumen"><ol class="pfad" role="list"><li><a href="/">Start</a></li><li><a href="/#leistungen">Leistungen</a></li><li><span aria-current="page">${esc(s.kurz)}</span></li></ol></nav>
+      <nav aria-label="Brotkrumen"><ol class="pfad" role="list"><li><a href="/">Start</a></li>${s.ohneEltern ? '' : '<li><a href="/#leistungen">Leistungen</a></li>'}<li><span aria-current="page">${esc(s.kurz)}</span></li></ol></nav>
       <div class="raster">
         <h1 id="titel">${s.titel}</h1>
         <div class="t1__unten">
@@ -233,7 +268,7 @@ export function leistungsSeite(pfad: string): string {
     </div>
   </section>
 
-  ${abschnitt({ id: 'lage-titel', rubrik: 'Ausgangslage', titel: esc(s.lage.titel), inhalt: drei(s.lage.punkte) })}
+  ${abschnitt({ id: 'lage-titel', rubrik: s.rubrikLage ?? 'Ausgangslage', titel: esc(s.lage.titel), inhalt: drei(s.lage.punkte) })}
 
   <section class="t3 t3--rechts" id="loesung" aria-labelledby="loesung-titel">
     <div class="huelle raster">
@@ -254,10 +289,10 @@ export function leistungsSeite(pfad: string): string {
         <h3 class="unter">Beispiele aus Projekten</h3>
         <ul class="leistungsliste" role="list" style="margin-top:16px">${s.ergebnis.beispiele.map(([k, t]) => `<li><b>${esc(k)}</b><br>${esc(t)}</li>`).join('')}</ul>` })}
 
-  ${abschnitt({ id: 'ablauf-titel', cls: 'abschnitt--linie', rubrik: 'Vorgehen', titel: esc(s.ablauf.titel),
+  ${s.ablauf ? abschnitt({ id: 'ablauf-titel', cls: 'abschnitt--linie', rubrik: 'Vorgehen', titel: esc(s.ablauf.titel),
     inhalt: `<ol class="ablauf">
           ${s.ablauf.schritte.map(([t, p]) => `<li><b>${esc(t)}</b><span>${esc(p)}</span></li>`).join('\n          ')}
-        </ol>` })}
+        </ol>` }) : ''}
 
   ${s.referenzen ? `<section class="t4" aria-labelledby="ref-titel">
     <div class="huelle raster">
@@ -267,7 +302,7 @@ export function leistungsSeite(pfad: string): string {
     ${bogen('Referenzen, seitlich scrollbar', s.referenzen.eintraege)}
   </section>` : ''}
 
-  ${abschnitt({ id: 'kosten-titel', anker: 'kosten', rubrik: 'Kosten', titel: esc(s.kosten.titel), inhalt: s.kosten.html })}
+  ${s.kosten ? abschnitt({ id: 'kosten-titel', anker: 'kosten', rubrik: 'Kosten', titel: esc(s.kosten.titel), inhalt: s.kosten.html }) : ''}
 
   ${abschnitt({ id: 'faq-titel', cls: 'abschnitt--kalk', rubrik: 'Fragen', titel: 'Häufige Fragen',
     inhalt: `<div class="faq">

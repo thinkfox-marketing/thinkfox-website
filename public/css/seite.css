@@ -227,3 +227,109 @@ h3 { font-size: clamp(1.375rem, 2vw, 1.75rem); line-height: 1.15; font-weight: 7
 .wege a { text-decoration: none; }
 .wege a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .fussnote a { color: var(--tfn-tinte); text-underline-offset: 3px; }
+
+/* --- Dunkle Abschnitte (Tinte): Ausgangslage → Lösung auf der Startseite, Kontakt am Seitenende --------------- */
+.t-dunkel { background: var(--tfn-tinte); color: var(--tfn-weiss); }
+.t-dunkel .label { color: #9a9ca1; }
+.t-dunkel .label::before { background: var(--tfn-wald-hell); }
+.t-dunkel .einleitung { color: #c4c6ca; }
+.t-dunkel a:focus-visible { outline-color: var(--tfn-wald-hell); }
+.t-dunkel .knopf { background: var(--tfn-weiss); border-color: var(--tfn-weiss); color: var(--tfn-tinte); }
+.t-dunkel .knopf:hover { background: var(--tfn-wald-hell); border-color: var(--tfn-wald-hell); }
+.t-dunkel .knopf--rahmen { background: transparent; color: var(--tfn-weiss); }
+.t-dunkel .knopf--rahmen:hover { background: var(--tfn-weiss); border-color: var(--tfn-weiss); color: var(--tfn-tinte); }
+.t-dunkel .wege div { border-color: #33363c; }
+.t-dunkel .wege small { color: #9a9ca1; }
+.t-dunkel .wege a { color: inherit; }
+
+/* Ausgangslage → Lösung: jede Zeile ein Link, links das Problem, rechts die Leistung */
+.wege-abschnitt h2 { max-width: 20ch; }
+.wege-kopf { display: none; }
+.wege-liste { margin: 40px 0 0; padding: 0; list-style: none; border-bottom: 1px solid #33363c; }
+.wege-liste li { border-top: 1px solid #33363c; }
+.weg { display: grid; gap: 10px 24px; padding: 26px 0; color: inherit; text-decoration: none; }
+.weg__problem { font-size: clamp(1.25rem, 2.2vw, 1.875rem); font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; color: #c4c6ca; }
+.weg__pfeil { color: var(--tfn-wald-hell); font-size: 1.5rem; line-height: 1; }
+.weg__pfeil::before { content: "↓"; }
+.weg__loesung b { display: block; font-size: clamp(1.375rem, 2.4vw, 2rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; color: var(--tfn-weiss); }
+.weg__loesung span { display: block; margin-top: 6px; color: #c4c6ca; }
+.weg:hover .weg__loesung b { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+@media (min-width: 860px) {
+  .wege-kopf { display: grid; grid-template-columns: 5fr 48px 6fr; column-gap: 24px; margin-top: 56px; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.04em; color: #9a9ca1; }
+  .wege-liste { margin-top: 14px; }
+  .weg { grid-template-columns: 5fr 48px 6fr; align-items: baseline; padding: 30px 0; }
+  .weg__pfeil::before { content: "→"; }
+  .weg:hover .weg__pfeil { transform: translateX(6px); }
+  .weg__pfeil { transition: transform .2s; }
+}
+
+/* Stufengrafik: Formen der Zusammenarbeit, von klein nach groß */
+.stufen { display: grid; gap: 32px; margin: 48px 0 0; padding: 0; list-style: none; }
+.stufe { border-top: 2px solid var(--tfn-tinte); padding-top: 18px; }
+.stufe h3 { margin-bottom: 8px; }
+.stufe p { margin: 0 0 10px; color: var(--tfn-stein); }
+@media (min-width: 860px) {
+  .stufen { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: end; }
+  .stufe { border-top: 0; padding-top: 0; }
+  .stufe::before { content: ""; display: block; height: calc(var(--hoehe) * 56px); margin-bottom: 20px; background: var(--tfn-kalk); border-top: 2px solid var(--tfn-tinte); }
+  .stufe:last-child::before { background: var(--tfn-wald-hell); }
+}
+.mehr { margin: 48px 0 0; }
+
+/* --- Referenzseiten (src/lib/referenz.ts) ---------------------------------------------------------------- */
+.t1 .steckbrief { margin-top: clamp(32px, 4vw, 48px); }
+.steckbrief a { text-underline-offset: 3px; }
+.t1__bild--referenz img { aspect-ratio: auto; max-height: 760px; }
+.t1__bild--video iframe { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; border: 0; background: var(--tfn-tinte); }
+.t1--ohne-bild { padding-bottom: 0; }
+.fall { padding-bottom: clamp(48px, 6vw, 96px); }
+.fall__teil { padding-block: 32px; border-top: 1px solid var(--tfn-linie); }
+.fall__teil:first-child { border-top: 2px solid var(--tfn-tinte); }
+.fall__teil .label { margin: 4px 0 12px; }
+.text > :last-child { margin-bottom: 0; }
+.text p, .text ul, .text ol { margin: 0 0 1em; }
+.text ul, .text ol { padding-left: 1.2em; }
+.text a { color: var(--tfn-tinte); text-underline-offset: 3px; }
+.text a:hover { color: var(--tfn-wald); }
+h2.label { font-size: 0.875rem; line-height: 1.55; letter-spacing: 0.04em; max-width: none; }
+.medien { display: grid; gap: 24px; }
+.tf-medium { margin: 0; }
+.tf-medium img { width: 100%; }
+.tf-medium--video iframe { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; border: 0; background: var(--tfn-tinte); }
+.tf-galerie { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.tf-galerie a { display: block; }
+.tf-galerie img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+@media (min-width: 760px) { .tf-galerie { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.tf-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.stimme { margin: 0; }
+.stimme blockquote { margin: 0 0 16px; max-width: 32ch; font-size: clamp(1.5rem, 2.8vw, 2.375rem); line-height: 1.18; font-weight: 600; letter-spacing: -0.025em; }
+.stimme figcaption { font-size: 0.9375rem; color: var(--tfn-stein); }
+@media (min-width: 860px) { .mosaik--zwei { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.mosaik--zwei .kachel img, .galerie .kachel img { aspect-ratio: 4 / 3; }
+.abschnitt--knapp { padding-top: clamp(40px, 5vw, 72px); }
+.galerie { display: grid; gap: 40px 24px; }
+@media (min-width: 640px) { .galerie { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .galerie { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Lange Wörter (z. B. „Unternehmenskommunikation“) trennen statt überlaufen */
+.t1 h1, h2, h3, .kachel__titel { overflow-wrap: break-word; hyphens: auto; }
+
+/* --- Kontakt, Rundgänge, Rechtliches, Archive (src/lib/weitere-seiten.ts) ------------------------------------ */
+.karte { display: block; width: 100%; aspect-ratio: 4 / 3; height: auto; border: 1px solid var(--tfn-linie); }
+.rundgang { display: block; width: 100%; height: min(72vh, 640px); border: 0; background: var(--tfn-kalk); }
+.neben a:not(.knopf):not(.link) { text-underline-offset: 3px; }
+.preis p:empty { display: none; }
+.drei a { color: var(--tfn-tinte); text-underline-offset: 3px; }
+@media (min-width: 1024px) { .galerie--vier { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.galerie--vier .kachel img { aspect-ratio: 16 / 9; }
+.sp-inhalt + .galerie, .sp-inhalt + .mosaik { margin-top: 40px; }
+.prosa { max-width: 70ch; font-size: 1.0625rem; color: var(--tfn-text2); overflow-wrap: break-word; }
+.prosa h2, .prosa h3, .prosa h4, .prosa h5, .prosa h6 { max-width: none; margin: 2em 0 0.5em; font-size: 1.375rem; line-height: 1.25; letter-spacing: -0.015em; color: var(--tfn-tinte); }
+.prosa h2 { font-size: 1.75rem; }
+.prosa > :first-child { margin-top: 0; }
+.prosa p, .prosa ul, .prosa ol { margin: 0 0 1em; }
+.prosa ul, .prosa ol { padding-left: 1.2em; }
+.prosa a { color: var(--tfn-tinte); text-underline-offset: 3px; }
+.prosa table { width: 100%; border-collapse: collapse; margin: 0 0 1em; }
+.prosa td, .prosa th { padding: 8px 12px 8px 0; border-bottom: 1px solid var(--tfn-linie); text-align: left; vertical-align: top; }
+.seiten { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--tfn-linie); color: var(--tfn-stein); }
