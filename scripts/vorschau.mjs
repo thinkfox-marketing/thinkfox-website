@@ -33,7 +33,9 @@ const ABS = /\b(href|src|action|content)=(["'])(https?:\/\/(?:www\.)?thinkfox\.d
 const SRCSET = /\b(srcset|data-srcset|imagesrcset)=(["'])([^"']*)\2/gi;
 const CSSURL = /url\(\s*(["']?)(\/[^"')]*)\1\s*\)/gi;
 
-const BAND = `<div id="tf-vorschau-band" role="note" style="position:sticky;top:0;z-index:100000;background:#1d1b33;color:#fff;font:600 14px/1.4 Outfit,system-ui,sans-serif;text-align:center;padding:8px 16px">Vorschau – nicht öffentlich. Formulare senden in der Vorschau nichts ab.</div>`;
+const BAND = `<div id="tf-vorschau-band" role="note" style="position:sticky;top:0;z-index:100000;background:#1d1b33;color:#fff;font:600 14px/1.4 Outfit,system-ui,sans-serif;text-align:center;padding:8px 16px">Vorschau – nicht öffentlich. Formulare senden in der Vorschau nichts ab. <a id="tf-vorschau-live" href="/" style="color:#fff;text-decoration:underline;margin-left:8px">Gleiche Seite live ansehen</a></div>`;
+// Link „live ansehen“ zeigt auf dieselbe Seite ohne /vorschau (wird beim Aufruf gesetzt)
+const LIVELINK = `<script>(function(){var a=document.getElementById('tf-vorschau-live');if(a)a.href=location.pathname.replace(/^\\/vorschau(?=\\/)/,'')||'/';})();</script>`;
 const SPERRE = `<script>(function(){function m(f){var n=f.querySelector('.tf-vorschau-hinweis');if(!n){n=document.createElement('p');n.className='tf-vorschau-hinweis';n.setAttribute('role','status');n.style.cssText='background:#fff3cd;color:#5c4400;padding:10px 12px;border-radius:6px;font-weight:600';f.prepend(n);}n.textContent='Vorschau: Dieses Formular sendet nichts ab.';}document.addEventListener('submit',function(e){e.preventDefault();e.stopImmediatePropagation();m(e.target);},true);})();</script>`;
 
 function html(s) {
@@ -50,7 +52,7 @@ function html(s) {
   s = s.replace(/<meta name="robots"[^>]*>/gi, '');
   s = s.replace(/<head>/i, '<head>\n<meta name="robots" content="noindex, nofollow">');
   s = s.replace(/(<body[^>]*>)/i, `$1${BAND}`);
-  s = s.replace(/<\/body>/i, `${SPERRE}</body>`);
+  s = s.replace(/<\/body>/i, `${SPERRE}${LIVELINK}</body>`);
   return s;
 }
 function css(s) { return s.replace(CSSURL, (m, q, u) => `url(${q}${pfad(u)}${q})`); }
