@@ -12,6 +12,7 @@ import { cssBundle } from '../lib/css-bundle';
 import { heroBild } from '../lib/hero-bild';
 import { bewertungenStatisch } from '../lib/bewertungen';
 import { strukturierteDaten, organisationAngleichen } from '../lib/geo';
+import { megaMenue } from '../lib/megamenu';
 
 interface Props {
   seo: string;          // <title>, Meta-Tags, JSON-LD
@@ -63,7 +64,7 @@ const stile = styles.filter((s) => s.id !== 'sb-elementor-shared-style-css' && s
 
 // Im Build: alle Stylesheets als eine Datei (src/lib/css-bundle.ts). Leere Platzhalter mit den
 // Original-IDs bleiben stehen, weil Elementor nachgeladene Stile davor einfügt („before: #…-css“).
-const bundle = import.meta.env.PROD ? cssBundle(stile, ['/css/ergaenzungen.css', ...(einheitlich ? ['/css/einheitlich.css'] : [])]) : null;
+const bundle = import.meta.env.PROD ? cssBundle(stile, ['/css/ergaenzungen.css', '/css/megamenu.css', ...(einheitlich ? ['/css/einheitlich.css'] : [])]) : null;
 
 // Hero mit Hintergrundvideo ganz oben: Standbild sofort laden (größtes sichtbares Element)
 const ersterHero = main.indexOf('elementor-background-video-container');
@@ -113,6 +114,7 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
         ? <link rel="stylesheet" id={s.id ?? undefined} href={s.href} media="all" />
         : <Fragment set:html={s.css} />)}
       <link rel="stylesheet" id="tf-ergaenzungen-css" href={asset('/css/ergaenzungen.css')} media="all" />
+      <link rel="stylesheet" id="tf-megamenu-css" href={asset('/css/megamenu.css')} media="all" />
       {einheitlich && <link rel="stylesheet" id="tf-einheitlich-css" href={asset('/css/einheitlich.css')} media="all" />}
     </>
   )}
@@ -125,7 +127,7 @@ const scrollTop = `<div class='eael-ext-scroll-to-top-wrap scroll-to-top-hide'><
 </head>
 <body class={bodyClass}>
   <a class="tf-sprung" href="#content">Zum Inhalt springen</a>
-  {!canvas && <Fragment set:html={ohneBildTitel(bildMasse(telefon(zugaenglich(header))))} />}
+  {!canvas && <Fragment set:html={ohneBildTitel(bildMasse(telefon(zugaenglich(megaMenue(header)))))} />}
   {mitMain ? <Fragment set:html={main} /> : <main id="content"><Fragment set:html={main} /></main>}
   {!canvas && <Fragment set:html={ohneBildTitel(bildMasse(fussEbenen(telefon(footer))))} />}
   {!canvas && <Fragment set:html={scrollTop} />}
