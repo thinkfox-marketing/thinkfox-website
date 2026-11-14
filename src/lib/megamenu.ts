@@ -22,14 +22,14 @@ const eintrag = (href: string, ic: string, titel: string, text: string) => `<li>
 const LEISTUNGEN = `<div class="tf-mega__inhalt tf-mega__inhalt--drei">
   <div class="tf-mega__intro">
     <p class="tf-mega__dach">Leistungen</p>
-    <p class="tf-mega__intro-text">Wir arbeiten wie eure externe Marketingabteilung: von der Strategie bis zum fertigen Film, laufend oder als Projekt.</p>
+    <p class="tf-mega__intro-text">Wir arbeiten wie Ihre externe Marketingabteilung: von der Strategie bis zum fertigen Film, laufend oder als Projekt.</p>
     <a class="tf-mega__mehr" href="/deine-externe-marketingabteilung-ganzheitliches-marketing-fuer-den-mittelstand/">So arbeiten wir <span aria-hidden="true">→</span></a>
   </div>
   <ul class="tf-mega__liste" role="list">
-    ${eintrag('/deine-externe-marketingabteilung-ganzheitliches-marketing-fuer-den-mittelstand/', I.abteilung, 'Externe Marketingabteilung', 'Euer Marketing aus einer Hand, laufend betreut.')}
+    ${eintrag('/deine-externe-marketingabteilung-ganzheitliches-marketing-fuer-den-mittelstand/', I.abteilung, 'Externe Marketingabteilung', 'Ihr Marketing aus einer Hand, laufend betreut.')}
     ${eintrag('/professionelle-websites-fuer-den-mittelstand/', I.web, 'Websites, SEO &amp; KI-Sichtbarkeit', 'Websites, die bei Google und in KI-Suchen gefunden werden.')}
-    ${eintrag('/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/', I.film, 'Film, Foto &amp; Content', 'Imagefilm, Fotos und Reels, gedreht bei euch oder im eigenen Studio.')}
-    ${eintrag('/mehr-aufmerksamkeit-und-reichweite-mit-social-media/', I.social, 'Social Media &amp; Kampagnen', 'Planung, Inhalte und Betreuung eurer Kanäle.')}
+    ${eintrag('/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/', I.film, 'Film, Foto &amp; Content', 'Imagefilm, Fotos und Reels, gedreht bei Ihnen oder im eigenen Studio.')}
+    ${eintrag('/mehr-aufmerksamkeit-und-reichweite-mit-social-media/', I.social, 'Social Media &amp; Kampagnen', 'Planung, Inhalte und Betreuung Ihrer Kanäle.')}
     ${eintrag('/employer-branding-agentur-recruitingfilm-karriereseite/', I.recruiting, 'Employer Branding &amp; Recruiting', 'Karriereseite, Recruitingfilm und Arbeitsplätze in 360°.')}
     ${eintrag('/360-grad-rundgaenge/', I.rundgang, '360°-Rundgänge', 'Räume und Arbeitsplätze virtuell begehbar machen.')}
   </ul>
@@ -62,9 +62,9 @@ const BRANCHEN = `<div class="tf-mega__inhalt tf-mega__inhalt--branchen">
 const AGENTUR = `<div class="tf-mega__inhalt tf-mega__inhalt--zwei">
   <ul class="tf-mega__liste tf-mega__liste--zwei" role="list">
     ${eintrag('/thinkfox-mietstudio-dein-fotostudio-videostudio-nordhessen/', I.studio, 'Unser Studio', 'Foto- und Videostudio in Edertal, auch zum Mieten.')}
-    ${eintrag('/marketing-ampel/', I.ampel, 'Marketing-Ampel', 'Selbsttest: Wo steht dein Marketing?')}
+    ${eintrag('/marketing-ampel/', I.ampel, 'Marketing-Ampel', 'Selbsttest: Wo steht Ihr Marketing?')}
     ${eintrag('/blog/', I.ratgeber, 'Ratgeber &amp; Blog', 'Wissen, Praxistipps und Kostenratgeber.')}
-    ${eintrag('/kontakt/', I.kontakt, 'Kontakt', 'So erreichst du uns in Edertal.')}
+    ${eintrag('/kontakt/', I.kontakt, 'Kontakt', 'So erreichen Sie uns in Edertal.')}
   </ul>
   <div class="tf-mega__kontakt">
     <p class="tf-mega__dach">Lass uns reden</p>
