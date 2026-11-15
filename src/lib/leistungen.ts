@@ -199,7 +199,7 @@ export const LEISTUNGSSEITEN: Record<string, Leistungsseite> = {
       ['Nachvollziehbare Ergebnisse', 'Wir legen vorab Kennzahlen fest und berichten regelmäßig.'],
     ], beispiele: [
       ['Vitos Haina', 'Flyer, Broschüren und Anzeigen nach den Gestaltungsvorgaben des Hauses.'],
-      ['Klinikgruppe in der Region', 'Dauerhafte Betreuung von Social Media und Patienteninformation.'],
+      ['Klinikgruppe', 'Dauerhafte Betreuung von Social Media und Patienteninformation.'],
       ['Vierbeiner Reha-Zentrum', 'Website, Social Media sowie SEO und GEO.'],
     ] },
     ablauf: { titel: 'Vorgehen in vier Phasen', schritte: [
