@@ -73,7 +73,7 @@ export async function startSeite(): Promise<string> {
         <p class="label">Ergebnis</p>
         <h2 id="wirkung-titel" class="h2--klein">Was Sichtbarkeit bewirkt</h2>
         <div class="zwei">
-          <div><h3>Kundengewinnung</h3><p>Interessenten finden Ihr Angebot, verstehen es und nehmen Kontakt auf.</p><p class="beleg">Beispiel: Über die Website des Vierbeiner Reha-Zentrums werden Seminare und Kurse gebucht.</p></div>
+          <div><h3>Kundengewinnung</h3><p>Interessenten finden Ihr Angebot, verstehen es und nehmen Kontakt auf.</p><p class="beleg">Beispiel: Über die Website des Vierbeiner Reha-Zentrums (Tiermedizin) werden Seminare und Kurse gebucht.</p></div>
           <div><h3>Personalgewinnung</h3><p>Bewerberinnen und Bewerber lernen Ihr Unternehmen als Arbeitgeber kennen, bevor sie sich bewerben.</p><p class="beleg">Beispiel: Die Stellenangebote der Stadt Waldeck erscheinen in der Google-Jobsuche.</p></div>
         </div>
       </div>
@@ -98,9 +98,9 @@ export async function startSeite(): Promise<string> {
       <div class="sp-inhalt">
         <h2 id="branchen-titel">Branchenerfahrung</h2>
         <div class="branchen">
-          <div class="branche"><h3>Gesundheit &amp; Soziales</h3><p>Kliniken, Reha-Zentren und soziale Träger.</p><small>DRV-Kliniken · Vitos Haina · Vierbeiner Reha-Zentrum</small><a class="link" href="/branchen/gesundheit-soziales/">Gesundheit &amp; Soziales</a></div>
           <div class="branche"><h3>Kommunen &amp; öffentliche Hand</h3><p>Städte, Gemeinden und kommunale Unternehmen.</p><small>Stadt Waldeck · Stadt Korbach · Wirtschaftsförderung</small><a class="link" href="/branchen/oeffentliche-hand/">Kommunen &amp; öffentliche Hand</a></div>
           <div class="branche"><h3>Bau, Handwerk &amp; Industrie</h3><p>Betriebe, die Aufträge und Fachkräfte in der Region gewinnen wollen.</p><small>Wachenfeld Bau · Continental Korbach · KFZ Kling</small></div>
+          <div class="branche"><h3>Gesundheit &amp; Soziales</h3><p>Einrichtungen im Gesundheits- und Sozialwesen.</p><small>DRV-Kliniken · Vitos Haina · Daniel Koch Jugendhilfe</small><a class="link" href="/branchen/gesundheit-soziales/">Gesundheit &amp; Soziales</a></div>
         </div>
       </div>
     </div>

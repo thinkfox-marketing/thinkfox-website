@@ -112,7 +112,9 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 - **Wortmarke:** Der bisherige Schriftzug „thinkfox“ bleibt unverändert.
 - **Gesundheitsbranche (15.11.2026):** Kliniken sind ein guter Markt, aber nicht in Bad Wildungen und Umgebung. Dort keine
   Akquise-Texte, Regionalseiten oder Kampagnen für Kliniken; die Gesundheits-Branchenseite bleibt ohne Regionsbezug; Bestandskunden
-  nicht über Zusätze wie „in der Region“ identifizierbar machen. Hintergründe nicht im Repo festhalten (öffentlich).
+  nicht über Zusätze wie „in der Region“ identifizierbar machen. Branche tritt etwas zurück: in Navigation und Startseite nach
+  Kommunen, ohne „Kliniken“ im Teaser. Vierbeiner Reha-Zentrum ist Tiermedizin (nicht als Klinik/Humanmedizin darstellen).
+  Hintergründe nicht im Repo festhalten (öffentlich).
 
 ## Neues Erscheinungsbild (Relaunch, seit 14.11.2026 im Zweig `relaunch`)
 

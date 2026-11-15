@@ -240,7 +240,7 @@ export const LEISTUNGSSEITEN: Record<string, Leistungsseite> = {
       ['Personalgewinnung', 'Bewerberinnen und Bewerber aus der Region lernen Ihr Unternehmen als Arbeitgeber kennen.'],
       ['Einheitlicher Auftritt', 'Website, Social Media und Printmedien folgen einer gemeinsamen Linie.'],
     ], beispiele: [
-      ['Vierbeiner Reha-Zentrum, Bad Wildungen', 'Website mit Kursbuchung, Social Media sowie SEO und GEO.'],
+      ['Vierbeiner Reha-Zentrum (Tiermedizin), Bad Wildungen', 'Website mit Kursbuchung, Social Media sowie SEO und GEO.'],
       ['Beysshaus, Bad Wildungen und Edertal', '360°-Rundgänge für drei Ferienhäuser.'],
       ['Nationalparkstadt Waldeck', 'Karriereseite mit Videos und 360°-Rundgang.'],
     ] },

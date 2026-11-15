@@ -24,8 +24,8 @@ const GRUPPEN: Gruppe[] = [
     { text: 'Externe Marketingabteilung', href: EXTERN, zusatz: 'Planung und Umsetzung des gesamten Marketings' },
   ] },
   { id: 'branchen', titel: 'Branchen', links: [
-    { text: 'Gesundheit & Soziales', href: '/branchen/gesundheit-soziales/', zusatz: 'Kliniken, Reha-Zentren, soziale Träger' },
     { text: 'Kommunen & öffentliche Hand', href: '/branchen/oeffentliche-hand/', zusatz: 'Städte, Gemeinden, kommunale Unternehmen' },
+    { text: 'Gesundheit & Soziales', href: '/branchen/gesundheit-soziales/', zusatz: 'Gesundheits- und Sozialwesen, soziale Träger' },
   ] },
   { id: 'agentur', titel: 'Agentur', links: [
     { text: 'Studio & Vermietung', href: STUDIO, zusatz: 'Film- und Fotostudio mit Hohlkehle in Edertal' },
