@@ -78,8 +78,10 @@ const LEISTUNGEN: Record<string, { name: string; serviceType: string }> = {
 };
 
 /** Seitentitel (<title>, og:title, twitter:title) für übernommene Seiten – auf Suchbegriffe ausgerichtet (11/2026).
- *  H1 und Text der Seiten bleiben unverändert. Startseite bewusst nicht (rankt für „Werbeagentur Nordhessen/Edertal“). */
+ *  H1 und Text der Seiten bleiben unverändert. Startseite (17.11.2026): nur Tippfehler „nähe“ und Reihenfolge, die Suchbegriffe
+ *  „Werbeagentur“, „Nordhessen“, „Kassel“ bleiben (rankt für „Werbeagentur Nordhessen/Edertal“). */
 export const TITEL: Record<string, string> = {
+  '/': 'Werbeagentur aus Nordhessen nahe Kassel | thinkfox marketing',
   '/professionelle-websites-fuer-den-mittelstand/': 'Webdesign & Websites für den Mittelstand | thinkfox',
   '/mehr-aufmerksamkeit-und-reichweite-mit-social-media/': 'Social-Media-Agentur für den Mittelstand | thinkfox',
   '/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/': 'Videoproduktion & Imagefilm aus Nordhessen | thinkfox',
@@ -91,6 +93,13 @@ export const TITEL: Record<string, string> = {
 
 /** Bessere Meta-Beschreibungen für übernommene Seiten (Original zu kurz). */
 export const BESCHREIBUNGEN: Record<string, string> = {
+  // Search Console 11/2026: Positionen 5–14, aber CTR unter 1 % – Beschreibung als Handlungsaufruf statt Stichwortliste
+  '/':
+    'Werbeagentur aus Edertal in Nordhessen: Websites, SEO, Social Media, Film und Foto für den Mittelstand. Jetzt Erstgespräch vereinbaren.',
+  '/werbeagentur-bad-wildungen-thinkfox-marketing-fuer-den-mittelstand/':
+    'Werbeagentur für Bad Wildungen und die Edersee-Region: Websites, SEO, Social Media, Film und Foto vom Sitz in Edertal. Jetzt Erstgespräch vereinbaren.',
+  '/professionelle-websites-fuer-den-mittelstand/':
+    'Websites für den Mittelstand: Konzeption, Design, SEO und KI-Sichtbarkeit (GEO), technische Umsetzung und Wartung. Jetzt Erstgespräch vereinbaren.',
   '/marketing-ampel/':
     'Kostenloser Marketing-Selbsttest für KMU: Website, Content, Strategie und Recruiting in wenigen Minuten bewerten – mit Ampel je Bereich.',
   '/360-grad-rundgaenge/cine-k-korbach/':

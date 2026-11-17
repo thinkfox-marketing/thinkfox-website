@@ -1,14 +1,14 @@
 ---
-title: "Was bedeutet KI-Suchmaschinen-Optimierung und wie setze ich sie um?"
+title: "Was bedeutet KI-Suchmaschinenoptimierung (GEO) und wie setze ich sie um?"
 date: "2026-02-11T23:02:14"
-modified: "2026-02-12T00:20:27"
+modified: "2026-11-17T09:00:00"
 kategorien: ["blog"]
 schlagworte: ["ki-suchmaschinen-optimierung", "marketing", "marketingmassnahmen", "nordhessen", "wissen"]
 platzierung: []
 bild: "/wp-content/uploads/2026/02/ki-suchmaschine-optimieren-geo-thinkfox-marketing.jpg"
-bildAlt: "Was bedeutet KI-Suchmaschinen-Optimierung und wie setze ich sie um?"
-auszug: "KI ist nicht einfach „eine neue Suchmaschine“. KI ist inzwischen überall im Suchprozess: in Google (z. B. bei KI-Übersichten/AI Overviews), in Bing, in Chatbots, in Browsern – und vor allem in der Art, wie Inhalte bewertet, zusammengefasst und ausgespielt werden.  KI-Suchmaschinen-Optimierung (oft auch GEO – Generative Engine Optimization) bedeutet: du optimierst Inhalte so, dass sie von klassischen"
-seo: {"titel": "KI-Suchmaschinen-Optimierung und wie setze ich sie um?", "beschreibung": "KI-Suchmaschinen-Optimierung heißt: bei Google ranken und von KI-Systemen korrekt verstanden, zitiert und sinnvoll zusammengefasst werden.", "fokusKeyword": "KI-Suchmaschinen-Optimierung", "lesedauer": "4 Minuten"}
+bildAlt: "Was bedeutet KI-Suchmaschinenoptimierung und wie setze ich sie um?"
+auszug: "KI ist nicht einfach „eine neue Suchmaschine“. KI ist inzwischen überall im Suchprozess: in Google (z. B. bei KI-Übersichten/AI Overviews), in Bing, in Chatbots, in Browsern – und vor allem in der Art, wie Inhalte bewertet, zusammengefasst und ausgespielt werden.  KI-Suchmaschinenoptimierung (oft auch GEO – Generative Engine Optimization) bedeutet: du optimierst Inhalte so, dass sie von klassischen"
+seo: {"titel": "KI-Suchmaschinenoptimierung (GEO): so startest du", "beschreibung": "Was KI-Suchmaschinenoptimierung (GEO) bedeutet, wie KI-Übersichten Inhalte auswählen und wie du mit fünf Schritten startest – mit Checkliste und FAQ.", "fokusKeyword": "KI-Suchmaschinenoptimierung", "lesedauer": "4 Minuten"}
 wpId: 15588
 template: "11303"
 legacy: false
@@ -25,11 +25,11 @@ cta:
 ---
 KI ist nicht einfach „eine neue Suchmaschine“. KI ist inzwischen überall im Suchprozess: in Google (z. B. bei KI-Übersichten/AI Overviews), in Bing, in Chatbots, in Browsern – und vor allem in der Art, wie Inhalte bewertet, zusammengefasst und ausgespielt werden.
 
-**KI-Suchmaschinen-Optimierung** (oft auch GEO – *Generative Engine Optimization*) bedeutet: du optimierst Inhalte so, dass sie von klassischen Suchsystemen gut gerankt werden *und* von KI-Systemen korrekt verstanden, zitiert und zusammengefasst werden können.
+**KI-Suchmaschinenoptimierung** (oft auch GEO – *Generative Engine Optimization*) bedeutet: du optimierst Inhalte so, dass sie von klassischen Suchsystemen gut gerankt werden *und* von KI-Systemen korrekt verstanden, zitiert und zusammengefasst werden können.
 
 Das Ziel bleibt dabei herrlich unromantisch: mehr qualifizierte Anfragen. Nicht „mehr Sichtbarkeit bei ChatGPT“. Sichtbarkeit ist nur dann schön, wenn sie auf deine Unternehmensziele einzahlt.
 
-## Was ist KI-Suchmaschinen-Optimierung genau?
+## Was ist KI-Suchmaschinenoptimierung genau?
 
 Klassische SEO fragt: *„Wie bekomme ich meine Seite zu einem Keyword auf Seite 1?“*
 
@@ -58,7 +58,7 @@ Wenn dein Content nur „schön formuliert“ ist, aber keine Substanz hat, wirs
 
 #### 1) Schreib für echte Fragen, nicht für Keyword-Listen
 
-Gute KI-SEO startet bei der Suchintention. Beispiel „KI Suchmaschinen-Optimierung“ – Menschen wollen meist wissen: *Was ist das genau? Was bringt mir das? Was ändere ich konkret? Was sind Fehler?* Wenn dein Artikel diese Fragen sauber beantwortet, hast du bereits 80 % gewonnen.
+Gute KI-SEO startet bei der Suchintention. Beispiel „KI Suchmaschinenoptimierung“ – Menschen wollen meist wissen: *Was ist das genau? Was bringt mir das? Was ändere ich konkret? Was sind Fehler?* Wenn dein Artikel diese Fragen sauber beantwortet, hast du bereits 80 % gewonnen.
 
 #### 2) Nutze klare Definitionen und „harte“ Aussagen
 
@@ -100,6 +100,10 @@ Ladezeiten (Core Web Vitals), saubere Indexierung, sprechende URLs und strukturi
 3. **Proof:** Zeige Expertise durch Prozessbeschreibungen, Ergebnisse und Referenzen.
 4. **Struktur:** Optimiere auf saubere Überschriften (H2/H3), kurze Absätze und interne Links.
 5. **Messung:** Miss den Effekt anhand von Rankings, Klicks und Leads – nicht anhand von „gefühlter Sichtbarkeit“.
+
+### KI-Suchmaschinenoptimierung bei thinkfox
+
+GEO ist bei uns Teil der Leistung [Websites und SEO](/professionelle-websites-fuer-den-mittelstand/): Wir strukturieren Leistungsseiten, ergänzen Fragen und Antworten, formulieren Aussagen zu Leistungen und Standort eindeutig und sorgen für die technische Grundlage mit sauberen Überschriften, strukturierten Daten und internen Links. Auf thinkfox.de setzen wir das selbst um: mit strukturierten Daten zu Unternehmen, Leistungen und Fragen sowie einer Übersichtsdatei für KI-Systeme (`llms.txt`). Ein Beispiel aus der Praxis ist die Website des [Vierbeiner Reha-Zentrums](/website-vierbeiner-reha-zentrum/), bei der wir SEO und GEO mit laufender Social-Media-Betreuung verbinden.
 
 ### Fazit: KI-SEO ist kein Trick – es ist Qualitätsdisziplin
 
