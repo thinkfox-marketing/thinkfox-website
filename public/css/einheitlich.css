@@ -201,6 +201,36 @@ main .e-n-accordion-item .elementor-widget-text-editor a:not(.elementor-button) 
     .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27)) { gap: 10px !important; }
 }
 
+/* ---------------------------------------------------------------- 5b Startseite: Leistungs-Kreise mobil als wischbare Karten */
+/* 17.11.2026: Die Kreise (Name) mit Pfeil und Text bleiben auch mobil erhalten, aber als eine Reihe seitlich wischbarer Karten
+   statt vier langer Textblöcke untereinander. Vorher waren die Namen mobil lila auf lila Grund und damit unsichtbar.
+   Aufbau: zwei Spalten-Container (cfc40e7, f4e2918) mit je Kreis + Text; per display: contents werden die vier Paare
+   Kinder eines Rasters mit zwei Zeilen (Kreis, Text) und automatischem Spaltenfluss. Desktop unverändert. */
+@media (max-width: 767px) {
+  .elementor-12253 .elementor-element-23c8bed {
+    display: grid !important; grid-auto-flow: column; grid-template-rows: auto 1fr; grid-auto-columns: min(78%, 290px);
+    gap: 16px 18px !important; align-items: start;
+    overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: 20px;
+    margin-inline: -20px !important; padding: 0 20px 18px !important;
+    --width: calc(100% + 40px) !important; width: calc(100% + 40px) !important; max-width: calc(100% + 40px) !important; min-width: 0;
+    scrollbar-width: thin; scrollbar-color: rgb(255 255 255 / .85) rgb(255 255 255 / .2);
+  }
+  .elementor-12253 .elementor-element-23c8bed:focus-visible { outline: 3px solid #fff; outline-offset: -3px; }
+  .elementor-12253 .elementor-element-23c8bed > .e-con { display: contents !important; }
+  .elementor-12253 .elementor-element-23c8bed :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944) {
+    --width: 190px !important; --min-height: 190px !important; width: 190px !important; height: 190px !important; min-height: 190px !important;
+    border-radius: 50% !important; background: #fff !important; padding: 14px !important; box-sizing: border-box;
+    justify-content: center !important; align-items: center; justify-self: start; scroll-snap-align: start;
+  }
+  .elementor-12253 .elementor-element-23c8bed :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944) .elementor-heading-title {
+    text-align: center !important; font-size: 1.35rem !important; line-height: 1.2 !important; color: var(--tf-lila) !important; /* im Kreis zentriert */
+  }
+  .elementor-12253 .elementor-element-23c8bed .elementor-widget-icon-box { scroll-snap-align: start; --container-widget-width: 100%; }
+  .elementor-12253 .elementor-element-23c8bed .elementor-widget-icon-box .elementor-icon-box-icon { display: block !important; margin: 0 0 10px !important; }
+  .elementor-12253 .elementor-element-23c8bed .elementor-widget-icon-box .elementor-icon-box-wrapper { display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
+  .elementor-12253 .elementor-element-23c8bed .elementor-widget-icon-box .elementor-icon-box-description { text-align: left; font-size: 16px; line-height: 1.55; }
+}
+
 /* ---------------------------------------------------------------- 6 360°-Seite an den Hauptlook angleichen */
 .elementor-7047 .elementor-element.elementor-element-81f4a80:not(.elementor-motion-effects-element-type-background) { background-color: var(--tf-lila-dunkel) !important; }
 .elementor-7047 .elementor-element.elementor-element-03806f3:not(.elementor-motion-effects-element-type-background) { background-color: var(--tf-hell) !important; }

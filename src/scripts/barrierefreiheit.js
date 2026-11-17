@@ -117,3 +117,22 @@ window.addEventListener('load', () => {
   let n = 0;
   const t = setInterval(() => { pauseKnoepfe(); if (++n > 10) clearInterval(t); }, 500);
 });
+
+// Startseite (mobil): Die Leistungs-Karten sind seitlich wischbar (einheitlich.css, 5b) – dann auch per Tastatur erreichbar und benannt
+function wischbereich() {
+  const el = document.querySelector('.elementor-12253 .elementor-element-23c8bed');
+  if (!el) return;
+  const setzen = () => {
+    if (el.scrollWidth > el.clientWidth + 2) {
+      el.tabIndex = 0;
+      el.setAttribute('role', 'region');
+      el.setAttribute('aria-label', 'Unsere Leistungen – seitlich wischen oder mit den Pfeiltasten blättern');
+    } else {
+      el.removeAttribute('tabindex'); el.removeAttribute('role'); el.removeAttribute('aria-label');
+    }
+  };
+  setzen();
+  window.addEventListener('resize', setzen);
+  window.addEventListener('load', setzen);
+}
+wischbereich();
