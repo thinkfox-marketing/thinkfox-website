@@ -118,21 +118,55 @@ window.addEventListener('load', () => {
   const t = setInterval(() => { pauseKnoepfe(); if (++n > 10) clearInterval(t); }, 500);
 });
 
-// Startseite (mobil): Die Leistungs-Karten sind seitlich wischbar (einheitlich.css, 5b) – dann auch per Tastatur erreichbar und benannt
-function wischbereich() {
-  const el = document.querySelector('.elementor-12253 .elementor-element-23c8bed');
-  if (!el) return;
-  const setzen = () => {
-    if (el.scrollWidth > el.clientWidth + 2) {
-      el.tabIndex = 0;
-      el.setAttribute('role', 'region');
-      el.setAttribute('aria-label', 'Unsere Leistungen – seitlich wischen oder mit den Pfeiltasten blättern');
-    } else {
-      el.removeAttribute('tabindex'); el.removeAttribute('role'); el.removeAttribute('aria-label');
-    }
+// Startseite (mobil): Leistungs-Kreise als Auswahl (einheitlich.css, 5b). Ein Tipp (oder Enter/Leertaste) auf einen Kreis zeigt seinen Text;
+// die Kreise sind dann Schaltflächen mit Zustand (aria-expanded), die Texte Bereiche mit Bezug zum Kreis. Auf dem Desktop passiert nichts.
+function leistungsAuswahl() {
+  const raster = document.querySelector('.elementor-12253 .elementor-element-23c8bed');
+  if (!raster) return;
+  const PAARE = [['42192f4', '7eb6f8f'], ['c1f37bf', 'a0792be'], ['40b09e2', 'b4c170d'], ['0ffa944', '1dc3daa']];
+  const paare = PAARE.map(([k, t]) => [raster.querySelector(`.elementor-element-${k}`), raster.querySelector(`.elementor-element-${t}`)]).filter(([k, t]) => k && t);
+  if (paare.length < 2) return;
+  const mq = window.matchMedia('(max-width: 767px)');
+  const waehlen = (n) => paare.forEach(([k, t], i) => {
+    k.classList.toggle('tf-aktiv', i === n); t.classList.toggle('tf-aktiv', i === n);
+    k.setAttribute('aria-expanded', String(i === n));
+  });
+  const klick = (n) => () => waehlen(n);
+  const taste = (n) => (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); waehlen(n); } };
+  const handler = paare.map((_, n) => [klick(n), taste(n)]);
+  const links = paare.map(() => null);
+  const an = () => {
+    raster.classList.add('tf-auswahl');
+    paare.forEach(([k, t], n) => {
+      t.id = t.id || `tf-leistung-text-${n + 1}`; k.id = k.id || `tf-leistung-${n + 1}`;
+      k.setAttribute('role', 'button'); k.tabIndex = 0; k.setAttribute('aria-controls', t.id);
+      t.setAttribute('role', 'region'); t.setAttribute('aria-labelledby', k.id);
+      // Link im Kreis: mobil kein Link (ein Tipp wählt aus), stattdessen „Mehr zu …“ im Text
+      const a = k.querySelector('a[href]'); const beschr = t.querySelector('.elementor-icon-box-description');
+      if (a && beschr) {
+        const mehr = document.createElement('a'); mehr.className = 'tf-mehr'; mehr.href = a.getAttribute('href');
+        mehr.textContent = `Mehr zu ${k.textContent.trim().replace(/\s+/g, ' ')}`; beschr.append(mehr);
+        links[n] = { a, href: a.getAttribute('href'), mehr }; a.removeAttribute('href');
+      }
+      k.addEventListener('click', handler[n][0]); k.addEventListener('keydown', handler[n][1]);
+      // „E-Commerce“ im Kreis nicht am Bindestrich umbrechen
+      const w = document.createTreeWalker(k, NodeFilter.SHOW_TEXT); for (let x = w.nextNode(); x; x = w.nextNode()) x.textContent = x.textContent.replace('E-Commerce', 'E\u2011Commerce');
+    });
+    waehlen(0);
   };
-  setzen();
-  window.addEventListener('resize', setzen);
-  window.addEventListener('load', setzen);
+  const aus = () => {
+    raster.classList.remove('tf-auswahl');
+    paare.forEach(([k, t], n) => {
+      for (const a of ['role', 'tabindex', 'aria-controls', 'aria-expanded']) k.removeAttribute(a);
+      for (const a of ['role', 'aria-labelledby']) t.removeAttribute(a);
+      k.classList.remove('tf-aktiv'); t.classList.remove('tf-aktiv');
+      k.removeEventListener('click', handler[n][0]); k.removeEventListener('keydown', handler[n][1]);
+      const w = document.createTreeWalker(k, NodeFilter.SHOW_TEXT); for (let x = w.nextNode(); x; x = w.nextNode()) x.textContent = x.textContent.replace('E\u2011Commerce', 'E-Commerce');
+      if (links[n]) { links[n].a.setAttribute('href', links[n].href); links[n].mehr.remove(); links[n] = null; }
+    });
+  };
+  const pruefen = () => (mq.matches ? an() : aus());
+  pruefen();
+  mq.addEventListener('change', pruefen);
 }
-wischbereich();
+leistungsAuswahl();
