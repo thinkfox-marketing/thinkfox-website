@@ -62,9 +62,20 @@ const MONATE = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'A
 /** Datumsformat der Original-Seite ("F j, Y"): "März 17, 2026" */
 export const wpDate = (d: Date) => `${MONATE[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
 
+/** Auszug für Teaser: endet nach einem vollständigen Satz (statt mitten im Satz) – wenn möglich im Fenster von `words` Wörtern,
+ *  sonst am nächsten Satzende (bis 1,6-faches Fenster), sonst mit Auslassungszeichen. */
+const KURZFORMEN = new Set(['z.', 'B.', 'z.B.', 'd.h.', 'u.a.', 'ca.', 'bzw.', 'Nr.', 'ggf.', 'inkl.', 'zzgl.', 'etc.', 'evtl.', 'usw.', 'Dr.', 'vs.', 'bspw.']);
+const satzende = (roh: string) => {
+  const wort = roh.replace(/^[("„“‚]+/, '');
+  return /[.!?…]["“”„)]?$/.test(wort) && !KURZFORMEN.has(wort) && !/^\p{L}\.$/u.test(wort);
+};
 export function excerpt(p: Post, words: number): string {
   const w = p.data.auszug.split(/\s+/).filter(Boolean);
-  return html(w.slice(0, words).join(' '));
+  if (w.length <= words) return html(w.join(' '));
+  for (let n = words; n >= Math.floor(words * 0.5); n--) if (satzende(w[n - 1])) return html(w.slice(0, n).join(' '));
+  for (let n = words + 1; n <= Math.min(w.length, Math.ceil(words * 1.6)); n++) if (satzende(w[n - 1])) return html(w.slice(0, n).join(' '));
+  for (let n = Math.floor(words * 0.5) - 1; n >= 1; n--) if (satzende(w[n - 1])) return html(w.slice(0, n).join(' '));
+  return html(`${w.slice(0, words).join(' ')} …`);
 }
 
 export function categoryName(slug: string): string {
