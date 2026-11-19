@@ -208,7 +208,7 @@ body > :is(header, main, footer, [data-elementor-type]) { overflow-x: clip; }
 
 /* Google-Bewertungen statisch (src/lib/bewertungen.ts): wischbare Reihe statt Slider mit externem Ladeskript */
 .ti-widget.ti-goog .ti-reviews-container-wrapper {
-  display: flex !important; overflow-y: hidden !important; gap: 16px; overflow-x: auto !important; overscroll-behavior-x: contain;
+  display: flex !important; overflow-y: hidden !important; gap: 16px !important; overflow-x: auto !important; overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory; scroll-padding-inline: 4px; padding: 6px 4px 14px; margin: 0 !important;
   scrollbar-width: thin; scrollbar-color: #5b4ec8 transparent;
 }
@@ -218,6 +218,8 @@ body > :is(header, main, footer, [data-elementor-type]) { overflow-x: clip; }
   scroll-snap-align: start; padding: 0 !important; margin: 0 !important; float: none !important;
 }
 .ti-widget.ti-goog .ti-review-item > .ti-inner { height: 100%; margin: 0 !important; }
+/* Desktop: zwei ganze Karten nebeneinander statt einer angeschnittenen; weitere per Wischen/Scrollen */
+@media (min-width: 1025px) { .ti-widget.ti-goog .ti-review-item { flex-basis: calc(50% - 8px) !important; } }
 /* ganzer Text statt „Weiterlesen“ (das Aufklappen lief über das Ladeskript) */
 .ti-widget.ti-goog .ti-review-content { -webkit-line-clamp: unset !important; line-clamp: unset !important; height: auto !important; max-height: none !important; display: block !important; overflow: visible !important; }
 .ti-widget.ti-goog .ti-read-more, .ti-widget.ti-goog .ti-controls-line { display: none !important; }
