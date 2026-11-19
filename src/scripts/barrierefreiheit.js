@@ -136,13 +136,29 @@ function kreisAuswahl({ raster: rasterId, paare: ids }) {
   });
   const handler = paare.map((_, n) => [() => waehlen(n), (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); waehlen(n); } }]);
   const links = paare.map(() => null);
+  const name = (k) => k.textContent.replace(/\s+/g, ' ').trim();
+  // Alle Texte eines Rasters gleich ausrichten: mittig, solange keiner länger als 4 Zeilen ist, sonst alle linksbündig
+  // (eine feste linke Kante lässt sich bei längeren Texten besser lesen; die Ausrichtung soll beim Umschalten nicht springen)
+  const ausrichten = () => {
+    const zeilen = paare.map(([, t]) => {
+      const d = t.querySelector('.elementor-icon-box-description'); if (!d) return 0;
+      const m = d.querySelector('.tf-mehr'); const mh = m ? m.getBoundingClientRect().height + parseFloat(getComputedStyle(m).marginTop) : 0;
+      return Math.round((d.getBoundingClientRect().height - mh) / (parseFloat(getComputedStyle(d).lineHeight) || 25));
+    });
+    const links = Math.max(...zeilen) > 4;
+    paare.forEach(([, t]) => t.classList.toggle('tf-links', links));
+  };
+  let rahmen = 0;
+  const neuMessen = () => { if (mq.matches) { cancelAnimationFrame(rahmen); rahmen = requestAnimationFrame(ausrichten); } };
   const an = () => {
     raster.classList.add('tf-auswahl');
+    // gleiche Schriftgröße in allen Kreisen: sobald ein Name lang ist, alle kleiner
+    const lang = paare.some(([k]) => name(k).length > 22);
     paare.forEach(([k, t], n) => {
       t.id = t.id || `tf-leistung-text-${n + 1}`; k.id = k.id || `tf-leistung-${n + 1}`;
       k.setAttribute('role', 'button'); k.tabIndex = 0; k.setAttribute('aria-controls', t.id);
       t.setAttribute('role', 'region'); t.setAttribute('aria-labelledby', k.id);
-      k.classList.toggle('tf-lang', k.textContent.replace(/\s+/g, ' ').trim().length > 22);
+      k.classList.toggle('tf-lang', lang);
       // Link im Kreis: mobil kein Link (ein Tipp wählt aus), stattdessen „Mehr zu …“ im Text
       const a = k.querySelector('a[href]'); const beschr = t.querySelector('.elementor-icon-box-description');
       if (a && beschr) {
@@ -153,13 +169,14 @@ function kreisAuswahl({ raster: rasterId, paare: ids }) {
       k.addEventListener('click', handler[n][0]); k.addEventListener('keydown', handler[n][1]);
     });
     waehlen(0);
+    ausrichten();
   };
   const aus = () => {
     raster.classList.remove('tf-auswahl');
     paare.forEach(([k, t], n) => {
       for (const a of ['role', 'tabindex', 'aria-controls', 'aria-expanded']) k.removeAttribute(a);
       for (const a of ['role', 'aria-labelledby']) t.removeAttribute(a);
-      k.classList.remove('tf-aktiv', 'tf-lang'); t.classList.remove('tf-aktiv');
+      k.classList.remove('tf-aktiv', 'tf-lang'); t.classList.remove('tf-aktiv', 'tf-links');
       k.removeEventListener('click', handler[n][0]); k.removeEventListener('keydown', handler[n][1]);
       if (links[n]) { links[n].a.setAttribute('href', links[n].href); links[n].mehr.remove(); links[n] = null; }
     });
@@ -167,5 +184,7 @@ function kreisAuswahl({ raster: rasterId, paare: ids }) {
   const pruefen = () => (mq.matches ? an() : aus());
   pruefen();
   mq.addEventListener('change', pruefen);
+  window.addEventListener('resize', neuMessen);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(neuMessen);
 }
 KREIS_GRUPPEN.forEach(kreisAuswahl);
