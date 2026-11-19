@@ -377,3 +377,13 @@ main .forminator-ui.forminator-custom-form .forminator-button.forminator-button-
 }
 /* FAQ-Abschnitt vor dem Instagram-Block: keine weiße Schräge (Social Media, Externe Marketingabteilung) – wie auf Startseite/Bad Wildungen */
 main .elementor-element-a0516f5:has(+ .elementor-element-571466b) > .elementor-shape-bottom { display: none; }
+/* FAQ-Abschnitt („Klartext“) auf allen Seiten gleich: Höhe aus dem Inhalt statt fester Mindesthöhe,
+   oben Platz für die Schräge (54 px) + Abstand, unten wie die übrigen Abschnitte */
+main .elementor-element-a0516f5 { --min-height: 0px !important; min-height: 0 !important; }
+main .elementor-element-a0516f5 > .e-con-inner { padding-top: 128px !important; padding-bottom: 96px !important; }
+main .elementor-element-a0516f5 .elementor-element-b3fcb25 { padding-bottom: 0 !important; }
+@media (max-width: 767px) {
+  main .elementor-element-a0516f5 > .e-con-inner { padding-top: 96px !important; padding-bottom: 64px !important; }
+}
+/* Instagram-Block nicht unter die FAQ ziehen (der halbtransparente Verlauf ergab einen graublauen Streifen) */
+main .elementor-element-571466b { margin-top: 0 !important; }
