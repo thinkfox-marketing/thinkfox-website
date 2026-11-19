@@ -45,7 +45,7 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 - **Datenschutz:** YouTube und Kuula per 2-Klick-Lösung (Iframe mit `srcdoc`-Hinweis),
   Bilder/Schriften des Bewertungs-Widgets und YouTube-Vorschaubilder lokal (`scripts/astro-extern-lokal.mjs`),
   kein WordPress-Emoji-Skript, Termin-Iframe lädt erst beim Öffnen. Google-Bewertungen statisch ohne Trustindex-Ladeskript
-  (`src/lib/bewertungen.ts`, wischbare Reihe in `ergaenzungen.css`); kein Usercentrics-„Smart Data Protector“ (uc-block). Kein Gravatar-Hash im
+  (`src/lib/bewertungen.ts`, wischbare Reihe in `ergaenzungen.css`; Desktop: Kopfzeile über volle Breite, Gesamtbewertung als Kachel + drei Karten, Pfeile und „Weiterlesen“ per `src/scripts/bewertungen.js`, ohne JavaScript ganze Texte); kein Usercentrics-„Smart Data Protector“ (uc-block). Kein Gravatar-Hash im
   JSON-LD, Elementor-Zähler im Browser-Speicher werden entfernt (`src/scripts/datenschutz.js`), Opt-out-Link durch Hinweis auf den Usercentrics-Widerruf ersetzt. Google-Tag und Meta-Pixel laden erst nach
   Zustimmung zum jeweiligen Usercentrics-Dienst (`src/components/Tracking.astro`, Erkennung über den Dienstnamen).
 - **Ladezeit:** Stylesheets als wenige Bündel (`src/lib/css-bundle.ts`, nur im Build), Hero-Standbild und

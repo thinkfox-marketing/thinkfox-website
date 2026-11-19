@@ -218,8 +218,6 @@ body > :is(header, main, footer, [data-elementor-type]) { overflow-x: clip; }
   scroll-snap-align: start; padding: 0 !important; margin: 0 !important; float: none !important;
 }
 .ti-widget.ti-goog .ti-review-item > .ti-inner { height: 100%; margin: 0 !important; }
-/* Desktop: zwei ganze Karten nebeneinander statt einer angeschnittenen; weitere per Wischen/Scrollen */
-@media (min-width: 1025px) { .ti-widget.ti-goog .ti-review-item { flex-basis: calc(50% - 8px) !important; } }
 /* ganzer Text statt „Weiterlesen“ (das Aufklappen lief über das Ladeskript) */
 .ti-widget.ti-goog .ti-review-content { -webkit-line-clamp: unset !important; line-clamp: unset !important; height: auto !important; max-height: none !important; display: block !important; overflow: visible !important; }
 .ti-widget.ti-goog .ti-read-more, .ti-widget.ti-goog .ti-controls-line { display: none !important; }
@@ -309,3 +307,39 @@ div:where([data-tf-h="6"]) { font-size: 1rem; }
 .elementor-kit-52 div:where([data-tf-h="5"]) { color: var(--e-global-color-4e42812); font-family: "Outfit", Sans-serif; font-size: 20px; font-weight: bold; }
 .elementor-kit-52 div:where([data-tf-h="6"]) { color: #54595F; font-family: "Outfit", Sans-serif; font-size: 17px; font-weight: bold; }
 .tf-fett { font-weight: bolder; }
+
+/* Google-Bewertungen, Darstellung 11/2026 (src/scripts/bewertungen.js):
+   Desktop: Überschrift und Einleitung als Kopfzeile über die volle Breite, darunter links die Gesamtbewertung als Kachel,
+   rechts drei Karten nebeneinander mit Pfeilen. Handy: untereinander, Karten wischbar. */
+.ti-widget.ti-goog .ti-review-item > .ti-inner { display: flex !important; flex-direction: column; }
+.ti-widget.ti-goog.tf-bew .ti-review-content { display: -webkit-box !important; -webkit-box-orient: vertical; -webkit-line-clamp: 7 !important; line-clamp: 7 !important; overflow: hidden !important; }
+.ti-widget.ti-goog.tf-bew .tf-bew-offen .ti-review-content { -webkit-line-clamp: unset !important; line-clamp: unset !important; overflow: visible !important; }
+.ti-widget .tf-bew-mehr { display: inline-block !important; align-self: flex-start; width: auto !important; min-height: 0 !important; margin: 10px 0 0 !important; padding: 6px 0 !important; border: 0 !important; border-radius: 0 !important; background: none !important; box-shadow: none !important; font: 700 15px/1.3 Outfit, sans-serif !important; color: #3b3192 !important; text-decoration: underline !important; text-underline-offset: 0.15em; cursor: pointer; }
+.ti-widget .tf-bew-mehr[hidden] { display: none !important; }
+.tf-bew-mehr:focus-visible, .tf-bew-pfeil:focus-visible { outline: 3px solid #3b3192; outline-offset: 2px; }
+.ti-widget .tf-bew-pfeile { display: flex !important; justify-content: flex-end; gap: 12px !important; margin-top: 8px !important; }
+.ti-widget .tf-bew-pfeile[hidden] { display: none !important; }
+.ti-widget .tf-bew-pfeil { display: grid !important; place-items: center; width: 44px !important; height: 44px !important; min-height: 0 !important; padding: 0 !important; border: 2px solid #5b4ec8 !important; border-radius: 50% !important; background: #fff !important; color: #5b4ec8 !important; box-shadow: none !important; cursor: pointer; transition: background 0.2s, color 0.2s; }
+.tf-bew-pfeil svg { width: 20px; height: 20px; }
+.tf-bew-pfeil--vor svg { transform: scaleX(-1); }
+.ti-widget .tf-bew-pfeil + .tf-bew-pfeil { margin-left: 12px !important; }
+.ti-widget .tf-bew-pfeil:hover:not(:disabled) { background: #5b4ec8 !important; color: #fff !important; }
+.ti-widget .tf-bew-pfeil:disabled { opacity: 0.35; cursor: default; }
+@media (prefers-reduced-motion: reduce) { .tf-bew-pfeil { transition: none; } }
+@media (min-width: 1025px) {
+  main .e-parent:has(.ti-widget) > .e-con-inner { flex-direction: column !important; flex-wrap: nowrap !important; align-items: stretch !important; gap: 48px !important; }
+  main .e-parent:has(.ti-widget) > .e-con-inner > .e-con { --width: 100% !important; width: 100% !important; max-width: 100% !important; }
+  /* Kopfzeile: Überschrift links, Einleitung rechts daneben, unten bündig */
+  main .e-parent:has(.ti-widget) > .e-con-inner > .e-con:not(:has(.ti-widget)) { flex-direction: row !important; align-items: flex-end !important; justify-content: space-between !important; gap: 64px !important; }
+  main .e-parent:has(.ti-widget) > .e-con-inner > .e-con:not(:has(.ti-widget)) > .elementor-widget { flex: 0 1 50% !important; max-width: 560px !important; margin: 0 !important; }
+  main .e-parent:has(.ti-widget) > .e-con-inner > .e-con:not(:has(.ti-widget)) > .elementor-widget :is(p, .elementor-heading-title) { margin-bottom: 0 !important; }
+  /* Gesamtbewertung als Kachel links, Karten rechts */
+  .ti-widget.ti-goog .ti-widget-container { display: grid !important; grid-template-columns: 240px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 20px !important; row-gap: 0 !important; align-items: stretch; }
+  .ti-widget.ti-goog .ti-widget-container > .ti-header.ti-header { grid-row: 1; grid-column: 1; display: flex !important; align-items: center; justify-content: center; margin: 12px 0 12px 0 !important; padding: 32px 20px !important; align-self: stretch; border-radius: 10px; background: #fff; box-shadow: 0 6px 24px rgb(59 49 146 / 0.08); }
+  .ti-widget.ti-goog .ti-reviews-container { grid-row: 1; grid-column: 2; min-width: 0; }
+  .ti-widget.ti-goog .tf-bew-pfeile { grid-row: 2; grid-column: 2; }
+  .ti-widget.ti-goog .ti-review-item { flex-basis: calc((100% - 32px) / 3) !important; }
+}
+@media (min-width: 1025px) and (max-width: 1220px) {
+  main .e-parent:has(.ti-widget) > .e-con-inner { padding-inline: 40px !important; }
+}
