@@ -234,7 +234,7 @@ main .e-n-accordion-item .elementor-widget-text-editor a:not(.elementor-button) 
   .elementor-12253 .elementor-element-23c8bed.tf-auswahl .elementor-widget-icon-box.tf-aktiv { visibility: visible; }
   .elementor-12253 .elementor-element-23c8bed.tf-auswahl :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944) { cursor: pointer; -webkit-tap-highlight-color: transparent; }
   /* Link zur Leistungsseite im Text (mobil ersetzt er den Link im Kreis, der beim Antippen die Seite verlassen würde) */
-  .elementor-12253 .elementor-element-23c8bed .tf-mehr { display: inline-block; margin-top: 10px; padding: 8px 0; color: #fff !important; font-weight: 700; text-decoration: underline; }
+  .elementor-12253 .elementor-element-23c8bed .tf-mehr { display: block; width: fit-content; margin-top: 10px; padding: 8px 0; color: #fff !important; font-weight: 700; text-decoration: underline; }
   /* nicht gewählt: Kreis nur als Rahmen */
   .elementor-12253 .elementor-element-23c8bed.tf-auswahl :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944):not(.tf-aktiv) { background: transparent !important; }
   .elementor-12253 .elementor-element-23c8bed.tf-auswahl :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944):not(.tf-aktiv) :is(.elementor-heading-title, .elementor-heading-title *) { color: #fff !important; }

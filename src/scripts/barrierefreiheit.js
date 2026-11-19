@@ -149,8 +149,6 @@ function leistungsAuswahl() {
         links[n] = { a, href: a.getAttribute('href'), mehr }; a.removeAttribute('href');
       }
       k.addEventListener('click', handler[n][0]); k.addEventListener('keydown', handler[n][1]);
-      // „E-Commerce“ im Kreis nicht am Bindestrich umbrechen
-      const w = document.createTreeWalker(k, NodeFilter.SHOW_TEXT); for (let x = w.nextNode(); x; x = w.nextNode()) x.textContent = x.textContent.replace('E-Commerce', 'E\u2011Commerce');
     });
     waehlen(0);
   };
@@ -161,7 +159,6 @@ function leistungsAuswahl() {
       for (const a of ['role', 'aria-labelledby']) t.removeAttribute(a);
       k.classList.remove('tf-aktiv'); t.classList.remove('tf-aktiv');
       k.removeEventListener('click', handler[n][0]); k.removeEventListener('keydown', handler[n][1]);
-      const w = document.createTreeWalker(k, NodeFilter.SHOW_TEXT); for (let x = w.nextNode(); x; x = w.nextNode()) x.textContent = x.textContent.replace('E\u2011Commerce', 'E-Commerce');
       if (links[n]) { links[n].a.setAttribute('href', links[n].href); links[n].mehr.remove(); links[n] = null; }
     });
   };
