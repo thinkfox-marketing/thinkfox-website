@@ -375,3 +375,5 @@ main .forminator-ui.forminator-custom-form .forminator-button.forminator-button-
   /* Seitenrand mobil 20 px (Danke, Impressum, Datenschutz) */
   main :is(.elementor-element-6829256, .elementor-element-0b967b0) { padding-left: 10px !important; padding-right: 10px !important; }
 }
+/* FAQ-Abschnitt vor dem Instagram-Block: keine weiße Schräge (Social Media, Externe Marketingabteilung) – wie auf Startseite/Bad Wildungen */
+main .elementor-element-a0516f5:has(+ .elementor-element-571466b) > .elementor-shape-bottom { display: none; }
