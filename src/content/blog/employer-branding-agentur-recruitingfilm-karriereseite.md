@@ -3,6 +3,8 @@ title: "Employer Branding & Recruiting für den Mittelstand"
 date: "2026-11-09T10:00:00"
 modified: "2026-11-09T18:00:00"
 kategorien: ["blog"]
+layout: leistung
+dachzeile: "Employer-Branding-Agentur"
 schlagworte: ["employer-branding", "recruiting", "recruitingfilm", "karriereseite", "mitarbeitergewinnung"]
 platzierung: []
 bild: "/wp-content/uploads/2026/01/Stadt_waldeck_karriere.jpg"

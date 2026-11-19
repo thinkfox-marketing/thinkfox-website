@@ -62,6 +62,9 @@ const blog = defineCollection({
   schema: z.object({
     ...common,
     autor: z.string().optional(),
+    // „leistung“: Aufbau wie die Leistungsseiten (Dachzeile, große Überschrift, Button, Bild rechts), ohne Datum
+    layout: z.enum(['blog', 'leistung']).default('blog'),
+    dachzeile: z.string().optional(),
     faq: z
       .object({
         titel: z.string().default(''),

@@ -273,6 +273,32 @@ export async function blogSeite(p: Blog, variante: 'neu' | 'klassisch' = 'klassi
     </nav>` : '';
   cta ??= { titel: 'Du hast Fragen oder brauchst Unterstützung?', text: 'Kontaktiere uns gerne für ein unverbindliches Erstgespräch.', button: 'Jetzt Unterstützung anfragen', link: ANFRAGE };
 
+  if (d.layout === 'leistung') {
+    // Aufbau wie die Leistungsseiten: Dachzeile, große Überschrift, Einleitung und Button links, Bild rechts; kein Datum
+    const teaser = teaserText(d, text);
+    return `<article class="tf-beitrag tf-beitrag--blog tf-beitrag--leistung">
+  <header class="tf-lkopf">
+    <div class="tf-lkopf__innen">
+      <div class="tf-lkopf__text">
+        ${d.dachzeile ? `<p class="tf-kopf__marke">${esc(d.dachzeile)}</p>` : ''}
+        <h1 class="tf-kopf__titel">${esc(d.title)}</h1>
+        ${teaser ? `<p class="tf-kopf__teaser">${esc(teaser)}</p>` : ''}
+        <p class="tf-lkopf__knopf">${knopf(cta.button, cta.link)}</p>
+      </div>
+      ${d.bild ? `<figure class="tf-kopf__bild tf-lkopf__bild">${wpImg(d.bild, { size: 'full', alt: d.bildAlt, fetchpriority: 'high', cls: '' })}</figure>` : ''}
+    </div>
+  </header>
+  <div class="tf-leistung">
+    <div class="tf-leistung__inhalt">
+      <div class="tf-text">${text}</div>
+      ${faq}
+    </div>
+  </div>
+  ${anfrage(cta)}
+  ${await weitere(p, 'Weitere Beiträge', 'Weiterlesen')}
+</article>`;
+  }
+
   if (variante === 'klassisch') {
     // Aufbau wie im Original: Bild oben, leicht über dem hellblauen Hintergrund, Überschrift darunter,
     // breitere Textspalte; Abschluss und weitere Beiträge wie im neuen Layout

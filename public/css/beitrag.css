@@ -38,7 +38,7 @@
 /* Dachzeile über dem Titel: ohne Hintergrund, im Verhältnis zur Überschrift (wie auf den Leistungsseiten) */
 .tf-kopf__marke { margin: 0 0 0.75rem; font-size: clamp(1.0625rem, 0.95rem + 0.6vw, 1.375rem); font-weight: 600; line-height: 1.3; color: var(--tf-lila-dunkel); }
 .tf-beitrag .tf-kopf__titel {
-  margin: 0 0 1rem; font-size: clamp(2rem, 6.5vw, 3.5rem); font-weight: 700; line-height: 1.08;
+  margin: 0 0 1rem; font-size: clamp(2.375rem, 1.55rem + 3.3vw, 3.75rem); font-weight: 700; line-height: 1.08;
   letter-spacing: -0.01em; color: var(--tf-lila); overflow-wrap: break-word; hyphens: manual;
 }
 .tf-kopf__teaser { margin: 0 0 2rem; font-size: clamp(1.125rem, 2.4vw, 1.375rem); line-height: 1.5; color: var(--tf-text); max-width: 46ch; }
@@ -184,7 +184,7 @@
 .tf-klassisch__bild, .tf-klassisch__inhalt { max-width: 940px; margin-inline: auto; }
 .tf-klassisch__bild { margin-top: 0; margin-bottom: 2rem; }
 .tf-klassisch__bild img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
-.tf-beitrag .tf-klassisch__titel { margin: 0 0 0.5rem; font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.25rem); font-weight: 700; line-height: 1.2; color: var(--tf-lila); overflow-wrap: break-word; }
+.tf-beitrag .tf-klassisch__titel { margin: 0 0 0.5rem; font-size: clamp(1.875rem, 1.45rem + 1.6vw, 2.75rem); font-weight: 700; line-height: 1.15; color: var(--tf-lila); overflow-wrap: break-word; }
 .tf-klassisch__meta { margin: 0 0 1.75rem; font-size: 0.9375rem; color: var(--tf-grau); }
 .tf-beitrag--klassisch .tf-text h2 { margin: 1.8em 0 0.5em; font-size: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem); color: var(--tf-lila); }
 .tf-beitrag--klassisch .tf-text h3 { margin: 1.4em 0 0.4em; font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem); color: var(--tf-lila); }
@@ -196,3 +196,22 @@
 /* kein weißer Streifen zwischen hellblauem Inhalt und Abschluss-Box */
 .tf-beitrag--klassisch .tf-anfrage { margin-top: 0; }
 .tf-beitrag--klassisch .tf-klassisch { padding-bottom: 4rem; }
+
+/* --- Blog als Leistungsseite (layout: leistung): Aufbau und Größen wie die Leistungsseiten ------------ */
+.tf-lkopf { padding: 120px 20px 3rem; background: #fff; }
+.tf-lkopf__innen { display: grid; gap: 2rem; max-width: 1140px; margin-inline: auto; }
+.tf-lkopf .tf-kopf__marke { font-size: clamp(1.125rem, 0.92rem + 0.85vw, 1.5rem); }
+.tf-beitrag--leistung .tf-kopf__titel { font-size: clamp(2.375rem, 1.55rem + 3.3vw, 3.75rem); line-height: 1.1; }
+.tf-lkopf .tf-kopf__teaser { font-size: clamp(1.1875rem, 1.05rem + 0.55vw, 1.3125rem); }
+.tf-lkopf__knopf { margin: 0; }
+.tf-leistung { padding: 3rem 20px 4rem; background: var(--tf-hell); }
+.tf-leistung__inhalt { max-width: 940px; margin-inline: auto; }
+.tf-leistung .tf-text > :first-child { margin-top: 0; }
+.tf-beitrag--leistung .tf-text h2, .tf-beitrag--leistung .tf-faq h2 { font-size: clamp(1.875rem, 1.35rem + 2.2vw, 2.875rem); line-height: 1.15; }
+.tf-beitrag--leistung .tf-text h3 { font-size: clamp(1.3125rem, 1.15rem + 0.65vw, 1.625rem); }
+.tf-beitrag--leistung .tf-anfrage { margin-top: 0; }
+@media (min-width: 768px) { .tf-lkopf { padding-top: 160px; padding-inline: 32px; } .tf-leistung { padding: 4rem 32px 5rem; } }
+@media (min-width: 1025px) {
+  .tf-lkopf { padding-bottom: 5rem; }
+  .tf-lkopf__innen { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; column-gap: 4rem; }
+}

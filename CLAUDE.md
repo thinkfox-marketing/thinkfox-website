@@ -72,6 +72,8 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
   Aufgabe/Lösung/Ergebnis rechts, Leistungen als Wischleiste, bei `kopf: video` das erste Video statt des Beitragsbilds).
   Vorher bereinigt: Korrekturen aus dem Original-Markup übernommen, Leistungen/Auszüge aus dem Import aufgeräumt.
   Texte nur noch im CMS pflegen; `src/legacy/posts/` ist Archiv (Schalter `PROJEKTE_IM_ORIGINAL` in `src/lib/wp.ts`).
+  Blogbeiträge mit `layout: leistung` (+ `dachzeile`) erscheinen wie eine Leistungsseite (großer Kopf mit Button und Bild, kein Datum),
+  z. B. Employer Branding. H1 überall 60/38 px, Blog-H1 44/30 px (Design-Test 11/2026, Ausreißer in `einheitlich.css` Abschnitt 9).
 - **Einheitliches Erscheinungsbild (Design-Review 11/2026):** `public/css/einheitlich.css` – eine Typo-Skala
   (H1 60/38, H2 46/30, H3 26/21, Einleitung 21/19, Text 18/17 px), Buttons gefüllt Lila bzw. weißer Rahmen auf
   dunklem Grund (10 px Ecken, Pfeil), Dachzeilen als reine Textzeile ohne Hintergrund/Pille (Größe im Verhältnis zur Überschrift, mobil bündig) statt grauer Schein-Buttons, Grün nur als Akzent, nur Hausschrift,

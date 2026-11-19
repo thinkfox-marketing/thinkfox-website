@@ -354,3 +354,24 @@ main .elementor-element-c9bd584 .elementor-icon-box-icon { margin: 0 !important;
   .elementor-12397 .elementor-element-3a90c61 .elementor-counter-number-suffix { flex-grow: 0 !important; }
   .elementor-12397 .elementor-element-3a90c61 .elementor-counter-title { flex: 1 1 auto !important; }
 }
+
+/* ---------------------------------------------------------------- 9 Design-Test 11/2026: Ausreißer angleichen */
+/* Kategorie-Seiten: Titel mit Abstand zur Kopfzeile wie Impressum/Danke, Größen aus der Typo-Skala */
+body.archive main .page-header { padding-top: 54px; }
+body.archive main .page-header .entry-title { font-size: var(--fs-h1) !important; line-height: 1.1 !important; }
+body.archive main article .entry-title { font-size: clamp(1.5rem, 1.15rem + 1.2vw, 2rem) !important; line-height: 1.2 !important; } /* 24 → 32 */
+/* Danke-Seiten: Titel in Lila statt Grau */
+main .elementor-element-5de6bc3 .elementor-heading-title { color: var(--tf-lila) !important; }
+/* Überschriften außerhalb der Palette */
+.elementor-13322 .elementor-element-df4f0b8 .elementor-heading-title,
+main .elementor-element-fe16ac7 .elementor-heading-title { color: var(--tf-lila) !important; }
+.elementor-11253 .elementor-element-9285bc6 .elementor-heading-title { color: var(--tf-text) !important; }
+/* Bewertungs-Karten: Textfarbe und -größe wie Fließtext */
+.ti-widget.ti-goog .ti-review-text-container, .ti-widget.ti-goog .ti-name { color: var(--tf-text) !important; }
+.ti-widget.ti-goog .ti-review-text-container { font-size: 16px !important; line-height: 1.55 !important; }
+/* Buttons: einheitlich 10 px Ecken und 17 px Schrift (Mietstudio-Formular hatte 15 px / 20 px) */
+main .forminator-ui.forminator-custom-form .forminator-button.forminator-button-submit { border-radius: 10px !important; font-size: 17px !important; }
+@media (max-width: 767px) {
+  /* Seitenrand mobil 20 px (Danke, Impressum, Datenschutz) */
+  main :is(.elementor-element-6829256, .elementor-element-0b967b0) { padding-left: 10px !important; padding-right: 10px !important; }
+}
