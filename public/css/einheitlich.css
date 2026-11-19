@@ -201,44 +201,52 @@ main .e-n-accordion-item .elementor-widget-text-editor a:not(.elementor-button) 
     .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27)) { gap: 10px !important; }
 }
 
-/* ---------------------------------------------------------------- 5b Startseite: Leistungs-Kreise mobil als 2×2-Auswahl */
-/* 17.11.2026: Mobil bleiben die vier Kreise erhalten (vorher: Namen lila auf lila Grund, unsichtbar). Alle vier stehen als 2×2-Raster
-   vollständig im Bild; ein Tipp auf einen Kreis zeigt den zugehörigen Text darunter (src/scripts/barrierefreiheit.js, leistungsAuswahl).
-   Ohne JavaScript stehen die Texte untereinander unter dem Raster. Aufbau: zwei Spalten-Container (cfc40e7, f4e2918) mit je zwei
-   Kreisen + Texten; per display: contents werden alle Kinder des Rasters 23c8bed. Desktop unverändert. */
+/* ---------------------------------------------------------------- 5b Kreise mobil als 2×2-Auswahl (Startseite und Leistungsseiten) */
+/* 19.11.2026: Mobil bleiben die vier Kreise erhalten (vorher: Namen lila auf lila Grund bzw. nur Zwischenüberschriften mit langen Textblöcken).
+   Alle vier stehen als 2×2-Raster vollständig im Bild; ein Tipp auf einen Kreis zeigt den zugehörigen Text darunter
+   (src/scripts/barrierefreiheit.js, kreisAuswahl). Ohne JavaScript stehen die Texte untereinander unter dem Raster.
+   Seiten: Startseite 12253, Social Media 13185, Content 14093, Externe Marketingabteilung 13917, Bad Wildungen 15220 (Raster 23c8bed),
+   Websites 13322 (Raster bb13776, eigene Kreis-IDs). Desktop unverändert.
+   Farben je Hintergrund über Variablen: dunkler Abschnitt (Startseite, Bad Wildungen): gewählt = weiß; heller Abschnitt: gewählt = lila. */
 @media (max-width: 767px) {
-  .elementor-12253 .elementor-element-23c8bed {
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776) {
+    --k-aktiv-fuell: #fff; --k-aktiv-text: var(--tf-lila); --k-aus-text: #fff; --k-rand: #fff; --k-link: #fff;
     display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 14px !important; align-items: start;
     --width: 100% !important; width: 100% !important; max-width: 100% !important; padding: 0 !important;
     --kreis: min(168px, calc((100vw - 54px) / 2));
   }
-  .elementor-12253 .elementor-element-23c8bed > .e-con { display: contents !important; }
-  /* Kreise: Reihenfolge Strategie, Content / Web, Marketing */
-  .elementor-12253 .elementor-element-23c8bed :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944) {
+  main :is(.elementor-13185, .elementor-14093, .elementor-13917, .elementor-13322) :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776) {
+    --k-aktiv-fuell: var(--tf-lila); --k-aktiv-text: #fff; --k-aus-text: var(--tf-lila); --k-rand: var(--tf-lila); --k-link: var(--tf-lila);
+  }
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776) > .e-con { display: contents !important; }
+  /* Kreise: Reihenfolge wie im Quelltext (1, 2 / 3, 4) */
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776) :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944, .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27) {
     --width: var(--kreis) !important; --min-height: var(--kreis) !important; width: var(--kreis) !important; height: var(--kreis) !important; min-height: var(--kreis) !important;
-    border-radius: 50% !important; background: #fff !important; padding: 12px !important; box-sizing: border-box;
+    border-radius: 50% !important; background: var(--k-aktiv-fuell) !important; padding: 10px !important; box-sizing: border-box;
     justify-content: center !important; align-items: center; justify-self: center; margin: 0 !important;
-    border: 2px solid #fff !important;
+    border: 2px solid var(--k-rand) !important;
   }
-  .elementor-12253 .elementor-element-23c8bed :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944) .elementor-heading-title {
-    text-align: center !important; font-size: 1.2rem !important; line-height: 1.2 !important; color: var(--tf-lila) !important;
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776) :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944, .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27) .elementor-heading-title {
+    text-align: center !important; font-size: 1.2rem !important; line-height: 1.2 !important; color: var(--k-aktiv-text) !important;
+    hyphens: auto; overflow-wrap: break-word;
   }
-  .elementor-12253 .elementor-element-23c8bed :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944) .elementor-heading-title * { color: inherit; text-decoration: none !important; }
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776) :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944, .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27).tf-lang .elementor-heading-title { font-size: 1.02rem !important; }
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776) :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944, .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27) .elementor-heading-title * { color: inherit; text-decoration: none !important; }
   /* Texte: nur der Text, ohne Pfeil */
-  .elementor-12253 .elementor-element-23c8bed .elementor-widget-icon-box { grid-column: 1 / -1; --container-widget-width: 100%; }
-  .elementor-12253 .elementor-element-23c8bed .elementor-widget-icon-box .elementor-icon-box-icon { display: none !important; }
-  .elementor-12253 .elementor-element-23c8bed .elementor-widget-icon-box .elementor-icon-box-wrapper { text-align: left; }
-  .elementor-12253 .elementor-element-23c8bed .elementor-widget-icon-box .elementor-icon-box-description { text-align: left; font-size: 16px; line-height: 1.55; }
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776) .elementor-widget-icon-box { grid-column: 1 / -1; --container-widget-width: 100%; }
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776) .elementor-widget-icon-box .elementor-icon-box-icon { display: none !important; }
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776) .elementor-widget-icon-box .elementor-icon-box-wrapper { text-align: left; }
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776) .elementor-widget-icon-box .elementor-icon-box-description { text-align: left; font-size: 16px; line-height: 1.55; }
   /* mit JavaScript: ein Text sichtbar, alle Texte übereinander im selben Feld (die Höhe springt nicht) */
-  .elementor-12253 .elementor-element-23c8bed.tf-auswahl .elementor-widget-icon-box { grid-area: 3 / 1 / 4 / -1; visibility: hidden; }
-  .elementor-12253 .elementor-element-23c8bed.tf-auswahl .elementor-widget-icon-box.tf-aktiv { visibility: visible; }
-  .elementor-12253 .elementor-element-23c8bed.tf-auswahl :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944) { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776).tf-auswahl .elementor-widget-icon-box { grid-area: 3 / 1 / 4 / -1; visibility: hidden; }
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776).tf-auswahl .elementor-widget-icon-box.tf-aktiv { visibility: visible; }
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776).tf-auswahl :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944, .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27) { cursor: pointer; -webkit-tap-highlight-color: transparent; }
   /* Link zur Leistungsseite im Text (mobil ersetzt er den Link im Kreis, der beim Antippen die Seite verlassen würde) */
-  .elementor-12253 .elementor-element-23c8bed .tf-mehr { display: block; width: fit-content; margin-top: 10px; padding: 8px 0; color: #fff !important; font-weight: 700; text-decoration: underline; }
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776) .tf-mehr { display: block; width: fit-content; margin-top: 10px; padding: 8px 0; color: var(--k-link) !important; font-weight: 700; text-decoration: underline; }
   /* nicht gewählt: Kreis nur als Rahmen */
-  .elementor-12253 .elementor-element-23c8bed.tf-auswahl :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944):not(.tf-aktiv) { background: transparent !important; }
-  .elementor-12253 .elementor-element-23c8bed.tf-auswahl :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944):not(.tf-aktiv) :is(.elementor-heading-title, .elementor-heading-title *) { color: #fff !important; }
-  .elementor-12253 .elementor-element-23c8bed.tf-auswahl :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944):focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776).tf-auswahl :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944, .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27):not(.tf-aktiv) { background: transparent !important; }
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776).tf-auswahl :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944, .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27):not(.tf-aktiv) :is(.elementor-heading-title, .elementor-heading-title *) { color: var(--k-aus-text) !important; }
+  main :is(:is(.elementor-12253, .elementor-13185, .elementor-14093, .elementor-13917, .elementor-15220) .elementor-element-23c8bed, .elementor-13322 .elementor-element-bb13776).tf-auswahl :is(.elementor-element-42192f4, .elementor-element-c1f37bf, .elementor-element-40b09e2, .elementor-element-0ffa944, .elementor-element-52f314b, .elementor-element-0cb7327, .elementor-element-70e35cb, .elementor-element-f8dcb27):focus-visible { outline: 3px solid var(--k-rand); outline-offset: 4px; }
 }
 
 /* ---------------------------------------------------------------- 6 360°-Seite an den Hauptlook angleichen */

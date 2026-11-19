@@ -118,22 +118,23 @@ window.addEventListener('load', () => {
   const t = setInterval(() => { pauseKnoepfe(); if (++n > 10) clearInterval(t); }, 500);
 });
 
-// Startseite (mobil): Leistungs-Kreise als Auswahl (einheitlich.css, 5b). Ein Tipp (oder Enter/Leertaste) auf einen Kreis zeigt seinen Text;
-// die Kreise sind dann Schaltflächen mit Zustand (aria-expanded), die Texte Bereiche mit Bezug zum Kreis. Auf dem Desktop passiert nichts.
-function leistungsAuswahl() {
-  const raster = document.querySelector('.elementor-12253 .elementor-element-23c8bed');
+// Mobil: Leistungs-Kreise als Auswahl (einheitlich.css, 5b) auf der Startseite und den Leistungsseiten. Ein Tipp (oder Enter/Leertaste) auf einen Kreis
+// zeigt seinen Text; die Kreise sind dann Schaltflächen mit Zustand (aria-expanded), die Texte Bereiche mit Bezug zum Kreis. Auf dem Desktop passiert nichts.
+const KREIS_GRUPPEN = [
+  { raster: '23c8bed', paare: [['42192f4', '7eb6f8f'], ['c1f37bf', 'a0792be'], ['40b09e2', 'b4c170d'], ['0ffa944', '1dc3daa']] },
+  { raster: 'bb13776', paare: [['52f314b', 'f2361cc'], ['0cb7327', '8629023'], ['70e35cb', '5da47f6'], ['f8dcb27', 'b27f4ed']] },
+];
+function kreisAuswahl({ raster: rasterId, paare: ids }) {
+  const raster = document.querySelector(`.elementor-element-${rasterId}`);
   if (!raster) return;
-  const PAARE = [['42192f4', '7eb6f8f'], ['c1f37bf', 'a0792be'], ['40b09e2', 'b4c170d'], ['0ffa944', '1dc3daa']];
-  const paare = PAARE.map(([k, t]) => [raster.querySelector(`.elementor-element-${k}`), raster.querySelector(`.elementor-element-${t}`)]).filter(([k, t]) => k && t);
+  const paare = ids.map(([k, t]) => [raster.querySelector(`.elementor-element-${k}`), raster.querySelector(`.elementor-element-${t}`)]).filter(([k, t]) => k && t);
   if (paare.length < 2) return;
   const mq = window.matchMedia('(max-width: 767px)');
   const waehlen = (n) => paare.forEach(([k, t], i) => {
     k.classList.toggle('tf-aktiv', i === n); t.classList.toggle('tf-aktiv', i === n);
     k.setAttribute('aria-expanded', String(i === n));
   });
-  const klick = (n) => () => waehlen(n);
-  const taste = (n) => (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); waehlen(n); } };
-  const handler = paare.map((_, n) => [klick(n), taste(n)]);
+  const handler = paare.map((_, n) => [() => waehlen(n), (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); waehlen(n); } }]);
   const links = paare.map(() => null);
   const an = () => {
     raster.classList.add('tf-auswahl');
@@ -141,6 +142,7 @@ function leistungsAuswahl() {
       t.id = t.id || `tf-leistung-text-${n + 1}`; k.id = k.id || `tf-leistung-${n + 1}`;
       k.setAttribute('role', 'button'); k.tabIndex = 0; k.setAttribute('aria-controls', t.id);
       t.setAttribute('role', 'region'); t.setAttribute('aria-labelledby', k.id);
+      k.classList.toggle('tf-lang', k.textContent.replace(/\s+/g, ' ').trim().length > 22);
       // Link im Kreis: mobil kein Link (ein Tipp wählt aus), stattdessen „Mehr zu …“ im Text
       const a = k.querySelector('a[href]'); const beschr = t.querySelector('.elementor-icon-box-description');
       if (a && beschr) {
@@ -157,7 +159,7 @@ function leistungsAuswahl() {
     paare.forEach(([k, t], n) => {
       for (const a of ['role', 'tabindex', 'aria-controls', 'aria-expanded']) k.removeAttribute(a);
       for (const a of ['role', 'aria-labelledby']) t.removeAttribute(a);
-      k.classList.remove('tf-aktiv'); t.classList.remove('tf-aktiv');
+      k.classList.remove('tf-aktiv', 'tf-lang'); t.classList.remove('tf-aktiv');
       k.removeEventListener('click', handler[n][0]); k.removeEventListener('keydown', handler[n][1]);
       if (links[n]) { links[n].a.setAttribute('href', links[n].href); links[n].mehr.remove(); links[n] = null; }
     });
@@ -166,4 +168,4 @@ function leistungsAuswahl() {
   pruefen();
   mq.addEventListener('change', pruefen);
 }
-leistungsAuswahl();
+KREIS_GRUPPEN.forEach(kreisAuswahl);
