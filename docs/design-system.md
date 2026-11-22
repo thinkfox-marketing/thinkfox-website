@@ -1,4 +1,4 @@
-# Design-System thinkfox.de – Stand `design-v1` (22.11.2026)
+# Design-System thinkfox.de – Stand `design-v1` (22.11.2026, Commit `8a8f27d`)
 
 Dieser Stand ist eingefroren. Neue Seiten und Erweiterungen werden **aus den Bausteinen unten** gebaut,
 nicht mit neuen Farben, Größen oder Abständen. Jede Änderung läuft über einen Pull Request; der
