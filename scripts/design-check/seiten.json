@@ -1,0 +1,25 @@
+{
+  "hinweis": "Referenzseiten für den Design-Vergleich (je Seitentyp eine). Neue Seitentypen hier ergänzen. Siehe docs/design-system.md.",
+  "breiten": [1440, 390],
+  "seiten": {
+    "startseite": "/",
+    "leistung-social-media": "/mehr-aufmerksamkeit-und-reichweite-mit-social-media/",
+    "leistung-websites": "/professionelle-websites-fuer-den-mittelstand/",
+    "leistung-content": "/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/",
+    "leistung-externe-abteilung": "/deine-externe-marketingabteilung-ganzheitliches-marketing-fuer-den-mittelstand/",
+    "region-bad-wildungen": "/werbeagentur-bad-wildungen-thinkfox-marketing-fuer-den-mittelstand/",
+    "leistung-im-blog": "/employer-branding-agentur-recruitingfilm-karriereseite/",
+    "mietstudio": "/thinkfox-mietstudio-dein-fotostudio-videostudio-nordhessen/",
+    "rundgaenge-360": "/360-grad-rundgaenge/",
+    "kontakt": "/kontakt/",
+    "projekt": "/karriereseite-stadt-waldeck/",
+    "blogbeitrag": "/was-kostet-eine-website/",
+    "blog-uebersicht": "/blog/",
+    "kategorie": "/category/website/",
+    "projektanfrage": "/thinkfox-marketing-projekt-anfragen/",
+    "marketing-ampel": "/marketing-ampel/",
+    "danke": "/danke_websites/",
+    "impressum": "/impressum/",
+    "fehlerseite": "/404.html"
+  }
+}

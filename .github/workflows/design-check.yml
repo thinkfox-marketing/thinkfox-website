@@ -1,0 +1,95 @@
+# Design-Vergleich für Pull Requests (Design-Stand „design-v1“, docs/design-system.md):
+# baut main und die Änderung, fotografiert die Referenzseiten (scripts/design-check/seiten.json) bei 1440 und 390 px
+# im Zustand ohne JavaScript und vergleicht Pixel für Pixel. Abweichung = roter Haken, außer der PR trägt das
+# Label „design-aenderung“ (gewollte Änderung). Bilder alt/neu/diff im Artefakt „design-vergleich“.
+name: Design-Vergleich
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: design-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  vergleich:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          path: neu
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: alt
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            neu/package-lock.json
+            alt/package-lock.json
+
+      # Caches des Deploy-Ablaufs nur lesen (Kartenkacheln, WebP), sonst dauert jeder Build länger
+      - uses: actions/cache/restore@v4
+        with:
+          path: .osm-cache
+          key: osm-karte-v1
+      - uses: actions/cache/restore@v4
+        with:
+          path: .webp-cache
+          key: webp-none
+          restore-keys: webp-
+
+      - name: Beide Fassungen bauen
+        run: |
+          for d in alt neu; do
+            [ -d .osm-cache ] && cp -r .osm-cache "$d/"
+            [ -d .webp-cache ] && cp -r .webp-cache "$d/"
+            (cd "$d" && npm ci --no-audit --no-fund && npm run build)
+          done
+
+      - name: Browser für den Vergleich (nur hier, keine Projekt-Abhängigkeit)
+        working-directory: neu
+        run: |
+          npm i --no-save --no-audit --no-fund playwright@1.63.0
+          npx playwright install --with-deps chromium
+
+      - name: Vergleichen
+        id: vergleich
+        run: |
+          set +e
+          node neu/scripts/design-check/vergleich.mjs alt/dist neu/dist ergebnis
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+          cat ergebnis/bericht.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Bilder speichern
+        if: steps.vergleich.outputs.status != '0'
+        uses: actions/upload-artifact@v5
+        with:
+          name: design-vergleich
+          path: ergebnis
+          retention-days: 14
+
+      - name: Ergebnis
+        env:
+          GEWOLLT: ${{ contains(github.event.pull_request.labels.*.name, 'design-aenderung') }}
+          STATUS: ${{ steps.vergleich.outputs.status }}
+        run: |
+          if [ "$STATUS" = "0" ]; then echo "Keine Design-Abweichung."; exit 0; fi
+          if [ "$STATUS" = "1" ] && [ "$GEWOLLT" = "true" ]; then
+            echo "::notice::Design-Abweichungen als gewollt markiert (Label design-aenderung)."; exit 0
+          fi
+          if [ "$STATUS" = "1" ]; then
+            echo "::error::Design weicht von main ab. Prüfen (Zusammenfassung/Artefakt) und bei gewollter Änderung das Label design-aenderung setzen."
+          else
+            echo "::error::Vergleich konnte nicht laufen (Status $STATUS)."
+          fi
+          exit 1
