@@ -88,8 +88,8 @@ keine Pille); lange Wörter in Überschriften mit Trennstellen (`src/lib/umbruch
    - **rot**: Abweichung. In der Zusammenfassung steht, welche Seite und wo; Vorher/Nachher/Unterschied als Bilder
      im Artefakt „design-vergleich“. Ist die Änderung gewollt (z. B. neuer Blogbeitrag erscheint auf der Startseite),
      Label `design-aenderung` setzen – dann wird der Haken grün.
-3. Freigabe = „Merge“ im Pull Request. Danach veröffentlicht der Deploy-Ablauf automatisch, erledigte Branches
-   löscht GitHub (Einstellung „Automatically delete head branches“).
+3. Freigabe: ausdrückliches „ja“ im Chat (Claude merged dann) oder „Merge“ selbst im Pull Request. Danach veröffentlicht
+   der Deploy-Ablauf automatisch, erledigte Branches löscht GitHub (Einstellung „Automatically delete head branches“).
 
 Lokal: `npm i --no-save playwright@1.63.0 && npx playwright install chromium`, dann
 `node scripts/design-check/vergleich.mjs <dist-alt> <dist-neu> <ausgabe>`.
