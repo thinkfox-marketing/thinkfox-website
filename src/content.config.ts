@@ -7,6 +7,8 @@ const seo = z
     beschreibung: z.string().optional(),
     fokusKeyword: z.string().optional(),
     lesedauer: z.string().optional(),
+    // true = nicht in Suchmaschinen (noindex), nicht in Sitemap und llms.txt – z. B. überholte Meldungen
+    noindex: z.boolean().optional(),
   })
   .default({});
 

@@ -13,6 +13,8 @@ wpId: 8215
 template: "11303"
 legacy: false
 ---
+> **Hinweis:** Die Partnerschaft bestand für die Rückrunde der Saison 2023/24 und wurde danach nicht fortgeführt. Dieser Beitrag bleibt als Rückblick erhalten.
+
 ## Für die restliche Saison 23/24 verstärkt sich der KSV Hessen Kassel mit der nordhessischen Full-Service & Content Werbeagentur thinkfox marketing.
 
 „Wir identifizieren uns als nordhessisches Unternehmen stark mit der Region und haben in den Gesprächen schnell gespürt, dass der KSV ein idealer Partner ist. Für uns ist die Kooperation mit den Hessenlöwen die ideale Möglichkeit, um unsere Werte emotional nach außen zu tragen. Wir möchten mit künftigen gemeinsamen Aktionen die Zusammenarbeit stärken und neue Zielgruppen erschließen“, freut sich Agentur-Geschäftsführer Marcus Brauer als neuer Partner.

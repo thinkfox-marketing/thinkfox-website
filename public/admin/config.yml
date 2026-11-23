@@ -160,6 +160,7 @@ collections:
           - { label: Meta-Beschreibung, name: beschreibung, widget: text, required: false }
           - { label: Fokus-Keyword, name: fokusKeyword, widget: string, required: false }
           - { label: Lesedauer, name: lesedauer, widget: string, required: false }
+          - { label: Nicht in Suchmaschinen, name: noindex, widget: boolean, required: false, hint: "Für überholte Meldungen: Seite bleibt erreichbar, Google zeigt sie nicht mehr." }
       - { label: Schlagworte, name: schlagworte, widget: list, required: false, hint: "Interne Schlagworte (wie in WordPress)." }
       - { label: Entwurf (nicht veröffentlichen), name: entwurf, widget: boolean, default: false, required: false }
       - { name: legacy, widget: hidden, required: false }
@@ -222,6 +223,7 @@ collections:
           - { label: Meta-Beschreibung, name: beschreibung, widget: text, required: false }
           - { label: Fokus-Keyword, name: fokusKeyword, widget: string, required: false }
           - { label: Lesedauer, name: lesedauer, widget: string, required: false, hint: "z. B. 3 Minuten" }
+          - { label: Nicht in Suchmaschinen, name: noindex, widget: boolean, required: false, hint: "Für überholte Meldungen: Seite bleibt erreichbar, Google zeigt sie nicht mehr." }
       - { label: Schlagworte, name: schlagworte, widget: list, required: false }
       - { label: Entwurf (nicht veröffentlichen), name: entwurf, widget: boolean, default: false, required: false }
       - { name: legacy, widget: hidden, required: false }
