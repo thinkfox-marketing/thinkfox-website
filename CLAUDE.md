@@ -101,6 +101,11 @@ bisherigen WordPress-Seite**, aber ohne WordPress. Details zu Betrieb und Pflege
 
 ## Regeln
 
+- **Design-Stand eingefroren (`design-v1`, 22.11.2026):** `docs/design-system.md` ist maßgeblich – neue Seiten nur aus
+  den dort beschriebenen Farben, Größen, Abständen und Bausteinen. Änderungen nur per Pull Request gegen `main`
+  (kein direkter Push); der Design-Vergleich (`.github/workflows/design-check.yml`, `scripts/design-check/`) muss grün sein
+  oder die Abweichung per Label `design-aenderung` als gewollt markiert werden (Label nur mit Zustimmung des Inhabers).
+  Merge erst nach ausdrücklichem „ja“ des Inhabers im Chat (oder durch ihn selbst auf GitHub), danach Live-Seite prüfen.
 - **Optik:** Jede Änderung mit Screenshot-Vergleich prüfen (Playwright, 1440 px und 390 px).
   Ohne JavaScript muss das Ergebnis pixelgleich zur Vorlage sein – abgesehen von den oben
   genannten bewussten Abweichungen; mit JavaScript sind zusätzlich Video-/Slider-Timing-Unterschiede zulässig.
