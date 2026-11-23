@@ -47,7 +47,7 @@ export function seoHead(p: Post): string {
   const meta: string[] = [
     `<title>${esc(title)}</title>`,
     `<meta name="description" content="${esc(desc)}"/>`,
-    '<meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>',
+    d.seo.noindex ? '<meta name="robots" content="noindex, follow"/>' : '<meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>',
     `<link rel="canonical" href="${url}" />`,
     '<meta property="og:locale" content="de_DE" />',
     '<meta property="og:type" content="article" />',

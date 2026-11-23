@@ -6,7 +6,7 @@ import { UNTERNEHMEN } from '../lib/geo';
 const SITE = 'https://thinkfox.de';
 
 export async function GET() {
-  const posts = await allPosts();
+  const posts = (await allPosts()).filter((p) => !p.data.seo.noindex);
   const projekte = posts.filter((p) => p.collection === 'projekte');
   const blog = posts.filter((p) => p.collection === 'blog');
   const zeile = (p: (typeof posts)[number]) =>
