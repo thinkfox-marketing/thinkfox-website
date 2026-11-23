@@ -64,7 +64,7 @@ const LEISTUNGEN: Record<string, { name: string; serviceType: string }> = {
   '/deine-externe-marketingabteilung-ganzheitliches-marketing-fuer-den-mittelstand/':
     { name: 'Externe Marketingabteilung für den Mittelstand', serviceType: 'Marketingberatung und -umsetzung' },
   '/professionelle-websites-fuer-den-mittelstand/':
-    { name: 'Websites, SEO & GEO für den Mittelstand', serviceType: 'Webdesign und Suchmaschinenoptimierung' },
+    { name: 'Webdesign, SEO & GEO für den Mittelstand aus Nordhessen', serviceType: 'Webdesign und Suchmaschinenoptimierung' },
   '/mehr-aufmerksamkeit-und-reichweite-mit-social-media/':
     { name: 'Social-Media-Betreuung', serviceType: 'Social-Media-Marketing' },
   '/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/':
@@ -82,7 +82,7 @@ const LEISTUNGEN: Record<string, { name: string; serviceType: string }> = {
  *  „Werbeagentur“, „Nordhessen“, „Kassel“ bleiben (rankt für „Werbeagentur Nordhessen/Edertal“). */
 export const TITEL: Record<string, string> = {
   '/': 'Werbeagentur aus Nordhessen nahe Kassel | thinkfox marketing',
-  '/professionelle-websites-fuer-den-mittelstand/': 'Webdesign & Websites für den Mittelstand | thinkfox',
+  '/professionelle-websites-fuer-den-mittelstand/': 'Webdesign Nordhessen: Websites für den Mittelstand | thinkfox',
   '/mehr-aufmerksamkeit-und-reichweite-mit-social-media/': 'Social-Media-Agentur für den Mittelstand | thinkfox',
   '/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/': 'Videoproduktion & Imagefilm aus Nordhessen | thinkfox',
   '/360-grad-rundgaenge/': '360-Grad-Rundgänge erstellen lassen | thinkfox',
@@ -99,7 +99,7 @@ export const BESCHREIBUNGEN: Record<string, string> = {
   '/werbeagentur-bad-wildungen-thinkfox-marketing-fuer-den-mittelstand/':
     'Werbeagentur für Bad Wildungen und die Edersee-Region: Websites, SEO, Social Media, Film und Foto vom Sitz in Edertal. Jetzt Erstgespräch vereinbaren.',
   '/professionelle-websites-fuer-den-mittelstand/':
-    'Websites für den Mittelstand: Konzeption, Design, SEO und KI-Sichtbarkeit (GEO), technische Umsetzung und Wartung. Jetzt Erstgespräch vereinbaren.',
+    'Webdesign aus Nordhessen (Edertal, nahe Kassel): Websites für den Mittelstand – Konzept, Design, SEO und GEO, Umsetzung und Wartung. Jetzt Erstgespräch vereinbaren.',
   '/marketing-ampel/':
     'Kostenloser Marketing-Selbsttest für KMU: Website, Content, Strategie und Recruiting in wenigen Minuten bewerten – mit Ampel je Bereich.',
   '/360-grad-rundgaenge/cine-k-korbach/':
