@@ -387,3 +387,5 @@ main .elementor-element-a0516f5 .elementor-element-b3fcb25 { padding-bottom: 0 !
 }
 /* Instagram-Block nicht unter die FAQ ziehen (der halbtransparente Verlauf ergab einen graublauen Streifen) */
 main .elementor-element-571466b { margin-top: 0 !important; }
+/* Links im Text des dunklen FAQ-Bereichs: weiß und unterstrichen (Lila auf Dunkellila hätte zu wenig Kontrast) */
+main .elementor-element-a0516f5 .elementor-widget-text-editor a:not(.elementor-button) { color: #fff !important; text-decoration: underline !important; }
