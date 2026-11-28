@@ -67,6 +67,10 @@ const blog = defineCollection({
     // „leistung“: Aufbau wie die Leistungsseiten (Dachzeile, große Überschrift, Button, Bild rechts), ohne Datum
     layout: z.enum(['blog', 'leistung']).default('blog'),
     dachzeile: z.string().optional(),
+    // nur layout: leistung – Projekte (Slugs) für „Aktuelle Kunden & Projekte“; leer = alle im Text verlinkten Projekte
+    referenzen: z.array(z.string()).default([]),
+    // nur layout: leistung – Kopf: Showreel (Hochformat) statt Bild, oder zweites Bild als Collage
+    kopfVideo: z.boolean().default(false),
     faq: z
       .object({
         titel: z.string().default(''),

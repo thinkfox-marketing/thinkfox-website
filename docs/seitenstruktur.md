@@ -48,11 +48,11 @@ Ankertext auf die Leistungsseite.
 | werbeagentur nordhessen / edertal | Startseite `/` | Platz 2 / 1 |
 | webdesign nordhessen | `/professionelle-websites-fuer-den-mittelstand/` | nicht in Top 100 → PR #17 |
 | social media agentur nordhessen | `/mehr-aufmerksamkeit-und-reichweite-mit-social-media/` | Startseite auf Platz 10 |
-| videoproduktion nordhessen | `/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/` | Blogbeitrag Platz 2 |
+| videoproduktion nordhessen | `/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/` (Titel ohne „Imagefilm“ seit 28.11.) | Blogbeitrag Platz 2 |
 | externe marketingabteilung | `/deine-externe-marketingabteilung-ganzheitliches-marketing-fuer-den-mittelstand/` | Blogbeitrag Platz 5 |
 | werbeagentur bad wildungen | `/werbeagentur-bad-wildungen-thinkfox-marketing-fuer-den-mittelstand/` | Platz 2 |
-| imagefilm (agentur, erstellen lassen) | **neue Imagefilm-Seite** (geplant) | nicht in Top 100 |
-| imagefilm kosten | `/was-kostet-ein-imagefilm/` → verlinkt Imagefilm-Seite | nicht in Top 100 |
+| imagefilm (agentur, erstellen lassen, unternehmen) | `/imagefilm-erstellen-lassen/` (seit 28.11.2026) | nicht in Top 100 |
+| imagefilm kosten | `/was-kostet-ein-imagefilm/` → verlinkt `/imagefilm-erstellen-lassen/` | nicht in Top 100 |
 | employer branding agentur, recruitingfilm | `/employer-branding-agentur-recruitingfilm-karriereseite/` | nicht in Top 100 |
 | website kosten | `/was-kostet-eine-website/` → verlinkt Webdesign-Seite | – |
 | social media betreuung kosten | `/social-media-betreuung-kosten/` → verlinkt Social-Media-Seite | – |
@@ -72,7 +72,7 @@ Blogbeiträge, die heute für Leistungsbegriffe ranken und auf die Leistungsseit
 | Korbach | Region | **später** – wenig Suche, aber viele echte Projekte (Continental, Wachenfeld, Stadt Korbach/ReCup, Cine K, Korbach-Becher) |
 | Kassel | Region | **zurückgestellt** – hohe Nachfrage, aber derzeit nur eine Referenz (DWAZ) |
 | weitere Orte (Fritzlar, Frankenberg …) | Region | nein – keine Nachfrage, keine Belege |
-| Imagefilm | Thema, bundesweit | **als Nächstes** – Continental, Rektol, DWAZ, Wachenfeld |
+| Imagefilm | Thema, bundesweit | besteht seit 28.11.2026 (`/imagefilm-erstellen-lassen/`) – Continental, Rektol, DWAZ, Wachenfeld |
 | Employer Branding / Recruiting | Thema, bundesweit | besteht; Fallbeispiele je Branche (Kanzlei, Kommune, Bau) ergänzen |
 | Video-Podcast | – | keine eigene Seite (kaum Suchnachfrage), bleibt Referenz auf den Video-Seiten |
 | Gesundheitsbranche | Branche | zurückhaltend (siehe CLAUDE.md), keine eigene Seite |
