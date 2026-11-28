@@ -322,26 +322,32 @@ async function leistungSeite(p: Blog, text: string, faq: string, cta: { titel: s
     : d.bild
       ? `<div class="tf-lkopf__hg tf-lkopf__foto">${wpImg(d.bild, { size: 'full', alt: d.bildAlt, fetchpriority: 'high', cls: '' })}</div>`
       : '';
+  // Foto-Kopf hell (nach links in Weiß ausgeblendet, lila Schrift)
+  const hell = !d.kopfVideo && Boolean(d.bild);
 
   const sektionen = [
     einleitung.trim() ? `<div class="tf-text tf-leinleitung">${einleitung}</div>` : '',
     ...abschnitte,
   ].filter(Boolean);
+  // Farbwechsel vom Ende her: Die letzte Sektion ist weiß, damit „Aktuelle Kunden & Projekte“ (Hellblau) abgesetzt ist.
+  // Die Schräge unter dem Kopf hat die Farbe der ersten Sektion.
+  const farbe = (i: number) => ((sektionen.length - 1 - i) % 2 ? 'hell' : 'weiss');
+  const kopfSchraege = sektionen.length && farbe(0) === 'hell' ? ' tf-lkopf--auf-hell' : '';
 
   return `<article class="tf-beitrag tf-beitrag--blog tf-beitrag--leistung">
-  <header class="tf-lkopf${kopfMedium ? ' tf-lkopf--voll' : ''}">
+  <header class="tf-lkopf${kopfMedium ? ' tf-lkopf--voll' : ''}${hell ? ' tf-lkopf--hell' : ''}${kopfSchraege}">
     ${kopfMedium}
     <div class="tf-lkopf__innen">
       <div class="tf-lkopf__text">
         ${d.dachzeile ? `<p class="tf-kopf__marke">${esc(d.dachzeile)}</p>` : ''}
         <h1 class="tf-kopf__titel">${esc(d.title)}</h1>
         ${teaserText(d, text) ? `<p class="tf-kopf__teaser">${esc(teaserText(d, text))}</p>` : ''}
-        <p class="tf-lkopf__knopf">${knopf(cta.button, cta.link, kopfMedium ? 'rahmen' : '')}</p>
+        <p class="tf-lkopf__knopf">${knopf(cta.button, cta.link, kopfMedium && !hell ? 'rahmen' : '')}</p>
         ${bewertung ? `<p class="tf-lkopf__bewertung"><span class="tf-lkopf__sterne" aria-hidden="true">${'★'.repeat(Math.round(bewertung.sterne))}</span> <strong>${String(bewertung.sterne.toFixed(1)).replace('.', ',')}</strong> bei Google · ${bewertung.anzahl} Bewertungen<span class="tf-sr"> (${String(bewertung.sterne).replace('.', ',')} von 5 Sternen)</span></p>` : ''}
       </div>
     </div>
   </header>
-  ${sektionen.map((h, i) => `<section class="tf-labschnitt tf-labschnitt--${i % 2 ? 'hell' : 'weiss'}"><div class="tf-labschnitt__innen">${h}</div></section>`).join('\n  ')}
+  ${sektionen.map((h, i) => `<section class="tf-labschnitt tf-labschnitt--${farbe(i)}"><div class="tf-labschnitt__innen">${h}</div></section>`).join('\n  ')}
   ${referenzen}
   ${faq ? `<section class="tf-labschnitt tf-labschnitt--weiss tf-labschnitt--faq"><div class="tf-labschnitt__innen">${faq}</div></section>` : ''}
   ${anfrage(cta)}
