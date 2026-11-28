@@ -8,7 +8,7 @@
 import { markdown } from './markdown';
 import { wpImg } from './media';
 import { youtubeEinbettung } from './barrierefreiheit';
-import { allPosts, categoryName, postFiles, singleTemplate, type Blog, type Post, type Projekt, type ScriptRef, type StyleRef } from './wp';
+import { allPosts, categoryName, pageFiles, postFiles, singleTemplate, type Blog, type Post, type Projekt, type ScriptRef, type StyleRef } from './wp';
 import { asset } from './asset';
 import { zerlegen, type Baustein } from './zerlegen';
 
@@ -242,6 +242,119 @@ async function blogBausteine(p: Blog): Promise<Baustein[]> {
   return b;
 }
 
+// ------------------------------------------------------------------ Leistung im Blog (layout: leistung)
+// Aufbau wie eine Leistungsseite, aber aus Markdown: jede H2 wird eine eigene Sektion (abwechselnd weiß/hellblau).
+// Enthält ein Abschnitt (bzw. ein H3-Block darin) ein Video oder einen Link auf ein Projekt, steht dieses als
+// Hochformat-Kachel bzw. Video neben dem Text – abwechselnd links/rechts (asymmetrisch). Darunter
+// „Aktuelle Kunden & Projekte.“ wie auf der Startseite (Feld `referenzen`, sonst alle verlinkten Projekte).
+
+const PROJEKT_LINK = /href="\/([a-z0-9-]+)\/"/g;
+
+/** Google-Bewertungen aus dem statischen Widget der Startseite (Anzahl und Sterne), damit die Zeile im Kopf aktuell bleibt. */
+function googleBewertung(): { sterne: number; anzahl: number } | null {
+  const start = Object.entries(pageFiles).find(([k]) => k.endsWith('/index.json'))?.[1].default.main ?? '';
+  const anzahl = Number(start.match(/Basierend auf <strong>(\d+) Bewertungen/)?.[1] ?? 0);
+  const kopf = start.match(/<div class="ti-header[\s\S]*?<\/div>\s*<\/div>/)?.[0] ?? '';
+  const sterne = (kopf.match(/star\/f\.svg/g) ?? []).length + (kopf.match(/star\/h\.svg/g) ?? []).length / 2;
+  return anzahl && sterne ? { sterne, anzahl } : null;
+}
+
+const PAUSE_KNOPF = '<button type="button" class="tf-video-toggle" aria-label="Video anhalten" aria-pressed="false" hidden><svg class="tf-video-toggle__pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12"/><rect x="9.5" y="2" width="3.5" height="12"/></svg><svg class="tf-video-toggle__play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z"/></svg></button>';
+
+function projektKachel(x: Projekt, extra = ''): string {
+  return `<a class="tf-pkachel${extra}" href="/${x.id}/">
+    <span class="tf-pkachel__bild" aria-hidden="true">${wpImg(x.data.bild, { size: 'large', alt: x.data.title, cls: '', sizes: '(min-width: 1025px) 400px, 85vw' })}</span>
+    <span class="tf-pkachel__titel">${esc(x.data.title)}</span>
+  </a>`;
+}
+
+async function leistungSeite(p: Blog, text: string, faq: string, cta: { titel: string; text: string; button: string; link: string }): Promise<string> {
+  const d = p.data;
+  const projekte = new Map((await allPosts()).filter((x) => x.collection === 'projekte' && x.data.bild).map((x) => [x.id, x as Projekt]));
+  const verlinkt = (h: string) => [...h.matchAll(PROJEKT_LINK)].map((m) => projekte.get(m[1])).filter(Boolean) as Projekt[];
+  let seite = 0;
+
+  // ein Textblock → Zeile mit Bild/Video daneben (falls vorhanden), sonst volle Breite
+  const zeile = (html: string): string => {
+    const video = html.match(/<figure class="tf-medium tf-medium--video">[\s\S]*?<\/figure>/);
+    let bild = '';
+    if (video) { bild = video[0]; html = html.replace(video[0], ''); }
+    else { const pr = verlinkt(html)[0]; if (pr) bild = projektKachel(pr); }
+    if (!bild) return `<div class="tf-lzeile tf-lzeile--voll"><div class="tf-text">${html}</div></div>`;
+    const richtung = seite++ % 2 ? 'tf-lzeile--links' : 'tf-lzeile--rechts';
+    return `<div class="tf-lzeile ${richtung}${video ? ' tf-lzeile--video' : ''}"><div class="tf-text">${html}</div><div class="tf-lzeile__bild">${bild}</div></div>`;
+  };
+
+  const teile = text.split(/(?=<h2[\s>])/);
+  const einleitung = /^\s*<h2/.test(teile[0]) ? '' : teile.shift()!;
+  const abschnitte = teile.map((t) => {
+    const bloecke = t.split(/(?=<h3[\s>])/);
+    const kopf = bloecke.shift()!;
+    if (!bloecke.length) return zeile(kopf);
+    const h2 = kopf.match(/^\s*<h2[\s\S]*?<\/h2>/)?.[0] ?? '';
+    const rest = kopf.slice(h2.length);
+    return `<div class="tf-text tf-lkopfzeile">${h2}${rest}</div>${bloecke.map(zeile).join('\n')}`;
+  });
+
+  const refIds = d.referenzen.length ? d.referenzen : [...new Set([...text.matchAll(PROJEKT_LINK)].map((m) => m[1]))];
+  const refs = refIds.map((id) => projekte.get(id)).filter(Boolean) as Projekt[];
+  const referenzen = refs.length >= 2 ? `<section class="tf-lref" aria-labelledby="tf-lref-titel">
+    <div class="tf-lref__innen">
+      <h2 id="tf-lref-titel" class="tf-lref__titel"><span>Aktuelle</span> <span>Kunden &amp;</span> <span>Projekte.</span></h2>
+      <div class="tf-lref__reihe" role="region" aria-label="Referenzprojekte" tabindex="0">
+        <ul class="tf-lref__liste" role="list">${refs.map((x) => `<li>${projektKachel(x)}</li>`).join('')}</ul>
+      </div>
+    </div>
+  </section>` : '';
+
+  const bewertung = googleBewertung();
+  // Kopf vollflächig: Showreel (stumm, Pause-Knopf; Handy Hochkant-Fassung) bzw. Beitragsbild als Hintergrund,
+  // lila abgedunkelt. Standbild = Beitragsbild (ohne JavaScript, bei „Bewegung reduzieren“, Datensparmodus).
+  const standbild = d.bild
+    ? wpImg(d.bild, { size: 'full', alt: '', fetchpriority: 'high', cls: '' })
+    : '<img src="/media/showreel-standbild.webp" alt="" fetchpriority="high" decoding="async">';
+  const kopfMedium = d.kopfVideo
+    ? `<div class="tf-lkopf__hg tf-lkopf__video" data-tf-kopfvideo="/media/showreel.mp4" data-tf-kopfvideo-mobil="/media/showreel-mobil.mp4">
+        ${standbild}
+        <video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+        ${PAUSE_KNOPF}
+      </div>`
+    : d.bild
+      ? `<div class="tf-lkopf__hg tf-lkopf__foto">${wpImg(d.bild, { size: 'full', alt: d.bildAlt, fetchpriority: 'high', cls: '' })}</div>`
+      : '';
+  // Foto-Kopf hell (nach links in Weiß ausgeblendet, lila Schrift)
+  const hell = !d.kopfVideo && Boolean(d.bild);
+
+  const sektionen = [
+    einleitung.trim() ? `<div class="tf-text tf-leinleitung">${einleitung}</div>` : '',
+    ...abschnitte,
+  ].filter(Boolean);
+  // Farbwechsel vom Ende her: Die letzte Sektion ist weiß, damit „Aktuelle Kunden & Projekte“ (Hellblau) abgesetzt ist.
+  // Die Schräge unter dem Kopf hat die Farbe der ersten Sektion.
+  const farbe = (i: number) => ((sektionen.length - 1 - i) % 2 ? 'hell' : 'weiss');
+  const kopfSchraege = sektionen.length && farbe(0) === 'hell' ? ' tf-lkopf--auf-hell' : '';
+
+  return `<article class="tf-beitrag tf-beitrag--blog tf-beitrag--leistung">
+  <header class="tf-lkopf${kopfMedium ? ' tf-lkopf--voll' : ''}${hell ? ' tf-lkopf--hell' : ''}${kopfSchraege}">
+    ${kopfMedium}
+    <div class="tf-lkopf__innen">
+      <div class="tf-lkopf__text">
+        ${d.dachzeile ? `<p class="tf-kopf__marke">${esc(d.dachzeile)}</p>` : ''}
+        <h1 class="tf-kopf__titel">${esc(d.title)}</h1>
+        ${teaserText(d, text) ? `<p class="tf-kopf__teaser">${esc(teaserText(d, text))}</p>` : ''}
+        <p class="tf-lkopf__knopf">${knopf(cta.button, cta.link, kopfMedium && !hell ? 'rahmen' : '')}</p>
+        ${bewertung ? `<p class="tf-lkopf__bewertung"><span class="tf-lkopf__sterne" aria-hidden="true">${'★'.repeat(Math.round(bewertung.sterne))}</span> <strong>${String(bewertung.sterne.toFixed(1)).replace('.', ',')}</strong> bei Google · ${bewertung.anzahl} Bewertungen<span class="tf-sr"> (${String(bewertung.sterne).replace('.', ',')} von 5 Sternen)</span></p>` : ''}
+      </div>
+    </div>
+  </header>
+  ${sektionen.map((h, i) => `<section class="tf-labschnitt tf-labschnitt--${farbe(i)}"><div class="tf-labschnitt__innen">${h}</div></section>`).join('\n  ')}
+  ${referenzen}
+  ${faq ? `<section class="tf-labschnitt tf-labschnitt--weiss tf-labschnitt--faq"><div class="tf-labschnitt__innen">${faq}</div></section>` : ''}
+  ${anfrage(cta)}
+  ${await weitere(p, 'Weitere Beiträge', 'Weiterlesen')}
+</article>`;
+}
+
 export async function blogSeite(p: Blog, variante: 'neu' | 'klassisch' = 'klassisch'): Promise<string> {
   const d = p.data;
   const bausteine = await blogBausteine(p);
@@ -273,31 +386,7 @@ export async function blogSeite(p: Blog, variante: 'neu' | 'klassisch' = 'klassi
     </nav>` : '';
   cta ??= { titel: 'Du hast Fragen oder brauchst Unterstützung?', text: 'Kontaktiere uns gerne für ein unverbindliches Erstgespräch.', button: 'Jetzt Unterstützung anfragen', link: ANFRAGE };
 
-  if (d.layout === 'leistung') {
-    // Aufbau wie die Leistungsseiten: Dachzeile, große Überschrift, Einleitung und Button links, Bild rechts; kein Datum
-    const teaser = teaserText(d, text);
-    return `<article class="tf-beitrag tf-beitrag--blog tf-beitrag--leistung">
-  <header class="tf-lkopf">
-    <div class="tf-lkopf__innen">
-      <div class="tf-lkopf__text">
-        ${d.dachzeile ? `<p class="tf-kopf__marke">${esc(d.dachzeile)}</p>` : ''}
-        <h1 class="tf-kopf__titel">${esc(d.title)}</h1>
-        ${teaser ? `<p class="tf-kopf__teaser">${esc(teaser)}</p>` : ''}
-        <p class="tf-lkopf__knopf">${knopf(cta.button, cta.link)}</p>
-      </div>
-      ${d.bild ? `<figure class="tf-kopf__bild tf-lkopf__bild">${wpImg(d.bild, { size: 'full', alt: d.bildAlt, fetchpriority: 'high', cls: '' })}</figure>` : ''}
-    </div>
-  </header>
-  <div class="tf-leistung">
-    <div class="tf-leistung__inhalt">
-      <div class="tf-text">${text}</div>
-      ${faq}
-    </div>
-  </div>
-  ${anfrage(cta)}
-  ${await weitere(p, 'Weitere Beiträge', 'Weiterlesen')}
-</article>`;
-  }
+  if (d.layout === 'leistung') return leistungSeite(p, text, faq, cta);
 
   if (variante === 'klassisch') {
     // Aufbau wie im Original: Bild oben, leicht über dem hellblauen Hintergrund, Überschrift darunter,
