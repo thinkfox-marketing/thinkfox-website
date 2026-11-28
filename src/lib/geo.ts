@@ -84,7 +84,7 @@ export const TITEL: Record<string, string> = {
   '/': 'Werbeagentur aus Nordhessen nahe Kassel | thinkfox marketing',
   '/professionelle-websites-fuer-den-mittelstand/': 'Webdesign Nordhessen: Websites für den Mittelstand | thinkfox',
   '/mehr-aufmerksamkeit-und-reichweite-mit-social-media/': 'Social-Media-Agentur für den Mittelstand | thinkfox',
-  '/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/': 'Videoproduktion & Imagefilm aus Nordhessen | thinkfox',
+  '/professionelle-content-produktion-video-foto-social-media-aus-nordhessen/': 'Videoproduktion Nordhessen: Film, Foto & Content | thinkfox',
   '/360-grad-rundgaenge/': '360-Grad-Rundgänge erstellen lassen | thinkfox',
   '/thinkfox-mietstudio-dein-fotostudio-videostudio-nordhessen/': 'Foto- & Videostudio mieten in Nordhessen | thinkfox',
   '/deine-externe-marketingabteilung-ganzheitliches-marketing-fuer-den-mittelstand/': 'Externe Marketingabteilung für den Mittelstand | thinkfox',
