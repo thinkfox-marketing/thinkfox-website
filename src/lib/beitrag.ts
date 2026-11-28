@@ -308,16 +308,19 @@ async function leistungSeite(p: Blog, text: string, faq: string, cta: { titel: s
   </section>` : '';
 
   const bewertung = googleBewertung();
-  // Kopf: Showreel im Hochformat (stumm, Pause-Knopf, Standbild ohne JavaScript/bei „Bewegung reduzieren“),
-  // sonst Beitragsbild – mit zweitem Bild als versetzte Collage
+  // Kopf vollflächig: Showreel (stumm, Pause-Knopf; Handy Hochkant-Fassung) bzw. Beitragsbild als Hintergrund,
+  // lila abgedunkelt. Standbild = Beitragsbild (ohne JavaScript, bei „Bewegung reduzieren“, Datensparmodus).
+  const standbild = d.bild
+    ? wpImg(d.bild, { size: 'full', alt: '', fetchpriority: 'high', cls: '' })
+    : '<img src="/media/showreel-standbild.webp" alt="" fetchpriority="high" decoding="async">';
   const kopfMedium = d.kopfVideo
-    ? `<figure class="tf-lkopf__bild tf-lkopf__video" data-tf-kopfvideo="/media/showreel-mobil.mp4">
-        <img src="/media/showreel-standbild-mobil.webp" width="540" height="960" alt="Standbild aus dem thinkfox-Showreel" fetchpriority="high" decoding="async">
+    ? `<div class="tf-lkopf__hg tf-lkopf__video" data-tf-kopfvideo="/media/showreel.mp4" data-tf-kopfvideo-mobil="/media/showreel-mobil.mp4">
+        ${standbild}
         <video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
         ${PAUSE_KNOPF}
-      </figure>`
+      </div>`
     : d.bild
-      ? `<figure class="tf-kopf__bild tf-lkopf__bild${d.bild2 ? ' tf-lkopf__bild--collage' : ''}">${wpImg(d.bild, { size: 'full', alt: d.bildAlt, fetchpriority: 'high', cls: '' })}${d.bild2 ? `<span class="tf-lkopf__bild2">${wpImg(d.bild2, { size: 'large', alt: d.bild2Alt, cls: '' })}</span>` : ''}</figure>`
+      ? `<div class="tf-lkopf__hg tf-lkopf__foto">${wpImg(d.bild, { size: 'full', alt: d.bildAlt, fetchpriority: 'high', cls: '' })}</div>`
       : '';
 
   const sektionen = [
@@ -326,16 +329,16 @@ async function leistungSeite(p: Blog, text: string, faq: string, cta: { titel: s
   ].filter(Boolean);
 
   return `<article class="tf-beitrag tf-beitrag--blog tf-beitrag--leistung">
-  <header class="tf-lkopf">
+  <header class="tf-lkopf${kopfMedium ? ' tf-lkopf--voll' : ''}">
+    ${kopfMedium}
     <div class="tf-lkopf__innen">
       <div class="tf-lkopf__text">
         ${d.dachzeile ? `<p class="tf-kopf__marke">${esc(d.dachzeile)}</p>` : ''}
         <h1 class="tf-kopf__titel">${esc(d.title)}</h1>
         ${teaserText(d, text) ? `<p class="tf-kopf__teaser">${esc(teaserText(d, text))}</p>` : ''}
-        <p class="tf-lkopf__knopf">${knopf(cta.button, cta.link)}</p>
+        <p class="tf-lkopf__knopf">${knopf(cta.button, cta.link, kopfMedium ? 'rahmen' : '')}</p>
         ${bewertung ? `<p class="tf-lkopf__bewertung"><span class="tf-lkopf__sterne" aria-hidden="true">${'★'.repeat(Math.round(bewertung.sterne))}</span> <strong>${String(bewertung.sterne.toFixed(1)).replace('.', ',')}</strong> bei Google · ${bewertung.anzahl} Bewertungen<span class="tf-sr"> (${String(bewertung.sterne).replace('.', ',')} von 5 Sternen)</span></p>` : ''}
       </div>
-      ${kopfMedium}
     </div>
   </header>
   ${sektionen.map((h, i) => `<section class="tf-labschnitt tf-labschnitt--${i % 2 ? 'hell' : 'weiss'}"><div class="tf-labschnitt__innen">${h}</div></section>`).join('\n  ')}

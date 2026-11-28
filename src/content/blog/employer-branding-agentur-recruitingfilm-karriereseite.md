@@ -5,8 +5,6 @@ modified: "2026-11-09T18:00:00"
 kategorien: ["blog"]
 layout: leistung
 dachzeile: "Employer-Branding-Agentur"
-bild2: "/wp-content/uploads/2026/01/wachenfeld_bau_imagefilm_recruitmentfilm.jpg"
-bild2Alt: "Szene aus dem Recruitingfilm für Wachenfeld Bau in Korbach"
 referenzen: ["recruitmentfilm-dwaz-wirtschaftskanzlei", "karriereseite-stadt-waldeck", "recruitmentfilm-wachenfeld-bau-korbach", "website-re-design-fuer-wachenfeld-bau", "mitarbeitershooting-steuerkanzlei-hentschke-kohl-pflug", "karriereseiten-relaunch-fuer-deutsche-rentenversicherung-kliniken"]
 schlagworte: ["employer-branding", "recruiting", "recruitingfilm", "karriereseite", "mitarbeitergewinnung"]
 platzierung: []

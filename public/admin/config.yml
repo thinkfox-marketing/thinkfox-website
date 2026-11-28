@@ -184,9 +184,7 @@ collections:
       - { label: Kategorien, name: kategorien, widget: hidden, default: [blog] }
       - { label: Layout, name: layout, widget: select, options: [{ label: "Blogbeitrag", value: blog }, { label: "Leistungsseite (ohne Datum, großer Kopf mit Button)", value: leistung }], default: blog, required: false }
       - { label: Dachzeile (nur Leistungsseite), name: dachzeile, widget: string, required: false, hint: "Kurze Zeile über der Überschrift, z. B. „Employer-Branding-Agentur“." }
-      - { label: Showreel im Kopf (nur Leistungsseite), name: kopfVideo, widget: boolean, required: false, hint: "Zeigt statt des Beitragsbilds das Showreel im Hochformat (stumm, mit Pause-Knopf)." }
-      - { label: Zweites Bild im Kopf (nur Leistungsseite), name: bild2, widget: image, required: false, hint: "Kleineres Bild, versetzt über dem Beitragsbild (Collage)." }
-      - { label: Alternativtext zweites Bild, name: bild2Alt, widget: string, required: false }
+      - { label: Showreel im Kopf (nur Leistungsseite), name: kopfVideo, widget: boolean, required: false, hint: "Showreel als vollflächiger Hintergrund im Kopf (stumm, mit Pause-Knopf). Das Beitragsbild ist das Standbild davor." }
       - { label: Referenzen (nur Leistungsseite), name: referenzen, widget: relation, collection: projekte, value_field: "{{slug}}", search_fields: [title], display_fields: [title], multiple: true, required: false, hint: "Projekte für „Aktuelle Kunden & Projekte“. Leer = alle im Text verlinkten Projekte. Ein Projekt-Link in einem Abschnitt zeigt dessen Bild neben dem Text." }
       - { label: Beitragsbild, name: bild, widget: image }
       - { label: Alternativtext Beitragsbild, name: bildAlt, widget: string, required: false }

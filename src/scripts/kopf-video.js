@@ -1,4 +1,5 @@
-// Showreel im Kopf der Leistungsseiten im Blog (layout: leistung, kopfVideo): stummes Hochformat-Video in Schleife.
+// Showreel im vollflächigen Kopf der Leistungsseiten im Blog (layout: leistung, kopfVideo): stummes Video in Schleife,
+// auf dem Handy die Hochkant-Fassung.
 // Lädt erst nach dem Seitenaufbau; bei „Bewegung reduzieren“, Datensparmodus oder langsamem Netz bleibt das Standbild.
 // Pause-Knopf (WCAG 2.2.2) wie bei den Hintergrundvideos (src/scripts/hero-video.js).
 const box = document.querySelector('[data-tf-kopfvideo]');
@@ -16,7 +17,7 @@ if (box) {
     new IntersectionObserver(async ([e]) => {
       if (!e.isIntersecting) { if (!video.paused) video.pause(); return; }
       await geladen;
-      if (!video.getAttribute('src')) video.src = box.dataset.tfKopfvideo;
+      if (!video.getAttribute('src')) video.src = matchMedia('(max-width: 767px)').matches ? box.dataset.tfKopfvideoMobil : box.dataset.tfKopfvideo;
       if (!vomNutzerPausiert) video.play().catch(() => {});
     }, { rootMargin: '200px 0px' }).observe(box);
     const update = () => toggle.setAttribute('aria-pressed', String(video.paused));

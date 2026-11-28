@@ -71,8 +71,6 @@ const blog = defineCollection({
     referenzen: z.array(z.string()).default([]),
     // nur layout: leistung – Kopf: Showreel (Hochformat) statt Bild, oder zweites Bild als Collage
     kopfVideo: z.boolean().default(false),
-    bild2: z.string().optional(),
-    bild2Alt: z.string().default(''),
     faq: z
       .object({
         titel: z.string().default(''),
