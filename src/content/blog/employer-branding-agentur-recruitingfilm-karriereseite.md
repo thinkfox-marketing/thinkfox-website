@@ -5,6 +5,7 @@ modified: "2026-11-09T18:00:00"
 kategorien: ["blog"]
 layout: leistung
 dachzeile: "Employer-Branding-Agentur"
+referenzen: ["recruitmentfilm-dwaz-wirtschaftskanzlei", "karriereseite-stadt-waldeck", "recruitmentfilm-wachenfeld-bau-korbach", "website-re-design-fuer-wachenfeld-bau", "daniel-koch-jugendhilfe", "karriereseiten-relaunch-fuer-deutsche-rentenversicherung-kliniken"]
 schlagworte: ["employer-branding", "recruiting", "recruitingfilm", "karriereseite", "mitarbeitergewinnung"]
 platzierung: []
 bild: "/wp-content/uploads/2026/01/Stadt_waldeck_karriere.jpg"
@@ -16,7 +17,9 @@ faq:
   titel: "Häufige Fragen zu Employer Branding und Recruitingfilm"
   fragen: [{"frage": "Was kostet ein Recruitingfilm?", "antwort": "Das hängt vor allem davon ab, wie viele Drehtage und Drehorte nötig sind, wie viele Mitarbeitende vor der Kamera stehen und wie viele Fassungen am Ende entstehen sollen, etwa ein Hauptfilm plus kurze Clips für Social Media. Nach einem ersten Gespräch bekommst du von uns ein festes Angebot."}, {"frage": "Brauchen wir eine eigene Karriereseite?", "antwort": "Wenn ihr regelmäßig Stellen besetzt: ja. Eine Karriereseite bündelt Stellenanzeigen, Einblicke ins Team und den Weg zur Bewerbung an einem Ort. Richtig umgesetzt, erscheinen die Stellen außerdem direkt in der Google-Jobsuche."}, {"frage": "Müssen unsere Mitarbeitenden vor die Kamera?", "antwort": "Echte Kolleginnen und Kollegen wirken glaubwürdiger als gebuchte Models, deshalb empfehlen wir es. Wir bereiten alle Beteiligten vor, und niemand muss etwas sagen, mit dem er sich nicht wohlfühlt."}, {"frage": "Arbeitet ihr nur in Nordhessen?", "antwort": "Unser Sitz ist im Edertal, viele unserer Kunden kommen aus der Region. Wir arbeiten aber auch für Unternehmen und Einrichtungen in ganz Deutschland."}]
 cta:
-  text: "Du suchst Fachkräfte und willst zeigen, warum es sich lohnt, bei euch zu arbeiten? Erzähl uns, welche Stellen ihr besetzen wollt. Wir melden uns mit einem Vorschlag."
+  text: |
+    Du suchst Fachkräfte?
+    Zeig, warum es sich lohnt, bei euch zu arbeiten. Erzähl uns, welche Stellen ihr besetzen wollt – wir melden uns mit einem Vorschlag.
   button: "Projekt anfragen"
   link: "/thinkfox-marketing-projekt-anfragen/"
 ---
@@ -28,7 +31,7 @@ Das zeigen wir: im Recruitingfilm, auf der Karriereseite, im 360-Grad-Rundgang u
 
 Ein Recruitingfilm muss nicht alles über euch erzählen. Er muss eine Frage beantworten: Warum sollte jemand ausgerechnet bei euch arbeiten?
 
-Bei der DWAZ Wirtschaftskanzlei mit Standorten in Kassel und Bad Wildungen lautet die Antwort: „Was machst du so? Egal – Hauptsache, du machst es bei DWAZ.“ Gemeint ist die Vereinbarkeit von Familie, Freizeit und Beruf. Bei Wachenfeld Bau in Korbach stand eine andere Frage im Mittelpunkt: Warum ist dein Job im Tiefbau so wichtig? Gedreht haben wir am Firmensitz und auf einer Baustelle in der Nähe.
+Bei der [DWAZ Wirtschaftskanzlei](/recruitmentfilm-dwaz-wirtschaftskanzlei/) mit Standorten in Kassel und Bad Wildungen lautet die Antwort: „Was machst du so? Egal – Hauptsache, du machst es bei DWAZ.“ Gemeint ist die Vereinbarkeit von Familie, Freizeit und Beruf. Bei [Wachenfeld Bau in Korbach](/recruitmentfilm-wachenfeld-bau-korbach/) stand eine andere Frage im Mittelpunkt: Warum ist dein Job im Tiefbau so wichtig? Gedreht haben wir am Firmensitz und auf einer Baustelle in der Nähe.
 
 Vor die Kamera gehören am besten eure eigenen Leute. Bewerber erkennen gestellte Szenen sofort, echte Kolleginnen und Kollegen nehmen sie ernst. Wir bereiten alle Beteiligten vor, und niemand muss etwas sagen, womit er sich nicht wohlfühlt.
 
@@ -38,7 +41,7 @@ Aus einem Dreh entstehen mehrere Fassungen. Der Hauptfilm läuft auf der Karrier
 
 Der beste Film bringt wenig, wenn danach eine veraltete Stellenliste oder ein langes Formular wartet. Auf der Karriereseite muss man die passende Stelle schnell finden und sich ohne Umwege bewerben können.
 
-Für die Nationalparkstadt Waldeck haben wir die Karriereseite neu konzipiert. Die Stellen erscheinen automatisch in der Google-Jobsuche, also auch bei Leuten, die nie auf die Website der Stadt gegangen wären. Für drei Kliniken der Deutschen Rentenversicherung haben wir eigene Karriereseiten in einheitlichem Auftritt gebaut, mit Stellenbörse, Suche und Filter.
+Für die Nationalparkstadt Waldeck haben wir die [Karriereseite neu konzipiert](/karriereseite-stadt-waldeck/). Die Stellen erscheinen automatisch in der Google-Jobsuche, also auch bei Leuten, die nie auf die Website der Stadt gegangen wären. Für drei Kliniken der Deutschen Rentenversicherung haben wir [eigene Karriereseiten](/karriereseiten-relaunch-fuer-deutsche-rentenversicherung-kliniken/) in einheitlichem Auftritt gebaut, mit Stellenbörse, Suche und Filter.
 
 ## Arbeitsplätze in 360 Grad
 
@@ -48,19 +51,10 @@ Wer sich bewirbt, will wissen, wo er morgens ankommt. Im [360-Grad-Rundgang](/36
 
 Teamfotos, Porträts und Bilder aus dem Arbeitsalltag machen wir bei euch vor Ort oder in unserem Studio im Edertal. Wenn wir ohnehin für den Film drehen, lassen sich die Fotos oft am selben Tag erledigen.
 
-Richtig stark wird eine Arbeitgebermarke, wenn alles zueinander passt. Für die Daniel Koch Jugendhilfe haben wir vom Logo über die Website mit Karrierebereich bis zu Recruiting-Shorts für Social Media alles aus einer Hand gemacht. Jede Stellenanzeige wirkt dadurch wie ein Teil derselben Marke.
+Richtig stark wird eine Arbeitgebermarke, wenn alles zueinander passt. Für die [Daniel Koch Jugendhilfe](/daniel-koch-jugendhilfe/) haben wir vom Logo über die Website mit Karrierebereich bis zu Recruiting-Shorts für Social Media alles aus einer Hand gemacht. Jede Stellenanzeige wirkt dadurch wie ein Teil derselben Marke.
 
 ## Wie wir anfangen
 
 Am Anfang steht ein Gespräch: Welche Stellen sind schwer zu besetzen, und was unterscheidet euch wirklich von anderen Arbeitgebern in der Region? Daraus entwickeln wir Kernaussage, Drehorte und Protagonisten und stimmen das mit euch ab, bevor die Kamera läuft. Danach drehen wir, schneiden alle Fassungen und bringen sie dahin, wo eure künftigen Kolleginnen und Kollegen unterwegs sind: auf die Karriereseite, in die Stellenanzeigen, auf Social Media und auf Wunsch in bezahlte Kampagnen.
 
 Wie ihr eure Arbeitgebermarke Schritt für Schritt aufbaut, steht in unserem Beitrag [Employer Branding: wie du deine Arbeitgebermarke stärkst](/employer-branding-wie-du-deine-arbeitgebermarke-staerkst-und-qualifizierte-mitarbeiter-gewinnst/).
-
-## Projekte aus der Praxis
-
-- [Recruitingfilm für die DWAZ Wirtschaftskanzlei](/recruitmentfilm-dwaz-wirtschaftskanzlei/)
-- [Recruitingfilm für Wachenfeld Bau, Korbach](/recruitmentfilm-wachenfeld-bau-korbach/)
-- [Karriereseite der Nationalparkstadt Waldeck mit 360-Grad-Rundgang](/karriereseite-stadt-waldeck/)
-- [Website mit Karrierebereich und 360°-Tour für Wachenfeld Bau](/website-re-design-fuer-wachenfeld-bau/)
-- [Karriereseiten für drei Kliniken der Deutschen Rentenversicherung](/karriereseiten-relaunch-fuer-deutsche-rentenversicherung-kliniken/)
-- [Gesamtauftritt der Daniel Koch Jugendhilfe](/daniel-koch-jugendhilfe/)

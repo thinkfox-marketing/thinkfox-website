@@ -5,6 +5,7 @@ modified: "2026-11-28T10:00:00"
 kategorien: ["blog"]
 layout: leistung
 dachzeile: "Imagefilm-Agentur"
+referenzen: ["imagefilm-continental-korbach-3d-druck", "recruitmentfilm-dwaz-wirtschaftskanzlei", "imagevideo-hinter-den-kulissen-rektol", "recruitmentfilm-wachenfeld-bau-korbach", "video-fotoproduktion-recup-stadt-korbach", "markus-krebs-video-podcast-comedykation", "kampagne-ewf-ein-leben-lang"]
 schlagworte: ["imagefilm", "videoproduktion", "unternehmensfilm", "recruitingfilm"]
 platzierung: []
 bild: "/wp-content/uploads/2026/01/continental_3d-druck.jpg"
