@@ -5,11 +5,11 @@ modified: "2026-11-09T18:00:00"
 kategorien: ["blog"]
 layout: leistung
 dachzeile: "Employer-Branding-Agentur"
-referenzen: ["recruitmentfilm-dwaz-wirtschaftskanzlei", "karriereseite-stadt-waldeck", "recruitmentfilm-wachenfeld-bau-korbach", "website-re-design-fuer-wachenfeld-bau", "daniel-koch-jugendhilfe", "karriereseiten-relaunch-fuer-deutsche-rentenversicherung-kliniken"]
+referenzen: ["recruitmentfilm-dwaz-wirtschaftskanzlei", "karriereseite-stadt-waldeck", "recruitmentfilm-wachenfeld-bau-korbach", "website-re-design-fuer-wachenfeld-bau", "mitarbeitershooting-steuerkanzlei-hentschke-kohl-pflug", "karriereseiten-relaunch-fuer-deutsche-rentenversicherung-kliniken"]
 schlagworte: ["employer-branding", "recruiting", "recruitingfilm", "karriereseite", "mitarbeitergewinnung"]
 platzierung: []
-bild: "/wp-content/uploads/2026/01/Stadt_waldeck_karriere.jpg"
-bildAlt: "Karriereseite der Nationalparkstadt Waldeck „Dein Job. Dein Waldeck.“ auf zwei Tablets"
+bild: "/wp-content/uploads/2026/01/12.-Oktober-2022_B1A4301.jpg"
+bildAlt: "Mitarbeiterin mit Laptop beim Mitarbeiter-Fotoshooting für eine Steuerkanzlei"
 auszug: "„Flache Hierarchien“ schreibt jeder. Bewerberinnen und Bewerber wollen sehen, mit wem sie arbeiten und wo. Das zeigen wir im Recruitingfilm, auf der Karriereseite und im 360-Grad-Rundgang durch eure Arbeitsplätze."
 seo: {"titel": "Employer Branding Agentur & Recruitingfilm | thinkfox", "beschreibung": "Recruitingfilm, Karriereseite mit Google Jobs, Arbeitsplätze in 360 Grad und Kampagnen: Wir machen den Mittelstand als Arbeitgeber sichtbar.", "fokusKeyword": "Employer Branding Agentur", "lesedauer": "5 Minuten"}
 legacy: false
@@ -49,9 +49,9 @@ Wer sich bewirbt, will wissen, wo er morgens ankommt. Im [360-Grad-Rundgang](/36
 
 ## Fotos und ein Auftritt, der zusammenpasst
 
-Teamfotos, Porträts und Bilder aus dem Arbeitsalltag machen wir bei euch vor Ort oder in unserem Studio im Edertal. Wenn wir ohnehin für den Film drehen, lassen sich die Fotos oft am selben Tag erledigen.
+Teamfotos, Porträts und Bilder aus dem Arbeitsalltag machen wir bei euch vor Ort oder in unserem Studio im Edertal, wie beim [Mitarbeiter-Fotoshooting für eine Steuerkanzlei](/mitarbeitershooting-steuerkanzlei-hentschke-kohl-pflug/). Wenn wir ohnehin für den Film drehen, lassen sich die Fotos oft am selben Tag erledigen.
 
-Richtig stark wird eine Arbeitgebermarke, wenn alles zueinander passt. Für die [Daniel Koch Jugendhilfe](/daniel-koch-jugendhilfe/) haben wir vom Logo über die Website mit Karrierebereich bis zu Recruiting-Shorts für Social Media alles aus einer Hand gemacht. Jede Stellenanzeige wirkt dadurch wie ein Teil derselben Marke.
+Richtig stark wird eine Arbeitgebermarke, wenn alles zueinander passt: vom Logo über die Website mit Karrierebereich bis zu Recruiting-Shorts für Social Media, alles aus einer Hand. Jede Stellenanzeige wirkt dadurch wie ein Teil derselben Marke.
 
 ## Wie wir anfangen
 
