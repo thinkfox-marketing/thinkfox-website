@@ -8,7 +8,7 @@
 import { markdown } from './markdown';
 import { wpImg } from './media';
 import { youtubeEinbettung } from './barrierefreiheit';
-import { allPosts, categoryName, postFiles, singleTemplate, type Blog, type Post, type Projekt, type ScriptRef, type StyleRef } from './wp';
+import { allPosts, categoryName, pageFiles, postFiles, singleTemplate, type Blog, type Post, type Projekt, type ScriptRef, type StyleRef } from './wp';
 import { asset } from './asset';
 import { zerlegen, type Baustein } from './zerlegen';
 
@@ -250,6 +250,17 @@ async function blogBausteine(p: Blog): Promise<Baustein[]> {
 
 const PROJEKT_LINK = /href="\/([a-z0-9-]+)\/"/g;
 
+/** Google-Bewertungen aus dem statischen Widget der Startseite (Anzahl und Sterne), damit die Zeile im Kopf aktuell bleibt. */
+function googleBewertung(): { sterne: number; anzahl: number } | null {
+  const start = Object.entries(pageFiles).find(([k]) => k.endsWith('/index.json'))?.[1].default.main ?? '';
+  const anzahl = Number(start.match(/Basierend auf <strong>(\d+) Bewertungen/)?.[1] ?? 0);
+  const kopf = start.match(/<div class="ti-header[\s\S]*?<\/div>\s*<\/div>/)?.[0] ?? '';
+  const sterne = (kopf.match(/star\/f\.svg/g) ?? []).length + (kopf.match(/star\/h\.svg/g) ?? []).length / 2;
+  return anzahl && sterne ? { sterne, anzahl } : null;
+}
+
+const PAUSE_KNOPF = '<button type="button" class="tf-video-toggle" aria-label="Video anhalten" aria-pressed="false" hidden><svg class="tf-video-toggle__pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12"/><rect x="9.5" y="2" width="3.5" height="12"/></svg><svg class="tf-video-toggle__play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z"/></svg></button>';
+
 function projektKachel(x: Projekt, extra = ''): string {
   return `<a class="tf-pkachel${extra}" href="/${x.id}/">
     <span class="tf-pkachel__bild" aria-hidden="true">${wpImg(x.data.bild, { size: 'large', alt: x.data.title, cls: '', sizes: '(min-width: 1025px) 400px, 85vw' })}</span>
@@ -296,6 +307,19 @@ async function leistungSeite(p: Blog, text: string, faq: string, cta: { titel: s
     </div>
   </section>` : '';
 
+  const bewertung = googleBewertung();
+  // Kopf: Showreel im Hochformat (stumm, Pause-Knopf, Standbild ohne JavaScript/bei „Bewegung reduzieren“),
+  // sonst Beitragsbild – mit zweitem Bild als versetzte Collage
+  const kopfMedium = d.kopfVideo
+    ? `<figure class="tf-lkopf__bild tf-lkopf__video" data-tf-kopfvideo="/media/showreel-mobil.mp4">
+        <img src="/media/showreel-standbild-mobil.webp" width="540" height="960" alt="Standbild aus dem thinkfox-Showreel" fetchpriority="high" decoding="async">
+        <video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+        ${PAUSE_KNOPF}
+      </figure>`
+    : d.bild
+      ? `<figure class="tf-kopf__bild tf-lkopf__bild${d.bild2 ? ' tf-lkopf__bild--collage' : ''}">${wpImg(d.bild, { size: 'full', alt: d.bildAlt, fetchpriority: 'high', cls: '' })}${d.bild2 ? `<span class="tf-lkopf__bild2">${wpImg(d.bild2, { size: 'large', alt: d.bild2Alt, cls: '' })}</span>` : ''}</figure>`
+      : '';
+
   const sektionen = [
     einleitung.trim() ? `<div class="tf-text tf-leinleitung">${einleitung}</div>` : '',
     ...abschnitte,
@@ -309,11 +333,12 @@ async function leistungSeite(p: Blog, text: string, faq: string, cta: { titel: s
         <h1 class="tf-kopf__titel">${esc(d.title)}</h1>
         ${teaserText(d, text) ? `<p class="tf-kopf__teaser">${esc(teaserText(d, text))}</p>` : ''}
         <p class="tf-lkopf__knopf">${knopf(cta.button, cta.link)}</p>
+        ${bewertung ? `<p class="tf-lkopf__bewertung"><span class="tf-lkopf__sterne" aria-hidden="true">${'★'.repeat(Math.round(bewertung.sterne))}</span> <strong>${String(bewertung.sterne.toFixed(1)).replace('.', ',')}</strong> bei Google · ${bewertung.anzahl} Bewertungen<span class="tf-sr"> (${String(bewertung.sterne).replace('.', ',')} von 5 Sternen)</span></p>` : ''}
       </div>
-      ${d.bild ? `<figure class="tf-kopf__bild tf-lkopf__bild">${wpImg(d.bild, { size: 'full', alt: d.bildAlt, fetchpriority: 'high', cls: '' })}</figure>` : ''}
+      ${kopfMedium}
     </div>
   </header>
-  ${sektionen.map((h, i) => `<section class="tf-labschnitt tf-labschnitt--${i % 2 ? 'weiss' : 'hell'}"><div class="tf-labschnitt__innen">${h}</div></section>`).join('\n  ')}
+  ${sektionen.map((h, i) => `<section class="tf-labschnitt tf-labschnitt--${i % 2 ? 'hell' : 'weiss'}"><div class="tf-labschnitt__innen">${h}</div></section>`).join('\n  ')}
   ${referenzen}
   ${faq ? `<section class="tf-labschnitt tf-labschnitt--weiss tf-labschnitt--faq"><div class="tf-labschnitt__innen">${faq}</div></section>` : ''}
   ${anfrage(cta)}

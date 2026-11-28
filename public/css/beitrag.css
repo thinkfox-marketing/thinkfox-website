@@ -198,14 +198,33 @@
 .tf-beitrag--klassisch .tf-klassisch { padding-bottom: 4rem; }
 
 /* --- Blog als Leistungsseite (layout: leistung): Kopf wie die Leistungsseiten, Text in Sektionen ---------- */
-.tf-lkopf { padding: 120px 20px 3rem; background: #fff; }
+/* Hintergrund reicht bis unter die schwebende Kopfzeile (Höhe 83 / 112 px), wie der Hero der Startseite */
+.tf-lkopf { position: relative; margin-top: -83px; padding: 163px 20px 5rem; background: #d5f5ff; }
+/* Schräge unten in die erste (weiße) Sektion, wie bei den Leistungsseiten */
+.tf-lkopf::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 56px; background: #fff; clip-path: polygon(0 100%, 100% 0, 100% 100%); pointer-events: none; }
+.tf-lkopf__innen { position: relative; z-index: 1; }
 .tf-lkopf__innen { display: grid; gap: 2rem; max-width: 1140px; margin-inline: auto; }
 .tf-lkopf .tf-kopf__marke { font-size: clamp(1.125rem, 0.92rem + 0.85vw, 1.5rem); }
 .tf-beitrag--leistung .tf-kopf__titel { font-size: clamp(2.375rem, 1.55rem + 3.3vw, 3.75rem); line-height: 1.1; }
 .tf-lkopf .tf-kopf__teaser { font-size: clamp(1.1875rem, 1.05rem + 0.55vw, 1.3125rem); }
 .tf-lkopf__knopf { margin: 0; }
 /* Bild im Hochformat */
-.tf-lkopf__bild img { aspect-ratio: 4 / 5; max-height: 440px; width: 100%; object-fit: cover; }
+.tf-lkopf__bild { position: relative; justify-self: center; width: min(100%, 360px); }
+.tf-lkopf__bild > img { aspect-ratio: 4 / 5; width: 100%; height: auto; object-fit: cover; border-radius: 25px; box-shadow: 0 18px 50px rgb(59 49 146 / 0.18); }
+/* Collage: zweites Bild versetzt und überlappend */
+.tf-lkopf__bild--collage { margin-bottom: 2.5rem; }
+.tf-lkopf__bild2 { position: absolute; left: -12%; bottom: -2.5rem; width: 48%; }
+.tf-lkopf__bild2 img { display: block; aspect-ratio: 4 / 5; width: 100%; height: auto; object-fit: cover; border: 5px solid #fff; border-radius: 20px; box-shadow: 0 14px 40px rgb(59 49 146 / 0.22); }
+/* Showreel im Hochformat */
+.tf-lkopf__video { aspect-ratio: 4 / 5; overflow: hidden; border-radius: 25px; background: var(--tf-lila-dunkel); box-shadow: 0 18px 50px rgb(59 49 146 / 0.18); }
+.tf-lkopf__video > img, .tf-lkopf__video video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0; box-shadow: none; aspect-ratio: auto; }
+.tf-lkopf__video video { opacity: 0; transition: opacity 0.6s; }
+.tf-lkopf__video.tf-laeuft video { opacity: 1; }
+.tf-lkopf__video button.tf-video-toggle { right: 16px; bottom: 16px; }
+/* Bewertungszeile unter dem Button */
+.tf-lkopf__bewertung { margin: 1.25rem 0 0; font-size: 1rem; color: var(--tf-text); }
+.tf-lkopf__sterne { margin-right: 0.35rem; color: #f6bb06; letter-spacing: 0.08em; font-size: 1.15rem; }
+@media (prefers-reduced-motion: reduce) { .tf-lkopf__video video { transition: none; } }
 
 /* Sektionen: abwechselnd hellblau/weiß, Inhalt 1140 px */
 .tf-labschnitt { padding: 3.5rem 20px; }
@@ -258,7 +277,7 @@
 
 .tf-beitrag--leistung .tf-anfrage { margin-top: 0; }
 @media (min-width: 768px) {
-  .tf-lkopf { padding-top: 160px; padding-inline: 32px; }
+  .tf-lkopf { margin-top: -112px; padding-top: 272px; padding-inline: 32px; }
   .tf-labschnitt { padding: 5rem 32px; }
   .tf-lzeile { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: 4rem; }
   .tf-lzeile--links { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
@@ -273,7 +292,7 @@
 @media (min-width: 1025px) {
   .tf-lkopf { padding-bottom: 5rem; }
   .tf-lkopf__innen { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; column-gap: 4rem; }
-  .tf-lkopf__bild img { max-height: 560px; }
+  .tf-lkopf__bild { width: min(100%, 420px); }
   .tf-beitrag--leistung .tf-text ol { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   /* asymmetrisch: Kachel ragt über die Textmitte hinaus nach oben */
   .tf-lzeile__bild { margin-block: -1.5rem; }
