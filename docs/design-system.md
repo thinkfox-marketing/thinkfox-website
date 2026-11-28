@@ -70,7 +70,7 @@ keine Pille); lange Wörter in Überschriften mit Trennstellen (`src/lib/umbruch
 | Fußzeile mit CTA | „Lass uns reden!“, 2 Buttons, Lösungen, Kontakt | alle Seiten | `chrome/footer.html` |
 | Projektseite | Pfad, Dachzeile, H1, Teaser, Bild; Projektdaten links, Text rechts | Karriereseite Waldeck | `beitrag.ts` |
 | Blogbeitrag | Bild oben, H1 darunter, 940 px Text, FAQ, Anfrage-Box | Was kostet eine Website | `beitrag.ts` klassisch |
-| Leistung im Blog | wie Leistungsseite (ohne Datum) | Employer Branding | `layout: leistung` |
+| Leistung im Blog | Kopf vollflächig, H1 bis 84 px, Google-Bewertung: mit Showreel (Feld `kopfVideo`, Standbild = Beitragsbild) dunkel – lila abgedunkelt, weiße Schrift, Button mit weißem Rahmen; mit Foto hell – Foto rechts, nach links in Weiß ausgeblendet, lila Schrift, Button gefüllt; Schräge in die erste Sektion; jede H2 eine Sektion (weiß/Hellblau `#d5f5ff` im Wechsel, letzte vor den Referenzen weiß); Abschnitt mit Projekt-Link oder Video → asymmetrische Zeile mit Hochformat-Kachel bzw. Video, abwechselnd links/rechts; Listen mit fettem Anfang als Karten, nummerierte Listen als Schritt-Karten; „Aktuelle Kunden & Projekte.“ wie Startseite (Feld `referenzen`) | Employer Branding, Imagefilm | `layout: leistung`, `beitrag.ts` `leistungSeite()` |
 
 ## 5. Neue Seite bauen – Checkliste
 

@@ -8,3 +8,4 @@ import './formular-quelle.js';
 import './kacheln.js';
 import './datenschutz.js';
 import './bewertungen.js';
+import './kopf-video.js';
